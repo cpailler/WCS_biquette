@@ -1,0 +1,37 @@
+{
+  "name": "bikerr",
+  "version": "1.0.0",
+  "description": "WCS Projet 3",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "ajv": "^6.5.0",
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3"
+  },
+  "devDependencies": {
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BikerrFrance/bikerr.git"
+  },
+  "keywords": [
+    "bicycle",
+    "sharing"
+  ],
+  "author": "Xavier Vierling, Ilya Sidelnikov, Heriniaina Rasamimanana, Clément Pailler, Aurélien Gouilhers, Jennifer Lieby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BikerrFrance/bikerr/issues"
+  },
+  "homepage": "https://github.com/BikerrFrance/bikerr#readme"
+}
