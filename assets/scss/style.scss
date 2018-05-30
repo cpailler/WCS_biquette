@@ -1,0 +1,47 @@
+@import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+
+$bikerr-green: #009925;
+$font: Raleway, Arial, Helvetica, sans-serif;
+body{
+  color: deeppink;
+  font-family: $font;
+}
+
+.navigation {
+  margin-right: 10vw;
+}
+
+.onglets_nav {
+  font-family: $font;
+  color: black !important;
+}
+
+.onglets_nav:hover {
+  color: $bikerr-green !important;
+}
+
+.footer {
+  width: 100vw;
+  background-color: $bikerr-green;
+  color: white;
+  list-style:none;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+}
+
+.footer a {
+  color: white;
+  font-size: 0.8em;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+.footer a:hover {
+  color: #c3c7cb;
+}
+
+.conteneur_footer {
+  width: 100vw;
+  padding: 30px;
+}

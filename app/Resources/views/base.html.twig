@@ -1,13 +1,85 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </li>
+    </ul>
+    <div class="collapse navbar-collapse navigation" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link onglets_nav" href="#">Comment ça marche</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link onglets_nav" href="#">Inscription</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link onglets_nav" href="#">Connexion</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<body>
+{% block body %}{% endblock %}
+{% block footer %}
+    <div class="footer">
+        <div class="conteneur_footer">
+            <div class="row">
+                <div class="offset-1 col-md-2 col-sm-4 col-xs-2">
+                    <img src="{{ asset('images/bikerr-white.png') }}" alt="logo-bikerr">
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-2">
+                    <h5>À propos</h5>
+                    <p>
+                        <a href="#">Qui sommes-nous</a><br>
+                        <a href="#">Conditions générales</a><br>
+                        <a href="#">Utilisation du service</a>
+                    </p>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-2">
+                    <h5>Découvrir</h5>
+                    <p>
+                        <a href="#">Comment ça marche</a><br>
+                        <a href="#">Un service gratuit</a><br>
+                        <a href="#">Un système de Points innovant</a>
+                    </p>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-2">
+                    <h5>Rouler à vélo</h5>
+                    <p>
+                        <a href="#">Équipement</a><br>
+                        <a href="#">Sécurité</a><br>
+                        <a href="#">Marquage Bicycode</a>
+                    </p>
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-2">
+                    <h5>Nous suivre</h5>
+                    <p style="text-align: right">
+                        <a href="#" style="float: left">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
+                            <a href="#" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
+                        <a href="#" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+<script src="{{ asset('build/app.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
 </html>
