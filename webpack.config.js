@@ -11,6 +11,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
 
     .addEntry('style', './assets/scss/style.scss')
+    .addEntry('homepage', './assets/scss/homepage.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()
@@ -23,8 +24,6 @@ Encore
 
     // show OS notifications when builds finish/fail
     .enableBuildNotifications()
-
-
 
 // allow sass/scss files to be processed
  .enableSassLoader()

@@ -1,11 +1,6 @@
-@import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+@import "main.scss";
 
-$bikerr-green: #009925;
-$font: Raleway, Arial, Helvetica, sans-serif;
 body{
-  color: deeppink;
   font-family: $font;
 }
 
@@ -13,6 +8,15 @@ body{
   margin-right: 10vw;
 }
 
+.nav-color {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0,0,0,0);
+  height: 60px;
+  border-bottom: 0px;
+  transition: background-color .5s ease 0s;
+}
 .onglets_nav {
   font-family: $font;
   color: black !important;

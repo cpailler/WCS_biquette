@@ -1,0 +1,31 @@
+@import "main.scss";
+
+.btn-rejoindre {
+  @extend .bouton;
+  display: inline;
+  position: absolute;
+  left: 50%;
+  margin-left: -151px;
+  top: 416px;
+  text-align: center;
+  line-height: 65px;
+  cursor: pointer;
+  color: white !important;
+}
+
+.title_text_header {
+  display: inline-block;
+  position: absolute;
+  top: 180px;
+  z-index: 1;
+  font-size: 60px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 100%;
+  background-color: transparent;
+}
+
+.test {
+  color: yellow;
+}
