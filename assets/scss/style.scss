@@ -1,0 +1,51 @@
+@import "main.scss";
+
+body{
+  font-family: $font;
+}
+
+.navigation {
+  margin-right: 10vw;
+}
+
+.nav-color {
+  display: inline-block;
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0,0,0,0);
+  height: 60px;
+  border-bottom: 0px;
+  transition: background-color .5s ease 0s;
+}
+.onglets_nav {
+  font-family: $font;
+  color: black !important;
+}
+
+.onglets_nav:hover {
+  color: $bikerr-green !important;
+}
+
+.footer {
+  width: 100vw;
+  background-color: $bikerr-green;
+  color: white;
+  list-style:none;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+}
+
+.footer a {
+  color: white;
+  font-size: 0.8em;
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+
+.footer a:hover {
+  color: #c3c7cb;
+}
+
+.conteneur_footer {
+  width: 100vw;
+  padding: 30px;
+}

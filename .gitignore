@@ -20,3 +20,8 @@ bikker_old.sql
 /web/bundles/
 /web/build/
 .idea/
+.DS_Store
+yarn.lock
+yarn-error.log
+composer.lock
+

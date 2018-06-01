@@ -1,22 +1,10 @@
 {
   "name": "bikerr",
   "version": "1.0.0",
-  "description": "WCS Projet 3",
+  "description": "Refonte du site en _Symfony 3.4_ dans le cadre du troisième projet à la Wild Code School.",
   "main": "index.js",
   "directories": {
     "test": "tests"
-  },
-  "dependencies": {
-    "ajv": "^6.5.0",
-    "bootstrap": "^4.1.1",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.14.3",
-    "webpack-notifier": "^1.6.0"
-  },
-  "devDependencies": {
-    "@symfony/webpack-encore": "^0.20.1",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,14 +13,21 @@
     "type": "git",
     "url": "git+https://github.com/BikerrFrance/bikerr.git"
   },
-  "keywords": [
-    "bicycle",
-    "sharing"
-  ],
-  "author": "Xavier Vierling, Ilya Sidelnikov, Heriniaina Rasamimanana, Clément Pailler, Aurélien Gouilhers, Jennifer Lieby",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/BikerrFrance/bikerr/issues"
   },
-  "homepage": "https://github.com/BikerrFrance/bikerr#readme"
+  "homepage": "https://github.com/BikerrFrance/bikerr#readme",
+  "dependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "node-sass": "^4.9.0",
+    "popper.js": "^1.14.3",
+    "sass-loader": "^7.0.1"
+  },
+  "devDependencies": {
+    "webpack-notifier": "^1.6.0"
+  }
 }
