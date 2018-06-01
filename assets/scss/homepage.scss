@@ -26,6 +26,26 @@
   background-color: transparent;
 }
 
-.test {
-  color: yellow;
+.gradient_box {
+  width: 100vw;
+  height: 40vw;
+  background-image: linear-gradient(252deg, #feda5c, #59b10d);
+}
+
+.explication_title {
+  text-align: center;
+  margin: auto;
+  color: #ffffff;
+}
+.explication {
+  font-family: $font;
+  text-align: justify;
+  color: #ffffff;
+  margin: auto;
+}
+
+.flexible-circle {
+  display: block;
+  object-fit: contain;
+  margin: auto;
 }

@@ -13,10 +13,10 @@ body{
   position: absolute;
   z-index: 1;
   background-color: rgba(0,0,0,0);
-  height: 60px;
   border-bottom: 0px;
   transition: background-color .5s ease 0s;
 }
+
 .onglets_nav {
   font-family: $font;
   color: black !important;
