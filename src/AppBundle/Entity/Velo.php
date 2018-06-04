@@ -145,7 +145,7 @@ class Velo
     /**
      * @var int|null
      *
-     * @ORM\Column(name="bicycode", type="integer", nullable=true)
+     * @ORM\Column(name="bicycode", type="bigint", nullable=true)
      */
     private $bicycode;
 
@@ -168,21 +168,21 @@ class Velo
      *
      * @ORM\Column(name="assur_oblig", type="boolean")
      */
-    private $assurOblig;
+    private $assurOblig = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="cout_pts", type="integer")
      */
-    private $coutPts;
+    private $coutPts = 0;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="dispo_totale", type="boolean")
      */
-    private $dispoTotale;
+    private $dispoTotale = 0;
 
 
     /**
