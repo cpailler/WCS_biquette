@@ -25,22 +25,22 @@
 
 .photoProfil a {
   font-size: 14px;
-  color: #949a96;
+  color: $text-grey;
 }
 
 .progressionProfil p {
   font-size: 12px;
-  color: #949a96;
+  color: $text-grey;
 }
 
 .progressionProfil h2 {
   font-size: 18px;
-  color: #333634;
+  color: $text-dark;
 }
 
 .progressbarProfil p {
   font-size: 14px;
-  color: #333634;
+  color: $text-dark;
 }
 
 .progressionProfil {
@@ -48,7 +48,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: dashed 1px #cccccc;
+  border: dashed 1px $border-grey;
   padding: 2vh;
 }
 
@@ -75,19 +75,22 @@
   align-items: center;
   text-align: center;
   border-radius: 2px;
-  background-color: #d1f3e0;
+  background-color: $background-points;
   padding-top: 20px;
 }
 
 .aidePointsButton {
   padding-top: 8px;
-  color: #009925;
+}
+
+.aidePointsButton p{
+  color: $bikerr-green;
   font-size: 12px;
 }
 
 .ongletProfil ul{
   list-style: none;
-  color: #009925;
+  color: $bikerr-green;
   font-size: 12px;
 }
 
@@ -96,8 +99,8 @@
   margin: 2vh;
   padding: 1vh;
   border-radius: 2px;
-  background-color: #d1f3e0;
-  color: #009925;
+  background-color: $background-points;
+  color: $bikerr-green;
   font-size: 12px;
 }
 
@@ -108,11 +111,11 @@ li {
 
 li a {
   font-size: 14px;
-  color: #949a96;
+  color: $text-grey;
 }
 
 .formulaireProfil {
-  border: solid 1px #cccccc;
+  border: solid 1px $border-grey;
 }
 
 
