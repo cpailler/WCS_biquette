@@ -28,6 +28,10 @@ class EtatVelo
      */
     private $etat;
 
+    /**
+     * @ORM\Column(name="coeff", type="float")
+     */
+    private $coeff;
 
     /**
      * Get id.
