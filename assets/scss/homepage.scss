@@ -6,9 +6,8 @@
   position: absolute;
   left: 50%;
   margin-left: -151px;
-  top: 416px;
+  top: 85%;
   text-align: center;
-  line-height: 65px;
   cursor: pointer;
   color: white !important;
 }
@@ -16,7 +15,7 @@
 .title_text_header {
   display: inline-block;
   position: absolute;
-  top: 180px;
+  top: 50%;
   z-index: 1;
   font-size: 60px;
   text-align: center;
@@ -28,20 +27,23 @@
 
 .gradient_box {
   width: 100vw;
-  height: 40vw;
   background-image: linear-gradient(252deg, #feda5c, #59b10d);
+  padding: 3em;
 }
 
 .explication_title {
   text-align: center;
   margin: auto;
-  color: #ffffff;
 }
+
 .explication {
   font-family: $font;
   text-align: justify;
-  color: #ffffff;
   margin: auto;
+}
+
+.white_text {
+  color: white !important;
 }
 
 .flexible-circle {
@@ -49,3 +51,46 @@
   object-fit: contain;
   margin: auto;
 }
+
+.bikerr_container {
+  width: 100%;
+  padding: 3em;
+}
+
+.container_velo {
+  width: 80%;
+  margin: auto;
+}
+
+.crop {
+  width: 300px;
+  height: 282px;
+  overflow: hidden;
+}
+.crop img {
+  width: 300px;
+  height: 282px;
+  display: block;
+}
+.card-body {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+@media all and (max-device-width: 768px)
+{
+  .container_velo {
+    width: 85%;
+    margin: auto;
+  }
+}
+
+@media all and (max-device-width: 480px)
+{
+  .container_velo {
+    width: 95%;
+    margin: auto;
+  }
+}
+
+

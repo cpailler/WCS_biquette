@@ -34,28 +34,56 @@
     </div>
 
     <div class="gradient_box">
-        <div class="explication_title">
+        <div class="explication_title white_text">
             <h3>C’est gratuit grâce à notre système de Points</h3>
             <h5>Il suffit simplement de partager un vélo.</h5>
             <br>
         </div>
-        <div class="row ">
-            <div class="col-md-2 offset-2">
+        <div class="row">
+            <div class="col-md-2 col-sm-2 offset-2">
                 <img src="{{ asset('images/icn-gratuit-circle.svg') }}" class="flexible-circle"><br>
-                <h4 class="explication_title">100% GRATUIT</h4>
+                <h4 class="explication_title white_text">100% GRATUIT</h4>
             </div>
-            <div class="col-md-4">
-                <p class="explication">
+            <div class="col-md-4 col-sm-3">
+                <p class="explication white_text">
                     L'inscription est gratuite et vous pouvez tout de suite emprunter le vélo de votre choix.<br>
                     Notre système de Points vous permet d'accéder gratuitement aux vélos partagés par les autres membres à condition que vous acceptiez également de partager le vôtre.
                     <br>Le principe est simple. Vous gagnez des Points en partageant un vélo. Vous en dépensez lorsque vous utilisez le vélo d'un autre membre.
                 </p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-2">
                 <img src="{{ asset('images/icn-flexible-circle.svg') }}" class="flexible-circle"><br>
-                <h4 class="explication_title">100% FLEXIBLE</h4>
+                <h4 class="explication_title white_text">100% FLEXIBLE</h4>
             </div>
+        </div>
+    </div>
 
+    <div class="bikerr_container">
+        <h4 class="explication_title">Vélos partagés récemment</h4>
+        <br>
+        <div class="container_velo">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="card crop" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ "titre velo" }}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="card crop">
+                        <img class="card-img-top" src="{{ asset('images/velos_partages/velo-giant.jpg') }}" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ "Le velo de Germaine" }}</h5>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+            </div>
         </div>
     </div>
 
