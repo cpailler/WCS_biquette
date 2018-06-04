@@ -1,12 +1,26 @@
 @import "main.scss";
 
+@media all and (max-device-width: 768px)
+{
+  .container_velo {
+    width: 85%;
+    margin: auto;
+  }
+}
+
+@media all and (max-device-width: 480px)
+{
+  .container_velo {
+    width: 95%;
+    margin: auto;
+  }
+}
+
 .btn-rejoindre {
   @extend .bouton;
   display: inline;
-  position: absolute;
+  //position: absolute;
   left: 50%;
-  margin-left: -151px;
-  top: 85%;
   text-align: center;
   cursor: pointer;
   color: white !important;
@@ -62,35 +76,38 @@
   margin: auto;
 }
 
+.bikerr-card {
+  padding: 20px !important;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.title-announce {
+  text-align: left;
+  font-family: $font;
+}
+.title-announce span {
+  float: right;
+  color: $bikerr-green;
+  font-family: $font;
+  font-weight: bolder;
+}
+
 .crop {
-  width: 300px;
-  height: 282px;
+  width: 100%;
+  height: 200px;
   overflow: hidden;
 }
 .crop img {
-  width: 300px;
-  height: 282px;
   display: block;
+  width: 100%;
+  height: 200px;
 }
+
 .card-body {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
 }
-
-@media all and (max-device-width: 768px)
-{
-  .container_velo {
-    width: 85%;
-    margin: auto;
-  }
-}
-
-@media all and (max-device-width: 480px)
-{
-  .container_velo {
-    width: 95%;
-    margin: auto;
-  }
-}
-
 
