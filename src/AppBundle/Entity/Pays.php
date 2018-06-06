@@ -21,12 +21,6 @@ class Pays
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", length=255)
-     */
-    private $pays;
 
     /**
      * @var int

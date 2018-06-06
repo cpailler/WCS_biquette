@@ -34,6 +34,16 @@ class TypeVelo
     private $type;
 
     /**
+     * @ORM\Column(name="prix_moyen", type="integer")
+     */
+    private $prixMoyen;
+
+    /**
+     * @ORM\Column(name="coeff", type="float")
+     */
+    private $coeff;
+
+    /**
      * Get id.
      *
      * @return int
