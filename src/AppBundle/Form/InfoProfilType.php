@@ -20,14 +20,14 @@ class InfoProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('genre', RadioType::class)
+            ->add('genre')
             ->add('nom')
             ->add('prenom')
             ->add('codePostal', TextType::class)
             ->add('ville')
             ->add('email', EmailType::class)
             ->add('pays')
-            //->add('indicTel')
+            ->add('indicTel')
             ->add('tel')
             ->add('dateNaissance', DateType::class);
     }

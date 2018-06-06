@@ -237,6 +237,6 @@ class Pays
 
     public function __toString()
     {
-        return $this->pays;
+        return $this->nomFr;
     }
 }

@@ -95,5 +95,11 @@ class LocTel
         return $this->pays;
     }
 
-
+    /**
+     * @param int $id
+     */
+    public function __toString()
+    {
+        return $this->pays."(".$this->indice.")";
+    }
 }
