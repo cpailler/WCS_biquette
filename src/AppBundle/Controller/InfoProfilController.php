@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -32,6 +33,8 @@ class InfoProfilController extends Controller
             }
 
         // replace this example code with whatever you need
-        return $this->render('profil/infoProfil.html.twig');
+        return $this->render('profil/infoProfil.html.twig',array(
+            'form'=>$form->createView()
+        ));
     }
 }

@@ -94,4 +94,6 @@ class LocTel
     {
         return $this->pays;
     }
+
+
 }
