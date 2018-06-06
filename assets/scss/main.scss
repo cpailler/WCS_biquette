@@ -3,6 +3,10 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 
 $bikerr-green: #009925;
+$background-points: #d1f3e0;
+$border-grey: #cccccc;
+$text-dark: #333634;
+$text-grey: #949a96;
 $font: Raleway, Arial, Helvetica, sans-serif;
 
 .bouton {
@@ -13,4 +17,8 @@ $font: Raleway, Arial, Helvetica, sans-serif;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
   color: white !important;
   margin: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font, Arial, Helvetica, sans-serif;
 }

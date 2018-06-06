@@ -12,6 +12,7 @@ Encore
 
     .addEntry('style', './assets/scss/style.scss')
     .addEntry('homepage', './assets/scss/homepage.scss')
+    .addEntry('profil', './assets/scss/profil.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()
