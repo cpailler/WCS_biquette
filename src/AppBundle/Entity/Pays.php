@@ -234,4 +234,9 @@ class Pays
     {
         return $this->indicTel;
     }
+
+    public function __toString()
+    {
+        return $this->nomFr;
+    }
 }
