@@ -26,12 +26,13 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+        <div class="title_text_header">
+            <h1><strong>TROUVEZ LE BON VELO</strong></h1>
+            <h2 class="lead ">Partage de vélos entre amis</h2>
+            <a class="btn btn-lg btn-rejoindre" href="#" role="button">Rejoindre la bande</a>
+        </div>
     </div>
-    <div class="title_text_header">
-        <h1 class="display-4 "><strong>TROUVEZ LE BON VELO</strong></h1>
-        <h2 class="lead ">Partage de vélos entre amis</h2>
-        <a class="btn btn-lg btn-rejoindre" href="#" role="button">Rejoindre la bande</a>
-    </div>
+
 
     <div class="gradient_box">
         <div class="explication_title white_text">
@@ -40,19 +41,19 @@
             <br>
         </div>
         <div class="row">
-            <div class="col-md-2 col-sm-2 offset-2">
-                <img src="{{ asset('images/icn-gratuit-circle.svg') }}" class="flexible-circle"><br>
+            <div class="col-md-2 col-sm-10 offset-md-1 offset-sm-1">
+                <img src="{{ asset('images/icn-gratuit-circle.svg') }}" alt="bikerr-gratuit" class="flexible-circle"><br>
                 <h4 class="explication_title white_text">100% GRATUIT</h4>
             </div>
-            <div class="col-md-4 col-sm-3">
+            <div class="col-md-4 col-sm-10 offset-sm-1">
                 <p class="explication white_text">
                     L'inscription est gratuite et vous pouvez tout de suite emprunter le vélo de votre choix.<br>
                     Notre système de Points vous permet d'accéder gratuitement aux vélos partagés par les autres membres à condition que vous acceptiez également de partager le vôtre.
                     <br>Le principe est simple. Vous gagnez des Points en partageant un vélo. Vous en dépensez lorsque vous utilisez le vélo d'un autre membre.
                 </p>
             </div>
-            <div class="col-md-2 col-sm-2">
-                <img src="{{ asset('images/icn-flexible-circle.svg') }}" class="flexible-circle"><br>
+            <div class="col-md-2 col-sm-10 offset-sm-1">
+                <img src="{{ asset('images/icn-flexible-circle.svg') }}" alt="bikerr-flexible" class="flexible-circle"><br>
                 <h4 class="explication_title white_text">100% FLEXIBLE</h4>
             </div>
         </div>
@@ -135,29 +136,63 @@
         </div>
     </div>
 
-    <div class="bikerr_container" style="background-color: #f9f9f9;">
-        <h4 class="explication_title">Vélo des villes ou vélo des champs, il en existe pour tous les goûts</h4>
+    <div class="bikerr_container background-color" >
+        <h4 class="explication_title">Vélo des villes ou vélo des champs, il en existe pour tous les goûts</h4><br>
+        <img src="{{ asset('images/fond_velo.png') }}" alt="fond-velo">
     </div>
 
     <div class="bikerr_container">
-        <h4 class="explication_title">Partagez en toute sécurité</h4>
-        <p>En option, des services complémentaires pour vous garantir un partage réussi.</p>
+        <h4 class="explication_title">Partagez en toute sécurité</h4><br>
+        <p class="explication_title">En option, des services complémentaires pour vous garantir un partage réussi.</p>
+        <br><br>
+
         <div class="row">
-            <div class="col-md-2 col-sm-2 col-xs-4 offset-2">
-                <img src="{{ asset('images/icn-garantie.svg') }}" class="flexible-circle"><br>
-                <h4 class="explication_title white_text">DEPOT DE GARANTIE</h4>
+            <div class="col-md-2 col-sm-8 col-xs-10 offset-md-2 offset-sm-2 offset-xs-1">
+                <img src="{{ asset('images/icn-garantie.svg') }}" alt="bikerr-garantie" class="flexible-circle"><br>
+                <h5 class="explication_title">DEPOT DE GARANTIE</h5><br>
+                <p class="explication_title justify">Les Propriétaires peuvent le demander pour encourager les utilisateurs à prendre soin de leur vélo et se couvrir en cas d'incident. Le dépôt est retourné à la fin du partage.</p>
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-4 offset-1">
-                <img src="{{ asset('images/icn-verification.svg') }}" class="flexible-circle"><br>
-                <h4 class="explication_title white_text">VÉRIFICATION D’IDENTITÉ</h4>
+            <div class="col-md-2 col-sm-8 col-xs-10 offset-md-1 offset-sm-2 offset-xs-1">
+                <img src="{{ asset('images/icn-verification.svg') }}" alt="bikerr-identite" class="flexible-circle"><br>
+                <h5 class="explication_title">VÉRIFICATION D’IDENTITÉ</h5><br>
+                <p class="explication_title justify">Bikerr vérifie l'identité des membres afin de sécuriser les échanges. Être un membre vérifié augmente vos chances de trouver et d'échanger des vélos.</p>
             </div>
-            <div class="col-md-2 col-sm-2 col-xs-4 offset-1">
-                <img src="{{ asset('images/icn-assurance.svg') }}" class="flexible-circle"><br>
-                <h4 class="explication_title white_text">ASSURANCE DÉPLACEMENT</h4>
+            <div class="col-md-2 col-sm-8 col-xs-10 offset-md-1 offset-sm-2 offset-xs-1">
+                <img src="{{ asset('images/icn-assurance.svg') }}" alt="bikerr-assurance" class="flexible-circle"><br>
+                <h5 class="explication_title">ASSURANCE DÉPLACEMENT</h5><br>
+                <p class="explication_title justify">Bikerr propose une assurance avec la MAIF. Elle couvre les frais en cas d'annulation, vol, dommages et rembourse le propriétaire à hauteur de la garantie souscrite.</p>
             </div>
-
-
         </div>
     </div>
+
+    <div class="bikerr_container background-color">
+        <h4 class="explication_title">Quelques soient vos besoins de déplacements</h4>
+        <div class="bikerr_container">
+            <div class="row">
+                <div class="col-md-4 col-sm-10 col-xs-12 offset-md-0 offset-sm-1">
+                    <img src="{{ asset('images/bikerr-vacances.png') }}" alt="bikerr-vacances" class="images">
+                    <h3 class="title_text_section">EN VACANCES</h3>
+                </div>
+                <div class="col-md-4 col-sm-10 col-xs-12 offset-md-0 offset-sm-1">
+                    <img src="{{ asset('images/bikerr-proximite.png') }}" alt="bikerr-proximite" class="images">
+                    <h3 class="title_text_section">PRÈS DE CHEZ VOUS</h3>
+                </div>
+                <div class="col-md-4 col-sm-10 col-xs-12 offset-md-0 offset-sm-1">
+                    <img src="{{ asset('images/bikerr-deplacement.png') }}" alt="bikerr-proximite" class="images">
+                    <h3 class="title_text_section">EN DÉPLACEMENT</h3>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-lg bouton" href="#" role="button">Partager mon vélo</a>
+    </div>
+
+    <div style="position: relative; width: 100%">
+        <img src="{{ asset('images/velo-pratique.jpg') }}" alt="velo-pratique" style="width: 100%">
+        <div class="title_text_header">
+            <h1><strong>GARDEZ UN VELO DANS VOTRE POCHE</strong></h1>
+        </div>
+    </div>
+
+
 
 {% endblock %}
