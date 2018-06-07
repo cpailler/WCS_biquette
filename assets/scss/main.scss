@@ -4,22 +4,34 @@
 @import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
+$font: Avenir Next, Arial, Helvetica, sans-serif;
+$grey-background: #f9f9f9;
+$text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 $background-points: #d1f3e0;
 $border-grey: #cccccc;
 $text-dark: #333634;
 $text-grey: #949a96;
-$font: Avenir Next, Arial, Helvetica, sans-serif;
 
 .bouton {
   background-color: $bikerr-green;
-  width: 280px;
-  height: 64px;
-  border-radius: 2px;
+  border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
   color: white !important;
   margin: auto;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bouton:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2) inset, 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font, Arial, Helvetica, sans-serif;
+}
+
+.background-color {
+  background-color: $grey-background
 }

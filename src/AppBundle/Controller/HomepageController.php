@@ -22,4 +22,14 @@ class HomepageController extends Controller
         // replace this example code with whatever you need
         return $this->render('homepage/homepage.html.twig');
     }
+
+    /**
+     * @Route("/connect", name="homepage_connect")
+     *
+     */
+    public function connectAction(request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('homepage/homepage_connect.html.twig');
+    }
 }

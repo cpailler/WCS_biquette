@@ -10,9 +10,10 @@ body{
 
 .nav-color {
   display: inline-block;
-  position: absolute;
+  position: absolute !important;
+  width: 100% !important;
   z-index: 1;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0,0,0,0) !important;
   border-bottom: 0px;
   transition: background-color .5s ease 0s;
 }
@@ -27,7 +28,7 @@ body{
 }
 
 .footer {
-  width: 100vw;
+  width: 100%;
   background-color: $bikerr-green;
   color: white;
   list-style:none;
@@ -46,6 +47,6 @@ body{
 }
 
 .conteneur_footer {
-  width: 100vw;
+  width: 100%;
   padding: 30px;
 }
