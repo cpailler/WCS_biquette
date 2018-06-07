@@ -24,4 +24,5 @@ bikker_old.sql
 yarn.lock
 yarn-error.log
 composer.lock
+/composer.lock
 
