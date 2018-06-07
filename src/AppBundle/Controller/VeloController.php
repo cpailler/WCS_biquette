@@ -9,19 +9,22 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Velo;
+use AppBundle\Form\VeloDescriptionType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Velo controller.
  *
- * @Route("velo")
+ * @Route("/velo")
  */
 class VeloController extends Controller
 {
     /**
-     * @Route("/", name="velo")
+     * @Route("/", name="velo_index")
      *
      */
     public function indexAction(request $request)
@@ -31,13 +34,30 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/description", name="velo_description")
+     * @Route("/{id}/description", name="velo_description")
+     * @Method({"GET", "POST"})
      *
      */
-    public function descriptionAction(request $request)
+    public function descriptionAction(request $request, $id)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/description.html.twig');
+        echo $id;
+        $repository = $this->getDoctrine()->getManager()->getRepository(Velo::class);
+        $velo = $repository->find($id);
+        echo $velo;
+        die;
+        $editForm = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        //TODO replace view with correct viewpath
+        return $this->render('velo/description.html.twig', array(
+            'velo' => $velo,
+            'edit_form' => $editForm->createView()
+        ));
+
     }
 
     /**
