@@ -41,9 +41,9 @@ class Membre
     private $idWallet;
 
     /**
-     * @var int|null
+     * @var string|null
      *
-     * @ORM\Column(name="id_facebook", type="integer", nullable=true)
+     * @ORM\Column(name="id_facebook", type="string", length=255, nullable=true)
      */
     private $idFacebook;
 
@@ -64,7 +64,7 @@ class Membre
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
      */
     private $password;
 
@@ -120,14 +120,14 @@ class Membre
     private $pays;
 
     /**
-     * @var string
+     * @var string|Undefined
      *
      * @ORM\Column(name="ville", type="string", length=255)
      */
     private $ville;
 
     /**
-     * @var int
+     * @var int|0
      *
      * @ORM\Column(name="code_postal", type="integer")
      */
@@ -163,9 +163,9 @@ class Membre
     private $dateNaissance;
 
     /**
-     * @var bool
+     * @var bool|false
      *
-     * @ORM\Column(name="membre_verifie", type="boolean")
+     * @ORM\Column(name="membre_verifie", type="boolean", options={"default"=0})
      */
     private $membreVerifie;
 
@@ -179,7 +179,7 @@ class Membre
     /**
      * @var int
      *
-     * @ORM\Column(name="points", type="integer")
+     * @ORM\Column(name="points", type="integer", options={"default"=0})
      */
     private $points;
 

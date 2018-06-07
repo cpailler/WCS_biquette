@@ -1,13 +1,20 @@
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+@import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
-$font: Raleway, Arial, Helvetica, sans-serif;
+$background-points: #d1f3e0;
+$border-grey: #cccccc;
+$text-dark: #333634;
+$text-grey: #949a96;
+$font: Avenir Next, Arial, Helvetica, sans-serif;
 
 .bouton {
   background-color: $bikerr-green;
-  border-radius: 10px;
+  width: 280px;
+  height: 64px;
+  border-radius: 2px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
   color: white !important;
   margin: auto;

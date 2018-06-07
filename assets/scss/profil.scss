@@ -1,0 +1,133 @@
+@import "main.scss";
+
+#layoutProfil {
+  display: flex;
+  flex-direction: column;
+}
+
+.headProfil, .completeProfil {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.outilsProfil {
+  display: flex;
+  flex-direction: column;
+}
+
+.photoProfil {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.photoProfil a {
+  font-size: 14px;
+  color: $text-grey;
+}
+
+.progressionProfil p {
+  font-size: 12px;
+  color: $text-grey;
+}
+
+.progressionProfil h2 {
+  font-size: 18px;
+  color: $text-dark;
+}
+
+.progressbarProfil p {
+  font-size: 14px;
+  color: $text-dark;
+}
+
+.progressionProfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: dashed 1px $border-grey;
+  padding: 2vh;
+}
+
+
+
+.titreProfil {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.progressbarProfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.signinProfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 2px;
+  background-color: $background-points;
+  padding-top: 20px;
+}
+
+.aidePointsButton {
+  padding-top: 8px;
+}
+
+.aidePointsButton p{
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+.ongletProfil ul{
+  list-style: none;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+.aidePoints {
+  text-align: justify;
+  margin: 2vh;
+  padding: 1vh;
+  border-radius: 2px;
+  background-color: $background-points;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+li {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+li a {
+  font-size: 14px;
+  color: $text-grey;
+}
+
+.formulaireProfil {
+  border: solid 1px $border-grey;
+}
+
+/* informations confidentielles */
+
+.sexeProfil {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+
+
+

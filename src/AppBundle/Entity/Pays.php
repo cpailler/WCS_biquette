@@ -21,12 +21,6 @@ class Pays
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", length=255)
-     */
-    private $pays;
 
     /**
      * @var int
@@ -239,5 +233,10 @@ class Pays
     public function getIndicTel()
     {
         return $this->indicTel;
+    }
+
+    public function __toString()
+    {
+        return $this->nomFr;
     }
 }
