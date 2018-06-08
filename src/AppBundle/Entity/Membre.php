@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="membre")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MembreRepository")
  */
-class Membre
+class Membre extends BaseUser
 {
     /**
      * @var int
@@ -19,7 +20,8 @@ class Membre
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Velo", mappedBy="proprio")
@@ -61,19 +63,19 @@ class Membre
      */
     private $nom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+//     */
+//    protected $password;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="email", type="string", length=255)
+//     */
+//    protected $email;
 
     /**
      * @var int|null
@@ -120,7 +122,7 @@ class Membre
     private $pays;
 
     /**
-     * @var string|Undefined
+     * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255)
      */
