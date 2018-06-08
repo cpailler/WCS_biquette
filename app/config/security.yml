@@ -3,7 +3,7 @@
 security:
 
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        FOS\UserBundle\Model\UserInterface: sha1
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
