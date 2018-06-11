@@ -119,4 +119,9 @@ class TypeVelo
     {
         return $this->velos;
     }
+
+    public function __toString()
+    {
+        return $this->type;
+    }
 }
