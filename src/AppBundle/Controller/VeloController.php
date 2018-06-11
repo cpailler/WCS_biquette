@@ -9,9 +9,15 @@
 
 namespace AppBundle\Controller;
 
+// use Doctrine\DBAL\Types\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Velo;
 
 /**
  * Velo controller.
@@ -66,8 +72,37 @@ class VeloController extends Controller
      */
     public function antivolAction(request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/antivol.html.twig');
+        $velo = new Velo();
+        $velo->getAntivolKey();
+        $velo->getAntivolCode();
+        $velo->getBicycode();
+
+        $form = $this->createFormBuilder($velo)
+            ->add('antivolKey', ChoiceType::class, array(
+                'choices' => array(
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                )
+            ))
+            ->add('antivolCode', ChoiceType::class, array(
+                'choices' => array(
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                )
+            ))
+            ->add('bicycode', RadioType::class)
+            ->add('bicycode', TextType::class)
+            ->add('enregistrer', SubmitType::class, array('label' => 'Enregistrer'))
+            ->getForm();
+
+
+        return $this->render('velo/antivol.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
