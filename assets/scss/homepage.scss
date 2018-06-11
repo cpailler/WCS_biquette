@@ -1,47 +1,95 @@
 @import "main.scss";
 
+@media all and (max-device-width: 768px)
+{
+  .container_velo {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media all and (max-device-width: 480px)
+{
+  .container_velo {
+    width: 100%;
+    margin: auto;
+  }
+}
+
 .btn-rejoindre {
   @extend .bouton;
   display: inline;
-  position: absolute;
+  //position: absolute;
   left: 50%;
-  margin-left: -151px;
-  top: 416px;
   text-align: center;
-  line-height: 65px;
   cursor: pointer;
   color: white !important;
 }
 
 .title_text_header {
-  display: inline-block;
+  display: block;
   position: absolute;
-  top: 180px;
-  z-index: 1;
-  font-size: 60px;
+  margin: auto;
+  top: 50%;
+  bottom: 50%;
+  left: 50%;
+  //right: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 4em;
   text-align: center;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: $text-shadow;
   color: white;
   width: 100%;
   background-color: transparent;
 }
 
+.title_text_section {
+  display: block;
+  position: absolute;
+  margin: auto;
+  top: 45%;
+  bottom: 50%;
+  left: 50%;
+  //right: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  font-size: 2em;
+  font-weight: bolder;
+  text-shadow: $text-shadow;
+  color: white;
+  background-color: transparent;
+}
+
+.title_text_town {
+  @extend .title_text_section;
+  font-size: 1.5em;
+}
+
 .gradient_box {
-  width: 100vw;
-  height: 40vw;
+  width: 100%;
   background-image: linear-gradient(252deg, #feda5c, #59b10d);
+  padding: 3em;
 }
 
 .explication_title {
   text-align: center;
   margin: auto;
-  color: #ffffff;
 }
+
 .explication {
   font-family: $font;
   text-align: justify;
-  color: #ffffff;
   margin: auto;
+}
+
+.white_text {
+  color: white !important;
+}
+
+.justify {
+  text-align: justify !important;
 }
 
 .flexible-circle {
@@ -49,3 +97,74 @@
   object-fit: contain;
   margin: auto;
 }
+
+.bikerr_container {
+  width: 100%;
+  padding: 3em;
+}
+
+.container_velo {
+  width: 80%;
+  margin: auto;
+}
+
+.bikerr-card {
+  padding: 20px !important;
+}
+
+.images {
+  width: 100%;
+  margin-top: 2em !important;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.title-announce {
+  text-align: left;
+  font-family: $font;
+}
+.title-announce span {
+  float: right;
+  color: $bikerr-green;
+  font-family: $font;
+  font-weight: bolder;
+}
+
+.crop {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.crop img {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+
+.crop_profile {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+}
+.crop_profile img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+.card-body {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.town_square{
+  background-color: $bikerr-green;
+  padding-bottom: 100%;
+}
+
