@@ -828,4 +828,12 @@ class Velo
     {
         return $this->equipements;
     }
+
+    public function __toString()
+    {
+        if(isset($this->titre)){
+            return $this->titre;
+        }
+        return 'Vélo n° '.$this->id;
+    }
 }
