@@ -52,14 +52,14 @@ class Membre extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=45)
+     * @ORM\Column(name="prenom", type="string", length=45, nullable=true)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=70)
+     * @ORM\Column(name="nom", type="string", length=70, nullable=true)
      */
     private $nom;
 
@@ -81,7 +81,7 @@ class Membre extends BaseUser
      * @var int|null
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genre")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $genre;
 
@@ -95,43 +95,43 @@ class Membre extends BaseUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_inscription", type="date")
+     * @ORM\Column(name="date_inscription", type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
     private $dateInscription;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_velo_emprunte", type="integer")
+     * @ORM\Column(name="nb_velo_emprunte", type="integer", options={"default"=0})
      */
-    private $nbVeloEmprunte;
+    private $nbVeloEmprunte=0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_velo_prete", type="integer")
+     * @ORM\Column(name="nb_velo_prete", type="integer", options={"default"=0})
      */
-    private $nbVeloPrete;
+    private $nbVeloPrete=0;
 
     /**
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pays")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $pays;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255)
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
      * @var int|0
      *
-     * @ORM\Column(name="code_postal", type="integer")
+     * @ORM\Column(name="code_postal", type="integer",nullable=true)
      */
     private $codePostal;
 
@@ -139,28 +139,28 @@ class Membre extends BaseUser
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\LocTel")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $indicTel;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="tel", type="integer")
+     * @ORM\Column(name="tel", type="integer", nullable=true)
      */
     private $tel;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="tel_public", type="boolean")
+     * @ORM\Column(name="tel_public", type="boolean", options={"default"=0})
      */
-    private $telPublic;
+    private $telPublic=0;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_naissance", type="date")
+     * @ORM\Column(name="date_naissance", type="date", nullable=true)
      */
     private $dateNaissance;
 
@@ -169,12 +169,12 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="membre_verifie", type="boolean", options={"default"=0})
      */
-    private $membreVerifie;
+    private $membreVerifie=0;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="key_mdp", type="string", length=255)
+     * @ORM\Column(name="key_mdp", type="string", length=255, nullable = true)
      */
     private $keyMdp;
 
@@ -183,7 +183,8 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="points", type="integer", options={"default"=0})
      */
-    private $points;
+    private $points=0;
+
 
 
     /**
@@ -350,6 +351,9 @@ class Membre extends BaseUser
     public function setEmail($email)
     {
         $this->email = $email;
+        $this->username = $email;
+        $this->usernameCanonical = $email;
+        $this->emailCanonical = $email;
 
         return $this;
     }
@@ -366,7 +370,7 @@ class Membre extends BaseUser
 
     /**
      * Set genreId.
-     *
+     *x
      * @param int|null $genre
      *
      * @return Membre
@@ -728,6 +732,7 @@ class Membre extends BaseUser
      */
     public function __construct()
     {
+        $this->dateInscription = new \DateTime();
         $this->velos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
