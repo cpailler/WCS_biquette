@@ -9,19 +9,29 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Velo;
+use AppBundle\Entity\Couleur;
+use AppBundle\Form\VeloDescriptionType;
+use AppBundle\Form\VeloAntivolType;
+use AppBundle\Repository\CouleurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Velo controller.
  *
- * @Route("velo")
+ * @Route("/velo")
  */
 class VeloController extends Controller
 {
     /**
-     * @Route("/", name="velo")
+     * @Route("/", name="velo_index")
      *
      */
     public function indexAction(request $request)
@@ -31,13 +41,27 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/description", name="velo_description")
+     * @Route("/{id}/description", name="velo_description")
+     * @Method({"GET", "POST"})
      *
      */
-    public function descriptionAction(request $request)
+    public function descriptionAction(request $request, Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/description.html.twig');
+
+        $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
+        $form->handleRequest($request);
+        $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        //TODO replace view with correct viewpath
+        return $this->render('velo/description.html.twig', array(
+            'velo' => $velo,
+            'form' => $form->createView(),
+            'couleurs'=>$couleurs
+        ));
+
     }
 
     /**
@@ -61,13 +85,23 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/antivol", name="velo_antivol")
+     * @Route("/{id}/antivol", name="velo_antivol")
+     * @Method({"GET", "POST"})
      *
      */
-    public function antivolAction(request $request)
+    public function antivolAction(request $request, Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/antivol.html.twig');
+        $form = $this->createForm(VeloAntivolType::class,$velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->render('velo/antivol.html.twig', array(
+            'velo' => $velo,
+            'form' => $form->createView()
+        ));
     }
 
     /**
