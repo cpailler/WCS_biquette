@@ -1,14 +1,113 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1> velo description</h1>
+    <meta charset="utf-8">
+    <title>
+        Test
+    </title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-</body>
-</html>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        /* The container */
+        .containerradio {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Hide the browser's default radio button */
+        .containerradio input {
+            position: relative;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Create a custom radio button */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            border: 1px solid #CCCCCC;
+            border-radius: 50%;
+        }
+
+        /* Create the indicator (the dot/circle - hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: relative;
+            border: 1px solid #CCCCCC;
+            display: none;
+        }
+
+        /* Show the indicator (dot/circle) when checked */
+        .containerradio input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the indicator (dot/circle) */
+        .containerradio .checkmark:after {
+            top: 7px;
+            left: 7px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: white;
+        }
+
+    </style>
+<div>
+    <div class="Container-titre">
+        <h3>Description</h3>
+    </div>
+    <div class="form-control">
+        {{ form_start(form) }}
+        {{ form_row(form.titre)}}
+        {{ form_row(form.description)}}
+        <div class="col-sm-6 container-fluid">
+            {{ form_row(form.marque) }}
+        </div>
+        <div class="col-sm-6 container-fluid">
+            {{ form_row(form.modele) }}
+        </div>
+        <div class="col-sm-6 container-fluid">
+            {{ form_row(form.typeVelo) }}
+        </div>
+        <div class="col-sm-6 container-fluid">
+            {{ form_row(form.etatVelo) }}
+        </div>
+            {{ form_label(form.couleur) }}
+        <div id="appbundle_velo_couleur" class="row col-md-8">
+            {% for couleur in couleurs %}
+            <label class="containerradio col-md-1">
+                <input type="radio" checked="checked" id="appbundle_velo_couleur_{{ couleur.id }}" name="appbundle_velo[couleur]" required="required" value="{{ couleur.id }}">
+                <span class="checkmark" style="background-color: {{ couleur.codeHexa }}"></span>
+            </label>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {{ form_errors(form.couleur) }}
+        </div>
+
+        {{ form_row(form.neuf) }}
+        {{ form_row(form.numFacture)}}
+        {{ form_row(form.magasin) }}
+        {{ form_row(form.dateAchat) }}
+        {% do form.couleur.setRendered %}
+        {{ form_end(form) }}
+    </div>
+</div>

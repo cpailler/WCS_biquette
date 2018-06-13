@@ -93,4 +93,9 @@ class Couleur
     {
         return $this->codeHexa;
     }
+
+    public function __toString()
+    {
+        return "";
+    }
 }
