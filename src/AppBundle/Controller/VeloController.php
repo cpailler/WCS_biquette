@@ -21,12 +21,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Velo controller.
  *
- * @Route("/velo")
+ * @Route("velo")
  */
 class VeloController extends Controller
 {
     /**
      * @Route("/", name="velo_index")
+     *
      *
      */
     public function indexAction(request $request)
