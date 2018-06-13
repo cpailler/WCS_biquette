@@ -56,7 +56,8 @@ class VeloController extends Controller
         }
 
         //TODO replace view with correct viewpath
-        return $this->render('velo/description.html.twig', array(
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
             'couleurs'=>$couleurs

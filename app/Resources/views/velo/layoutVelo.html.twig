@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -88,11 +89,12 @@
                             <li><a href="#">Supprimer le velo</a></li>
                         </ul>
                     </div>
-                    <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p></div>
+                    <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p>
+                    </div>
                 </div>
-                <!-- onglets + formulaire à compléter -->
+                <!-- formulaire -->
                 <div  class="col-12 col-8 col-lg-7 formulaireVelo">
-
+                    {% include formulaire %}
                 </div>
             </div>
         </div>
