@@ -3,6 +3,8 @@
 #layoutVelo {
   display: flex;
   flex-direction: column;
+
+
 }
 
 .headVelo, .completeVelo {
@@ -10,15 +12,12 @@
   margin-bottom: 3vh;
 }
 
-.outilsVelo {
-  display: flex;
-  flex-direction: column;
-}
 
-.outilsVelo a {
+
+.VoirAnnonce a {
   font-size: 14px;
   color: $text-grey;
-
+  font-family: $font;
 }
 
 .photoVelo {
@@ -48,22 +47,50 @@
   font-size: 14px;
   color: $text-dark;
 }
+.progress{
+  width: 100vh;
+}
+.cont1{
+  display: flex;
+  flex-direction: row;
+
+}
 
 .progressionVelo {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   border: dashed 1px $border-grey;
   padding: 2vh;
+}
+
+.VoirAnnonce{
+
+  align-self: self-start;
+  float: left;
+
+
 }
 
 
 
 .titreVelo {
+  align-self: self-start;
   display: flex;
   flex-direction: column;
   text-align: center;
+  float: right;
+  margin-left: 25%;
+
+}
+
+.titreVelo h1{
+  font-weight: bold;
+}
+
+.outilsVelo {
+
+  display: flex;
+  flex-direction: column;
 }
 
 .progressbarVelo {
@@ -84,34 +111,18 @@
   padding: 0;
 }
 
-.checkVelo1 p {
-  font-size: 14px;
-  color: $text-dark;
-  text-align: left;
-}
 
-.checkVelo2 p {
-  font-size: 14px;
-  color: $text-dark;
-  text-align: left;
-}
 
-.checkVelo1 {
+.checkVelo{
   display: flex;
   flex-direction: row;
   text-align: left;
-  width: 70vh;
+  width: 100%;
   justify-content: space-between;
 }
 
-.checkVelo2 {
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  width: 70vh;
-  justify-content: space-between;
 
-}
+
 
 
 .aidePointsButton {
@@ -127,6 +138,37 @@
   list-style: none;
   color: $bikerr-green;
   font-size: 12px;
+}
+.VloEnLigne{
+  width: 196px;
+  height: 21px;
+  font-family: $font;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: right;
+  color: $text-grey;
+
+
+
+}
+.MembresVrifis{
+  width: 333px;
+  height: 21px;
+  font-family: $font;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: right;
+  color: $text-grey;
+
+
 }
 
 .aidePoints {
