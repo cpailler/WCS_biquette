@@ -1,16 +1,27 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Photovelo creation</h1>
+    <div class="container">
+    <h2 class="titre">PHOTOS DU VÉLO</h2><br>
+    <p class="infos_description">Ajoutez 3 photos de votre vélo et augmentez vos chances de finaliser un partage. Choisissez des photos qui montrent le vélo de façon réaliste pour permettre aux utilisateurs de l’identifier facilement.</p>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <div class="infos_description">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+        </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('photovelo_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+        <input class="bouton" type="submit" value="Ajouter une photo" />
+        {{ form_end(form) }}
+
+        <ul>
+            <li>
+                <a href="{{ path('photovelo_index') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
+
 {% endblock %}
