@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
@@ -6,6 +6,10 @@
 
 
 {% block body %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
 
     <form class="form-group container">
         <h3>Antivol du vélo</h3>
