@@ -1,8 +1,37 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/profil.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
 {% endblock %}
 
 {% block body %}
+
+<div class="container">
+    <div class="row">
+        <!-- bloc recherche liste -->
+        <div class="container col-12 col-lg-7">
+            <div class="row">
+                <!-- barre de tri -->
+                <div class="col-12 col-lg-12"></div>
+                <!-- liste -->
+                <div class="container col-12 col-lg-12">
+                    <div class="row">
+                        {% for membre in membre %}
+                            <!-- annonce -->
+                            <div class="item col-6 col-lg-6" data-lat="" data-lng="" data-price="">
+                                <img src="http://via.placeholder.com/400x260" alt="">
+                                <h4>La monture de {{ membre.prenom }}</h4>
+                                <h6></h6>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- barre numeros de page -->
+                <div class="col-12 col-lg-12"></div>
+            <div>
+        </div>
+        <!-- maps -->
+        <div class="col-12 col-lg-5"></div>
+    </div>
+</div>
 
 {% endblock %}
