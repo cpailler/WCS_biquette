@@ -2,20 +2,115 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Membre;
+use AppBundle\Service\MangoPayApi;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+
+
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homedefault")
+     * @Route("/cardRegisterForm", name="homedefault")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, MangoPayApi $mangopayapi)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        // On crée une session pour simuler la persistance des données
+        $session = $request->getSession();
+
+        //membre 1
+        $membreMP = new Membre();
+        $membreMP->setEmail('luc.camarche@gmail.com');
+        $membreMP->setNom('CAMARCHE');
+        $membreMP->setPrenom('Luc');
+        $membreMP->setDateNaissance(new \DateTime('17-03-1988'));
+        $membreMP->setPays('FR');
+        //membre2
+        $membreMP1 = new Membre();
+        $membreMP1->setEmail('atomic67200@gmail.com');
+        $membreMP1->setNom('CAMARCHE');
+        $membreMP1->setPrenom('Aurélien');
+        $membreMP1->setDateNaissance(new \DateTime('28-04-1984'));
+        $membreMP1->setPays('FR');
+
+        //creation d'un membre Mango Pay à partir des membres en base
+        $membreMP->setIdMangopay($mangopayapi->CreateNaturalUser($membreMP));
+        $membreMP1->setIdMangopay($mangopayapi->CreateNaturalUser($membreMP1));
+
+        //on crée les wallets à partir des membres
+        $membreMP->setIdWallet($mangopayapi->CreateWallet($membreMP));
+        $membreMP1->setIdWallet($mangopayapi->CreateWallet($membreMP1));
+
+        //cartes
+        $card1 = $mangopayapi->CardRegistration($membreMP);
+        $card2 = $mangopayapi->CardRegistration($membreMP1);
+
+        // On enregistre l'id du membre1
+        $session->set('membre1', $membreMP);
+        $session->set('membre2', $membreMP1);
+        dump($membreMP);
+        dump($membreMP1);
+        // On enregistre l'id des cards
+        $session->set('card1', $card1);
+        $session->set('card2', $card2);
+        dump($card1);
+        dump($card2);
+        //on défini une valeur de retour d'URL pour pouvoir enregistrer la carte chez nous
+        $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
+        $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
+        $returnUrl .= 'cardRegistration';
+        //appel de la vue
+        return $this->render('default/cardRegisterForm.html.twig', [
+            'card'=>$card1,
+        'returnUrl'=>$returnUrl
         ]);
     }
+
+    /**
+     * @Route("/cardRegistration", name="carte")
+     */
+    public function cardRegisterAction(Request $request, MangoPayApi $mangopayapi)
+    {
+        //on récupere les elements de session
+        $session = $request->getSession();
+        $Carte1 = $session->get('card1');
+        $Carte2 = $session->get('card2'); // pas utilisé
+        $membre1 = $session->get('membre1');
+        $membre2 = $session->get('membre2');
+        //on récupere le CardRegistration envoyé en Get
+        $Carte1 = $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
+        dump($Carte1);
+
+        //on défini la somme à envoyer
+        //et les frais
+        $Amount = 2500;
+        //les frais sont à 0 aujourd'hui car Bikerr ne
+        //preleve pas d'argent sur un pret de velo
+        //cette valeur sera a calculer pour les cautions (%5)
+        $fees = 0;
+        //on génère un PayIn de membre1
+        //on récupère le résultat de la génération du PayIn
+        //si il est OK, on peut proceder au transfert
+        $resultatDuPayIn = $mangopayapi->PayIn($membre1, $Carte1, $Amount, $fees);
+        dump("resultat PayIn");
+        dump($resultatDuPayIn);
+
+        //si le resultat du PayIn est mauvais, on s'arrache
+        /*if ($resultatDuPayIn->Status != "SUCCEEDED")
+        {
+            echo "Carte de paiement invalide.";
+            die();
+            Header('Location: /');
+            exit();
+        }*/
+        $transfert =$mangopayapi->transfert($membre1, $membre2, $Amount, $fees);
+        dump($transfert);
+        die();
+        //$payout = $mangopayapi->PayOut();
+
+        return $this->render('default/cardRegistration.html.twig', ['cardId'=>$cardId]);
+    }
+
 }

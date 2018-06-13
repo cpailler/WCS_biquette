@@ -27,8 +27,7 @@ Encore
     .enableBuildNotifications()
 
 // allow sass/scss files to be processed
- .enableSassLoader()
-;
+ .enableSassLoader();
 
 // export the final configuration
 module.exports = Encore.getWebpackConfig();
