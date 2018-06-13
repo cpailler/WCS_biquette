@@ -25,7 +25,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Velo controller.
  *
- * @Route("velo")
+ * @Route("/velo")
  */
 class VeloController extends Controller
 {

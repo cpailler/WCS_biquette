@@ -11,13 +11,10 @@ $background-points: #d1f3e0;
 $border-grey: #cccccc;
 $text-dark: #333634;
 $text-grey: #949a96;
-$font: Avenir Next, Arial, Helvetica, sans-serif;
 
 .bouton {
   background-color: $bikerr-green;
-  width: 280px;
-  height: 64px;
-  border-radius: 2px;
+  border-radius: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
   color: white !important;
   margin: auto;
@@ -98,8 +95,4 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-}
-
-.background-color {
-  background-color: $grey-background
 }
