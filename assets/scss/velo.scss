@@ -1,15 +1,211 @@
 @import "main.scss";
 
-.form-group {
-  border: solid 1px #dbdcd8;
+#layoutVelo {
+  display: flex;
+  flex-direction: column;
+
+
 }
 
-h3 {
-  text-transform: uppercase;
+.headVelo, .completeVelo {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
-p {
-  color: #949a96;
-  font-size: 12px;
+
+
+.VoirAnnonce a {
+  font-size: 14px;
+  color: $text-grey;
+  font-family: $font;
+}
+
+.photoVelo {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.photoVelo a {
+  font-size: 14px;
+  color: $text-grey;
+}
+
+.progressionVelo p {
+  font-size: 12px;
+  color: $text-grey;
+}
+
+.progressionVelo h2 {
+  font-size: 18px;
+  color: $text-dark;
+}
+
+.progressbarVelo p {
+  font-size: 14px;
+  color: $text-dark;
+}
+.progress{
+  width: 100vh;
+}
+.cont1{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.progressionVelo {
+  display: flex;
+  flex-direction: column;
+  border: dashed 1px $border-grey;
+  padding: 2vh;
+}
+
+.VoirAnnonce{
+
+  align-self: self-start;
+  float: left;
+
+
+}
+
+
+
+.titreVelo {
+  align-self: self-start;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  float: right;
+  margin-left: 25%;
+
+}
+
+.titreVelo h1{
+  font-weight: bold;
+}
+
+.outilsVelo {
+
+  display: flex;
+  flex-direction: column;
+}
+
+.progressbarVelo {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.switchVelo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  text-align: left;
+  border-radius: 2px;
+  padding: 0;
+}
+
+
+
+.checkVelo{
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  width: 100%;
+  justify-content: space-between;
+}
+
+
+
+
+
+.aidePointsButton {
+  padding-top: 8px;
+}
+
+.aidePointsButton p{
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+.ongletVelo ul{
+  list-style: none;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+.VloEnLigne{
+  width: 196px;
+  height: 21px;
+  font-family: $font;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: right;
+  color: $text-grey;
+
+
+
+}
+.MembresVrifis{
+  width: 333px;
+  height: 21px;
+  font-family: $font;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: right;
+  color: $text-grey;
+
+
+}
+
+.aidePoints {
+  text-align: justify;
+  margin: 2vh;
+  padding: 1vh;
+  border-radius: 2px;
+  background-color: $background-points;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+li {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+li a {
+  font-size: 14px;
+  color: $text-grey;
+}
+
+.formulaireVelo {
+  border: solid 1px $border-grey;
+}
+
+.picture{
+  width: 283px;
+  height: 163px;
+  background-color:$bikerr-green;
+}
+
+.points{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: inherit;
+}
+
+
