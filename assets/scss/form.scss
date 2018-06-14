@@ -1,4 +1,4 @@
-
+$bikerr-green: #009925;
 
 
 
@@ -51,6 +51,49 @@
 
 /* Style the indicator (dot/circle) */
 .containerradio .checkmark:after {
+  top: 7px;
+  left: 7px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: white;
+}
+
+//Radio/Checkbox Button custom
+
+/* The container */
+.containergreen {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.containergreen input {
+  position: relative;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* When the checkbox is checked, add a green background */
+.containergreen input:checked ~ .checkmark {
+  background-color: $bikerr-green;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.containergreen input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.containergreen .checkmark:after {
   top: 7px;
   left: 7px;
   width: 9px;

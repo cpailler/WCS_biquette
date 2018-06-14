@@ -1,5 +1,6 @@
 <?php
 namespace AppBundle\Form;
+use AppBundle\Entity\Genre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +21,9 @@ class InfoProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('genre')
+            ->add('genre', EntityType::class, array(
+                'class'=>Genre::class,
+                'expanded'=>true))
             ->add('nom')
             ->add('prenom')
             ->add('codePostal', TextType::class)
