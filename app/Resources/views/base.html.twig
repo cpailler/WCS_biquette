@@ -14,11 +14,11 @@
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr" style="margin-left: 20px;"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" style="width: 310px;">
             <button class="btn btn-outline-success my-2 my-sm-0 bouton-sm" type="submit">Rechercher</button>
@@ -44,13 +44,17 @@
 <!-- fin de test -->
 
 <nav class="navbar navbar-expand-lg nav-color">
-    <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr" style="margin-left: 20px;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="width: 60px;">
+        <span>
+            <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                <path stroke="rgba(255, 255, 255, 1)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/>
+            </svg>
+        </span>
     </button>
 
-    <div class="collapse navbar-collapse navigation" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
+    <div class="collapse navbar-collapse navigation" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto basic-navbar">
             <li class="nav-item">
                 <a class="nav-link onglets_nav" href="#">Comment ça marche</a>
             </li>
