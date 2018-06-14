@@ -48,7 +48,7 @@
   color: $text-dark;
 }
 .progress{
-  width: 100vh;
+  width: 80vh;
 }
 .cont1{
   display: flex;
@@ -172,13 +172,14 @@
 }
 
 .aidePoints {
-  text-align: justify;
+  text-align: center;
   margin: 2vh;
   padding: 1vh;
   border-radius: 2px;
   background-color: $background-points;
   color: $bikerr-green;
-  font-size: 12px;
+  font-size: 14px;
+  width: 100%;
 }
 
 li {
@@ -206,6 +207,9 @@ li a {
   justify-content: space-between;
   flex-direction: row;
   width: inherit;
+}
+.butSave{
+  justify-content: center;
 }
 
 

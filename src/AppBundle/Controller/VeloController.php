@@ -9,10 +9,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Velo;
 use AppBundle\Entity\Couleur;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
+use AppBundle\Form\VeloEquipementType;
 use AppBundle\Repository\CouleurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -47,13 +49,14 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
-
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
         $form->handleRequest($request);
-        $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
+        $couleurs=$em->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
         }
+
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/description.html.twig',
@@ -75,13 +78,30 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/equipement", name="velo_equipement")
+     * @Route("/{id}/equipement", name="velo_equipement")
+     * @Method({"GET", "POST"})
      *
      */
-    public function equipementAction(request $request)
+    public function equipementAction(request $request, Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/equipement.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(VeloEquipementType::class, $velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+        }
+
+
+        $equipements = $em->getRepository(Equipement::class)->findAll();
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/equipement.html.twig',
+            'form'=>$form->createView(),
+            'velo'=>$velo,
+            'equipements'=>$equipements
+        ));
     }
 
     /**
