@@ -13,7 +13,7 @@ Encore
     .addEntry('style', './assets/scss/style.scss')
     .addEntry('homepage', './assets/scss/homepage.scss')
     .addEntry('profil', './assets/scss/profil.scss')
-    .addEntry('annonce', './assets/scss/annonce.scss')
+    .addEntry('recherche', './assets/scss/recherche.scss')
     .addEntry('velo', './assets/scss/velo.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
