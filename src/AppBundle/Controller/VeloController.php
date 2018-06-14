@@ -55,7 +55,6 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
-        //TODO replace view with correct viewpath
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
