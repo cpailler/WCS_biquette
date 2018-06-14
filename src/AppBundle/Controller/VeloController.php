@@ -12,6 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Velo;
 use AppBundle\Entity\Couleur;
 use AppBundle\Form\VeloDescriptionType;
+use AppBundle\Form\VeloAntivolType;
 use AppBundle\Repository\CouleurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,13 +26,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 /**
  * Velo controller.
  *
- * @Route("velo")
+ * @Route("/velo")
  */
 class VeloController extends Controller
 {
     /**
      * @Route("/", name="velo_index")
-     *
      *
      */
     public function indexAction(request $request)
@@ -85,41 +85,22 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/antivol", name="velo_antivol")
+     * @Route("/{id}/antivol", name="velo_antivol")
+     * @Method({"GET", "POST"})
      *
      */
-    public function antivolAction(request $request)
+    public function antivolAction(request $request, Velo $velo)
     {
-        $velo = new Velo();
-        $velo->getAntivolKey();
-        $velo->getAntivolCode();
-        $velo->getBicycode();
+        $form = $this->createForm(VeloAntivolType::class,$velo);
+        $form->handleRequest($request);
 
-        $form = $this->createFormBuilder($velo)
-            ->add('antivolKey', ChoiceType::class, array(
-                'choices' => array(
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                )
-            ))
-            ->add('antivolCode', ChoiceType::class, array(
-                'choices' => array(
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                )
-            ))
-            ->add('bicycode', RadioType::class)
-            ->add('bicycode', TextType::class)
-            ->add('enregistrer', SubmitType::class, array('label' => 'Enregistrer'))
-            ->getForm();
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
 
         return $this->render('velo/antivol.html.twig', array(
-            'form' => $form->createView(),
+            'velo' => $velo,
+            'form' => $form->createView()
         ));
     }
 
