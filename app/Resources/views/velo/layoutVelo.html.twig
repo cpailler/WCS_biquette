@@ -20,53 +20,45 @@
                 <!-- zone barre de progression -->
                 <div class="col-12 col-lg-7 progressionVelo">
                     <div class="cont1">
-
                             <div class="VoirAnnonce">
                                 <a href="#"><  Voir mon annonce</a>
                             </div>
-
                             <div class="titreVelo" style="float: right">
                                 <div><h2>TYPE</h2></div>
                                 <div><p>MARQUE</p></div>
                             </div>
-
                     </div>
                     <div class="outilsVelo">
+                        <div class="checkVelo">
+                            <div class="VloEnLigne" style="">
+                                <p>L'annonce du vélo est en ligne</p>
+                            </div>
+                            <div style="float:right">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
 
-                                <div class="checkVelo">
-                                    <div class="VloEnLigne" style="">
-                                        <p>L'annonce du vélo est en ligne</p>
-                                    </div>
-                                    <div style="float:right">
-                                        <label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                        <div class="checkVelo">
+                            <div class="MembresVrifis">
+                                <p>Etre connecté uniquement par des membres vérifiés</p>
+                            </div>
+                            <div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
 
-
-                                <div class="checkVelo">
-                                    <div class="MembresVrifis">
-                                        <p>Etre connecté uniquement par des membres vérifiés</p>
-                                    </div>
-                                    <div>
-                                        <label class="switch">
-                                            <input type="checkbox">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-lg-6 progressbarVelo">
-                                    <div><p>Annonce complété à :</p></div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                                    </div>
-
-                                </div>
-
-
+                        <div class="col-12 col-lg-6 progressbarVelo">
+                            <div><p>Annonce complété à :</p></div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,12 +81,13 @@
                             <li><a href="#">Supprimer le velo</a></li>
                         </ul>
                     </div>
-                    <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p>
-                    </div>
+
                 </div>
                 <!-- formulaire -->
                 <div  class="col-12 col-8 col-lg-7 formulaireVelo">
                     {% include formulaire %}
+                </div>
+                <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p>
                 </div>
             </div>
         </div>
