@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-12">
                     {{ form_label(form.genre) }}
-                    <div id="appbundle_membre_genre" class="row">
+                    <div id="appbundle_membre_genre" class="row justify-content-center">
                         {% for genre in genres %}
-                            <label class="containergreen col-4">
-                                <input type="radio" id="appbundle_membre_genre_{{ genre.id }}" name="appbundle_membre[genre]" required="required" value="{{ genre.id }}">
+                            <label class="containergreen col-3 ">
+                                <input type="radio" {% if membre.genre==genre %}checked{% endif %} id="appbundle_membre_genre_{{ genre.id }}" name="appbundle_membre[genre]" required="required" value="{{ genre.id }}">
                                 <span class="checkmark"></span>
                                 <label class="form-check-label required" for="appbundle_membre_genre_{{ genre.id }}">{{ genre.genre }}</label>
                             </label>

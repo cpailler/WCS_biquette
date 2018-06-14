@@ -100,6 +100,6 @@ class LocTel
      */
     public function __toString()
     {
-        return $this->pays."(".$this->indice.")";
+        return $this->pays." (".$this->indice.")";
     }
 }

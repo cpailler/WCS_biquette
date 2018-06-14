@@ -157,6 +157,20 @@ class Velo
     private $adresseVelo;
 
     /**
+     * @var float|null
+     *
+     * @ORM\Column(name="latitude", type="float", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="longitude", type="float", length=255, nullable=true)
+     */
+    private $longitude;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="caution", type="integer", nullable=true)
@@ -577,6 +591,54 @@ class Velo
     public function getAdresseVelo()
     {
         return $this->adresseVelo;
+    }
+
+    /**
+     * Set latitude.
+     *
+     * @param float|null $latitude
+     *
+     * @return Latitude
+     */
+    public function setLatitude($latitude = null)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude.
+     *
+     * @return float|null
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude.
+     *
+     * @param float|null $longitude
+     *
+     * @return Longitude
+     */
+    public function setLongitude($longitude = null)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude.
+     *
+     * @return float|null
+     */
+    public function Longitude()
+    {
+        return $this->longitudee;
     }
 
     /**

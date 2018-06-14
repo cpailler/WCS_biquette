@@ -24,7 +24,7 @@
         </div>
 
             {{ form_label(form.couleur) }}
-        <div id="appbundle_velo_couleur" class="row">
+        <div id="appbundle_velo_couleur" class="row justify-content-center">
             {% for couleur in couleurs %}
             <label class="containerradio col-md-1">
                 <input type="radio" {% if velo.couleur==couleur %}checked{% endif %} id="appbundle_VeloDescription_couleur_{{ couleur.id }}" name="appbundle_VeloDescription[couleur]" required="required" value="{{ couleur.id }}">
@@ -42,7 +42,9 @@
         {{ form_row(form.magasin) }}
         {{ form_row(form.dateAchat) }}
         {% do form.couleur.setRendered %}
-        <input type="submit" value="Edit" />
+        <div class="row justify-content-center">
+            <input class="col-6" type="submit" value="Edit" />
+        </div>
         {{ form_end(form) }}
     </div>
 </div>
