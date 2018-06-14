@@ -26,7 +26,7 @@ class VeloEquipementType extends AbstractType
         $builder
             ->add('equipements' ,EntityType::class, array(
                 'required'=>false,
-                'label'=>'Equipements',
+                'label'=> false,
                 'class'=>Equipement::class,
                 'expanded'=>true,
                 'multiple'=>true,
