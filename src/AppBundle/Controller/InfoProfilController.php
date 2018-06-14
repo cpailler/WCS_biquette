@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,29 +13,35 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * InfoProfil controller.
  *
- * @Route("informations-confidentielles")
+ * @Route("profil")
  */
 class InfoProfilController extends Controller
 {
     /**
-     * @Route("/", name="infos")
+     * @Route("/infos", name="profil_infos_confidentielles")
+     * @Method({"GET", "POST"})
      *
      */
-    public function newAction(Request $request)
+    public function InfosConfidentiellesAction(Request $request)
     {
-        $membre = new Membre(); // On instancie un objet $review de type Review.
+        $em = $this->getDoctrine()->getManager();
+        $membre=$this->getUser();
+
         $form = $this->createForm('AppBundle\Form\InfoProfilType', $membre);
         $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($membre);
-                $em->flush();
-                return $this->redirectToRoute('profil/infoProfil.html.twig', array('id' => $membre->getId()));
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($membre);
+            $em->flush();
 
-        // replace this example code with whatever you need
-        return $this->render('profil/infoProfil.html.twig',array(
-            'form'=>$form->createView()
+        }
+
+        $genres = $em->getRepository(Genre::class)->findAll();
+
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/infoProfil.html.twig',
+            'form'=>$form->createView(),
+            'membre' => $membre,
+            'genres' => $genres
         ));
     }
 }
