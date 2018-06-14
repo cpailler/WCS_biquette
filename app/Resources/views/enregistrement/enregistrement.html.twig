@@ -1,0 +1,29 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/enregistrement.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="{{ asset('images/icn-fermer.svg') }}">
+                <h5 class="modal-title align-content-center align-items-center">Inscription</h5>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form) }}
+
+                {{ form_row(form.email) }}
+                {{ form_row(form.password) }}
+
+                <input type="submit" class="bouton w-100" value="Inscription">
+
+                {{ form_row(form.conditions) }}
+                {{ form_end(form) }}
+            </div>
+
+            <div class="modal-footer">
+            <p>Vous avez déjà un compte Bikerr ? <a href="/login">Connexion</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
