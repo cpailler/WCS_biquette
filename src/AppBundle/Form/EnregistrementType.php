@@ -33,7 +33,7 @@ class EnregistrementType extends AbstractType
                 'label' => false
             ))
 
-            ->add('password', RepeatedType::class, array(
+            ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne concordent pas.',
 
