@@ -21,7 +21,7 @@
   "homepage": "https://github.com/BikerrFrance/bikerr#readme",
   "dependencies": {
     "@symfony/webpack-encore": "^0.20.1",
-    "ajv": "^6.5.0",
+    "ajv": "^6.5.1",
     "bootstrap": "^4.1.1",
     "install": "^0.11.0",
     "jquery": "^3.3.1",

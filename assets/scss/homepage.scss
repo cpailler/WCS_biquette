@@ -1,21 +1,5 @@
 @import "main.scss";
 
-@media all and (max-device-width: 768px)
-{
-  .container_velo {
-    width: 90%;
-    margin: auto;
-  }
-}
-
-@media all and (max-device-width: 480px)
-{
-  .container_velo {
-    width: 100%;
-    margin: auto;
-  }
-}
-
 .btn-rejoindre {
   @extend .bouton;
   display: inline;
@@ -104,7 +88,6 @@
 }
 
 .container_velo {
-  width: 80%;
   margin: auto;
 }
 
@@ -166,5 +149,36 @@
 .town_square{
   background-color: $bikerr-green;
   padding-bottom: 100%;
+}
+
+@media (max-width: 576px)
+{
+  .container_velo {
+    width: 100%;
+  }
+
+  .bikerr_container {
+    padding-right: 1em;
+    padding-left: 1em;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px)
+{
+  .container_velo {
+    width: 90%;
+  }
+
+  .bikerr_container {
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+  }
+}
+
+@media (min-width: 769px)
+{
+  .container_velo {
+    width: 80%;
+  }
 }
 
