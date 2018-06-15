@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Homepage controller.
  *
- * @Route("homepage")
+ * @Route("/")
  */
 class HomepageController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="/")
      *
      */
     public function indexAction(request $request)
