@@ -32,6 +32,12 @@ body{
   color: $bikerr-green !important;
 }
 
+.pts_navbar {
+  display: inline-block;
+  color: $bikerr-green;
+  text-align: right;
+}
+
 .basic-navbar {
   background-color: white;
 }

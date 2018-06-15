@@ -9,9 +9,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Velo;
 use AppBundle\Entity\Couleur;
+use AppBundle\Entity\Membre;
 use AppBundle\Form\VeloDescriptionType;
+use AppBundle\Form\VeloAntivolType;
+use AppBundle\Form\VeloEquipementType;
 use AppBundle\Repository\CouleurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -46,16 +50,25 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
+        //test pour connection avec FOSUserBundle
 
+      /*  $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserBy(array('membre' => 'email'));
+        var_dump($user);*/
+
+        //fin de test
+
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
         $form->handleRequest($request);
-        $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
+        $couleurs=$em->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
         }
 
-        //TODO replace view with correct viewpath
-        return $this->render('velo/description.html.twig', array(
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
             'couleurs'=>$couleurs
@@ -74,51 +87,49 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/equipement", name="velo_equipement")
+     * @Route("/{id}/equipement", name="velo_equipement")
+     * @Method({"GET", "POST"})
      *
      */
-    public function equipementAction(request $request)
+    public function equipementAction(request $request, Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/equipement.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(VeloEquipementType::class, $velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+        }
+
+
+        $equipements = $em->getRepository(Equipement::class)->findAll();
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/equipement.html.twig',
+            'form'=>$form->createView(),
+            'velo'=>$velo,
+            'equipements'=>$equipements
+        ));
     }
 
     /**
-     * @Route("/antivol", name="velo_antivol")
+     * @Route("/{id}/antivol", name="velo_antivol")
+     * @Method({"GET", "POST"})
      *
      */
-    public function antivolAction(request $request)
+    public function antivolAction(request $request, Velo $velo)
     {
-        $velo = new Velo();
-        $velo->getAntivolKey();
-        $velo->getAntivolCode();
-        $velo->getBicycode();
+        $form = $this->createForm(VeloAntivolType::class,$velo);
+        $form->handleRequest($request);
 
-        $form = $this->createFormBuilder($velo)
-            ->add('antivolKey', ChoiceType::class, array(
-                'choices' => array(
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                )
-            ))
-            ->add('antivolCode', ChoiceType::class, array(
-                'choices' => array(
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                )
-            ))
-            ->add('bicycode', RadioType::class)
-            ->add('bicycode', TextType::class)
-            ->add('enregistrer', SubmitType::class, array('label' => 'Enregistrer'))
-            ->getForm();
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
 
         return $this->render('velo/antivol.html.twig', array(
-            'form' => $form->createView(),
+            'velo' => $velo,
+            'form' => $form->createView()
         ));
     }
 

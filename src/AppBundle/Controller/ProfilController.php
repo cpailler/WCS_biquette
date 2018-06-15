@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Profil controller.
  *
- * @Route("profil")
+ * @Route("/profil")
  */
 class ProfilController extends Controller
 {

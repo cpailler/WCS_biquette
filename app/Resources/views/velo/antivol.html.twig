@@ -1,75 +1,40 @@
-
-
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
 {% endblock %}
 
-
 {% block body %}
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="container-fluid">
+        <div id="antivol">
+            <h4>Antivol du vélo</h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_label(form.antivolKey) }}
+                    {{ form_errors(form.antivolKey) }}
+                    {{ form_widget(form.antivolKey) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_label(form.antivolCode) }}
+                    {{ form_errors(form.antivolCode) }}
+                    {{ form_widget(form.antivolCode) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2" id="bicycode">
+            <h4>Marquage Bicycode du vélo</h4>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_label(form.bicycode) }}
+                    {{ form_errors(form.bicycode) }}
+                    {{ form_widget(form.bicycode) }}
+                </div>
+            </div>
+        </div>
+    </div>
     {{ form_end(form) }}
 
-    <form class="form-group container">
-        <h3>Antivol du vélo</h3>
-        <div class="row">
-            <div class="col-6">
-                <label for="antivolcle">Antivol à clé</label>
-                <select class="form-control">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                </select>
-            </div>
-
-            <div class="col-6">
-                <label for="antivolcombi">Antivol à combinaison</label>
-                <select class="form-control">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="mt-4">
-            <h3>Marquage Bicycode® du vélo</h3>
-
-            <div class="row">
-
-                <div class="col-6">
-                    <label for="marquage">Est-il marqué ?</label>
-
-                    <div class="row">
-                        <div class="form-check offset-1">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="oui" value="oui" checked>
-                            <label class="form-check-label" for="oui">
-                                Oui
-                            </label>
-                        </div>
-                        <div class="form-check offset-6">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="non" value="non">
-                            <label class="form-check-label" for="non">
-                                Non
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <label for="marquage">N° Bicycode®</label>
-                    <input class="form-control" type="text" placeholder="12 chiffres">
-                </div>
-            </div>
-        </div>
-        <p class="mt-2">Le marquage BICYCODE® est le seul dispositif reconnu par l'Etat en matière de lutte contre le vol et le recel de vélos. En marquant votre vélo vous augmentez vos chances de le retrouver en cas de vol.</p>
-        {#<button class="bouton align-content-center" type="submit">Enregistrer</button>#}
-    </form>
-
+    <p>Le marquage BICYCODE® est le seul dispositif reconnu par l'Etat en matière de lutte contre le vol et le recel de vélos. En marquant votre vélo vous augmentez vos chances de le retrouver en cas de vol.</p>
 
 {% endblock %}
