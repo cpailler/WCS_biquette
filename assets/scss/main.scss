@@ -13,15 +13,28 @@ $normButton:#ffffff;
 
 .bouton {
   font-family: $font;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 16px;
   color: white;
   width: 226px;
   height: 52px;
   border-radius: 2px;
   background-color: $bikerr-green;
+  margin: auto;
+  text-shadow: none;
 }
 
 .bouton:hover {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.bouton:active {
+  background-color: #028121;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -31,22 +44,12 @@ $normButton:#ffffff;
 }
 
 .bouton-sm {
-  @extend.bouton;
+  @extend .bouton;
   width: 100px;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font, Arial, Helvetica, sans-serif;
-}
-
-a {
-  color: $bikerr-green;
-}
-
-a:hover {
-  color: $bikerr-green;
-  font-weight: bold;
-  text-decoration: none;
 }
 
 /* The switch - the box around the slider */
@@ -56,7 +59,6 @@ a:hover {
   width: 38px;
   height: 22px;
   margin-top: 1vh;
-
 }
 
 /* Hide default HTML checkbox */
@@ -113,4 +115,3 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
