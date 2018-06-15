@@ -7,19 +7,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Profil controller.
+ * Calendar controller.
  *
- * @Route("/profil")
+ * @Route("calendrier")
  */
-class ProfilController extends Controller
+class CalendarController extends Controller
 {
     /**
-     * @Route("/", name="profil")
+     * @Route("/", name="calendrier")
      *
      */
     public function indexAction(request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('profil/layoutProfil.html.twig');
+        return $this->render('velo/calendrier.html.twig');
     }
 }

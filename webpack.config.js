@@ -1,4 +1,4 @@
-var Encore = require('@symfony/webpack-encore');
+let Encore = require('@symfony/webpack-encore');
 
 Encore
 // the project directory where all compiled assets will be stored
@@ -13,10 +13,11 @@ Encore
     .addEntry('style', './assets/scss/style.scss')
     .addEntry('homepage', './assets/scss/homepage.scss')
     .addEntry('profil', './assets/scss/profil.scss')
+    // .addEntry('annonce', './assets/scss/annonce.scss')
     .addEntry('recherche', './assets/scss/recherche.scss')
     .addEntry('velo', './assets/scss/velo.scss')
     .addEntry('form', './assets/scss/form.scss')
-
+    .addEntry('enregistrement', './assets/scss/enregistrement.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()

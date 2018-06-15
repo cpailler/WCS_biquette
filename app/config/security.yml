@@ -1,9 +1,10 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-
     encoders:
-        FOS\UserBundle\Model\UserInterface: sha1
+        FOS\UserBundle\Model\UserInterface:
+            id: AppBundle\Service\CustomEncoder
+
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -19,12 +20,6 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
             pattern: ^/

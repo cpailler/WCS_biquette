@@ -12,9 +12,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Velo;
 use AppBundle\Entity\Couleur;
+use AppBundle\Entity\Membre;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
 use AppBundle\Form\VeloEquipementType;
+use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -52,9 +54,9 @@ class VeloController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
         $form->handleRequest($request);
-        $couleurs=$em->getRepository(Couleur::class)->findAll();
+        $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+            $this->getDoctrine()->getManager()->flush();
         }
 
 
@@ -125,13 +127,25 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/localisation", name="velo_localisation")
+     * @Route("/{id}/localisation", name="velo_localisation")
+     * @Method({"GET", "POST"})
      *
      */
-    public function localisationAction(request $request)
+    public function localisationAction(request $request, Velo $velo)
     {
+        $form = $this->createForm('AppBundle\Form\LocalisationType',$velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
         // replace this example code with whatever you need
-        return $this->render('velo/localisation.html.twig');
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/localisation.html.twig',
+            'velo' => $velo,
+            'form' => $form->createView()
+        ));
     }
 
     /**

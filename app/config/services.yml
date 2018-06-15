@@ -38,3 +38,10 @@ services:
         class : AppBundle\Form\EnregistrementType
         tags :
             - { name: form.type, alias: app_user_registration }
+
+    AppBundle\Controller\RegistrationController:
+        arguments:
+            $formFactory: '@fos_user.registration.form.factory'
+
+    AppBundle\Service\CustomEncoder:
+        arguments:
