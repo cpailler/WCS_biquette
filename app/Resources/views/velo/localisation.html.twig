@@ -1,10 +1,8 @@
 <h2>LOCALISATION</h2>
 {{ form_start(form) }}
-{{ form_row(form.adresse_velo) }}
-{{ form_row(form.adresse_velo) }}
-{{ form_row(form.adresse_velo) }}
-<!--<input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
-<p>Merci d'indiquer une adresse valide</p>
+{{ form_label(form.adresse_velo) }}
+{{ form_errors(form.adresse_velo) }}
+{{ form_widget(form.adresse_velo) }}
 <div id="map"></div>
 <input type="submit" value="Enregistrer" />
 {{ form_end(form) }}
