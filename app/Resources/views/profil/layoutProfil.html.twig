@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/profil.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}"
 {% endblock %}
 
 {% block body %}
@@ -53,7 +54,7 @@
             </div>
             <!-- onglets + formulaire à compléter -->
             <div  class="col-12 col-8 col-lg-7 formulaireProfil">
-
+                {% include formulaire %}
             </div>
         </div>
     </div>
