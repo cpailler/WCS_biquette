@@ -1,6 +1,4 @@
 @import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 @import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
@@ -14,19 +12,17 @@ $text-grey: #949a96;
 $normButton:#ffffff;
 
 .bouton {
+  font-family: $font;
+  font-size: 16px;
+  color: white;
+  width: 226px;
+  height: 52px;
+  border-radius: 2px;
   background-color: $bikerr-green;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
-  color: white !important;
-  margin: auto;
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .bouton:hover {
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2) inset, 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
 .bouton-lg {
@@ -41,6 +37,16 @@ $normButton:#ffffff;
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font, Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: $bikerr-green;
+}
+
+a:hover {
+  color: $bikerr-green;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 /* The switch - the box around the slider */
@@ -107,3 +113,4 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+

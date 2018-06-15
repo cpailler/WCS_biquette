@@ -1,0 +1,39 @@
+@import "main.scss";
+
+body {
+  background-image: linear-gradient(233deg, #feda5c, #59b10d);
+}
+
+#logo {
+  margin: auto;
+}
+
+.modal-body, #conditions {
+  color: $text-grey;
+  font-size: 14px;
+}
+
+.modal-footer {
+  background-color: $grey-background ;
+  color: $text-dark;
+}
+
+.modal-footer p {
+  font-size: 14px;
+}
+
+.modal-footer p, .modal-header h5 {
+  margin: auto;
+}
+
+.modal-dialog {
+  border-radius: 0 !important;
+  width: 471px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+#copyright {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+}
