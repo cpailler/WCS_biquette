@@ -37,3 +37,14 @@ body {
   color: white;
   font-size: 14px;
 }
+
+a {
+  color: $bikerr-green;
+  font-weight: bold;
+}
+
+a:hover {
+  color: $bikerr-green;
+  font-weight: bolder;
+  text-decoration: none;
+}
