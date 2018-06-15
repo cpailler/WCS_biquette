@@ -5,9 +5,23 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Equipement</title>
 </head>
 <body>
-<h1>velo equipement</h1>
+<h3>Equipement</h3>
+{{ form_start(form) }}
+{{ form_label(form.equipements) }}
+<div id="appbundle_velo_equipement" class="">
+    {% for equipement in equipements %}
+        <label class="containergreen">
+            <input type="checkbox" {% if equipement in velo.equipements  %}checked{% endif %} id="appbundle_VeloEquipment_equipements_{{ equipement.id }}" name="appbundle_VeloEquipment[equipements][]" value="{{ equipement.id }}">
+            <span class="checkmark"></span>
+            <label class="form-check-label required" for="appbundle_VeloEquipement_equipements{{ equipement.id }}">{{ equipement.equipement }}</label>
+        </label>
+    {% endfor %}
+</div>
+    {% do form.equipements.setRendered %}
+<input type="submit" value="Enregistrer" />
+{{ form_end(form) }}
 </body>
 </html>
