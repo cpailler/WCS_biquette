@@ -155,12 +155,54 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/supprimer", name="velo_supprimer")
+     * Finds and displays and delete a velo entity.
+     *
+     * @Route("/{id}/supprimer", name="velo_supprimer")
+     * @Method("GET")
+     */
+    public function supprimerAction(Velo $velo)
+    {
+        $deleteForm = $this->createDeleteForm($velo);
+
+        return $this->render('velo/layoutVelo.html.twig',array(
+            'formulaire'=>'velo/delete.html.twig',
+            'velo' => $velo,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/{id}", name="velo_delete")
+     *  @Method("DELETE")
      *
      */
-    public function deleteAction(request $request)
+    public function deleteAction(request $request,Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/delete.html.twig');
+        $form = $this->createDeleteForm($velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($velo);
+            $em->flush();
+        }
+        return $this->redirectToRoute('profil_infos');
+
+    }
+
+    /**
+     * Creates a form to delete a velo entity.
+     *
+     * @param Velo $velo The velo entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Velo $velo)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('velo_delete', array('id' => $velo->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
     }
 }
