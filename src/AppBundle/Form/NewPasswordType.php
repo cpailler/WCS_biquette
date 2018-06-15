@@ -31,7 +31,8 @@ class NewPasswordType extends AbstractType
 
         $builder
             ->remove('current_password')
-            ->remove('plainpassword')->add('current_password', PasswordType::class, array(
+            ->remove('plainpassword')
+            ->add('current_password', PasswordType::class, array(
                 'label' => 'Actuel',
                 'translation_domain' => 'FOSUserBundle',
                 'mapped' => false,
