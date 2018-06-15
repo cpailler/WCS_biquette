@@ -120,7 +120,8 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
-        return $this->render('velo/antivol.html.twig', array(
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/antivol.html.twig',
             'velo' => $velo,
             'form' => $form->createView()
         ));
