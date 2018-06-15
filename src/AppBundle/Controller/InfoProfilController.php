@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 class InfoProfilController extends Controller
 {
     /**
-     * @Route("/infos", name="profil_infos_confidentielles")
+     * @Route("/infos", name="profil_infos")
      * @Method({"GET", "POST"})
      *
      */
