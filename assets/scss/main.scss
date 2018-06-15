@@ -29,6 +29,16 @@ $normButton:#ffffff;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2) inset, 1px 1px 1px 0 rgba(0, 0, 0, 0.1);
 }
 
+.bouton-lg {
+  @extend .bouton;
+  width: 350px;
+}
+
+.bouton-sm {
+  @extend.bouton;
+  width: 100px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: $font, Arial, Helvetica, sans-serif;
 }
