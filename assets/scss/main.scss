@@ -1,6 +1,4 @@
 @import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 @import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
@@ -13,6 +11,8 @@ $text-dark: #333634;
 $text-grey: #949a96;
 
 .bouton {
+  font-family: $font;
+  font-size: 16px;
   color: white;
   width: 226px;
   height: 52px;
@@ -21,11 +21,6 @@ $text-grey: #949a96;
 }
 
 .bouton:hover {
-  color: white;
-  width: 226px;
-  height: 52px;
-  border-radius: 2px;
-  background-color: $bikerr-green;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 

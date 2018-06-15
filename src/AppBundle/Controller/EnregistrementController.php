@@ -29,6 +29,11 @@ class EnregistrementController extends Controller
     {
         $membre= new Membre();
         $form = $this->createForm(EnregistrementType::class,$membre);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
         return $this->render('enregistrement/enregistrement.html.twig', array(
             'form'=>$form->createView()
         ));

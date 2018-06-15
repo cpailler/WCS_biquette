@@ -11,8 +11,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
+/**
+ * Class EnregistrementType
+ * @package AppBundle\Form
+ */
 class EnregistrementType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -22,9 +29,7 @@ class EnregistrementType extends AbstractType
             ->add('email',TextType::class, array(
                 'attr' => array(
                     'placeholder' => 'Adresse email'),
-
                 'required' => true,
-
                 'label' => false
             ))
 
@@ -51,6 +56,7 @@ class EnregistrementType extends AbstractType
 
             ->add('conditions',CheckboxType::class, array(
                 'mapped' => false,
+                'required' => true,
                 'label' => 'En vous inscrivant vous acceptez les Conditions générales d’utilisation, les conditions de l’assurance, les modalités pratiques de Mangopay, et la politique de confidentialité de Bikerr.'
                 ));
 
