@@ -43,5 +43,7 @@ services:
         arguments:
             $formFactory: '@fos_user.registration.form.factory'
 
+
+
     AppBundle\Service\CustomEncoder:
         arguments:
