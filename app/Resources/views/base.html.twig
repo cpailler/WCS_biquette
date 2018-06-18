@@ -23,9 +23,33 @@
                 <button class="btn btn-outline-success my-2 my-sm-0 bouton-sm" type="submit">Rechercher</button>
             </form>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item navbar-border">
-                    <a class="nav-link" href="#">Aide <img src="{{ asset('images/icn-aide-over.svg') }}" alt="aide" class="navbar-icon"></a>
+                <li class="nav-item dropdown navbar-border">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aide <img src="{{ asset('images/icn-aide-over.svg') }}" alt="aide" class="navbar-icon"></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="{{ path('aide_comment') }}">Comment ça marche</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('aide_gratuit') }}">Est-ce que Bikerr est vraiment gratuit ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('aide_points') }}">À quoi servent les points ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Le dépôt de garantie, c'est quoi ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Pourquoi la vérification d'identité ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">À quoi sert l'assurance ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Quel équipement à vélo ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Comment attacher un vélo ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">C'est quoi le marquage Bicycode ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Que faire en cas de sinistre ?</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Nous contacter</a>
+                    </div>
                 </li>
+
                 <li class="nav-item navbar-border">
                     <a class="nav-link" href="#">Partage <img src="{{ asset('images/partage-over.svg') }}" alt="partage" class="navbar-icon"></a>
                 </li>
@@ -63,7 +87,6 @@
         </div>
     </nav>
 
-
 {% else %}
 
     <!-- navbar pour profil non membre / non connecté -->
@@ -80,7 +103,7 @@
         <div class="collapse navbar-collapse navigation" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto basic-navbar">
                 <li class="nav-item">
-                    <a class="nav-link onglets_nav" href="#">Comment ça marche</a>
+                    <a class="nav-link onglets_nav" href="{{ path('aide_comment') }}">Comment ça marche</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link onglets_nav" href="{{ path('fos_user_registration_register') }}">Inscription</a>

@@ -96,17 +96,6 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
-.title-announce {
-  text-align: left;
-  font-family: $font;
-}
-.title-announce span {
-  float: right;
-  color: $bikerr-green;
-  font-family: $font;
-  font-weight: bolder;
-}
-
 .crop {
   width: 100%;
   height: 200px;
@@ -174,3 +163,15 @@
   }
 }
 
+.image_aide {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+.bikerr-green {
+  color: $bikerr-green;
+}
+
+.container_aide {
+  display: flex;
+}
