@@ -102,7 +102,6 @@ class DefaultController extends Controller
         dump($transfert);
 
         $session->set('membre1', $membre1);
-        //$payout = $mangopayapi->PayOut();
 
         return $this->render('default/bankAccountRegistration.html.twig', ['cardId'=>$Carte1]);
     }
@@ -128,12 +127,22 @@ class DefaultController extends Controller
             && (isset($_POST['iban']))
             && (isset($_POST['bic'])))
                 {
-                    $Bank = $mangopayapi->InitBankAccount($membre1,$_POST['iban'],$_POST['bic'],$_POST['titul_compte'],$_POST['adresse']);
-                    dump($Bank);
+                    $firstPayment  = $mangopayapi->PayOut($membre1,50697827 ,2000,0);
+                   $Bank = $mangopayapi->InitBankAccount($membre1,$_POST['iban'],$_POST['bic'],$_POST['titul_compte'],$_POST['adresse']);
+                   dump($Bank);
+                   $session->set('Bank', $Bank);
                 }
             }
 
-        return $this->render('default/bankAccountRegistration.html.twig');
+            if(isset($Bank))
+            {
+                $Bank1 = $session->get('Bank');
+                $firstPayment  = $mangopayapi->PayOut($membre1,$Bank1 ,2000,0);
+                dump($firstPayment);
+            }
+
+
+            return $this->render('default/bankAccountRegistration.html.twig');
 
     }
 

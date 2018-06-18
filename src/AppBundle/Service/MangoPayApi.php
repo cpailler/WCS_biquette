@@ -139,20 +139,12 @@ class MangoPayApi
     }
 
     //creation BankAccount Object pour effectuer les PayOut
-    /**
-     * Create MangoUser
-     * @return MangoPay\MangoPayApi $Bank
-     * @param $iban
-     * @param $bic
-     * @param $titulaire
-     * @param $adresse
-     * @paramConverter
-     */
-    public function InitBankAccount(Membre $membre ,$iban, $bic, $titulaire, $adresse)
+
+    public function InitBankAccount(Membre $membre ,$iban, $bic, $titulaire,$adresse)
     {
-        $UserId = $membre->getIdMangopay();
+        $userId = $membre->getIdMangopay();
         $BankAccount = new \MangoPay\BankAccount();
-        $BankAccount->UserId=$membre->getIdMangopay();
+        //$BankAccount->UserId=$membre->getIdMangopay();
         $BankAccount->Type = "IBAN";
         $BankAccount->Details = new MangoPay\BankAccountDetailsIBAN();
         $BankAccount->Details->IBAN = $iban;
@@ -161,17 +153,17 @@ class MangoPayApi
         $BankAccount->OwnerAddress = new \MangoPay\Address();
         $BankAccount->OwnerAddress->AddressLine1 = $adresse;
         $BankAccount->OwnerAddress->AddressLine2 = "";
-        $BankAccount->OwnerAddress->City = "Strasbourg";
-        $BankAccount->OwnerAddress->Country = "FR";
-        $BankAccount->OwnerAddress->PostalCode = 67000;
+        $BankAccount->OwnerAddress->City = $membre->getVille();
+        $BankAccount->OwnerAddress->Country = $membre->getPays();
+        $BankAccount->OwnerAddress->PostalCode = $membre->getCodePostal();
         $BankAccount->OwnerAddress->Region = "";
         $BankAccount->Active = true;
-        return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
+        return $this->connexionApi->Users->CreateBankAccount($userId, $BankAccount);
     }
 
 
     //cloturer transfert d'argent
-    public function PayOut(Membre $membre, $amount, $fees)
+    public function PayOut(Membre $membre,\MangoPay\BankAccount $BankId, $amount, $fees)
     {
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
@@ -184,8 +176,8 @@ class MangoPayApi
         $PayOut->Fees->Amount = $fees;
         $PayOut->PaymentType = \MangoPay\PayOutPaymentType::BankWire;
         $PayOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
-        $PayOut->MeanOfPaymentDetails->BankAccountId = $_SESSION["MangoPayDemo"]["BankAccount"];
-        $result = $mangoPayApi->PayOuts->Create($PayOut);
+        $PayOut->MeanOfPaymentDetails->BankAccountId =$BankId->Id;
+        return $this->connexionApi->PayOuts->Create($PayOut);
     }
 
     // remboursement
