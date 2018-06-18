@@ -4,17 +4,23 @@ body{
   font-family: $font;
 }
 
-.navigation {
-  margin-right: 10vw;
-}
-
 .nav-color {
   display: inline-block;
-  position: absolute;
+  position: absolute !important;
+  width: 100% !important;
   z-index: 1;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0,0,0,0) !important;
   border-bottom: 0px;
   transition: background-color .5s ease 0s;
+}
+
+.nav-color .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E")
+}
+
+.nav-color .navbar-toggler {
+  background-color: #cccccc80 !important;
+  border: 1px solid $border-grey !important;
 }
 
 .onglets_nav {
@@ -26,8 +32,18 @@ body{
   color: $bikerr-green !important;
 }
 
+.pts_navbar {
+  display: inline-block;
+  color: $bikerr-green;
+  text-align: right;
+}
+
+.basic-navbar {
+  background-color: white;
+}
+
 .footer {
-  width: 100vw;
+  width: 100%;
   background-color: $bikerr-green;
   color: white;
   list-style:none;
@@ -46,6 +62,46 @@ body{
 }
 
 .conteneur_footer {
-  width: 100vw;
+  width: 100%;
   padding: 30px;
 }
+
+.navbar-icon {
+  width: 25px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.navbar-border {
+  border-right: 1px solid black;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+@media (max-width: 991px)
+{
+  .navigation {
+    margin-right: 0;
+  }
+
+  .basic-navbar {
+    background-color: white;
+  }
+
+  .basic-navbar li:hover{
+    background-color: $border-grey;
+  }
+}
+
+
+@media (min-width: 992px)
+{
+  .navigation {
+    margin-right: 10vw;
+  }
+
+  .basic-navbar {
+    background-color: transparent;
+  }
+}
+

@@ -66,4 +66,9 @@ class EtatVelo
     {
         return $this->etat;
     }
+
+    public function __toString()
+    {
+        return $this->etat;
+    }
 }

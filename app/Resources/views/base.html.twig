@@ -8,29 +8,91 @@
     <link rel="stylesheet" href="{{ asset('build/style.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
-<nav class="navbar navbar-expand-lg nav-color">
-    <ul class="navbar-nav mr-auto nav-color">
-        <li class="nav-item">
-            <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </li>
-    </ul>
-    <div class="collapse navbar-collapse navigation" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link onglets_nav" href="#">Comment ça marche</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link onglets_nav" href="#">Inscription</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link onglets_nav" href="#">Connexion</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <!-- navbar pour profils connectés -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr" style="margin-left: 20px;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" style="width: 310px;">
+                <button class="btn btn-outline-success my-2 my-sm-0 bouton-sm" type="submit">Rechercher</button>
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item navbar-border">
+                    <a class="nav-link" href="#">Aide <img src="{{ asset('images/icn-aide-over.svg') }}" alt="aide" class="navbar-icon"></a>
+                </li>
+                <li class="nav-item navbar-border">
+                    <a class="nav-link" href="#">Partage <img src="{{ asset('images/partage-over.svg') }}" alt="partage" class="navbar-icon"></a>
+                </li>
+                <li class="nav-item dropdown navbar-border">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span style="color: green; font-weight: bolder;">200</span> PTS
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                        <a class="dropdown-item" href="#">Devenez membre vérifié<div class="pts_navbar"> +500 PTS</div></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Complétez votre profil<span class="pts_navbar"> +250 PTS</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Complétez votre vélo<span class="pts_navbar"> +250 PTS</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Invitez des amis<span class="pts_navbar"> +50 PTS</span></a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Total de mes points<span class="pts_navbar">1000 PTS</span></a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ app.user.username }}<img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                        <a class="dropdown-item" href="#"><img src="{{ asset('images/icn-profil2.svg') }}" alt="partage" class="navbar-icon" style="display: inline-block">Mon profil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">Mon vélo</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Ajouter un nouveau vélo</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+{% else %}
+
+    <!-- navbar pour profil non membre / non connecté -->
+    <nav class="navbar navbar-expand-lg nav-color">
+        <a class="navbar-brand" href="/"><img src="{{ asset('images/bikerr-green.png') }}" alt="logo-bikerr" style="margin-left: 20px;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="width: 60px;">
+        <span>
+            <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                <path stroke="rgba(255, 255, 255, 1)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/>
+            </svg>
+        </span>
+        </button>
+
+        <div class="collapse navbar-collapse navigation" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto basic-navbar">
+                <li class="nav-item">
+                    <a class="nav-link onglets_nav" href="#">Comment ça marche</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link onglets_nav" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link onglets_nav" href="{{ path('fos_user_security_login') }}">Connexion</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+{% endif %}
 
 <body>
 {% block body %}{% endblock %}
@@ -68,7 +130,7 @@
                 <div class="col-md-2 col-sm-4 col-xs-2">
                     <h5>Nous suivre</h5>
                     <p style="text-align: right">
-                        <a href="#" style="float: left">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
+                        <a href="#" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
                             <a href="#" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
                         <a href="#" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
                     </p>
