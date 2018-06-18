@@ -81,3 +81,6 @@ fos_user:
             enabled: false
         form:
             type: AppBundle\Form\EnregistrementType
+    change_password :
+        form:
+            type: AppBundle\Form\NewPasswordType
