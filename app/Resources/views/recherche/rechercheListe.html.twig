@@ -17,11 +17,11 @@
                     </div>
                     <div class="container col-12 col-lg-12">
                         <div class="row annonce">
-                            {% for membre in membre %}
+                            {% for velo in velo %}
                                 <!-- annonce -->
-                                <div class="item js-marker col-6 col-lg-6" data-lat="" data-lng="">
+                                <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}">
                                     <img src="http://via.placeholder.com/400x260" alt="">
-                                    <h4>La monture de {{ membre.prenom }}</h4>
+                                    <h4>La monture de {{  }}</h4>
                                     <h6></h6>
                                 </div>
                             {% endfor %}
@@ -182,10 +182,11 @@
              * Ajouter un marker sur la carte
              * @param (string) lat
              * @param (string) lng
+             * @param (string) text
              */
-            addMarker (lat, lng) {
+            addMarker (lat, lng, text) {
                 let point = new google.maps.LatLng(lat, lng)
-                let marker = new this.textMarker(point, this.map)
+                let marker = new this.textMarker(point, this.map, text)
                 this.bounds.extend(point)
             }
 
@@ -196,15 +197,15 @@
                 this.map.panToBounds(this.bounds)
                 this.map.fitBounds(this.bounds)
             }
-            map.centerMap()
         }
 
         const initMap = async function () {
            let map = new GoogleMap()
            await map.load($map)
            Array.from(document.querySelectorAll('.item')).forEach(function (item) {
-               map.addMarker(item.dataset.lat, item.dataset.lng)
+               map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price)
            })
+           map.centerMap()
         }
 
         if ($map !== null) {

@@ -638,7 +638,7 @@ class Velo
      */
     public function Longitude()
     {
-        return $this->longitudee;
+        return $this->longitude;
     }
 
     /**

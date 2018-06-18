@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Velo;
 
 /**
  * Profil controller.
@@ -24,18 +25,12 @@ class RechercheListeController extends Controller
     public function indexAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $membre = $em->getRepository('AppBundle:Membre')->findAll();
-        $photoVelo = $em->getRepository('AppBundle:PhotoVelo')->findAll();
-        $velo = $em->getRepository('AppBundle:Velo')->findAll();
-        $typeVelo = $em->getRepository('AppBundle:TypeVelo')->findAll();
+        $search = $em->getRepository(AppBundle:Velo)->searchAnnonces();
 
         // replace this example code with whatever you need
         return $this->render('recherche/rechercheListe.html.twig', array(
-            'membre' => $membre,
-            'photoVelo' => $photoVelo,
-            'velo' => $velo,
-            'typeVelo' => $typeVelo,
+            'search' => $search,
         ));
     }
 }
+

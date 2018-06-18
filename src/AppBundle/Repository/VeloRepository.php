@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class VeloRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function searchAnnonces()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT velo.cout_pts, velo.latitude, velo.longitude, membre.avatar_image, type_velo.type, photo_velo.image, membre.prenom
+            FROM AppBundle:Velo
+                JOIN AppBundle:Membre ON velo.proprio_id = membre.id
+                    JOIN AppBundle:TypeVelo ON velo.type_velo_id = type_velo.id
+                        JOIN AppBundle:PhotoVelo ON velo.id = photo_velo.velo_id'
+            )
+            ->getResult();
+
+    }
 }
