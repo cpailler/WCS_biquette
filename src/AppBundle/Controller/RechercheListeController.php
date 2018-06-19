@@ -25,11 +25,13 @@ class RechercheListeController extends Controller
     public function indexAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $search = $em->getRepository(AppBundle:Velo)->searchAnnonces();
+        $velo=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findAll();
+        $search = $em->getRepository('AppBundle:Velo')->searchAnnonces();
 
         // replace this example code with whatever you need
         return $this->render('recherche/rechercheListe.html.twig', array(
             'search' => $search,
+            'velo' => $velo
         ));
     }
 }
