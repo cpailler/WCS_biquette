@@ -74,9 +74,11 @@
                         {{ app.user.username }}<img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
-                        <a class="dropdown-item" href="#"><img src="{{ asset('images/icn-profil2.svg') }}" alt="partage" class="navbar-icon" style="display: inline-block">Mon profil</a>
+                        <a class="dropdown-item" href="{{ path('profil_infos') }}"><img src="{{ asset('images/icn-profil2.svg') }}" alt="partage" class="navbar-icon" style="display: inline-block">Mon profil</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">Mon vélo</a>
+                        {% for velo in membre.velos %}
+                        <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">Mon vélo</a>
+                        {% endfor %}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Ajouter un nouveau vélo</a>
                         <div class="dropdown-divider"></div>
@@ -106,7 +108,7 @@
                     <a class="nav-link onglets_nav" href="{{ path('aide_comment') }}">Comment ça marche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link onglets_nav" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                    <a class="nav-link onglets_nav" href="{{ path('enregistrement') }}">Inscription</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link onglets_nav" href="{{ path('fos_user_security_login') }}">Connexion</a>

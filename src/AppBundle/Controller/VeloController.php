@@ -26,6 +26,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Form\CalendrierType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Velo controller.
@@ -51,6 +53,7 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
+        $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
         $form->handleRequest($request);
@@ -64,18 +67,23 @@ class VeloController extends Controller
             'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
-            'couleurs'=>$couleurs
+            'couleurs'=>$couleurs,
+            'membre' => $membre
         ));
 
     }
 
     /**
-     * @Route("/photos", name="velo_photos")
+     * @Route("/{id}/photos", name="velo_photos")
      *
      */
     public function photosAction(request $request)
     {
         // replace this example code with whatever you need
+        $membre = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        //à finir
+
         return $this->render('velo/photos.html.twig');
     }
 
@@ -86,6 +94,7 @@ class VeloController extends Controller
      */
     public function equipementAction(request $request, Velo $velo)
     {
+        $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(VeloEquipementType::class, $velo);
         $form->handleRequest($request);
@@ -102,7 +111,8 @@ class VeloController extends Controller
             'formulaire'=>'velo/equipement.html.twig',
             'form'=>$form->createView(),
             'velo'=>$velo,
-            'equipements'=>$equipements
+            'equipements'=>$equipements,
+            'membre' =>$membre
         ));
     }
 
@@ -113,6 +123,7 @@ class VeloController extends Controller
      */
     public function antivolAction(request $request, Velo $velo)
     {
+        $membre = $this->getUser();
         $form = $this->createForm(VeloAntivolType::class,$velo);
         $form->handleRequest($request);
 
@@ -123,7 +134,8 @@ class VeloController extends Controller
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/antivol.html.twig',
             'velo' => $velo,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'membre' =>$membre
         ));
     }
 
@@ -134,6 +146,7 @@ class VeloController extends Controller
      */
     public function localisationAction(request $request, Velo $velo)
     {
+        $membre = $this->getUser();
         $form = $this->createForm('AppBundle\Form\LocalisationType',$velo);
         $form->handleRequest($request);
 
@@ -145,28 +158,53 @@ class VeloController extends Controller
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/localisation.html.twig',
             'velo' => $velo,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'membre' => $membre
         ));
     }
 
     /**
-     * @Route("/calendrier", name="velo_calendrier")
-     *
+     * @Route("/{id}/calendrier", name="velo_calendrier")
+     * @Method({"GET", "POST"})
      */
-    public function calendrierAction(request $request)
+    public function calendrierAction(request $request, Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/calendrier.html.twig');
+        $membre = $this->getUser();
+        $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/calendrier.html.twig',
+            'velo' => $velo,
+            'form' => $form->createView(),
+            'membre' =>$membre
+        ));
     }
 
     /**
-     * @Route("/points", name="velo_points")
+     * @Route("/{id}/points", name="velo_points")
      *
      */
-    public function pointsAction(request $request)
+    public function pointsAction(request $request, Velo $velo)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/points.html.twig');
+        $membre = $this->getUser();
+        $form = $this->createForm('AppBundle\Form\PointsType',$velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/points.html.twig',
+            'velo' => $velo,
+            'form' => $form->createView(),
+            'membre' =>$membre
+        ));
     }
 
     /**
