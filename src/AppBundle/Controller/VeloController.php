@@ -46,10 +46,22 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
+        //le vélo a les données récupéré en base de données
+        //automatiquement par doctrine et le conteneur de services
+        //par rapport aux données {id} rentrées dans l'URL
 
+        //on crée un formulaire avec createForm
+        //qui sera rempli en fonction des valeurs du vélo
+        // !!! maintenant, le formulaire et l'entité velo sont liés !!!
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
+        //on regarde avec handlerequest dans la requete
+        //si il y a des données POST (donc, de formulaire submité)
+        //qui pourrait nous permettre de modifier l'objet velo
         $form->handleRequest($request);
+        //on récupère toutes les couleurs de la base avec un findAll()
         $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
+        //on verifie qu'on a reçu un formulaire en POST
+        //on verifie que le formulaire est valide
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
@@ -69,8 +81,22 @@ class VeloController extends Controller
      */
     public function photosAction(request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/photos.html.twig');
+        $photoVelo = new Photovelo();
+        $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($photoVelo);
+            $em->flush();
+
+            return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
+        }
+
+        return $this->render('photovelo/new.html.twig', array(
+            'photoVelo' => $photoVelo,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
