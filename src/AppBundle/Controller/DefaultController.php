@@ -25,26 +25,29 @@ class DefaultController extends Controller
         //membre 1
         $membreMP = new Membre();
         $membreMP->setEmail('luc.camarche@gmail.com');
-        $membreMP->setNom('CAMARCHE');
-        $membreMP->setPrenom('Luc');
+        $membreMP->setNom('Bug');
+        $membreMP->setPrenom('skywalker');
         $membreMP->setDateNaissance(new \DateTime('17-03-1988'));
         $membreMP->setPays('FR');
         //membre2
         $membreMP1 = new Membre();
         $membreMP1->setEmail('atomic67200@gmail.com');
-        $membreMP1->setNom('CAMARCHE');
-        $membreMP1->setPrenom('Aurélien');
+        $membreMP1->setNom('Bug');
+        $membreMP1->setPrenom('bugsbunny');
         $membreMP1->setDateNaissance(new \DateTime('28-04-1984'));
         $membreMP1->setPays('FR');
 
         //creation d'un membre Mango Pay à partir des membres en base
         $membreMP->setIdMangopay($mangopayapi->CreateNaturalUser($membreMP));
         $membreMP1->setIdMangopay($mangopayapi->CreateNaturalUser($membreMP1));
+        //dump($membreMP);
+        //dump($membreMP1);
 
         //on crée les wallets à partir des membres
         $membreMP->setIdWallet($mangopayapi->CreateWallet($membreMP));
         $membreMP1->setIdWallet($mangopayapi->CreateWallet($membreMP1));
-
+        //dump($membreMP);
+        //dump($membreMP1);
         //cartes
         $card1 = $mangopayapi->CardRegistration($membreMP);
         $card2 = $mangopayapi->CardRegistration($membreMP1);
@@ -62,7 +65,7 @@ class DefaultController extends Controller
         //on défini une valeur de retour d'URL pour pouvoir enregistrer la carte chez nous
         $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
         $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
-        $returnUrl .= 'cardRegistration';
+        $returnUrl .= 'cardRegisterForm';
         $session->set('returnUrl', $returnUrl);
         //appel de la vue
         return $this->render('default/cardRegisterForm.html.twig', [
@@ -72,7 +75,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/cardRegistration", name="carte")
+     * @Route("/cardRegisterForm", name="carte")
      */
     public function cardRegisterAction(Request $request, MangoPayApi $mangopayapi)
     {
@@ -83,8 +86,11 @@ class DefaultController extends Controller
         $membre1 = $session->get('membre1');
         $membre2 = $session->get('membre2');
         //on récupere le CardRegistration envoyé en Get
-        $Carte1 = $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
-        dump($Carte1);
+        $CarteUpdated = $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
+
+        if ($CarteUpdated->Status != \MangoPay\CardRegistrationStatus::Validated || !isset($CarteUpdated->CardId))
+            die('<div style="color:red;">Cannot create card. Payment has not been created.<div>');
+        dump($CarteUpdated);
 
         //on défini la somme à envoyer
         //et les frais
@@ -96,18 +102,18 @@ class DefaultController extends Controller
         //on génère un PayIn de membre1
         //on récupère le résultat de la génération du PayIn
         //si il est OK, on peut proceder au transfert
-        $resultatDuPayIn = $mangopayapi->PayIn($membre1, $Carte1, $Amount, $fees);
+        $resultatDuPayIn = $mangopayapi->PayIn($membre1, $CarteUpdated, $Amount, $fees);
         dump("resultat PayIn");
         dump($resultatDuPayIn);
 
         //si le resultat du PayIn est mauvais, on s'arrache
-        /*if ($resultatDuPayIn->Status != "SUCCEEDED")
+        if ($resultatDuPayIn->Status != "SUCCEEDED")
         {
             echo "Carte de paiement invalide.";
             die();
             Header('Location: /');
             exit();
-        }*/
+        }
         $transfert =$mangopayapi->transfert($membre1, $membre2, $Amount, $fees);
         dump($transfert);
 
