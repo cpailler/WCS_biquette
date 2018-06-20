@@ -62,7 +62,7 @@ class DefaultController extends Controller
         //on défini une valeur de retour d'URL pour pouvoir enregistrer la carte chez nous
         $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
         $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
-        $returnUrl .= 'cardRegisterForm';
+        $returnUrl .= 'cardRegistration';
         $session->set('returnUrl', $returnUrl);
         //appel de la vue
         return $this->render('default/cardRegisterForm.html.twig', [
@@ -72,7 +72,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/cardRegisterForm", name="carte")
+     * @Route("/cardRegistration", name="carte")
      */
     public function cardRegisterAction(Request $request, MangoPayApi $mangopayapi)
     {
@@ -83,25 +83,37 @@ class DefaultController extends Controller
         $membre1 = $session->get('membre1');
         $membre2 = $session->get('membre2');
         //on récupere le CardRegistration envoyé en Get
-        $Carte= $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
+        $Carte1 = $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
+        dump($Carte1);
+
         //on défini la somme à envoyer
         //et les frais
-        $Amount = 4900;  // 49€€€
-        //les frais sont à 5% aujourd'hui car Bikerr ne
+        $Amount = 2500;
+        //les frais sont à 0 aujourd'hui car Bikerr ne
         //preleve pas d'argent sur un pret de velo
         //cette valeur sera a calculer pour les cautions (%5)
         $fees = 0;
         //on génère un PayIn de membre1
         //on récupère le résultat de la génération du PayIn
         //si il est OK, on peut proceder au transfert
-        $resultatDuPayIn = $mangopayapi->CreateDirectCardPayIn($membre1,$Carte, $Amount, $fees);
-        //$resultatDuPayIn2 = $mangopayapi->CreateDirectCardPayIn($membre2,$Amount, $fees);
+        $resultatDuPayIn = $mangopayapi->PayIn($membre1, $Carte1, $Amount, $fees);
+        dump("resultat PayIn");
         dump($resultatDuPayIn);
-        $Amount2 = 10;
-        $transfert =$mangopayapi->transfert($membre1, $membre2, $Amount2, $fees);
+
+        //si le resultat du PayIn est mauvais, on s'arrache
+        /*if ($resultatDuPayIn->Status != "SUCCEEDED")
+        {
+            echo "Carte de paiement invalide.";
+            die();
+            Header('Location: /');
+            exit();
+        }*/
+        $transfert =$mangopayapi->transfert($membre1, $membre2, $Amount, $fees);
         dump($transfert);
 
         $session->set('membre1', $membre1);
+        //$payout = $mangopayapi->PayOut();
+
 
         return $this->render('default/bankAccountRegistration.html.twig', ['cardId'=>$Carte1]);
     }

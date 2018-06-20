@@ -90,14 +90,14 @@ class MangoPayApi
     }
 
     //création d'une PayIn Card
-    public function CreateDirectCardPayIn(Membre $membre, \MangoPay\Card $CardObject, $amount, $fees)
+    public function PayIn(Membre $membre, \MangoPay\CardRegistration $Card, $amount, $fees)
     {
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
         $PayIn->AuthorId = $membre->getIdMangopay();
-        // $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
-        //
-        // $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
+        $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
+        $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+        $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
         $PayIn->DebitedFunds = new \MangoPay\Money();
         $PayIn->DebitedFunds->Currency = "EUR";
         $PayIn->DebitedFunds->Amount = $amount;
@@ -110,7 +110,7 @@ class MangoPayApi
         //$PayIn->ExecutionDetails->CardId = $Card->CardId;
         //$PayIn->ExecutionDetails->SecureMode="DEFAULT";
         //$PayIn->ExecutionDetails->Culture = "FR";
-        dump($Card->Id);
+        //dump($Card->Id);
         //TODO : Paiement type direct
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
@@ -141,7 +141,7 @@ class MangoPayApi
     //creation BankAccount Object pour effectuer les PayOut
     /**
      * Create MangoUser
-     * @return MangoPay\BankAccount $Bank
+     * @return MangoPay\MangoPayApi $Bank
      * @param $iban
      * @param $bic
      * @param $titulaire
@@ -152,7 +152,7 @@ class MangoPayApi
     {
         $UserId = $membre->getIdMangopay();
         $BankAccount = new \MangoPay\BankAccount();
-        //$BankAccount->UserId=$membre->getIdMangopay();
+        $BankAccount->UserId=$membre->getIdMangopay();
         $BankAccount->Type = "IBAN";
         $BankAccount->Details = new MangoPay\BankAccountDetailsIBAN();
         $BankAccount->Details->IBAN = $iban;
@@ -171,7 +171,7 @@ class MangoPayApi
 
 
     //cloturer transfert d'argent
-    public function PayOut(Membre $membre,\MangoPay\BankAccount $Bank,$amount, $fees)
+    public function PayOut(Membre $membre, $amount, $fees)
     {
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
@@ -184,12 +184,12 @@ class MangoPayApi
         $PayOut->Fees->Amount = $fees;
         $PayOut->PaymentType = \MangoPay\PayOutPaymentType::BankWire;
         $PayOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
-        $PayOut->MeanOfPaymentDetails->BankAccountId = $Bank->Id;
-        return $this->connexionApi->PayOuts->Create($PayOut);
+        $PayOut->MeanOfPaymentDetails->BankAccountId = $_SESSION["MangoPayDemo"]["BankAccount"];
+        $result = $mangoPayApi->PayOuts->Create($PayOut);
     }
 
     // remboursement
-    /*public function Refund()
+    public function Refund()
     {
         $PayInId = $_SESSION["MangoPayDemo"]["PayInCardWeb"];
         $Refund = new \MangoPay\Refund();
@@ -216,6 +216,6 @@ class MangoPayApi
         $Refund->Fees->Currency = "EUR";
         $Refund->Fees->Amount = -150;
         $result = $mangoPayApi->Transfers->CreateRefund($TransferId, $Refund);
-    }*/
+    }
 }
     //preauthporization valable 7jour pour caution
