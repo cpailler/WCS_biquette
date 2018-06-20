@@ -83,11 +83,7 @@ class DefaultController extends Controller
         $membre1 = $session->get('membre1');
         $membre2 = $session->get('membre2');
         //on récupere le CardRegistration envoyé en Get
-
-
         $Carte= $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
-
-        dump($Carte);
         //on défini la somme à envoyer
         //et les frais
         $Amount = 4900;  // 49€€€
@@ -101,7 +97,7 @@ class DefaultController extends Controller
         $resultatDuPayIn = $mangopayapi->CreateDirectCardPayIn($membre1,$Carte, $Amount, $fees);
         //$resultatDuPayIn2 = $mangopayapi->CreateDirectCardPayIn($membre2,$Amount, $fees);
         dump($resultatDuPayIn);
-        $Amount2 = 2900;
+        $Amount2 = 10;
         $transfert =$mangopayapi->transfert($membre1, $membre2, $Amount2, $fees);
         dump($transfert);
 
@@ -112,7 +108,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/FormBankAccount", name="FormBankAccount")
+     * @Route("/FormBankAccount", name="Form")
      * @Method()
      */
     public function FormBankAccountAction(Request $request,MangoPayApi $mangopayapi)
@@ -131,18 +127,10 @@ class DefaultController extends Controller
             && (isset($_POST['iban']))
             && (isset($_POST['bic'])))
                 {
-                   $Bank = $mangopayapi->InitBankAccount($membre1,$_POST['iban'],$_POST['bic'],$_POST['titul_compte'],$_POST['adresse']);
-                   dump($Bank);
-                    $firstPayment  = $mangopayapi->PayOut($membre1,$Bank,2000,0);
-                    dump($firstPayment);
-
-                    //$session->set('Bank', $Bank);
+                    $Bank = $mangopayapi->InitBankAccount($membre1,$_POST['iban'],$_POST['bic'],$_POST['titul_compte'],$_POST['adresse']);
+                    dump($Bank);
                 }
             }
-        //$BankAccount = $session->get('Bank');
-
-
-
 
             return $this->render('default/bankAccountRegistration.html.twig');
 
