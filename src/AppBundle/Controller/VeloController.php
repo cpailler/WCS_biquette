@@ -12,6 +12,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Velo;
 use AppBundle\Entity\Couleur;
+use AppBundle\Entity\PhotoVelo;
 use AppBundle\Entity\Membre;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
@@ -75,7 +76,6 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
-
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
@@ -83,16 +83,16 @@ class VeloController extends Controller
             'couleurs'=>$couleurs,
             'membre' => $membre
         ));
-
     }
 
     /**
      * @Route("/{id}/photos", name="velo_photos")
      *
      */
-    public function photosAction(request $request)
+    public function photosAction(request $request, Velo $velo)
     {
         $photoVelo = new Photovelo();
+        $membre = $this->getUser();
         $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
         $form->handleRequest($request);
 
@@ -104,9 +104,12 @@ class VeloController extends Controller
             return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
         }
 
-        return $this->render('photovelo/new.html.twig', array(
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'photovelo/new.html.twig',
             'photoVelo' => $photoVelo,
+            'velo'=>$velo,
             'form' => $form->createView(),
+            'membre' => $membre
         ));
     }
 

@@ -34,6 +34,4 @@ class PhotoVeloType extends AbstractType
     {
         return 'appbundle_photovelo';
     }
-
-
 }
