@@ -5,23 +5,33 @@
         <input type="hidden" name="data" value="{{ card.PreregistrationData }}" />
         <input type="hidden" name="accessKeyRef" value="{{ card.AccessKey }}" />
         <input type="hidden" name="returnURL" value="{{ returnUrl }}" />
+
         <div id="info_suite_paiement">
+
             <div class="row interzone">
+
                 <div class="form-group col-md-offset-1 col-sm-offset-1 col-xs-offset-1 col-md-5 col-sm-5 col-xs-10 ajust_input_mob" style="padding-left: 0">
                     <label class="Medium" for="cardNumber" style="font-weight: normal" >N° de carte <font color="#009925">*</font></label>
-                    <input type="text" name="cardNumber" id="number" class="form-control" maxlength="16" placeholder="1234567890123456" oninput="check_infos()">
+                    <input type="text" name="cardNumber" id="number" class="form-control" maxlength="16" placeholder="1234567890123456" >
                 </div>
+
                 <div class="form-group col-md-3 col-sm-3 col-xs-offset-1 col-sm-offset-0 col-xs-5 adapt_exp">
                     <label class="Medium" for="cardExpirationDate" style="font-weight: normal" >Expiration <font color="#009925">*</font></label>
-                    <input type="text" name="cardExpirationDate" id="security" class="form-control" maxlength="4" placeholder="MMAA" oninput="check_infos()">
+                    <input type="text" name="cardExpirationDate" id="security" class="form-control" maxlength="4" placeholder="MMAA">
                 </div>
+
                 <div class="form-group col-md-2 col-sm-2 col-xs-5 adapt_exp" style="padding-right: 0">
                     <label class="Medium"  for="cardCvx" style="font-weight: normal" >CVV<font color="#009925">*</font></label>
-                    <input type="text" name="cardCvx" id="code_postal" class="form-control" maxlength="3" placeholder="123" oninput="check_infos()">
+                    <input type="text" name="cardCvx" id="code_postal" class="form-control" maxlength="3" placeholder="123">
                 </div>
+
+                <!--<div class="form-group col-md-2 col-sm-2 col-xs-5 adapt_exp" style="padding-right: 0">
+                    <label class="control-label Medium text_input" for="password" style="font-weight: normal">Password <font color="#009925">*</font></label>
+                    <input type="text" name="password" id="password" class="form-control" placeholder="password" maxlength="11">
+                </div>-->
             </div>
         </div>
-        <input type="hidden" name="type" id="type_creditcard">
+        <!--<input type="hidden" name="type" id="type_creditcard">-->
         <input type="submit" class="DemiBold" style="margin-bottom: 128px; letter-spacing: 0.4px" value="ENREGISTRER" id="enregistrer" />
     </form>
 {% endblock %}

@@ -62,7 +62,7 @@ class DefaultController extends Controller
         //on défini une valeur de retour d'URL pour pouvoir enregistrer la carte chez nous
         $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
         $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
-        $returnUrl .= 'cardRegistration';
+        $returnUrl .= 'cardRegisterForm';
         $session->set('returnUrl', $returnUrl);
         //appel de la vue
         return $this->render('default/cardRegisterForm.html.twig', [
@@ -72,7 +72,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/cardRegistration", name="carte")
+     * @Route("/cardRegisterForm", name="carte")
      */
     public function cardRegisterAction(Request $request, MangoPayApi $mangopayapi)
     {
@@ -83,7 +83,11 @@ class DefaultController extends Controller
         $membre1 = $session->get('membre1');
         $membre2 = $session->get('membre2');
         //on récupere le CardRegistration envoyé en Get
+
+
         $Carte= $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
+
+        dump($Carte);
         //on défini la somme à envoyer
         //et les frais
         $Amount = 4900;  // 49€€€
@@ -97,7 +101,7 @@ class DefaultController extends Controller
         $resultatDuPayIn = $mangopayapi->CreateDirectCardPayIn($membre1,$Carte, $Amount, $fees);
         //$resultatDuPayIn2 = $mangopayapi->CreateDirectCardPayIn($membre2,$Amount, $fees);
         dump($resultatDuPayIn);
-        $Amount2 = 10;
+        $Amount2 = 2900;
         $transfert =$mangopayapi->transfert($membre1, $membre2, $Amount2, $fees);
         dump($transfert);
 
@@ -108,7 +112,7 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/FormBankAccount", name="Form")
+     * @Route("/FormBankAccount", name="FormBankAccount")
      * @Method()
      */
     public function FormBankAccountAction(Request $request,MangoPayApi $mangopayapi)
@@ -127,19 +131,17 @@ class DefaultController extends Controller
             && (isset($_POST['iban']))
             && (isset($_POST['bic'])))
                 {
-                    $firstPayment  = $mangopayapi->PayOut($membre1,50697827 ,2000,0);
                    $Bank = $mangopayapi->InitBankAccount($membre1,$_POST['iban'],$_POST['bic'],$_POST['titul_compte'],$_POST['adresse']);
                    dump($Bank);
-                   $session->set('Bank', $Bank);
+                    $firstPayment  = $mangopayapi->PayOut($membre1,$Bank,2000,0);
+                    dump($firstPayment);
+
+                    //$session->set('Bank', $Bank);
                 }
             }
+        //$BankAccount = $session->get('Bank');
 
-            if(isset($Bank))
-            {
-                $Bank1 = $session->get('Bank');
-                $firstPayment  = $mangopayapi->PayOut($membre1,$Bank1 ,2000,0);
-                dump($firstPayment);
-            }
+
 
 
             return $this->render('default/bankAccountRegistration.html.twig');
