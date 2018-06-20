@@ -46,29 +46,7 @@ class InfoProfilController extends Controller
         ));
     }
 
-    /**
-     * @Route("/password", name="profil_password")
-     * @Method({"GET", "POST"})
-     *
-     */
 
-    public function PasswordAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $membre=$this->getUser();
 
-        $form = $this->createForm(NewPasswordType::class, $membre);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($membre);
-            $em->flush();
 
-        }
-
-        return $this->render('profil/layoutProfil.html.twig', array(
-            'formulaire'=>'profil/passwordProfil.html.twig',
-            'form'=>$form->createView(),
-            'membre' => $membre
-        ));
-    }
 }

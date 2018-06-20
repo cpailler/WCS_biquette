@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * Profil controller.
+ * Registration controller.
  *
  * @Route("register")
  */
