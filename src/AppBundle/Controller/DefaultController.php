@@ -86,6 +86,7 @@ class DefaultController extends Controller
         $membre1 = $session->get('membre1');
         $membre2 = $session->get('membre2');
         //on récupere le CardRegistration envoyé en Get
+
         $CarteUpdated = $mangopayapi->CardUpdate($Carte1,$request->query->get('data'));
 
         if ($CarteUpdated->Status != \MangoPay\CardRegistrationStatus::Validated || !isset($CarteUpdated->CardId))

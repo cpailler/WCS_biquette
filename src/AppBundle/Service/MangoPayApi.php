@@ -75,6 +75,7 @@ class MangoPayApi
         $cardRegister->CardType = "CB_VISA_MASTERCARD";
         $cardRegister->Currency = "EUR";
         return $this->connexionApi->CardRegistrations->Create($cardRegister);
+
     }
 
     // creation objet CardID
@@ -89,6 +90,7 @@ class MangoPayApi
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
 
         //$this->connexionApi->Cards->Get($result->CardId);
+
     }
 
     //création d'une PayIn Card
