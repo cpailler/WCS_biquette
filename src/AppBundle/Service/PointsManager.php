@@ -13,7 +13,7 @@ use AppBundle\Entity\Membre;
 use AppBundle\Entity\Velo;
 use Doctrine\ORM\EntityManagerInterface;
 
-class PointsManagement
+class PointsManager
 {
     protected $em;
 
@@ -72,6 +72,6 @@ class PointsManagement
      */
     public function indicativePointsValue(Velo $velo)
     {
-        return intval($velo->getTypeVelo()->getPrixMoyen()*$velo->getTypeVelo()->getCoeff()*$velo->getEtatVelo()->getCoeff());
+        return round($velo->getTypeVelo()->getPrixMoyen()*$velo->getTypeVelo()->getCoeff()*$velo->getEtatVelo()->getCoeff());
     }
 }

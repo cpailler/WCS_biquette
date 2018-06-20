@@ -145,7 +145,7 @@ class Velo
     /**
      * @var int|null
      *
-     * @ORM\Column(name="bicycode", type="integer", nullable=true)
+     * @ORM\Column(name="bicycode", type="bigint", nullable=true)
      */
     private $bicycode;
 
@@ -155,6 +155,20 @@ class Velo
      * @ORM\Column(name="adresse_velo", type="string", length=255, nullable=true)
      */
     private $adresseVelo;
+
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="latitude", type="float", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="longitude", type="float", length=255, nullable=true)
+     */
+    private $longitude;
 
     /**
      * @var int|null
@@ -168,21 +182,21 @@ class Velo
      *
      * @ORM\Column(name="assur_oblig", type="boolean")
      */
-    private $assurOblig;
+    private $assurOblig = 0;
 
     /**
      * @var int
      *
      * @ORM\Column(name="cout_pts", type="integer")
      */
-    private $coutPts;
+    private $coutPts = 0;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="dispo_totale", type="boolean")
      */
-    private $dispoTotale;
+    private $dispoTotale = 0;
 
 
     /**
@@ -580,6 +594,54 @@ class Velo
     }
 
     /**
+     * Set latitude.
+     *
+     * @param float|null $latitude
+     *
+     * @return Latitude
+     */
+    public function setLatitude($latitude = null)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude.
+     *
+     * @return float|null
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude.
+     *
+     * @param float|null $longitude
+     *
+     * @return Longitude
+     */
+    public function setLongitude($longitude = null)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude.
+     *
+     * @return float|null
+     */
+    public function Longitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
      * Set caution.
      *
      * @param int|null $caution
@@ -673,5 +735,167 @@ class Velo
     public function getDispoTotale()
     {
         return $this->dispoTotale;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->disponibilites = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add photo.
+     *
+     * @param \AppBundle\Entity\PhotoVelo $photo
+     *
+     * @return Velo
+     */
+    public function addPhoto(\AppBundle\Entity\PhotoVelo $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo.
+     *
+     * @param \AppBundle\Entity\PhotoVelo $photo
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePhoto(\AppBundle\Entity\PhotoVelo $photo)
+    {
+        return $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Add disponibilite.
+     *
+     * @param \AppBundle\Entity\Disponibilite $disponibilite
+     *
+     * @return Velo
+     */
+    public function addDisponibilite(\AppBundle\Entity\Disponibilite $disponibilite)
+    {
+        $this->disponibilites[] = $disponibilite;
+
+        return $this;
+    }
+
+    /**
+     * Remove disponibilite.
+     *
+     * @param \AppBundle\Entity\Disponibilite $disponibilite
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeDisponibilite(\AppBundle\Entity\Disponibilite $disponibilite)
+    {
+        return $this->disponibilites->removeElement($disponibilite);
+    }
+
+    /**
+     * Get disponibilites.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDisponibilites()
+    {
+        return $this->disponibilites;
+    }
+
+    /**
+     * Add reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return Velo
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        return $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Add equipement.
+     *
+     * @param \AppBundle\Entity\Equipement $equipement
+     *
+     * @return Velo
+     */
+    public function addEquipement(\AppBundle\Entity\Equipement $equipement)
+    {
+        $this->equipements[] = $equipement;
+
+        return $this;
+    }
+
+    /**
+     * Remove equipement.
+     *
+     * @param \AppBundle\Entity\Equipement $equipement
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeEquipement(\AppBundle\Entity\Equipement $equipement)
+    {
+        return $this->equipements->removeElement($equipement);
+    }
+
+    /**
+     * Get equipements.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEquipements()
+    {
+        return $this->equipements;
+    }
+
+    public function __toString()
+    {
+        if(isset($this->titre)){
+            return $this->titre;
+        }
+        return 'Vélo n° '.$this->id;
     }
 }
