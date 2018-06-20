@@ -1,13 +1,35 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>velo points</h1>
-</body>
-</html>
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="container-fluid">
+        <div id="antivol">
+            <h4>Points</h4>
+            <div class="row">
+                <p>En se basant sur les caractéristiques du vélo que vous partagez, nous vous suggérons le montant suivant
+                    de Points par jour. En partageant votre vélo, vous augmenterez votre capital de 200 Points par journée
+                    de partage. Autant de Points qui vous permettront d’accéder au vélo de votre choix quand vous en aurez
+                    besoin.</p>
+                <div class="col-sm-6">
+                    {{ form_label(form.antivolKey) }}
+                    {{ form_errors(form.antivolKey) }}
+                    {{ form_widget(form.antivolKey) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2" id="bicycode">
+            <h4>Dêpot de garantie</h4>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_label(form.bicycode) }}
+                    {{ form_errors(form.bicycode) }}
+                    {{ form_widget(form.bicycode) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    <p>Le marquage BICYCODE® est le seul dispositif reconnu par l'Etat en matière de lutte contre le vol et le recel de vélos. En marquant votre vélo vous augmentez vos chances de le retrouver en cas de vol.</p>
+
+{% endblock %}

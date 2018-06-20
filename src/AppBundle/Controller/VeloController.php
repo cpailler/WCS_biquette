@@ -165,7 +165,8 @@ class VeloController extends Controller
      */
     public function pointsAction(request $request)
     {
-        // replace this example code with whatever you need
+
+
         return $this->render('velo/points.html.twig');
     }
 
