@@ -207,4 +207,18 @@ li a {
   width: inherit;
 }
 
+/* localisation */
 
+#map {
+  height: 400px;
+  width: auto;
+}
+
+#floating-panel {
+  top: 10px;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  line-height: 30px;
+  padding-left: 10px;
+}
