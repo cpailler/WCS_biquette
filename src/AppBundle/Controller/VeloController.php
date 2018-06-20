@@ -34,6 +34,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class VeloController extends Controller
 {
+    private function securityCheck(Velo $velo)
+    {
+        if (!($velo->getProprio()==$this->getUser()))
+        {
+            return $this->redirectToRoute('annonce',['id'=>$velo->getId()]);
+        }
+        return true;
+    }
+
     /**
      * @Route("/", name="velo_index")
      *
@@ -51,12 +60,14 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
         $form->handleRequest($request);
-        $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
+        $couleurs=$em->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
         }
 
 
@@ -75,6 +86,7 @@ class VeloController extends Controller
      */
     public function photosAction(request $request)
     {
+
         // replace this example code with whatever you need
         return $this->render('velo/photos.html.twig');
     }
@@ -86,6 +98,7 @@ class VeloController extends Controller
      */
     public function equipementAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(VeloEquipementType::class, $velo);
         $form->handleRequest($request);
@@ -113,6 +126,8 @@ class VeloController extends Controller
      */
     public function antivolAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
+
         $form = $this->createForm(VeloAntivolType::class,$velo);
         $form->handleRequest($request);
 
@@ -134,6 +149,7 @@ class VeloController extends Controller
      */
     public function localisationAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
         $form = $this->createForm('AppBundle\Form\LocalisationType',$velo);
         $form->handleRequest($request);
 
@@ -150,21 +166,23 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/calendrier", name="velo_calendrier")
+     * @Route("/{id}/calendrier", name="velo_calendrier")
      *
      */
-    public function calendrierAction(request $request)
+    public function calendrierAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
         // replace this example code with whatever you need
         return $this->render('velo/calendrier.html.twig');
     }
 
     /**
-     * @Route("/points", name="velo_points")
+     * @Route("{id}/points", name="velo_points")
      *
      */
-    public function pointsAction(request $request)
+    public function pointsAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
         // replace this example code with whatever you need
         return $this->render('velo/points.html.twig');
     }
@@ -177,6 +195,7 @@ class VeloController extends Controller
      */
     public function supprimerAction(Velo $velo)
     {
+        $this->securityCheck($velo);
         $deleteForm = $this->createDeleteForm($velo);
 
         return $this->render('velo/layoutVelo.html.twig',array(
@@ -193,6 +212,8 @@ class VeloController extends Controller
      */
     public function deleteAction(request $request,Velo $velo)
     {
+        $this->securityCheck($velo);
+
         $form = $this->createDeleteForm($velo);
         $form->handleRequest($request);
 
