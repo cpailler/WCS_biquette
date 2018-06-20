@@ -55,9 +55,22 @@ class VeloController extends Controller
     {
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        //le vélo a les données récupéré en base de données
+        //automatiquement par doctrine et le conteneur de services
+        //par rapport aux données {id} rentrées dans l'URL
+
+        //on crée un formulaire avec createForm
+        //qui sera rempli en fonction des valeurs du vélo
+        // !!! maintenant, le formulaire et l'entité velo sont liés !!!
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
+        //on regarde avec handlerequest dans la requete
+        //si il y a des données POST (donc, de formulaire submité)
+        //qui pourrait nous permettre de modifier l'objet velo
         $form->handleRequest($request);
+        //on récupère toutes les couleurs de la base avec un findAll()
         $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
+        //on verifie qu'on a reçu un formulaire en POST
+        //on verifie que le formulaire est valide
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
@@ -79,12 +92,22 @@ class VeloController extends Controller
      */
     public function photosAction(request $request)
     {
-        // replace this example code with whatever you need
-        $membre = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        //à finir
+        $photoVelo = new Photovelo();
+        $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
+        $form->handleRequest($request);
 
-        return $this->render('velo/photos.html.twig');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($photoVelo);
+            $em->flush();
+
+            return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
+        }
+
+        return $this->render('photovelo/new.html.twig', array(
+            'photoVelo' => $photoVelo,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -147,41 +170,17 @@ class VeloController extends Controller
     public function localisationAction(request $request, Velo $velo)
     {
         $membre = $this->getUser();
-        $form = $this->createForm('AppBundle\Form\LocalisationType',$velo);
+        $form = $this->createForm('AppBundle\Form\LocalisationType', $velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
-
-        // replace this example code with whatever you need
         return $this->render('velo/layoutVelo.html.twig', array(
-            'formulaire'=>'velo/localisation.html.twig',
+            'formulaire' => 'velo/localisation.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
             'membre' => $membre
-        ));
-    }
-
-    /**
-     * @Route("/{id}/calendrier", name="velo_calendrier")
-     * @Method({"GET", "POST"})
-     */
-    public function calendrierAction(request $request, Velo $velo)
-    {
-        $membre = $this->getUser();
-        $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-        }
-
-        return $this->render('velo/layoutVelo.html.twig', array(
-            'formulaire'=>'velo/calendrier.html.twig',
-            'velo' => $velo,
-            'form' => $form->createView(),
-            'membre' =>$membre
         ));
     }
 
@@ -208,23 +207,6 @@ class VeloController extends Controller
     }
 
     /**
-     * Finds and displays and delete a velo entity.
-     *
-     * @Route("/{id}/supprimer", name="velo_supprimer")
-     * @Method("GET")
-     */
-    public function supprimerAction(Velo $velo)
-    {
-        $deleteForm = $this->createDeleteForm($velo);
-
-        return $this->render('velo/layoutVelo.html.twig',array(
-            'formulaire'=>'velo/delete.html.twig',
-            'velo' => $velo,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
      * @Route("/{id}", name="velo_delete")
      *  @Method("DELETE")
      *
@@ -242,6 +224,49 @@ class VeloController extends Controller
         return $this->redirectToRoute('profil_infos');
 
     }
+
+    /**
+     * @Route("/{id}/calendrier", name="velo_calendrier")
+     * @Method({"GET", "POST"})
+     */
+    public function calendrierAction(request $request, Velo $velo)
+    {
+        $membre = $this->getUser();
+        $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/calendrier.html.twig',
+            'velo' => $velo,
+            'form' => $form->createView(),
+            'membre' =>$membre
+        ));
+    }
+
+
+
+    /**
+     * Finds and displays and delete a velo entity.
+     *
+     * @Route("/{id}/supprimer", name="velo_supprimer")
+     * @Method("GET")
+     */
+    public function supprimerAction(Velo $velo)
+    {
+        $deleteForm = $this->createDeleteForm($velo);
+
+        return $this->render('velo/layoutVelo.html.twig',array(
+            'formulaire'=>'velo/delete.html.twig',
+            'velo' => $velo,
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
 
     /**
      * Creates a form to delete a velo entity.

@@ -1,4 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 @import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
@@ -22,6 +24,7 @@ $normButton:#ffffff;
   height: 52px;
   border-radius: 2px;
   background-color: $bikerr-green;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin: auto;
   text-shadow: none;
 }

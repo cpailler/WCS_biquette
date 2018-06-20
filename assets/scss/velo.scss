@@ -3,8 +3,6 @@
 #layoutVelo {
   display: flex;
   flex-direction: column;
-
-
 }
 
 .headVelo, .completeVelo {
@@ -12,11 +10,15 @@
   margin-bottom: 3vh;
 }
 
+.outilsVelo {
+  display: flex;
+  flex-direction: column;
+}
 
-.VoirAnnonce a {
+.outilsVelo a {
   font-size: 14px;
   color: $text-grey;
-  font-family: $font;
+
 }
 
 .photoVelo {
@@ -47,30 +49,42 @@
   color: $text-dark;
 }
 .progress{
-  width: 80vh;
+  width: 100%;
 }
 .cont1{
   display: flex;
   flex-direction: row;
-
+  width: 100%;
 }
 
 .progressionVelo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border: dashed 1px $border-grey;
   padding: 2vh;
 }
 
-.VoirAnnonce{
-
-  align-self: self-start;
-  float: left;
-
-
+.titre{
+  font-size: 1.2em;
 }
 
+.VoirAnnonce{
+  align-self: self-start;
+  float: left;
+}
 
+.VoirAnnonce a {
+  font-size: 14px;
+  color: $text-grey;
+  font-family: $font;
+}
+
+.infos_description{
+  font-size: 0.9em;
+  color: $text-grey;
+}
 
 .titreVelo {
   align-self: self-start;
@@ -87,7 +101,7 @@
 }
 
 .outilsVelo {
-
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -110,7 +124,17 @@
   padding: 0;
 }
 
+.checkVelo1 p {
+  font-size: 14px;
+  color: $text-dark;
+  text-align: left;
+}
 
+.checkVelo2 p {
+  font-size: 14px;
+  color: $text-dark;
+  text-align: left;
+}
 
 .checkVelo{
   display: flex;
@@ -118,10 +142,8 @@
   text-align: left;
   width: 100%;
   justify-content: space-between;
+
 }
-
-
-
 
 
 .aidePointsButton {
@@ -143,8 +165,6 @@
   color: $bikerr-green;
 }
 .VloEnLigne{
-  width: 196px;
-  height: 21px;
   font-family: $font;
   font-size: 14px;
   font-weight: bold;
@@ -154,24 +174,9 @@
   letter-spacing: normal;
   text-align: right;
   color: $text-grey;
-
-
-
-}
-.MembresVrifis{
-  width: 333px;
-  height: 21px;
-  font-family: $font;
-  font-size: 14px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.5;
-  letter-spacing: normal;
-  text-align: right;
-  color: $text-grey;
-
-
+  display: flex;
+  padding-left: 20%;
+  margin-top: auto;
 }
 
 .aidePoints {

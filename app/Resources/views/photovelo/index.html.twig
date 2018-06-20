@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Photovelos list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for photoVelo in photoVelos %}
+            <tr>
+                <td><a href="{{ path('photovelo_show', { 'id': photoVelo.id }) }}">{{ photoVelo.id }}</a></td>
+                <td>{{ photoVelo.image }}
+                    <img src="{{ asset('images/uploads/'~photoVelo.image|e) }}" alt=""></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('photovelo_show', { 'id': photoVelo.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('photovelo_edit', { 'id': photoVelo.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('photovelo_new') }}">Create a new photoVelo</a>
+        </li>
+    </ul>
+{% endblock %}
