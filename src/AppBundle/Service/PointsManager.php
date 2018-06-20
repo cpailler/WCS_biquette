@@ -74,4 +74,22 @@ class PointsManager
     {
         return round($velo->getTypeVelo()->getPrixMoyen()*$velo->getTypeVelo()->getCoeff()*$velo->getEtatVelo()->getCoeff());
     }
+
+    /**
+     * @param Membre $membre
+     * @param int $nbPts
+     *
+     * @return bool
+     */
+    public function PointsCheck(Membre $membre, int $nbPts)
+    {
+        if ($membre->getPoints()>=$nbPts)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
