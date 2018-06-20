@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="carousel-photos" class="row">
+        {% for photo in photos %}<img class="img-fluid" src="{{ velo.photo }}">{% endfor %}
+    </div>
+
+    <div id="description" class="container mt-5">
+        <div class="row">
+            <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié"><h2>{{ velo.titre }}</h2>
+        </div>
+        <h5>2 partages</h5>
+
+        <div class="row mt-5">
+            <h4 class="col-3">{{ velo.couleur }}</h4>
+            <h4 class="col-3">{{ velo.marque }}</h4>
+            <h4 class="col-3">{{ velo.typeVelo }}</h4>
+            <h4 class="col-3">{{ velo.etatVelo }}</h4>
+        </div>
+        <p>{{ velo.description }}</p>
+
+        <div id="equipement" class="container mt-5">
+            <div class="row">
+                <div class="col-6">
+                    <h4>Équipements</h4>
+                    <ul>
+                        <li>Éclairage arrière</li>
+                        <li>Garde-boue avant</li>
+                        <li>Garde-boue arrière</li>
+                        <li>Gourde</li>
+                        <li>Sonnette</li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <h4>Antivol du vélo</h4>
+                    <ul>
+                        <li>Antivol à clé</li>
+                        <li>Antivol à combinaison</li>
+                        <li>Marquage Bicycode</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5" id="carte">
+        <h4>Carte</h4>
+
+        </div>
+    </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+@import "main.scss";
+
+#carousel-photos {
+  height: 287px;
+  width: 100%;
+}
+
+body {
+  color: $text-dark;
+}
+
+h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+#description h5 {
+  color: $text-grey;
+  font-size: 14px;
+}
+
+p {
+  font-size: 14px;
+}
+
+#equipement, #carte {
+  border-top: 1px solid $text-grey;
+}
+
+#equipement, h4 {
+  font-weight: bold;
+}
+
+ul.li {
+  list-style-image: url('./images/btn-checkbox-on.svg');
+}
