@@ -49,3 +49,6 @@ services:
 
     AppBundle\Service\CustomEncoder:
         arguments:
+
+    AppBundle\Service\PointsManager:
+        arguments:
