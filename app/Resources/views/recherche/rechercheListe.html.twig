@@ -12,8 +12,9 @@
             <div class="container col-12 col-lg-7">
                 <div class="row">
                     <!-- barre de tri -->
-                    <div class="col-12 col-lg-12">
-
+                    <div class="col-12 col-lg-12 search">
+                        <input id="address" type="textbox" value="">
+                        <input id="submit" type="button" value="Rechercher">
                     </div>
                     <div class="container col-12 col-lg-12">
                         <div class="row annonce">
@@ -22,6 +23,8 @@
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     <img src="http://via.placeholder.com/400x260" alt="">
                                     <h4>La monture de {{ velo.proprio.prenom }}</h4>
+                                    <p>Pts/jour {{ velo.coutPts }}</p>
+                                    <p> blabla {{  velo.adresseVelo }}</p>
                                     <h6></h6>
                                 </div>
                             {% endfor %}
