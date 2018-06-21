@@ -19,8 +19,11 @@ class HomepageController extends Controller
      */
     public function indexAction(request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('homepage/homepage.html.twig');
+
+        $membre = $this->getUser();
+        return $this->render('homepage/homepage.html.twig', array(
+            'membre' => $membre
+        ));
     }
 
     /**
@@ -29,7 +32,9 @@ class HomepageController extends Controller
      */
     public function connectAction(request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('homepage/homepage_connect.html.twig');
+        $membre= $this->getUser();
+        return $this->render('homepage/homepage_connect.html.twig', array(
+            'membre' => $membre
+        ));
     }
 }

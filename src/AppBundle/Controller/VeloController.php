@@ -98,6 +98,7 @@ class VeloController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $photoVelo->setVelo($velo->getId());
             $em->persist($photoVelo);
             $em->flush();
 

@@ -15,7 +15,6 @@ class PhotoVeloType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('velo')
             ->add('imageFile', FileType::class);
     }/**
      * {@inheritdoc}

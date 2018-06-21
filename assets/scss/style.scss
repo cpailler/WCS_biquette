@@ -111,6 +111,16 @@ body{
   color: $bikerr-green;
 }
 
+.ongletVelo ul{
+  list-style: none;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+.ongletVelo a:hover {
+  color: $bikerr-green;
+}
+
 @media (max-width: 991px)
 {
   .navigation {
@@ -137,4 +147,5 @@ body{
     background-color: transparent;
   }
 }
+
 
