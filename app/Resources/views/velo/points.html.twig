@@ -10,9 +10,9 @@
                     de partage. Autant de Points qui vous permettront d’accéder au vélo de votre choix quand vous en aurez
                     besoin.</p>
                 <div class="col-sm-6">
-                    {{ form_label(form.antivolKey) }}
-                    {{ form_errors(form.antivolKey) }}
-                    {{ form_widget(form.antivolKey) }}
+                    {{ form_label(form.coutPts) }}
+                    {{ form_errors(form.coutPts) }}
+                    {{ form_widget(form.coutPts) }}
                 </div>
             </div>
         </div>
@@ -20,10 +20,12 @@
         <div class="mt-2" id="bicycode">
             <h4>Dêpot de garantie</h4>
             <div class="row">
+                <p>Si vous souhaitez sécuriser la transaction, nous vous conseillons de fixer un dépôt de garantie d’un
+                    montant minimum de 150 euros pour l’intégralité de la période de partage.</p>
                 <div class="col-sm-12">
-                    {{ form_label(form.bicycode) }}
-                    {{ form_errors(form.bicycode) }}
-                    {{ form_widget(form.bicycode) }}
+                    {{ form_label(form.caution) }}
+                    {{ form_errors(form.caution) }}
+                    {{ form_widget(form.caution) }}
                 </div>
             </div>
         </div>
