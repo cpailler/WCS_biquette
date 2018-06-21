@@ -98,7 +98,7 @@ class MangoPayApi
     {
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
-        $PayIn->AuthorId = $membre->getIdMangopay();
+        $PayIn->AuthorId = $membre->getIdMangopay(); //TODO : verifier author id -> qui est ce ?
         $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
