@@ -5,7 +5,6 @@
 
 {% block body %}
 
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <div class="container bloc-recherche">
         <div class="row">
@@ -14,19 +13,15 @@
                 <div class="row">
                     <!-- barre de tri -->
                     <div class="col-12 col-lg-12">
-                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+
                     </div>
-                    <div class="col-12 col-lg-12 card-block" id="formatted-address"></div>
-                    <div class="col-12 col-lg-12 card-block" id="address-components"></div>
-                    <div class="col-12 col-lg-12 card-block" id="geometry"></div>
-                    <!-- liste -->
                     <div class="container col-12 col-lg-12">
                         <div class="row annonce">
-                            {% for membre in membre %}
+                            {% for search in search %}
                                 <!-- annonce -->
-                                <div class="item col-6 col-lg-6" data-lat="" data-lng="" data-price="">
+                                <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}">
                                     <img src="http://via.placeholder.com/400x260" alt="">
-                                    <h4>La monture de {{ membre.prenom }}</h4>
+                                    <h4>La monture de {{  }}</h4>
                                     <h6></h6>
                                 </div>
                             {% endfor %}
@@ -42,133 +37,182 @@
     </div>
 
     <script>
-        //Call Geocode
-        geocode();
+        /*!
+  * $script.js JS loader & dependency manager
+  * https://github.com/ded/script.js
+  * (c) Dustin Diaz 2014 | License MIT
+  */
+        (function(e,t){typeof module!="undefined"&&module.exports?module.exports=t():typeof define=="function"&&define.amd?define(t):this[e]=t()})("$script",function(){function p(e,t){for(var n=0,i=e.length;n<i;++n)if(!t(e[n]))return r;return 1}function d(e,t){p(e,function(e){return t(e),1})}function v(e,t,n){function g(e){return e.call?e():u[e]}function y(){if(!--h){u[o]=1,s&&s();for(var e in f)p(e.split("|"),g)&&!d(f[e],g)&&(f[e]=[])}}e=e[i]?e:[e];var r=t&&t.call,s=r?t:n,o=r?e.join(""):t,h=e.length;return setTimeout(function(){d(e,function t(e,n){if(e===null)return y();!n&&!/^https?:\/\//.test(e)&&c&&(e=e.indexOf(".js")===-1?c+e+".js":c+e);if(l[e])return o&&(a[o]=1),l[e]==2?y():setTimeout(function(){t(e,!0)},0);l[e]=1,o&&(a[o]=1),m(e,y)})},0),v}function m(n,r){var i=e.createElement("script"),u;i.onload=i.onerror=i[o]=function(){if(i[s]&&!/^c|loade/.test(i[s])||u)return;i.onload=i[o]=null,u=1,l[n]=2,r()},i.async=1,i.src=h?n+(n.indexOf("?")===-1?"?":"&")+h:n,t.insertBefore(i,t.lastChild)}var e=document,t=e.getElementsByTagName("head")[0],n="string",r=!1,i="push",s="readyState",o="onreadystatechange",u={},a={},f={},l={},c,h;return v.get=m,v.order=function(e,t,n){(function r(i){i=e.shift(),e.length?v(i,r):v(i,t,n)})()},v.path=function(e){c=e},v.urlArgs=function(e){h=e},v.ready=function(e,t,n){e=e[i]?e:[e];var r=[];return!d(e,function(e){u[e]||r[i](e)})&&p(e,function(e){return u[e]})?t():!function(e){f[e]=f[e]||[],f[e][i](t),n&&n(r)}(e.join("|")),v},v.done=function(e){v([null],e)},v})
 
-        function geocode(){
-            var location = 'brumath';
-            axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
-                params:{
-                    address: location,
-                    key:'AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA'
-                }
-            })
-                .then(function(response){
-                    // Log full response
-                    console.log(response);
+        // Production steps of ECMA-262, Edition 6, 22.1.2.1
+        // Référence : https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from
+        if (!Array.from) {
+            Array.from = (function () {
+                var toStr = Object.prototype.toString;
+                var isCallable = function (fn) {
+                    return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
+                };
+                var toInteger = function (value) {
+                    var number = Number(value);
+                    if (isNaN(number)) { return 0; }
+                    if (number === 0 || !isFinite(number)) { return number; }
+                    return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+                };
+                var maxSafeInteger = Math.pow(2, 53) - 1;
+                var toLength = function (value) {
+                    var len = toInteger(value);
+                    return Math.min(Math.max(len, 0), maxSafeInteger);
+                };
 
-                    // Formatted Address
-                    var formattedAddress = response.data.results[0].formatted_address;
-                    var formattedAddressOutput = '<ul class="list-group"><li class="list-group-item">'+ formattedAddress +'</li></ul>';
+                // La propriété length de la méthode vaut 1.
+                return function from(arrayLike/*, mapFn, thisArg */) {
+                    // 1. Soit C, la valeur this
+                    var C = this;
 
-                    // Address Components
-                    var addressComponents = response.data.results[0].address_components;
-                    var addressComponentsOutput = '<ul class="list-group">';
-                    for(var i = 0;i < addressComponents.length;i++){
-                        addressComponentsOutput +=
-                            '<li class="list-group-item"><strong>'+ addressComponents[i].types[0] +'</strong>:'+ addressComponents[i].long_name +'</li>';
+                    // 2. Soit items le ToObject(arrayLike).
+                    var items = Object(arrayLike);
+
+                    // 3. ReturnIfAbrupt(items).
+                    if (arrayLike == null) {
+                        throw new TypeError("Array.from doit utiliser un objet semblable à un tableau - null ou undefined ne peuvent pas être utilisés");
                     }
-                    addressComponentsOutput += '</ul>';
 
-                    // Geometry
-                    var lat = response.data.results[0].geometry.location.lat;
-                    var lng = response.data.results[0].geometry.location.lng;
-                    var geometryOutput =
-                        '<ul class="list-group">' +
-                        '<li class="list-group-item"><strong>Latitude</strong>:'+ lat +'</li>' +
-                        '<li class="list-group-item"><strong>Longitude</strong>:'+ lng +'</li>' +
-                        '</ul>';
+                    // 4. Si mapfn est undefined, le mapping sera false.
+                    var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+                    var T;
+                    if (typeof mapFn !== 'undefined') {
+                        // 5. sinon
+                        // 5. a. si IsCallable(mapfn) est false, on lève une TypeError.
+                        if (!isCallable(mapFn)) {
+                            throw new TypeError('Array.from: lorsqu il est utilisé le deuxième argument doit être une fonction');
+                        }
 
-                    // Output to app
-                    document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
-                    document.getElementById('address-components').innerHTML = addressComponentsOutput;
-                    document.getElementById('geometry').innerHTML = geometryOutput;
-                })
-                .catch(function(error){
-                    console.log(error);
-                });
+                        // 5. b. si thisArg a été fourni, T sera thisArg ; sinon T sera undefined.
+                        if (arguments.length > 2) {
+                            T = arguments[2];
+                        }
+                    }
+
+                    // 10. Soit lenValue pour Get(items, "length").
+                    // 11. Soit len pour ToLength(lenValue).
+                    var len = toLength(items.length);
+
+                    // 13. Si IsConstructor(C) vaut true, alors
+                    // 13. a. Soit A le résultat de l'appel à la méthode interne [[Construct]] avec une liste en argument qui contient l'élément len.
+                    // 14. a. Sinon, soit A le résultat de ArrayCreate(len).
+                    var A = isCallable(C) ? Object(new C(len)) : new Array(len);
+
+                    // 16. Soit k égal à 0.
+                    var k = 0;  // 17. On répète tant que k < len…
+                    var kValue;
+                    while (k < len) {
+                        kValue = items[k];
+                        if (mapFn) {
+                            A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
+                        } else {
+                            A[k] = kValue;
+                        }
+                        k += 1;
+                    }
+                    // 18. Soit putStatus égal à Put(A, "length", len, true).
+                    A.length = len;  // 20. On renvoie A.
+                    return A;
+                };
+            }());
         }
     </script>
 
     <script>
-        // This example adds a search box to a map, using the Google Place Autocomplete
-        // feature. People can enter geographical searches. The search box will return a
-        // pick list containing a mix of places and predicted search terms.
+       let $map = document.querySelector('#map')
 
-        // This example requires the Places library. Include the libraries=places
-        // parameter when you first load the API. For example:
-        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-        function initAutocomplete() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -33.8688, lng: 151.2195},
-                zoom: 13,
-                mapTypeId: 'roadmap'
-            });
+        class GoogleMap {
+            contructor () {
+                this.map = null
+                this.bounds = null
+                this.textMarker = null
+            }
 
-            // Create the search box and link it to the UI element.
-            var input = document.getElementById('pac-input');
-            var searchBox = new google.maps.places.SearchBox(input);
-            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            /**
+             * Charge la carte sur un élément
+             * @param {HTMLElement} element
+             */
+            async load (element) {
+                return new Promise((resolve, reject) => {
+                    $script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA', () => {
+                        this.textMarker = class TextMarker extends google.maps.OverlayView {
 
-            // Bias the SearchBox results towards current map's viewport.
-            map.addListener('bounds_changed', function() {
-                searchBox.setBounds(map.getBounds());
-            });
+                            constructor (pos, map, text) {
+                                super()
+                                this.div = null
+                                this.pos = pos
+                                this.text = text
+                                this.setMap(map)
+                            }
 
-            var markers = [];
-            // Listen for the event fired when the user selects a prediction and retrieve
-            // more details for that place.
-            searchBox.addListener('places_changed', function() {
-                var places = searchBox.getPlaces();
+                            onAdd () {
+                                this.div = document.createElement('div')
+                                this.div.classList.add('marker')
+                                this.div.style.position = 'absolute'
+                                this.div.innerHTML = this.text
+                                this.getPanes().overlayImage.appendChild(this.div)
+                            }
 
-                if (places.length == 0) {
-                    return;
-                }
+                            draw () {
+                                let position = this.getProjection().fromLatLngToDivPixel(this.pos)
+                                this.div.style.left = position.x + "px"
+                                this.div.style.top = position.y + "px"
+                            }
 
-                // Clear out the old markers.
-                markers.forEach(function(marker) {
-                    marker.setMap(null);
-                });
-                markers = [];
+                            onRemove () {
+                                this.div.parentNode.removeChild(this.div)
+                            }
 
-                // For each place, get the icon, name and location.
-                var bounds = new google.maps.LatLngBounds();
-                places.forEach(function(place) {
-                    if (!place.geometry) {
-                        console.log("Returned place contains no geometry");
-                        return;
-                    }
-                    var icon = {
-                        url: place.icon,
-                        size: new google.maps.Size(71, 71),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(17, 34),
-                        scaledSize: new google.maps.Size(25, 25)
-                    };
+                        }
 
-                    // Create a marker for each place.
-                    markers.push(new google.maps.Marker({
-                        map: map,
-                        icon: icon,
-                        title: place.name,
-                        position: place.geometry.location
-                    }));
 
-                    if (place.geometry.viewport) {
-                        // Only geocodes have viewport.
-                        bounds.union(place.geometry.viewport);
-                    } else {
-                        bounds.extend(place.geometry.location);
-                    }
-                });
-                map.fitBounds(bounds);
-            });
+                        this.map = new google.maps.Map(element)
+                        this.bounds = new google.maps.LatLngBounds()
+                        resolve()
+                    })
+                })
+            }
+
+            /**
+             * Ajouter un marker sur la carte
+             * @param (string) lat
+             * @param (string) lng
+             * @param (string) text
+             */
+            addMarker (lat, lng, text) {
+                let point = new google.maps.LatLng(lat, lng)
+                let marker = new this.textMarker(point, this.map, text)
+                this.bounds.extend(point)
+            }
+
+           /**
+            *Centre la carte pour englober les markers
+            */
+            centerMap () {
+                this.map.panToBounds(this.bounds)
+                this.map.fitBounds(this.bounds)
+            }
         }
 
+        const initMap = async function () {
+           let map = new GoogleMap()
+           await map.load($map)
+           Array.from(document.querySelectorAll('.item')).forEach(function (item) {
+               map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price)
+           })
+           map.centerMap()
+        }
+
+        if ($map !== null) {
+            initMap()
+        }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initAutocomplete"
-            async defer></script>
+
     </html>
 
 {% endblock %}

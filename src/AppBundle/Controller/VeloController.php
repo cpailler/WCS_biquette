@@ -37,6 +37,15 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class VeloController extends Controller
 {
+    private function securityCheck(Velo $velo)
+    {
+        if (!($velo->getProprio()==$this->getUser()))
+        {
+            return $this->redirectToRoute('annonce',['id'=>$velo->getId()]);
+        }
+        return true;
+    }
+
     /**
      * @Route("/", name="velo_index")
      *
@@ -54,27 +63,17 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
+
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        //le vélo a les données récupéré en base de données
-        //automatiquement par doctrine et le conteneur de services
-        //par rapport aux données {id} rentrées dans l'URL
-
-        //on crée un formulaire avec createForm
-        //qui sera rempli en fonction des valeurs du vélo
-        // !!! maintenant, le formulaire et l'entité velo sont liés !!!
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
-        //on regarde avec handlerequest dans la requete
-        //si il y a des données POST (donc, de formulaire submité)
-        //qui pourrait nous permettre de modifier l'objet velo
         $form->handleRequest($request);
-        //on récupère toutes les couleurs de la base avec un findAll()
-        $couleurs=$this->getDoctrine()->getManager()->getRepository(Couleur::class)->findAll();
-        //on verifie qu'on a reçu un formulaire en POST
-        //on verifie que le formulaire est valide
+        $couleurs=$em->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
         }
+
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/description.html.twig',
@@ -83,6 +82,7 @@ class VeloController extends Controller
             'couleurs'=>$couleurs,
             'membre' => $membre
         ));
+
     }
 
     /**
@@ -121,6 +121,7 @@ class VeloController extends Controller
      */
     public function equipementAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(VeloEquipementType::class, $velo);
@@ -150,6 +151,8 @@ class VeloController extends Controller
      */
     public function antivolAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
+
         $membre = $this->getUser();
         $form = $this->createForm(VeloAntivolType::class,$velo);
         $form->handleRequest($request);
@@ -173,6 +176,8 @@ class VeloController extends Controller
      */
     public function localisationAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
+        $form = $this->createForm('AppBundle\Form\LocalisationType',$velo);
         $membre = $this->getUser();
         $form = $this->createForm('AppBundle\Form\LocalisationType', $velo);
         $form->handleRequest($request);
@@ -180,6 +185,8 @@ class VeloController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
+
+        // replace this example code with whatever you need
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire' => 'velo/localisation.html.twig',
             'velo' => $velo,
@@ -194,6 +201,7 @@ class VeloController extends Controller
      */
     public function pointsAction(request $request, Velo $velo)
     {
+        $this->securityCheck($velo);
         $membre = $this->getUser();
         $form = $this->createForm('AppBundle\Form\PointsType',$velo);
         $form->handleRequest($request);
@@ -217,6 +225,8 @@ class VeloController extends Controller
      */
     public function deleteAction(request $request,Velo $velo)
     {
+        $this->securityCheck($velo);
+
         $form = $this->createDeleteForm($velo);
         $form->handleRequest($request);
 

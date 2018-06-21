@@ -43,5 +43,15 @@ services:
         arguments:
             $formFactory: '@fos_user.registration.form.factory'
 
+    AppBundle\Controller\ChangePasswordController :
+        arguments:
+            $formFactory: '@fos_user.change_password.form.factory'
+
     AppBundle\Service\CustomEncoder:
         arguments:
+
+    AppBundle\Service\PointsManager:
+        arguments:
+
+    AppBundle\Service\CautionManager:
+            arguments:

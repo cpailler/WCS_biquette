@@ -124,4 +124,52 @@ class TypeVelo
     {
         return $this->type;
     }
+
+    /**
+     * Set prixMoyen
+     *
+     * @param integer $prixMoyen
+     *
+     * @return TypeVelo
+     */
+    public function setPrixMoyen($prixMoyen)
+    {
+        $this->prixMoyen = $prixMoyen;
+
+        return $this;
+    }
+
+    /**
+     * Get prixMoyen
+     *
+     * @return integer
+     */
+    public function getPrixMoyen()
+    {
+        return $this->prixMoyen;
+    }
+
+    /**
+     * Set coeff
+     *
+     * @param float $coeff
+     *
+     * @return TypeVelo
+     */
+    public function setCoeff($coeff)
+    {
+        $this->coeff = $coeff;
+
+        return $this;
+    }
+
+    /**
+     * Get coeff
+     *
+     * @return float
+     */
+    public function getCoeff()
+    {
+        return $this->coeff;
+    }
 }

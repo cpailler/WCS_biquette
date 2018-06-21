@@ -28,6 +28,16 @@ class EtatVelo
      */
     private $etat;
 
+    /**
+     * @ORM\Column(name="coeff", type="float")
+     */
+    private $coeff;
+
+
+    /**
+     * @ORM\Column(name="coeffCaution", type="float")
+     */
+    private $coeffCaution;
 
     /**
      * Get id.
@@ -59,6 +69,11 @@ class EtatVelo
      * @return string
      */
     public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    public function __toString()
     {
         return $this->etat;
     }

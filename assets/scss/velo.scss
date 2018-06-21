@@ -124,17 +124,7 @@
   padding: 0;
 }
 
-.checkVelo1 p {
-  font-size: 14px;
-  color: $text-dark;
-  text-align: left;
-}
 
-.checkVelo2 p {
-  font-size: 14px;
-  color: $text-dark;
-  text-align: left;
-}
 
 .checkVelo{
   display: flex;
@@ -142,9 +132,7 @@
   text-align: left;
   width: 100%;
   justify-content: space-between;
-
 }
-
 
 .aidePointsButton {
   padding-top: 8px;
@@ -252,3 +240,16 @@ li a {
 
 
 
+#map {
+  height: 400px;
+  width: auto;
+}
+
+#floating-panel {
+  top: 10px;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  line-height: 30px;
+  padding-left: 10px;
+}
