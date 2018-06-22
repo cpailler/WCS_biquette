@@ -115,7 +115,7 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/{id}/photos/delete", name="velo_photos")
+     * @Route("/{id}/photos/delete", name="delete_photos")
      *
      */
     public function deletePhoto(request $request, Velo $velo)
