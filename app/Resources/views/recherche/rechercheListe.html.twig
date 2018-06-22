@@ -13,7 +13,7 @@
                 <div class="row">
                     <!-- barre de tri -->
                     <div class="col-12 col-lg-12 search">
-                        <input id="address" type="textbox" value="">
+                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
                         <input id="submit" type="button" value="Rechercher">
                     </div>
                     <div class="container col-12 col-lg-12">
@@ -24,8 +24,7 @@
                                     <img src="http://via.placeholder.com/400x260" alt="">
                                     <h4>La monture de {{ velo.proprio.prenom }}</h4>
                                     <p>Pts/jour {{ velo.coutPts }}</p>
-                                    <p> blabla {{  velo.adresseVelo }}</p>
-                                    <h6></h6>
+                                    <p>{{ velo.ville }}</p>
                                 </div>
                             {% endfor %}
                         </div>
@@ -38,6 +37,18 @@
             <div class="col-12 col-lg-5" id="map"></div>
         </div>
     </div>
+
+    <script>
+
+        function initAutocomplete() {
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+        }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap&libraries=places&callback=initAutocomplete"
+            async defer></script>
 
     <script>
         /*!
