@@ -115,6 +115,36 @@ class VeloController extends Controller
     }
 
     /**
+     * @Route("/{id}/photos/delete", name="velo_photos")
+     *
+     */
+    public function deletePhoto(request $request, Velo $velo)
+    {
+        $photoVelo = new Photovelo();
+        $membre = $this->getUser();
+        $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $photoVelo->setVelo($velo->getId());
+            $em->persist($photoVelo);
+            $em->flush();
+
+            return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
+        }
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'photovelo/new.html.twig',
+            'photoVelo' => $photoVelo,
+            'velo'=>$velo,
+            'form' => $form->createView(),
+            'membre' => $membre
+        ));
+    }
+
+
+    /**
      * @Route("/{id}/equipement", name="velo_equipement")
      * @Method({"GET", "POST"})
      *
