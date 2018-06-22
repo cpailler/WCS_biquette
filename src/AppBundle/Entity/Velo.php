@@ -171,6 +171,13 @@ class Velo
     private $longitude;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
+     */
+    private $ville;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="caution", type="integer", nullable=true)
@@ -636,9 +643,32 @@ class Velo
      *
      * @return float|null
      */
-    public function Longitude()
+    public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * Set ville.
+     *
+     * @param string|null $ville
+     *
+     * @return Ville
+     */
+    public function setVille($ville = null)
+    {
+        $this->ville = $ville;
+        return $this;
+    }
+
+    /**
+     * Get ville.
+     *
+     * @return string|null
+     */
+    public function getVille()
+    {
+        return $this->ville;
     }
 
     /**
