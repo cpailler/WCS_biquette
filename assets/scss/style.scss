@@ -38,6 +38,17 @@ body{
   text-align: right;
 }
 
+.title-announce {
+  text-align: left;
+  font-family: $font;
+}
+.title-announce span {
+  float: right;
+  color: $bikerr-green;
+  font-family: $font;
+  font-weight: bolder;
+}
+
 .basic-navbar {
   background-color: white;
 }
@@ -78,6 +89,38 @@ body{
   margin-right: 10px;
 }
 
+.grey_container {
+  background-color: $grey-background;
+}
+
+.lien_tableau {
+  background-image: linear-gradient(0deg, #dad4d4, white);
+  border: solid 1px $border-grey;
+  height: 2.5em;
+}
+
+.lien_tableau:hover {
+  background-image: linear-gradient(0deg, #b7b2b2, white);
+}
+
+.lien_tableau a {
+  color: black;
+}
+
+.lien_tableau a:hover {
+  color: $bikerr-green;
+}
+
+.ongletVelo ul{
+  list-style: none;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+.ongletVelo a:hover {
+  color: $bikerr-green;
+}
+
 @media (max-width: 991px)
 {
   .navigation {
@@ -104,4 +147,5 @@ body{
     background-color: transparent;
   }
 }
+
 

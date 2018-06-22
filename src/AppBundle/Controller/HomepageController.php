@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Velo;
 
 /**
  * Homepage controller.
@@ -14,13 +15,24 @@ use Symfony\Component\HttpFoundation\Request;
 class HomepageController extends Controller
 {
     /**
-     * @Route("/", name="/")
+     * @Route("/", name="homepage_non_connect")
      *
      */
     public function indexAction(request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('homepage/homepage.html.twig');
+
+        $membre = $this->getUser();
+
+        if (isset ($membre)){
+            return $this->render('homepage/homepage_connect.html.twig', array(
+                'membre' => $membre
+            ));
+        }
+        else{
+            return $this->render('homepage/homepage.html.twig', array(
+                'membre' => $membre
+            ));
+        }
     }
 
     /**
@@ -29,7 +41,17 @@ class HomepageController extends Controller
      */
     public function connectAction(request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('homepage/homepage_connect.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $membre= $this->getUser();
+
+        if(!isset ($membre)){
+            return $this->render('homepage/homepage.html.twig', array(
+                'membre' => $membre
+            ));
+        }else {
+            return $this->render('homepage/homepage_connect.html.twig', array(
+                'membre' => $membre
+            ));
+        }
     }
 }
