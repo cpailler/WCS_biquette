@@ -1,3 +1,7 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+{% endblock %}
+
 {% block body %}
 
     {{ form_start(form) }}
@@ -27,6 +31,15 @@
                     {{ form_errors(form.caution) }}
                     {{ form_widget(form.caution) }}
                 </div>
+                {#<div id="appbundle_velo_points" class="">
+                    {% for genre in genres %}
+                        <label class="containergreen col-3 ">
+                            <input type="radio" {% if velo.caution==caution%}checked{% endif %} id="appbundle_velo_points_{{ velo.id }}" name="appbundle_velo" required="required" value="{{ velo.id }}">
+                            <span class="checkmark"></span>
+                            <label class="form-check-label required" for="appbundle_membre_genre_{{ genre.id }}">{{ genre.genre }}</label>
+                        </label>
+                    {% endfor %}
+                </div>#}
             </div>
         </div>
     </div>

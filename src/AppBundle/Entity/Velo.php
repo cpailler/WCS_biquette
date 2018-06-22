@@ -180,6 +180,13 @@ class Velo
     /**
      * @var bool
      *
+     * @ORM\Column(name="caution_oblig", type="boolean")
+     */
+    private $caution_oblig;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="assur_oblig", type="boolean")
      */
     private $assurOblig = 0;
@@ -897,5 +904,39 @@ class Velo
             return $this->titre;
         }
         return 'Vélo n° '.$this->id;
+    }
+
+    /**
+     * Get longitude.
+     *
+     * @return float|null
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set cautionOblig.
+     *
+     * @param bool $cautionOblig
+     *
+     * @return Velo
+     */
+    public function setCautionOblig($cautionOblig)
+    {
+        $this->caution_oblig = $cautionOblig;
+
+        return $this;
+    }
+
+    /**
+     * Get cautionOblig.
+     *
+     * @return bool
+     */
+    public function getCautionOblig()
+    {
+        return $this->caution_oblig;
     }
 }
