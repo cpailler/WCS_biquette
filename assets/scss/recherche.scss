@@ -1,3 +1,5 @@
+@import "main.scss";
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 .bloc-recherche {
@@ -58,4 +60,49 @@
 }
 #target {
   width: 345px;
+}
+
+.search {
+  padding: 20px;
+}
+
+.item {
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: box-shadow .3s;
+  padding: 0 20px;
+}
+
+.marker {
+  transform: translate(-50%, calc(-100% - 10px));
+  white-space: nowrap;
+  font-size: 16px;
+  padding: 5px 10px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.marker::after {
+  content:'';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #fff;
+}
+
+.marker.is-active {
+  background-color: $bikerr-green;
+  color: #FFF;
+  z-index: 300;
+}
+
+.marker.is-active::after {
+  border-top-color: $bikerr-green;
 }
