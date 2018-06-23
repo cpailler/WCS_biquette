@@ -62,4 +62,9 @@ class Equipement
     {
         return $this->equipement;
     }
+
+    public function __toString()
+    {
+        return $this->equipement;
+    }
 }

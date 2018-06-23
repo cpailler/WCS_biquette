@@ -15,6 +15,7 @@ use AppBundle\Entity\Couleur;
 use AppBundle\Entity\Membre;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
+use AppBundle\Form\VeloPointsType;
 use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
@@ -160,13 +161,26 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/points", name="velo_points")
+     * @Route("/{id}/points", name="velo_points")
+     * @Method({"GET", "POST"})
      *
      */
-    public function pointsAction(request $request)
+    public function pointsAction(request $request, Velo $velo )
     {
-        // replace this example code with whatever you need
-        return $this->render('velo/points.html.twig');
+        $form = $this->createForm(VeloPointsType::class,$velo);
+        $form->handleRequest($request);
+
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+        'formulaire'=>'velo/points.html.twig',
+        'velo' => $velo,
+        'form' => $form->createView()
+    ));
     }
 
     /**

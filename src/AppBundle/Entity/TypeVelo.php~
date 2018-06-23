@@ -34,6 +34,16 @@ class TypeVelo
     private $type;
 
     /**
+     * @ORM\Column(name="prix_moyen", type="integer")
+     */
+    private $prixMoyen;
+
+    /**
+     * @ORM\Column(name="coeff", type="float")
+     */
+    private $coeff;
+
+    /**
      * Get id.
      *
      * @return int
@@ -63,6 +73,54 @@ class TypeVelo
      * @return string
      */
     public function getType()
+    {
+        return $this->type;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->velos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add velo.
+     *
+     * @param \AppBundle\Entity\Velo $velo
+     *
+     * @return TypeVelo
+     */
+    public function addVelo(\AppBundle\Entity\Velo $velo)
+    {
+        $this->velos[] = $velo;
+
+        return $this;
+    }
+
+    /**
+     * Remove velo.
+     *
+     * @param \AppBundle\Entity\Velo $velo
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeVelo(\AppBundle\Entity\Velo $velo)
+    {
+        return $this->velos->removeElement($velo);
+    }
+
+    /**
+     * Get velos.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVelos()
+    {
+        return $this->velos;
+    }
+
+    public function __toString()
     {
         return $this->type;
     }
