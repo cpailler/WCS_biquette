@@ -1,35 +1,36 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
 {% endblock %}
 
 {% block body %}
 
     <div id="carousel-photos" class="row">
         {% for photo in velo.photos %}
-            <div class="container-fluid">
+            <div class="row">
                 <img class="col-4" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="">
             </div>
         {% endfor %}
-        {#<img class="col-4" src="http://via.placeholder.com/480x287" alt="">#}
-        {#<img class="col-4" src="http://via.placeholder.com/480x287" alt="">#}
     </div>
 
     <div class="container">
         <div class="row">
             <div id="description" class="container mt-5 col-6">
                 <div class="row">
+                    {% if velo.proprio.membreVerifie == 1 %}
                     <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié">
-                    {#Ci-dessus: mettre seulement si le membre est vérifié en Twig#}
+                    {% endif %}
                     <h2>{{ velo.titre }}</h2>
                 </div>
                 <h5>2 partages</h5>
 
                 <div class="row mt-5">
-                    <h4 class="col-3">{{ velo.couleur }}</h4>
+                    <h4 class="col-1"><span class="checkmark" style="background-color: {{ velo.couleur.codeHexa }}"></span></h4>
                     <h4 class="col-3">{{ velo.marque }}</h4>
                     <h4 class="col-3">{{ velo.typeVelo }}</h4>
                     <h4 class="col-3">{{ velo.etatVelo }}</h4>
+                    <h4 class="col-2">{% if velo.neuf == 1 %}Neuf{% else %}Occasion{% endif %}</h4>
                 </div>
                 <p>{{ velo.description }}</p>
 
@@ -38,19 +39,23 @@
                         <div class="col-6">
                             <h4 class="titre">Équipements</h4>
                             <ul>
-                                <li>Éclairage arrière</li>
-                                <li>Garde-boue avant</li>
-                                <li>Garde-boue arrière</li>
-                                <li>Gourde</li>
-                                <li>Sonnette</li>
+                                {% for equipement in velo.equipements %}
+                                <li class="equipementOK">{{ equipement.equipement }}</li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <div class="col-6">
                             <h4 class="titre">Antivol du vélo</h4>
                             <ul>
-                                <li>Antivol à clé</li>
-                                <li>Antivol à combinaison</li>
-                                <li>Marquage Bicycode</li>
+                                {% if velo.antivolKey>0 %}
+                                    <li class="equipementOK">Antivol à clef: {{ velo.antivolKey }}</li>
+                                {% endif %}
+                                {% if velo.antivolCode>0 %}
+                                    <li class="equipementOK">Antivol à code: {{ velo.antivolCode }}</li>
+                                {% endif %}
+                                {% if velo.bicycode is defined %}
+                                    <li class="equipementOK">Bicycode: Oui</li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -68,7 +73,7 @@
                         <h4 id="pts-jour">Points / jour</h4>
                         <p id="avec">Avec vos 250 Points, vous pouvez emprunter ce vélo 2 jours.</p>
                     </div>
-                    <button class=" bouton">Envoyer une demande de partage</button>
+                    <button class="bouton">Envoyer une demande de partage</button>
                 </div>
 
             </div>

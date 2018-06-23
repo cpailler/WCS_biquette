@@ -19,7 +19,8 @@ class AideController extends Controller
  */
     public function commentCaMarche (request $request)
     {
-        return $this->render('aide/comment.html.twig');
+        $membre = $this->getUser();
+        return $this->render('aide/comment.html.twig', array('membre' => $membre));
     }
 
     /**
@@ -28,7 +29,8 @@ class AideController extends Controller
      */
     public function vraimentGratuit (request $request)
     {
-        return $this->render('aide/gratuit.html.twig');
+        $membre = $this->getUser();
+        return $this->render('aide/gratuit.html.twig', array('membre' => $membre));
     }
 
     /**
@@ -37,6 +39,7 @@ class AideController extends Controller
      */
     public function aidePoints (request $request)
     {
-        return $this->render('aide/points.html.twig');
+        $membre = $this->getUser();
+        return $this->render('aide/points.html.twig', array('membre' => $membre));
     }
 }

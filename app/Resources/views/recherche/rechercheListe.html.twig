@@ -22,7 +22,8 @@
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     <img src="http://via.placeholder.com/400x260" alt="">
-                                    <h4>La monture de {{ velo.proprio.prenom }}</h4>
+                                    {#<img src="{{ asset('images/uploads/' ~ photo.image) }}" alt="">#}
+                                    <h4>{{ velo.titre }}</h4>
                                     <p>Pts/jour {{ velo.coutPts }}</p>
                                     <p>{{ velo.ville }}</p>
                                 </div>
