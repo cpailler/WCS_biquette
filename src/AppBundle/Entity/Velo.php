@@ -182,7 +182,7 @@ class Velo
      *
      * @ORM\Column(name="caution_oblig", type="boolean")
      */
-    private $caution_oblig;
+    private $cautionOblig;
 
     /**
      * @var bool
@@ -925,7 +925,7 @@ class Velo
      */
     public function setCautionOblig($cautionOblig)
     {
-        $this->caution_oblig = $cautionOblig;
+        $this->cautionOblig = $cautionOblig;
 
         return $this;
     }
@@ -937,6 +937,6 @@ class Velo
      */
     public function getCautionOblig()
     {
-        return $this->caution_oblig;
+        return $this->cautionOblig;
     }
 }

@@ -176,7 +176,8 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
-        return $this->render('velo/points.html.twig', array(
+        return $this->render('velo/layoutVelo.html.twig', array(
+        'formulaire'=>'velo/points.html.twig',
         'velo' => $velo,
         'form' => $form->createView()
     ));

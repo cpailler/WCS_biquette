@@ -71,4 +71,28 @@ class EtatVelo
     {
         return $this->etat;
     }
+
+    /**
+     * Set coeff.
+     *
+     * @param float $coeff
+     *
+     * @return EtatVelo
+     */
+    public function setCoeff($coeff)
+    {
+        $this->coeff = $coeff;
+
+        return $this;
+    }
+
+    /**
+     * Get coeff.
+     *
+     * @return float
+     */
+    public function getCoeff()
+    {
+        return $this->coeff;
+    }
 }
