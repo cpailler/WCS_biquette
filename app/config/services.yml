@@ -52,3 +52,6 @@ services:
 
     AppBundle\Service\PointsManager:
         arguments:
+
+    AppBundle\Service\CautionManager:
+            arguments:

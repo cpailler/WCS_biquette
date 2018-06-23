@@ -1,4 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
 @import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
@@ -7,6 +9,7 @@ $grey-background: #f9f9f9;
 $text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 $background-points: #d1f3e0;
 $border-grey: #cccccc;
+$outline-grey: #dbdcd8;
 $text-dark: #333634;
 $text-grey: #949a96;
 $normButton:#ffffff;
@@ -22,6 +25,7 @@ $normButton:#ffffff;
   height: 52px;
   border-radius: 2px;
   background-color: $bikerr-green;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin: auto;
   text-shadow: none;
 }
@@ -45,11 +49,27 @@ $normButton:#ffffff;
 
 .bouton-sm {
   @extend .bouton;
-  width: 100px;
+  width: 120px;
+  height: 35px;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font, Arial, Helvetica, sans-serif;
+}
+
+.crop {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.crop img {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+
+.bikerr-card {
+  padding: 20px !important;
 }
 
 /* The switch - the box around the slider */

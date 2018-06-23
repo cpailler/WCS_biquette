@@ -907,14 +907,21 @@ class Velo
     }
 
     /**
+<<<<<<< HEAD
      * Get longitude.
      *
      * @return float|null
+=======
+     * Get longitude
+     *
+     * @return float
+>>>>>>> dev
      */
     public function getLongitude()
     {
         return $this->longitude;
     }
+<<<<<<< HEAD
 
     /**
      * Set cautionOblig.
@@ -939,4 +946,6 @@ class Velo
     {
         return $this->caution_oblig;
     }
+=======
+>>>>>>> dev
 }

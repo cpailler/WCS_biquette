@@ -84,3 +84,11 @@ fos_user:
     change_password :
         form:
             type: AppBundle\Form\NewPasswordType
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        velo_image:
+            uri_prefix: /uploads/
+            upload_destination: '%kernel.project_dir%/web/images/uploads/'
+            namer: Vich\UploaderBundle\Naming\HashNamer

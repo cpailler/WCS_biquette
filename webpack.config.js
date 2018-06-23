@@ -17,6 +17,7 @@ Encore
     .addEntry('velo', './assets/scss/velo.scss')
     .addEntry('form', './assets/scss/form.scss')
     .addEntry('enregistrement', './assets/scss/enregistrement.scss')
+    .addEntry('annonce', './assets/scss/annonce.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()
@@ -31,8 +32,7 @@ Encore
     .enableBuildNotifications()
 
 // allow sass/scss files to be processed
- .enableSassLoader()
-;
+ .enableSassLoader();
 
 // export the final configuration
 module.exports = Encore.getWebpackConfig();

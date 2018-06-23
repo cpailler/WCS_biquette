@@ -5,6 +5,7 @@
 
 
 {% block body %}
+
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -29,7 +30,7 @@
         <div class="title_text_header">
             <h1><strong>TROUVEZ LE BON VELO</strong></h1>
             <h2 class="lead ">Partage de vélos entre amis</h2>
-            <a class="bouton mt-5" href="#">Rejoindre la bande</a>
+            <a class="bouton mt-5" href="/register">Rejoindre la bande</a>
         </div>
     </div>
 
@@ -132,13 +133,15 @@
 
             </div>
             <br>
-            <a class="btn btn-lg bouton" href="#" role="button">Découvrir</a>
+            <a class="btn btn-lg bouton" href="/register" role="button">Découvrir</a>
         </div>
     </div>
 
-    <div class="bikerr_container background-color" >
+    <div class="bikerr_container grey_container" >
         <h4 class="explication_title">Vélo des villes ou vélo des champs, il en existe pour tous les goûts</h4><br>
-        <img src="{{ asset('images/fond_velo.png') }}" alt="fond-velo">
+        <div style='background-image: url("{{ asset('images/velo-fond.png') }}"); width: 100%; height: 83px;'>
+
+        </div>
     </div>
 
     <div class="bikerr_container">
@@ -165,7 +168,7 @@
         </div>
     </div>
 
-    <div class="bikerr_container background-color">
+    <div class="bikerr_container grey_container">
         <h4 class="explication_title">Quels que soient vos besoins de déplacements</h4>
         <div class="bikerr_container">
             <div class="row">
@@ -183,7 +186,7 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-lg bouton" href="#" role="button">Partager mon vélo</a>
+        <a class="btn btn-lg bouton" href="/register" role="button">Partager mon vélo</a>
     </div>
 
     <div style="position: relative; width: 100%">
@@ -192,7 +195,5 @@
             <h1><strong>GARDEZ UN VELO DANS VOTRE POCHE</strong></h1>
         </div>
     </div>
-
-
 
 {% endblock %}
