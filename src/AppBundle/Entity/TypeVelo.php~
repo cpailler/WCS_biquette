@@ -124,6 +124,8 @@ class TypeVelo
     {
         return $this->type;
     }
+<<<<<<< HEAD
+=======
 
     /**
      * Set prixMoyen
@@ -172,4 +174,5 @@ class TypeVelo
     {
         return $this->coeff;
     }
+>>>>>>> dev
 }

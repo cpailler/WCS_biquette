@@ -16,6 +16,7 @@ use AppBundle\Entity\PhotoVelo;
 use AppBundle\Entity\Membre;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
+use AppBundle\Form\VeloPointsType;
 use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
@@ -204,7 +205,7 @@ class VeloController extends Controller
     {
         $this->securityCheck($velo);
         $membre = $this->getUser();
-        $form = $this->createForm('AppBundle\Form\PointsType',$velo);
+        $form = $this->createForm('AppBundle\Form\VeloPointsType',$velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -218,6 +219,9 @@ class VeloController extends Controller
             'membre' =>$membre
         ));
     }
+
+
+
 
     /**
      * @Route("/{id}", name="velo_delete")
@@ -250,11 +254,13 @@ class VeloController extends Controller
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
 
         return $this->render('velo/layoutVelo.html.twig', array(
+
             'formulaire'=>'velo/calendrier.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
