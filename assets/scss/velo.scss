@@ -27,6 +27,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0px !important;
 }
 
 .photoVelo a {
@@ -184,8 +185,6 @@ li a {
 }
 
 .picture{
-  width: 309px;
-  height: 204px;
   background-color:$bikerr-green;
 }
 
