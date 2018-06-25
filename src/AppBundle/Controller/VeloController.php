@@ -220,19 +220,10 @@ class VeloController extends Controller
         ));
     }
 
+
+
+
     /**
-<<<<<<< HEAD
-     * @Route("/{id}/points", name="velo_points")
-     * @Method({"GET", "POST"})
-     *
-     */
-    public function pointsAction(request $request, Velo $velo )
-    {
-        $form = $this->createForm(VeloPointsType::class,$velo);
-        $form->handleRequest($request);
-
-
-=======
      * @Route("/{id}", name="velo_delete")
      *  @Method("DELETE")
      *
@@ -262,25 +253,19 @@ class VeloController extends Controller
         $membre = $this->getUser();
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
         $form->handleRequest($request);
->>>>>>> dev
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
 
         return $this->render('velo/layoutVelo.html.twig', array(
-<<<<<<< HEAD
-        'formulaire'=>'velo/points.html.twig',
-        'velo' => $velo,
-        'form' => $form->createView()
-    ));
-=======
+
             'formulaire'=>'velo/calendrier.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
             'membre' =>$membre
         ));
->>>>>>> dev
     }
 
 

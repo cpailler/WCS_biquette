@@ -936,15 +936,6 @@ class Velo
         return 'Vélo n° '.$this->id;
     }
 
-    /**
-     * Get longitude.
-     *
-     * @return float|null
-     */
-    public function getLongitude()
-    {
-        return $this->longitude;
-    }
 
     /**
      * Set cautionOblig.

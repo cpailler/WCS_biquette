@@ -79,11 +79,7 @@ class EtatVelo
     }
 
     /**
-<<<<<<< HEAD
      * Set coeff.
-=======
-     * Set coeff
->>>>>>> dev
      *
      * @param float $coeff
      *
@@ -97,11 +93,7 @@ class EtatVelo
     }
 
     /**
-<<<<<<< HEAD
      * Get coeff.
-=======
-     * Get coeff
->>>>>>> dev
      *
      * @return float
      */
@@ -109,8 +101,6 @@ class EtatVelo
     {
         return $this->coeff;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Set coeffCaution
@@ -135,5 +125,5 @@ class EtatVelo
     {
         return $this->coeffCaution;
     }
->>>>>>> dev
+
 }
