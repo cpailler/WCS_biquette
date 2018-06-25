@@ -55,7 +55,7 @@
                 </li>
                 <li class="nav-item dropdown navbar-border">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span style="color: green; font-weight: bolder;">200</span> PTS
+                        <span style="color: green; font-weight: bolder;">{{ membre.points }}</span> PTS
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
                         <a class="dropdown-item" href="#">Devenez membre vérifié<div class="pts_navbar"> +500 PTS</div></a>
@@ -71,7 +71,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ app.user.username }}<img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                        {{ membre.prenom }} {{ membre.nom }}<img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
                         <a class="dropdown-item" href="{{ path('profil_infos') }}"><img src="{{ asset('images/icn-profil2.svg') }}" alt="partage" class="navbar-icon" style="display: inline-block">Mon profil</a>
@@ -141,9 +141,9 @@
                 <div class="col-md-2 col-sm-4 col-xs-2">
                     <h5>Découvrir</h5>
                     <p>
-                        <a href="#">Comment ça marche</a><br>
-                        <a href="#">Un service gratuit</a><br>
-                        <a href="#">Un système de Points innovant</a>
+                        <a href="{{ path('aide_comment') }}">Comment ça marche</a><br>
+                        <a href="{{ path('aide_gratuit') }}">Un service gratuit</a><br>
+                        <a href="{{ path('aide_points') }}">Un système de Points innovant</a>
                     </p>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-2">
@@ -157,12 +157,17 @@
                 <div class="col-md-2 col-sm-4 col-xs-2">
                     <h5>Nous suivre</h5>
                     <p style="text-align: right">
-                        <a href="#" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
-                            <a href="#" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
-                        <a href="#" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
+                        <a href="https://www.facebook.com/BikerrFrance/" target="_blank" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
+                            <a href="https://twitter.com/bikerr" target="_blank" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
+                        <a href="#" target="_blank" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
                     </p>
                 </div>
             </div>
+            <p style="text-align: center; font-size: 0.8em; font-style: italic;">Site réalisé par les élèves de la <a
+                        href="https://wildcodeschool.fr/" target="_blank">Wild Code School</a> de Strasbourg :
+                <a href="https://www.linkedin.com/in/hery-rasamimanana/" target="_blank">Hery</a>, <a href="https://www.linkedin.com/in/clementpailler/" target="_blank">Clément</a>,
+                <a href="https://www.linkedin.com/in/aurelien-gouilhers-03b77812b/" target="_blank">Aurélien</a>, <a href="https://www.linkedin.com/in/xvrlng/" target="_blank">Xavier</a>,
+                <a href="https://www.linkedin.com/in/sidelnikovilya/" target="_blank">Ilya</a> et <a href="https://www.linkedin.com/in/jenniferlieby/" target="_blank">Jennifer</a></p>
         </div>
 
 

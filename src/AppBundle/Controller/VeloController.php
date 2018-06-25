@@ -53,7 +53,11 @@ class VeloController extends Controller
     public function indexAction(request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('velo/layoutVelo.html.twig');
+        $photoVelo = new Photovelo();
+        $membre = $this->getUser();
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'membre' => $membre
+        ));
     }
 
     /**
