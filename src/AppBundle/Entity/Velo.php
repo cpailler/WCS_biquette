@@ -187,6 +187,13 @@ class Velo
     /**
      * @var bool
      *
+     * @ORM\Column(name="caution_oblig", type="boolean")
+     */
+    private $cautionOblig;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(name="assur_oblig", type="boolean")
      */
     private $assurOblig = 0;
@@ -927,5 +934,30 @@ class Velo
             return $this->titre;
         }
         return 'Vélo n° '.$this->id;
+    }
+
+
+    /**
+     * Set cautionOblig.
+     *
+     * @param bool $cautionOblig
+     *
+     * @return Velo
+     */
+    public function setCautionOblig($cautionOblig)
+    {
+        $this->cautionOblig = $cautionOblig;
+
+        return $this;
+    }
+
+    /**
+     * Get cautionOblig.
+     *
+     * @return bool
+     */
+    public function getCautionOblig()
+    {
+        return $this->cautionOblig;
     }
 }
