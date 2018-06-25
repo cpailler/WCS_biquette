@@ -205,7 +205,7 @@ class VeloController extends Controller
     {
         $this->securityCheck($velo);
         $membre = $this->getUser();
-        $form = $this->createForm('AppBundle\Form\PointsType',$velo);
+        $form = $this->createForm('AppBundle\Form\VeloPointsType',$velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
