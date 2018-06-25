@@ -1,6 +1,6 @@
-<h2>LOCALISATION</h2>
+<h3>LOCALISATION</h3>
 {{ form_start(form) }}
-<div id="floating-panel">
+<div id="form-control">
 {{ form_label(form.adresse_velo) }}
 {{ form_errors(form.adresse_velo) }}
 {{ form_widget(form.adresse_velo) }}
@@ -13,10 +13,10 @@
 
 {{ form_errors(form.ville) }}
 {{ form_widget(form.ville) }}
-<input id="submit" type="button" value="Rechercher">
+<input id="submit" class="bouton" type="button" value="Rechercher">
 </div>
 <div id="map"></div>
-<input id="validate" type="submit" type="button" value="Enregistrer" />
+<input id="validate" class="bouton" type="submit" type="button" value="Enregistrer" />
 {{ form_end(form) }}
 
 <script>
@@ -46,7 +46,7 @@
                 document.getElementById('appbundle_velo_ville').value = results[0].address_components[2].long_name;
                 console.log(results[0].address_components);
             } else {
-                alert('Geocode was not successful for the following reason: ' + status);
+                alert('Veuillez entrer une adresse valide: ' + status);
             }
         });
     }
