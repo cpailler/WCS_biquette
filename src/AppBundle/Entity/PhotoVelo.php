@@ -40,7 +40,7 @@ class PhotoVelo
      *
      * @var File
      * @Assert\File(
-     *     maxSize = "1024k",
+     *     maxSize = "5M",
      *     maxSizeMessage="Votre fichier est trop volumineux, veuillez charger un fichier plus petit",
      *     mimeTypes = {"image/jpg", "image/jpeg", "image/png"},
      *     mimeTypesMessage = "Veuillez télécharger un fichier au format .jpg ou .png"

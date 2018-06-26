@@ -1,0 +1,72 @@
+@import "main.scss";
+
+#carousel-photos {
+  height: 287px;
+  width: 100%;
+}
+
+body {
+  color: $text-dark;
+}
+
+h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.titre {
+  font-weight: bold;
+}
+
+#description h5 {
+  color: $text-grey;
+  font-size: 14px;
+}
+
+p {
+  font-size: 14px;
+}
+
+.categorie {
+  padding: 20px;
+  border-top: 1px solid $outline-grey;
+}
+
+.equipementOK {
+  list-style-image: url('/images/btn-checkbox-on.svg');
+}
+
+#carte-partage {
+  background-color: white;
+  width: 319px;
+  height: 410px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  bottom: 100px;
+  padding: 20px;
+}
+
+#nb-points {
+  font-size: 46px;
+  color: $bikerr-green;
+}
+
+#pts-jour {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+#avec {
+  color: $text-grey;
+  font-size: 12px;
+}
+
+#pts-jour-bloc {
+  padding: 12px;
+}
+
+#map {
+  width: 100%;
+  height: 200px;
+}

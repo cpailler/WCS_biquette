@@ -47,6 +47,12 @@
                                     <img src="{{ asset('images/uploads/' ~ photo.image ) }}" alt="" style="width: 100%;">
                                 </div>
                                 <div class="modal-footer">
+                                    <!-- bouton supprimer à mettre -->
+                                    {{ form_start(delete_form) }}
+                                    <input type="submit" value="Delete">
+                                    {{ form_end(delete_form) }}
+                                </div>
+                                <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
                                 </div>
                             </div>

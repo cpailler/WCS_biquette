@@ -171,11 +171,25 @@ class Velo
     private $longitude;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
+     */
+    private $ville;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="caution", type="integer", nullable=true)
      */
     private $caution;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="caution_oblig", type="boolean")
+     */
+    private $cautionOblig;
 
     /**
      * @var bool
@@ -636,9 +650,32 @@ class Velo
      *
      * @return float|null
      */
-    public function Longitude()
+    public function getLongitude()
     {
         return $this->longitude;
+    }
+
+    /**
+     * Set ville.
+     *
+     * @param string|null $ville
+     *
+     * @return Ville
+     */
+    public function setVille($ville = null)
+    {
+        $this->ville = $ville;
+        return $this;
+    }
+
+    /**
+     * Get ville.
+     *
+     * @return string|null
+     */
+    public function getVille()
+    {
+        return $this->ville;
     }
 
     /**
@@ -899,13 +936,28 @@ class Velo
         return 'Vélo n° '.$this->id;
     }
 
+
     /**
-     * Get longitude
+     * Set cautionOblig.
      *
-     * @return float
+     * @param bool $cautionOblig
+     *
+     * @return Velo
      */
-    public function getLongitude()
+    public function setCautionOblig($cautionOblig)
     {
-        return $this->longitude;
+        $this->cautionOblig = $cautionOblig;
+
+        return $this;
+    }
+
+    /**
+     * Get cautionOblig.
+     *
+     * @return bool
+     */
+    public function getCautionOblig()
+    {
+        return $this->cautionOblig;
     }
 }

@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/recherche.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -12,17 +13,25 @@
             <div class="container col-12 col-lg-7">
                 <div class="row">
                     <!-- barre de tri -->
-                    <div class="col-12 col-lg-12">
-
+                    <div class="col-12 col-lg-12 form-control">
+                            <label for="tri">Trier par</label>
+                            <select id="pac-input" name='ville' class="controls">
+                                <option value="distance">Distance</option>
+                                <option value="type">Type de vélo</option>
+                                <option value="italie">Points/Jour</option>
+                            </select>
                     </div>
-                    <div class="container col-12 col-lg-12">
+                    <div class="container col-12 col-lg-12 form-control">
                         <div class="row annonce">
-                            {% for search in search %}
+                            {% for velo in velos %}
                                 <!-- annonce -->
-                                <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}">
+                                <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     <img src="http://via.placeholder.com/400x260" alt="">
-                                    <h4>La monture de {{  }}</h4>
-                                    <h6></h6>
+                                    {#<img src="{{ asset('images/uploads/' ~ photo.image) }}" alt="">#}
+                                    <div class="bloc-titres">
+                                        <div class="description"><h4>{{ velo.titre }}</h4></div>
+                                        <div class="nb-pts"><h4>Pts/jour <span>{{ velo.coutPts }}</span></h4></div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -35,6 +44,17 @@
             <div class="col-12 col-lg-5" id="map"></div>
         </div>
     </div>
+
+    <!--<script>
+        function initAutocomplete() {
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap&libraries=places&callback=initAutocomplete"
+            async defer></script> -->
 
     <script>
         /*!
@@ -125,29 +145,32 @@
     <script>
        let $map = document.querySelector('#map')
 
-
         class GoogleMap {
-            contructor () {
+
+            constructor () {
                 this.map = null
                 this.bounds = null
                 this.textMarker = null
             }
 
             /**
-             * Charge la carte sur un élément
+             * Charge la carte sur un element
              * @param {HTMLElement} element
              */
             async load (element) {
                 return new Promise((resolve, reject) => {
                     $script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA', () => {
+
                         this.textMarker = class TextMarker extends google.maps.OverlayView {
 
                             constructor (pos, map, text) {
                                 super()
                                 this.div = null
+                                this.html = null
                                 this.pos = pos
                                 this.text = text
                                 this.setMap(map)
+                                this.onActivation = []
                             }
 
                             onAdd () {
@@ -156,6 +179,11 @@
                                 this.div.style.position = 'absolute'
                                 this.div.innerHTML = this.text
                                 this.getPanes().overlayImage.appendChild(this.div)
+                                this.div.addEventListener('click', (e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    this.activate()
+                                })
                             }
 
                             draw () {
@@ -168,8 +196,36 @@
                                 this.div.parentNode.removeChild(this.div)
                             }
 
-                        }
+                            hover () {
+                                if (this.div !== null) {
+                                    this.div.classList.add('is-active')
+                                }
+                            }
 
+                            out () {
+                                if (this.div !== null) {
+                                    this.div.classList.remove('is-active')
+                                }
+                            }
+
+                            activate () {
+                                if (this.div !== null) {
+                                    this.div.innerHTML = this.html
+                                }
+                                this.onActivation.forEach(function (cb) { cb() })
+                            }
+
+                            deactivate () {
+                                if (this.div !== null) {
+                                    this.div.innerHTML = this.text
+                                }
+                            }
+
+                            setContent (html) {
+                                this.html = html
+                            }
+
+                        }
 
                         this.map = new google.maps.Map(element)
                         this.bounds = new google.maps.LatLngBounds()
@@ -179,20 +235,25 @@
             }
 
             /**
-             * Ajouter un marker sur la carte
-             * @param (string) lat
-             * @param (string) lng
-             * @param (string) text
+             * Ajoute un marker sur la carte
+             * @param {string} lat
+             * @param {string} lng
+             * @param {string} text
+             * @return {TextMarker}
              */
             addMarker (lat, lng, text) {
-                let point = new google.maps.LatLng(lat, lng)
+                let point = new google.maps.LatLng(lat,lng)
                 let marker = new this.textMarker(point, this.map, text)
+                marker.onActivation.push(() => {
+                    this.map.setCenter(marker.pos)
+                })
                 this.bounds.extend(point)
+                return marker
             }
 
-           /**
-            *Centre la carte pour englober les markers
-            */
+            /**
+             * Centre la carte pour englober les markers
+             */
             centerMap () {
                 this.map.panToBounds(this.bounds)
                 this.map.fitBounds(this.bounds)
@@ -201,15 +262,37 @@
 
         const initMap = async function () {
            let map = new GoogleMap()
+           let activeMarker = null
+           let enableMarker = null
            await map.load($map)
            Array.from(document.querySelectorAll('.item')).forEach(function (item) {
-               map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price)
+               let marker = map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price + ' Pts')
+               marker.setContent(item.innerHTML)
+               marker.onActivation.push(function () {
+                   if (enableMarker !== null) {
+                       enableMarker.out()
+                   }
+                   enableMarker = marker
+               })
+               item.addEventListener('mouseover', function () {
+                   marker.hover()
+                   if (activeMarker !== null) {
+                       activeMarker.out()
+                   }
+                   activeMarker = marker
+               })
+               item.addEventListener('mouseleave', function () {
+                   if (activeMarker === marker) {
+                       marker.out()
+                       activeMarker = null
+                   }
+               })
            })
            map.centerMap()
-        }
+       }
 
         if ($map !== null) {
-            initMap()
+           initMap()
         }
     </script>
 

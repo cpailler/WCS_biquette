@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="carousel-photos" class="row">
+        {% for photo in velo.photos %}
+            <div class="row">
+                <img class="col-4" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="">
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="description" class="container mt-5 col-6">
+                <div class="row">
+                    {% if velo.proprio.membreVerifie == 1 %}
+                    <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié">
+                    {% endif %}
+                    <h2>{{ velo.titre }}</h2>
+                </div>
+                <h5>2 partages</h5>
+
+                <div class="row mt-5">
+                    <h4 class="col-1"><span class="checkmark" style="background-color: {{ velo.couleur.codeHexa }}"></span></h4>
+                    <h4 class="col-3">{{ velo.marque }}</h4>
+                    <h4 class="col-3">{{ velo.typeVelo }}</h4>
+                    <h4 class="col-3">{{ velo.etatVelo }}</h4>
+                    <h4 class="col-2">{% if velo.neuf == 1 %}Neuf{% else %}Occasion{% endif %}</h4>
+                </div>
+                <p>{{ velo.description }}</p>
+
+                <div class="categorie container mt-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="titre">Équipements</h4>
+                            <ul>
+                                {% for equipement in velo.equipements %}
+                                <li class="equipementOK">{{ equipement.equipement }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="titre">Antivol du vélo</h4>
+                            <ul>
+                                {% if velo.antivolKey>0 %}
+                                    <li class="equipementOK">Antivol à clef: {{ velo.antivolKey }}</li>
+                                {% endif %}
+                                {% if velo.antivolCode>0 %}
+                                    <li class="equipementOK">Antivol à code: {{ velo.antivolCode }}</li>
+                                {% endif %}
+                                {% if velo.bicycode is defined %}
+                                    <li class="equipementOK">Bicycode: Oui</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-5 categorie">
+                    <h4 class="titre">Carte</h4>
+                    <div id="map"></div>
+                </div>
+
+            </div>
+
+            <div id="carte-partage">
+                <div class="row">
+                    <h1 id="nb-points" class="col-3">120</h1>
+                    <div id="pts-jour-bloc" class="col-9">
+                        <h4 id="pts-jour">Points / jour</h4>
+                        <p id="avec">Avec vos 250 Points, vous pouvez emprunter ce vélo 2 jours.</p>
+                    </div>
+                    <button class="bouton">Envoyer une demande de partage</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of myLatLng
+            var myLatLng = {lat: 48.734953, lng: 7.716072700000001};
+            // The map, centered at myLatLng
+            var map = new google.maps.Map(
+                document.getElementById('map'), {zoom: 15, center: myLatLng});
+            // The marker, positioned at myLatLng
+            //var marker = new google.maps.Marker({position: myLatLng, map: map});
+            // The marker, zone cercle myLatLng
+            var zone = new google.maps.Circle({
+                center: myLatLng,
+                map: map,
+                strokeColor: '#ffffff',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#fe5e2f',
+                fillOpacity: 0.35,
+                radius: 200
+            });
+        }
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap">
+    </script>
+
+
+
+{% endblock %}

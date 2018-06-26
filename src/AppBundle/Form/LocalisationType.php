@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
@@ -17,7 +18,10 @@ class LocalisationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adresse_velo', TextType::class);
+            ->add('adresse_velo', TextType::class)
+            ->add('latitude', HiddenType::class)
+            ->add('longitude', HiddenType::class)
+            ->add('ville', HiddenType::class);
     }
     /**
      * {@inheritdoc} Targeting Review entity

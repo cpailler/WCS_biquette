@@ -3,10 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * PhotoVelo
- *
+ * @Vich\Uploadable
  * @ORM\Table(name="photo_velo")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoVeloRepository")
  */
@@ -29,12 +31,22 @@ class PhotoVelo
      */
     private $velo;
 
+
     /**
-     * @var string
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
+     *
+     * @var File
      */
-    private $image;
+    protected $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    protected $image;
 
 
     /**
@@ -93,5 +105,21 @@ class PhotoVelo
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile ()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     */
+    public function setImageFile ($imageFile)
+    {
+        $this->imageFile = $imageFile;
     }
 }

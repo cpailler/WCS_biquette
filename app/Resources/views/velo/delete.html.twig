@@ -1,32 +1,43 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+{% endblock %}
+
 {% block body %}
+    <div class="container-fluid">
 
-<h3>Supprimer ce vélo</h3>
-    <table>
-        <tbody>
-        <tr>
-            <th>Titre</th>
-            <td>{{ velo.titre }}</td>
-        </tr>
-        <tr>
-            <th>Marque</th>
-            <td>{{ velo.marque }}</td>
-        </tr>
-        <tr>
-            <th>Modele</th>
-            <td>{{ velo.modele }}</td>
-        </tr>
+        <h4>SUPPRIMER LE VELO</h4>
+        <div class="row">
+            <div class="col">
+                <table class="">
+                    <tbody>
+                    <tr>
+                        <th>Titre :</th>
+                        <td>{{ velo.titre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Marque :</th>
+                        <td>{{ velo.marque }}</td>
+                    </tr>
+                    <tr>
+                        <th>Modele :</th>
+                        <td>{{ velo.modele }}</td>
+                    </tr>
 
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        </tbody>
-    </table>
+        <div>
 
-    <ul>
-        <li>
             {{ form_start(delete_form) }}
-            <input type="submit" value="Delete">
+            <input type="submit" class="class bouton" value="Supprimer">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
 
+        </div>
+
+
+    </div>
 
 {% endblock %}
