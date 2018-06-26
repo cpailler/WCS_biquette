@@ -32,15 +32,12 @@ class EtatVelo
      * @ORM\Column(name="coeff", type="float")
      */
     private $coeff;
-<<<<<<< HEAD
-=======
 
 
     /**
      * @ORM\Column(name="coeffCaution", type="float")
      */
     private $coeffCaution;
->>>>>>> dev
 
     /**
      * Get id.
@@ -80,11 +77,9 @@ class EtatVelo
     {
         return $this->etat;
     }
-<<<<<<< HEAD
-=======
 
     /**
-     * Set coeff
+     * Set coeff.
      *
      * @param float $coeff
      *
@@ -98,7 +93,7 @@ class EtatVelo
     }
 
     /**
-     * Get coeff
+     * Get coeff.
      *
      * @return float
      */
@@ -130,5 +125,5 @@ class EtatVelo
     {
         return $this->coeffCaution;
     }
->>>>>>> dev
+
 }
