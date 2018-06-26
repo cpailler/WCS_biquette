@@ -25,6 +25,7 @@ class AnnonceController extends Controller
     public function indexAction(request $request, Velo $velo)
     {
         $membre = $this->getUser();
+
         return $this->render('/recherche/annonce.html.twig', array(
             'velo' => $velo,
             'membre' => $membre,

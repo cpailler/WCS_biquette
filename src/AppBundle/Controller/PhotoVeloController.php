@@ -22,12 +22,14 @@ class PhotoVeloController extends Controller
      */
     public function indexAction()
     {
+        $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $photoVelos = $em->getRepository('AppBundle:PhotoVelo')->findAll();
 
         return $this->render('photovelo/index.html.twig', array(
             'photoVelos' => $photoVelos,
+            'membre' => $membre
         ));
     }
 
@@ -37,23 +39,33 @@ class PhotoVeloController extends Controller
      * @Route("/new", name="photovelo_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, PhotoVelo $photoVelo)
     {
+        $membre = $this->getUser();
         $photoVelo = new Photovelo();
+
+        $deleteForm = $this->createDeleteForm($photoVelo);
+
         $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $deleteForm = $this->createDeleteForm($photoVelo);
             $em = $this->getDoctrine()->getManager();
             $em->persist($photoVelo);
             $em->flush();
 
-            return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
+            return $this->redirectToRoute('photovelo_show', array(
+                'id' => $photoVelo->getId(),
+                'delete_form' => $deleteForm->createView()
+            ));
         }
 
         return $this->render('photovelo/new.html.twig', array(
             'photoVelo' => $photoVelo,
             'form' => $form->createView(),
+            'membre' => $membre,
+            'delete_form' => $deleteForm->createView()
         ));
     }
 
@@ -65,11 +77,13 @@ class PhotoVeloController extends Controller
      */
     public function showAction(PhotoVelo $photoVelo)
     {
+        $membre = $this->getUser();
         $deleteForm = $this->createDeleteForm($photoVelo);
 
         return $this->render('photovelo/show.html.twig', array(
             'photoVelo' => $photoVelo,
             'delete_form' => $deleteForm->createView(),
+            'membre' => $membre
         ));
     }
 

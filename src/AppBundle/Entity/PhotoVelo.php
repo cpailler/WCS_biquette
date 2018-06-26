@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PhotoVelo
@@ -38,6 +39,13 @@ class PhotoVelo
      * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
      *
      * @var File
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     maxSizeMessage="Votre fichier est trop volumineux, veuillez charger un fichier plus petit",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Veuillez télécharger un fichier au format .jpg ou .png"
+     * )
+     *
      */
     protected $imageFile;
 

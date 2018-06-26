@@ -92,10 +92,50 @@ class VeloController extends Controller
      */
     public function photosAction(request $request, Velo $velo)
     {
-        $photoVelo = new Photovelo();
+
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+        $photoVelo = new Photovelo();
         $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
         $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $photoVelo->setVelo($velo);
+            $em->persist($photoVelo);
+            $em->flush();
+
+            return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
+        }
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/photos.html.twig',
+            'photoVelo' => $photoVelo,
+            'velo'=>$velo,
+            'form' => $form->createView(),
+            'membre' => $membre,
+        ));
+    }
+
+    /**
+     * @Route("/{id}/photos/delete", name="delete_photos")
+     *
+     */
+    public function deletePhoto(request $request, PhotoVelo $photoVelo)
+    {
+
+        $membre = $this->getUser();
+        if ($photoVelo->getVelo()->getProprio()!=$membre){
+            return $this->redirectToAnnonce($photoVelo->getVelo());
+        }
+        $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
+        $form->handleRequest($request);
+
+
+        $deleteForm = $this->createDeletePhotoForm($photoVelo);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -111,9 +151,11 @@ class VeloController extends Controller
             'photoVelo' => $photoVelo,
             'velo'=>$velo,
             'form' => $form->createView(),
-            'membre' => $membre
+            'membre' => $membre,
+            'delete_form' => $deleteForm->createView()
         ));
     }
+
 
     /**
      * @Route("/{id}/equipement", name="velo_equipement")
@@ -225,9 +267,6 @@ class VeloController extends Controller
         ));
     }
 
-
-
-
     /**
      * @Route("/{id}", name="velo_delete")
      *  @Method("DELETE")
@@ -265,13 +304,11 @@ class VeloController extends Controller
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
 
         return $this->render('velo/layoutVelo.html.twig', array(
-
             'formulaire'=>'velo/calendrier.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
@@ -293,7 +330,7 @@ class VeloController extends Controller
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
         }
-        
+
         $deleteForm = $this->createDeleteForm($velo);
 
         return $this->render('velo/layoutVelo.html.twig',array(
@@ -316,6 +353,22 @@ class VeloController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('velo_delete', array('id' => $velo->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+    /**
+     * Creates a form to delete a photoVelo entity.
+     *
+     * @param PhotoVelo $photoVelo The photoVelo entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeletePhotoForm(PhotoVelo $photoVelo)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('delete_photos', array('id' => $photoVelo->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;

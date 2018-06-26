@@ -124,6 +124,7 @@ class TypeVelo
     {
         return $this->type;
     }
+<<<<<<< HEAD
 
     /**
 <<<<<<< HEAD
@@ -135,6 +136,15 @@ class TypeVelo
      *
      * @param integer $prixMoyen
 >>>>>>> dev
+=======
+<<<<<<< HEAD
+=======
+
+    /**
+     * Set prixMoyen
+     *
+     * @param integer $prixMoyen
+>>>>>>> 3f6b7b466e0d3e468fbba470382f0ccb2dc277a1
      *
      * @return TypeVelo
      */
@@ -147,6 +157,7 @@ class TypeVelo
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Get prixMoyen.
      *
      * @return int
@@ -155,6 +166,11 @@ class TypeVelo
      *
      * @return integer
 >>>>>>> dev
+=======
+     * Get prixMoyen
+     *
+     * @return integer
+>>>>>>> 3f6b7b466e0d3e468fbba470382f0ccb2dc277a1
      */
     public function getPrixMoyen()
     {
@@ -163,10 +179,14 @@ class TypeVelo
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Set coeff.
 =======
      * Set coeff
 >>>>>>> dev
+=======
+     * Set coeff
+>>>>>>> 3f6b7b466e0d3e468fbba470382f0ccb2dc277a1
      *
      * @param float $coeff
      *
@@ -181,10 +201,14 @@ class TypeVelo
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
      * Get coeff.
 =======
      * Get coeff
 >>>>>>> dev
+=======
+     * Get coeff
+>>>>>>> 3f6b7b466e0d3e468fbba470382f0ccb2dc277a1
      *
      * @return float
      */
@@ -192,4 +216,8 @@ class TypeVelo
     {
         return $this->coeff;
     }
+<<<<<<< HEAD
+=======
+>>>>>>> dev
+>>>>>>> 3f6b7b466e0d3e468fbba470382f0ccb2dc277a1
 }
