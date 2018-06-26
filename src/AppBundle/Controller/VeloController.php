@@ -103,10 +103,14 @@ class VeloController extends Controller
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $photoVelo->setVelo($velo);
-            $em->persist($photoVelo);
-            $em->flush();
+
+                $em = $this->getDoctrine()->getManager();
+                $photoVelo->setVelo($velo);
+                $em->persist($photoVelo);
+                $em->flush();
+
+
+
 
             return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
         }
@@ -121,7 +125,7 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/{id}/photos/delete", name="delete_photos")
+     * @Route("/photo/delete/{id}", name="photoVelo_delete")
      *
      */
     public function deletePhoto(request $request, PhotoVelo $photoVelo)
@@ -131,29 +135,14 @@ class VeloController extends Controller
         if ($photoVelo->getVelo()->getProprio()!=$membre){
             return $this->redirectToAnnonce($photoVelo->getVelo());
         }
-        $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
-        $form->handleRequest($request);
-
-
-        $deleteForm = $this->createDeletePhotoForm($photoVelo);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        else{
             $em = $this->getDoctrine()->getManager();
-            $photoVelo->setVelo($velo->getId());
-            $em->persist($photoVelo);
+            $em->remove($photoVelo);
             $em->flush();
 
-            return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
+            return $this->redirectToRoute('velo_photos', array('id'=>$photoVelo->getVelo()->getId()));
         }
 
-        return $this->render('velo/layoutVelo.html.twig', array(
-            'formulaire'=>'photovelo/new.html.twig',
-            'photoVelo' => $photoVelo,
-            'velo'=>$velo,
-            'form' => $form->createView(),
-            'membre' => $membre,
-            'delete_form' => $deleteForm->createView()
-        ));
     }
 
 

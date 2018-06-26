@@ -7,6 +7,7 @@
         <h2 class="titre">PHOTOS DU VÉLO</h2><br>
         <p class="infos_description">Ajoutez 3 photos de votre vélo et augmentez vos chances de finaliser un partage. Choisissez des photos qui montrent le vélo de façon réaliste pour permettre aux utilisateurs de l’identifier facilement.</p>
         <h4>Ajouter une photo :</h4>
+        {% if velo.photos|length<3 %}
         <div class="infos_description">
             {{ form_start(form) }}
             <div style="background-color: #e9ecef; margin: auto; width: 60%; border-radius: 5px;">
@@ -18,8 +19,19 @@
         </div>
 
         {{ form_end(form) }}
+        {% else %}
+            <div class="infos_description">
+                <p class="alert-info">Vous avez déjà 3 photos pour votre vélo, veuillez en supprimer une si vous souhaitez en ajouter une autre</p>
+            </div>
+        {% endif %}
         <br>
+        {% if velo.photos|length > 0 %}
         <div class="row">
+            <p>Cliquez pour agrandir les photos</p>
+        </div>
+        {% endif %}
+        <div class="row">
+
             {% for photo in velo.photos %}
                 <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
 
@@ -32,6 +44,7 @@
                             </div>
                         </div>
                     </button>
+
 
 
                     <!-- Modal -->
@@ -48,7 +61,11 @@
                                     <img src="{{ asset('images/uploads/' ~ photo.image ) }}" alt="" style="width: 100%;">
                                 </div>
                                 <div class="modal-footer">
-
+                                    <a href="{{ path('photoVelo_delete', {'id' : photo.id}) }}">
+                                        <button type="button" class="bouton-sm" style="background-color: darkred" data-target="#exampleModalCenter{{ photo.id }}">
+                                            supprimer
+                                        </button>
+                                    </a>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
@@ -58,11 +75,7 @@
                     </div>
 
                     <!-- bouton supprimer à mettre -->
-                    <a href="/">
-                        <button type="button" class="bouton-sm" data-target="#exampleModalCenter{{ photo.id }}">
-                            supprimer le vélo
-                        </button>
-                    </a>
+
 
 
                 </div>
