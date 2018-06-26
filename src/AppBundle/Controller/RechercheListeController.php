@@ -24,8 +24,8 @@ class RechercheListeController extends Controller
      */
     public function indexAction(request $request)
     {
-
         $em = $this->getDoctrine()->getManager();
+        /*$velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>'Strasbourg'));*/
         $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findAll();
         // replace this example code with whatever you need
         return $this->render('recherche/rechercheListe.html.twig', array(
