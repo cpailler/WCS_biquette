@@ -1,5 +1,6 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/calendrier.css') }}">
 {% endblock %}
 
 
@@ -7,5 +8,54 @@
     {{ form_start(form) }}
     <h1>Calendrier</h1>
     {{ form_end(form) }}
+
+    <div class="row">
+        {% for month in calendrier.months %}
+        <div class="col-4">
+            <div class="row center-block">
+                <div class="col-12">
+                    <p class="calendar-month">{{ month }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row center-block">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <table class="calendar__table calendar__table--{{ month.getWeeks() }}weeks">
+                        <tr>
+                            {% for day in month.days %}
+                                <th class="calendar__otherMonth">{{ day }}</th>
+                            {% endfor %}
+                        </tr>
+                        {% set date = month.getStartingday %}
+                        {% if date.format('N')!=1 %}
+                            {% set date = date.modify('last monday') %}
+                        {% endif %}
+                        {% set date = date.modify("-1 day") %}
+                        {% for key in 0..(month.getWeeks*7-1) %}
+                            {% if key%7==0 %}
+                                <tr>
+                            {% endif %}
+                            {% set date = date.modify("+1 day") %}
+                            <td class="{% if (month.withinMonth(date)) %}{#{% if infosDay.reserve %}calendar_booked{% endif %}#}{% else %}calendar__otherMonth{% endif %} ">
+                                <div class="calendar__day ">{{ date.format('d') }}</div>
+                            </td>
+                            {% if key%7==6 %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        {% endfor %}
+    </div>
+    {#<div class="col-md-4 col-xs-5">
+        <p></p> <a href="/Reservation/{{ previousMonth }}/{{ previousYear }}"
+                   class="btn-calender">&lt;</a>
+        <a href="/Reservation/{{ nextMonth }}/{{ nextYear }}"
+           class="btn-calender">&gt;</a></p>
+    </div>#}
 
 {% endblock %}
