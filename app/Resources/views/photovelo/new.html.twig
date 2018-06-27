@@ -12,7 +12,9 @@
             <div style="background-color: #e9ecef; margin: auto; width: 60%; border-radius: 5px;">
                 {{ form_widget(form.imageFile) }}
                 {{ form_errors(form.imageFile) }}
+                <input class="bouton-sm" type="submit" value="Enregistrer" />
             </div>
+
         </div>
 
         {{ form_end(form) }}
@@ -43,6 +45,12 @@
                                 </div>
                                 <div class="modal-body">
                                     <img src="{{ asset('images/uploads/' ~ photo.image ) }}" alt="" style="width: 100%;">
+                                </div>
+                                <div class="modal-footer">
+                                    <!-- bouton supprimer à mettre -->
+                                    {{ form_start(delete_form) }}
+                                    <input type="submit" value="Delete">
+                                    {{ form_end(delete_form) }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
