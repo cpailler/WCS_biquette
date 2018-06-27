@@ -20,6 +20,7 @@ use AppBundle\Form\VeloPointsType;
 use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
+use AppBundle\Service\Calendrier\Calendrier;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -281,10 +282,10 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/{id}/calendrier", name="velo_calendrier")
+     * @Route("/{id}/calendrier/{initMonth}/{initYear}", name="velo_calendrier", defaults={"initMonth"=null, "initYear"=null})
      * @Method({"GET", "POST"})
      */
-    public function calendrierAction(request $request, Velo $velo)
+    public function calendrierAction(request $request, Velo $velo, int $initMonth=null, int $initYear=null)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -297,11 +298,15 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
+        $calendrier = new Calendrier($initMonth,$initYear);
+
+
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/calendrier.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
-            'membre' =>$membre
+            'membre' =>$membre,
+            'calendrier'=>$calendrier
         ));
     }
 
