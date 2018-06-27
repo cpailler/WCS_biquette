@@ -6,124 +6,152 @@
 
 {% block body %}
 
-    <div id="carousel-photos" class="container">
+    <div id="carousel-photos" class="justify-content-center row">
         {% for photo in velo.photos %}
             <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
         {% endfor %}
     </div>
 
     <div class="container">
-    <div class="row">
-        <div id="bloc__description" class="container mt-5 col-6">
-            <div class="row">
-                {% if velo.proprio.membreVerifie == 1 %}
-                    <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié">
-                {% endif %}
-                <h2>{{ velo.titre }}</h2>
-            </div>
-
-            <div class="row mt-5">
-                <h4 class="col-1"><span class="checkmark" style="background-color: {{ velo.couleur.codeHexa }}"></span></h4>
-                <h4 class="col-3">{{ velo.marque }}</h4>
-                <h4 class="col-3">{{ velo.typeVelo }}</h4>
-                <h4 class="col-3">{{ velo.etatVelo }}</h4>
-                <h4 class="col-2">{% if velo.neuf == 1 %}Neuf{% else %}Occasion{% endif %}</h4>
-            </div>
-            <p>{{ velo.description }}</p>
-
-            <div class="categorie container mt-5">
+        <div class="row">
+            <div id="bloc__description" class="container mt-5 col-7">
                 <div class="row">
-                    <div class="col-6">
-                        <h4 class="titre">Équipements</h4>
-                        <ul>
-                            {% for equipement in velo.equipements %}
-                                <li class="equipementOK">{{ equipement.equipement }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="col-6">
-                        <h4 class="titre">Antivol du vélo</h4>
-                        <ul>
-                            {% if velo.antivolKey>0 %}
-                                <li class="equipementOK">Antivol à clef: {{ velo.antivolKey }}</li>
-                            {% endif %}
-                            {% if velo.antivolCode>0 %}
-                                <li class="equipementOK">Antivol à code: {{ velo.antivolCode }}</li>
-                            {% endif %}
-                            {% if velo.bicycode is defined %}
-                                <li class="equipementOK">Marquage Bicycode</li>
-                            {% endif %}
-                        </ul>
+                    {% if velo.proprio.membreVerifie == 1 %}
+                        <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié">
+                    {% endif %}
+                    <h2>{{ velo.titre }}</h2>
+                </div>
+
+                <div class="row mt-5">
+                    <h4 class="col-1"><span class="checkmark" style="background-color: {{ velo.couleur.codeHexa }}"></span></h4>
+                    <h4 class="col-3">{{ velo.marque }}</h4>
+                    <h4 class="col-3">{{ velo.typeVelo }}</h4>
+                    <h4 class="col-3">{{ velo.etatVelo }}</h4>
+                    <h4 class="col-2">{% if velo.neuf == 1 %}Neuf{% else %}Occasion{% endif %}</h4>
+                </div>
+                <p class="mt-3">{{ velo.description }}</p>
+
+                <div class="categorie container mt-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="titre">Équipements</h4>
+                            <ul>
+                                {% for equipement in velo.equipements %}
+                                    <li class="equipementOK">{{ equipement.equipement }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="titre">Antivol du vélo</h4>
+                            <ul>
+                                {% if velo.antivolKey > 0 %}
+                                    <li class="equipementOK">Antivol à clé</li>
+                                {% endif %}
+                                {% if velo.antivolCode > 0 %}
+                                    <li class="equipementOK">Antivol à code</li>
+                                {% endif %}
+                                {% if velo.bicycode is defined %}
+                                    <li class="equipementOK">Marquage Bicycode</li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="bloc__map" class="categorie mt-5">
-                <h4 class="titre">Carte</h4>
-                <div id="map">
-                    <script>
-                        // Initialize and add the map
-                        function initMap() {
-                            // The location of myLatLng
-                            var myLatLng = {lat: 48.734953, lng: 7.716072700000001};
-                            // The map, centered at myLatLng
-                            var map = new google.maps.Map(
-                                document.getElementById('map'), {zoom: 15, center: myLatLng});
-                            // The marker, positioned at myLatLng
-                            //var marker = new google.maps.Marker({position: myLatLng, map: map});
-                            // The marker, zone cercle myLatLng
-                            var zone = new google.maps.Circle({
-                                center: myLatLng,
-                                map: map,
-                                strokeColor: '#ffffff',
-                                strokeOpacity: 0.8,
-                                strokeWeight: 2,
-                                fillColor: '#009925',
-                                fillOpacity: 0.35,
-                                radius: 200
-                            });
-                        }
-                    </script>
+                <div id="bloc__map" class="categorie mt-5">
+                    <h4 class="titre">Carte</h4>
+                    <div id="map">
+                        <script>
+                            // Initialize and add the map
+                            function initMap() {
+                                // The location of myLatLng
+                                var myLatLng = {lat: 48.734953, lng: 7.716072700000001};
+                                // The map, centered at myLatLng
+                                var map = new google.maps.Map(
+                                    document.getElementById('map'), {zoom: 15, center: myLatLng});
+                                // The marker, positioned at myLatLng
+                                //var marker = new google.maps.Marker({position: myLatLng, map: map});
+                                // The marker, zone cercle myLatLng
+                                var zone = new google.maps.Circle({
+                                    center: myLatLng,
+                                    map: map,
+                                    strokeColor: '#ffffff',
+                                    strokeOpacity: 0.8,
+                                    strokeWeight: 2,
+                                    fillColor: '#009925',
+                                    fillOpacity: 0.35,
+                                    radius: 200
+                                });
+                            }
+                        </script>
 
-                    <script async defer
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap">
-                    </script>
+                        <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap">
+                        </script>
+                    </div>
                 </div>
-            </div>
 
-            <div id="bloc__calendrier" class="categorie mt-5">
-                <div id="calendrier">
+                <div id="bloc__calendrier" class="categorie mt-5">
                     <h4 class="titre">Calendrier des périodes de partage</h4>
+                    <p>Ici le calendrier</p>
                 </div>
-                <p>Ici le calendrier</p>
+
+                <div id="bloc__assurance" class="categorie mt-5">
+                    <h4 class="titre">Assurance</h4>
+
+                    {% if velo.assurOblig == 1 %}
+
+                        <div class="row">
+                            <p class="col-10">{{ velo.proprio.prenom }} souhaite que l'emprunteur utilise une assurance</p>
+                            <img id="logo__maif" class="col-2" src="{{ asset('images/logo-maif.svg') }}" alt="Logo Maif">
+                        </div>
+
+                        <div class="row align-content-center mt-3">
+                            <img class="col-1" src="{{ asset('images/btn-checkbox-on.svg') }}" alt="V vert">
+                            <p class="col-9">Assurance PARTAGE DE VÉLO & IMPRÉVU</p>
+                            <p class="col-2">1€/JOUR</p>
+                        </div>
+
+                    {% elseif velo.assurOblig == 0 %}
+
+                        <div class="row">
+                            <p class="col-10">{{ velo.proprio.prenom }} laisse le choix à l'emprunteur de souscrire une assurance ou non.</p>
+                            <img id="logo__maif" class="col-2" src="{{ asset('images/logo-maif.svg') }}" alt="Logo Maif">
+                        </div>
+
+                        <div class="row mt-3">
+                            <img class="col-1" src="{{ asset('images/btn-checkbox-on.svg') }}" alt="V vert">
+                            <p class="col-9">Assurance PARTAGE DE VÉLO & IMPRÉVU</p>
+                            <p class="col-2">1€/JOUR</p>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
             </div>
 
-
-        </div>
-
-        <div id="bloc__carte" class="mt-5 col-4">
-            <div id="carte" class="align-content-center">
-                <div class="row">
-                    <h1 id="carte__points" class="col-3">{{ velo.coutPts }}</h1>
-                    <div id="carte__points__jour" class="col-9">
-                        <h4 id="carte__points__jour__titre">Points / jour</h4>
-                        {%  if velo.coutPts > 0 %}
-                            <p id="carte__points__jour__message">Avec vos {{ membre.points }} Points, vous pouvez emprunter ce vélo {{ membre.points // velo.coutPts }} jours.</p>
-                        {% endif %}
+            <div id="bloc__carte" class="mt-5 col-4">
+                <div id="carte" class="align-content-center">
+                    <div class="row">
+                        <h1 id="carte__points" class="col-3">{{ velo.coutPts }}</h1>
+                        <div id="carte__points__jour" class="col-9">
+                            <h4 id="carte__points__jour__titre">Points / jour</h4>
+                            {%  if velo.coutPts > 0 %}
+                                <p id="carte__points__jour__message">Avec vos {{ membre.points }} Points, vous pouvez emprunter ce vélo {{ membre.points // velo.coutPts }} jours.</p>
+                            {% endif %}
+                        </div>
+                        <button id="carte__bouton" class="bouton">Envoyer une demande de partage</button>
                     </div>
-                    <button id="carte__bouton" class="bouton">Envoyer une demande de partage</button>
+                    <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
+                    <img id="carte__image" class="align-self-center" src="{{ asset('images/uploads/' ~ membre.avatarImage) }}" alt="Photo de profil">
+                    <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
                 </div>
-                <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
-                <img id="carte__image" class="align-self-center" src="{{ asset('images/uploads/' ~ membre.avatarImage) }}" alt="Photo de profil">
-                <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
+                <p id="notice" class="mt-3">En réservant ce vélo, une demande de contact est envoyé par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
             </div>
-            <p id="notice" class="mt-3">En réservant ce vélo, une demande de contact est envoyé par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
+
         </div>
-
-
-
-    </div>
-
 
     </div>
 {% endblock %}

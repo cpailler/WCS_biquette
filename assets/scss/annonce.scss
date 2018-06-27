@@ -72,7 +72,6 @@ li {
   width: 100%;
 }
 
-
 #carte__texte__membre__verifie {
   font-size: 14px;
   color: $bikerr-green;
@@ -113,4 +112,14 @@ li {
 #map {
   height: 200px;
   width: 100%;
+}
+
+#bloc__assurance {
+  border-radius: 8px;
+  border: solid 3px $bikerr-green;
+}
+
+#logo__maif {
+  height: 40px;
+  width: 40px;
 }
