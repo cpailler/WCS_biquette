@@ -54,4 +54,10 @@ services:
         arguments:
 
     AppBundle\Service\CautionManager:
-            arguments:
+        arguments:
+
+    AppBundle\Service\Calendrier\Calendrier:
+        arguments:
+
+    AppBundle\Service\Calendrier\Month:
+        arguments:
