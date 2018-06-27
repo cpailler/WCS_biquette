@@ -17,8 +17,8 @@
             <!-- zone barre de progression -->
             <div class="col-12 col-lg-7 progressionProfil">
                 <div class="titreProfil">
-                    <div><h2>CAROLINE MARTIN</h2></div>
-                    <div><p>MEMBRE DEPUIS 1 FEVRIER 2019</p></div>
+                    <div><h2 style="text-transform: uppercase;">{{ membre.prenom }} {{ membre.nom }}</h2></div>
+                    <div><p>MEMBRE DEPUIS {{ membre.dateInscription|date('d-m-Y') }}</p></div>
                 </div>
                 <div class="container outilsProfil">
                     <div class="row">

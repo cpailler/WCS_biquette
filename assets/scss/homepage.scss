@@ -115,6 +115,14 @@
 .town_square{
   background-color: $bikerr-green;
   padding-bottom: 100%;
+  -webkit-transition: width 0.5s, height 0.5s, background-color 0.5s, -webkit-transform 0.5s;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.town_square:hover {
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+  background-color: #005f1c;
 }
 
 @media (max-width: 576px)

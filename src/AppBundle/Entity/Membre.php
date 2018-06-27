@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Membre extends BaseUser
 {
+
     /**
      * @var int
      *

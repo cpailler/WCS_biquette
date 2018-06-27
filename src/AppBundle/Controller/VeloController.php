@@ -27,6 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Form\CalendrierType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,13 +39,9 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
  */
 class VeloController extends Controller
 {
-    private function securityCheck(Velo $velo)
+    private function redirectToAnnonce(Velo $velo)
     {
-        if (!($velo->getProprio()==$this->getUser()))
-        {
-            return $this->redirectToRoute('annonce',['id'=>$velo->getId()]);
-        }
-        return true;
+        return $this->redirectToRoute('annonce', array('id'=>$velo->getId()));
     }
 
     /**
@@ -64,9 +61,12 @@ class VeloController extends Controller
      */
     public function descriptionAction(request $request, Velo $velo)
     {
-        $this->securityCheck($velo);
-
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+
+
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
         $form->handleRequest($request);
@@ -92,28 +92,59 @@ class VeloController extends Controller
      */
     public function photosAction(request $request, Velo $velo)
     {
-        $photoVelo = new Photovelo();
+
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+        $photoVelo = new Photovelo();
         $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $photoVelo->setVelo($velo->getId());
-            $em->persist($photoVelo);
-            $em->flush();
 
-            return $this->redirectToRoute('photovelo_show', array('id' => $photoVelo->getId()));
+        if ($form->isSubmitted() && $form->isValid() && count($velo->getPhotos())<3) {
+
+                $em = $this->getDoctrine()->getManager();
+                $photoVelo->setVelo($velo);
+                $em->persist($photoVelo);
+                $em->flush();
+
+
+
+
+            return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
         }
 
         return $this->render('velo/layoutVelo.html.twig', array(
-            'formulaire'=>'photovelo/new.html.twig',
+            'formulaire'=>'velo/photos.html.twig',
             'photoVelo' => $photoVelo,
             'velo'=>$velo,
             'form' => $form->createView(),
-            'membre' => $membre
+            'membre' => $membre,
         ));
     }
+
+    /**
+     * @Route("/photo/delete/{id}", name="photoVelo_delete")
+     *
+     */
+    public function deletePhoto(request $request, PhotoVelo $photoVelo)
+    {
+
+        $membre = $this->getUser();
+        if ($photoVelo->getVelo()->getProprio()!=$membre){
+            return $this->redirectToAnnonce($photoVelo->getVelo());
+        }
+        else{
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($photoVelo);
+            $em->flush();
+
+            return $this->redirectToRoute('velo_photos', array('id'=>$photoVelo->getVelo()->getId()));
+        }
+
+    }
+
 
     /**
      * @Route("/{id}/equipement", name="velo_equipement")
@@ -122,8 +153,10 @@ class VeloController extends Controller
      */
     public function equipementAction(request $request, Velo $velo)
     {
-        $this->securityCheck($velo);
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(VeloEquipementType::class, $velo);
         $form->handleRequest($request);
@@ -152,9 +185,10 @@ class VeloController extends Controller
      */
     public function antivolAction(request $request, Velo $velo)
     {
-        $this->securityCheck($velo);
-
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
         $form = $this->createForm(VeloAntivolType::class,$velo);
         $form->handleRequest($request);
 
@@ -177,14 +211,14 @@ class VeloController extends Controller
      */
     public function localisationAction(request $request, Velo $velo)
     {
-        $this->securityCheck($velo);
-        $form = $this->createForm('AppBundle\Form\LocalisationType',$velo);
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
         $form = $this->createForm('AppBundle\Form\LocalisationType', $velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $this->getDoctrine()->getManager()->flush();
         }
 
@@ -203,8 +237,10 @@ class VeloController extends Controller
      */
     public function pointsAction(request $request, Velo $velo)
     {
-        $this->securityCheck($velo);
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
         $form = $this->createForm('AppBundle\Form\VeloPointsType',$velo);
         $form->handleRequest($request);
 
@@ -221,9 +257,6 @@ class VeloController extends Controller
         ));
     }
 
-
-
-
     /**
      * @Route("/{id}", name="velo_delete")
      *  @Method("DELETE")
@@ -231,7 +264,10 @@ class VeloController extends Controller
      */
     public function deleteAction(request $request,Velo $velo)
     {
-        $this->securityCheck($velo);
+        $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
 
         $form = $this->createDeleteForm($velo);
         $form->handleRequest($request);
@@ -252,16 +288,17 @@ class VeloController extends Controller
     public function calendrierAction(request $request, Velo $velo)
     {
         $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
 
         return $this->render('velo/layoutVelo.html.twig', array(
-
             'formulaire'=>'velo/calendrier.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
@@ -279,6 +316,11 @@ class VeloController extends Controller
      */
     public function supprimerAction(Velo $velo)
     {
+        $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+
         $deleteForm = $this->createDeleteForm($velo);
 
         return $this->render('velo/layoutVelo.html.twig',array(
@@ -305,4 +347,5 @@ class VeloController extends Controller
             ->getForm()
             ;
     }
+
 }
