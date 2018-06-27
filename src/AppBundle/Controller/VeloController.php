@@ -102,7 +102,7 @@ class VeloController extends Controller
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && count($velo->getPhotos())<3) {
 
                 $em = $this->getDoctrine()->getManager();
                 $photoVelo->setVelo($velo);
@@ -347,19 +347,4 @@ class VeloController extends Controller
             ;
     }
 
-    /**
-     * Creates a form to delete a photoVelo entity.
-     *
-     * @param PhotoVelo $photoVelo The photoVelo entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeletePhotoForm(PhotoVelo $photoVelo)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('delete_photos', array('id' => $photoVelo->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-            ;
-    }
 }
