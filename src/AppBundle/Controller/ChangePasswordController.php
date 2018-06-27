@@ -77,6 +77,7 @@ class ChangePasswordController extends BaseController
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/passwordProfil.html.twig',
             'form' => $form->createView(),
+            'membre' => $user
         ));
     }
 }

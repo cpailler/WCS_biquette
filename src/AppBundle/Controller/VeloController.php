@@ -327,6 +327,7 @@ class VeloController extends Controller
             'formulaire'=>'velo/delete.html.twig',
             'velo' => $velo,
             'delete_form' => $deleteForm->createView(),
+            'membre' =>$membre
         ));
     }
 

@@ -1,0 +1,72 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}" xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="{{ asset('build/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <h4>SUPPRIMER LE PROFIL</h4>
+        <div class="row">
+            <div class="col">
+                <table class="">
+                    <tbody>
+                    <tr>
+                        <th>Nom :</th>
+                        <td>{{ membre.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom :</th>
+                        <td>{{ membre.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Code postal :</th>
+                        <td>{{ membre.codePostal }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville :</th>
+                        <td>{{ membre.ville }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email :</th>
+                        <td>{{membre.email }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" >
+
+                            <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Attention!!!</h4>
+                        </div>
+                        <div class="modal-body">
+                            Si vous souhaitez supprimer définitivement votre profil, vous risquez d'effacer tous les velos
+                            et les reservations et/ou les partages en cours.<br>
+                            Voulez vous quand même le faire?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="class bouton" data-dismiss="modal">Ne pas supprimer mon profil</button>
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="class boutonAlert" value="Supprimer mon profil ">
+                            {{ form_end(delete_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="class bouton" value="Supprimer" data-toggle="modal" data-target="#myModal">Supprimer</button>
+
+        </div>
+
+
+    </div>
+
+{% endblock %}
