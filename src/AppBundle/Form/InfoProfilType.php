@@ -32,7 +32,10 @@ class InfoProfilType extends AbstractType
             ->add('pays')
             ->add('indicTel')
             ->add('tel')
-            ->add('dateNaissance', DateType::class);
+            ->add('dateNaissance', DateType::class, array(
+                'widget' => 'choice',
+                 'years' => range(date('Y')-100, date('Y'))
+               ));
     }
     /**
      * {@inheritdoc} Targeting Review entity

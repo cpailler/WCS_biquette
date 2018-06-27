@@ -4,6 +4,7 @@
 @import url('/assets/fonts/avenirnext.ttc');
 
 $bikerr-green: #009925;
+
 $font: Avenir Next, Arial, Helvetica, sans-serif;
 $grey-background: #f9f9f9;
 $text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -23,15 +24,14 @@ $normButton:#ffffff;
   color: white;
   width: 226px;
   height: 52px;
-  border-radius: 2px;
+  border-radius: 26px;
   background-color: $bikerr-green;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin: auto;
   text-shadow: none;
 }
 
 .bouton:hover {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.6), inset 0 2px 5px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   color: white;
   text-decoration: none;
   text-shadow: none;

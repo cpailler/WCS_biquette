@@ -170,7 +170,7 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="membre_verifie", type="boolean", options={"default"=0})
      */
-    private $membreVerifie=0;
+        private $membreVerifie=0;
 
     /**
      * @var string
