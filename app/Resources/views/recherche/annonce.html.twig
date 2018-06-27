@@ -5,14 +5,31 @@
 {% endblock %}
 
 {% block body %}
+    {#{% for photo in velo.photos %}#}
+    {#{{ asset('images/uploads/' ~ photo.image) }}#}
+    {#{% endfor %}#}
+    <div id="carouselExampleControls" class="slide" data-ride="carousel">
 
-    <div id="carousel-photos" class="row">
-        {% for photo in velo.photos %}
-            <div class="row">
-                <img class="col-4" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="">
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="http://via.placeholder.com/350x150
+" alt="Photo du vélo">
             </div>
-        {% endfor %}
+
+        </div>
+
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
     </div>
+
+
 
     <div class="container">
         <div class="row">
