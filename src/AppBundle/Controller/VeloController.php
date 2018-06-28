@@ -21,6 +21,7 @@ use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
 use AppBundle\Service\Calendrier\Calendrier;
+use AppBundle\Service\JaugeVelo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -43,6 +44,21 @@ class VeloController extends Controller
     private function redirectToAnnonce(Velo $velo)
     {
         return $this->redirectToRoute('annonce', array('id'=>$velo->getId()));
+    }
+
+    private function getJauge(Velo $velo, JaugeVelo $jaugeVelo){
+        return $jaugeVelo->indicativeJaugeVelo(
+            $velo->getTitre(),
+            $velo->getDescription(),
+            $velo->getMarque(),
+            $velo->getModele(),
+            $velo->getTypeVelo(),
+            $velo->getEtatVelo(),
+            $velo->getCouleur(),
+            $velo->getPhotos(),
+            $velo->getLongitude(),
+            $velo->getAssurOblig()
+        );
     }
 
     /**
@@ -75,7 +91,7 @@ class VeloController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function descriptionAction(request $request, Velo $velo)
+    public function descriptionAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -91,13 +107,15 @@ class VeloController extends Controller
             $em->flush();
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
             'couleurs'=>$couleurs,
-            'membre' => $membre
+            'membre' => $membre,
+            'jaugeVelo' =>$jaugeVelo
         ));
 
     }
@@ -106,7 +124,7 @@ class VeloController extends Controller
      * @Route("/{id}/photos", name="velo_photos")
      *
      */
-    public function photosAction(request $request, Velo $velo)
+    public function photosAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
 
         $membre = $this->getUser();
@@ -131,12 +149,15 @@ class VeloController extends Controller
             return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
+
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/photos.html.twig',
             'photoVelo' => $photoVelo,
             'velo'=>$velo,
             'form' => $form->createView(),
             'membre' => $membre,
+            'jaugeVelo' =>$jaugeVelo
         ));
     }
 
@@ -167,7 +188,7 @@ class VeloController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function equipementAction(request $request, Velo $velo)
+    public function equipementAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -182,6 +203,7 @@ class VeloController extends Controller
 
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
 
         $equipements = $em->getRepository(Equipement::class)->findAll();
 
@@ -190,7 +212,8 @@ class VeloController extends Controller
             'form'=>$form->createView(),
             'velo'=>$velo,
             'equipements'=>$equipements,
-            'membre' =>$membre
+            'membre' =>$membre,
+            'jaugeVelo' =>$jaugeVelo
         ));
     }
 
@@ -199,7 +222,7 @@ class VeloController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function antivolAction(request $request, Velo $velo)
+    public function antivolAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -212,11 +235,14 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
+
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/antivol.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
-            'membre' =>$membre
+            'membre' =>$membre,
+            'jaugeVelo' =>$jaugeVelo
         ));
     }
 
@@ -225,7 +251,7 @@ class VeloController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function localisationAction(request $request, Velo $velo)
+    public function localisationAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -238,12 +264,15 @@ class VeloController extends Controller
             $this->getDoctrine()->getManager()->flush();
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
+
         // replace this example code with whatever you need
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire' => 'velo/localisation.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
-            'membre' => $membre
+            'membre' => $membre,
+            'jaugeVelo' => $jaugeVelo
         ));
     }
 
@@ -251,7 +280,7 @@ class VeloController extends Controller
      * @Route("/{id}/points", name="velo_points")
      *
      */
-    public function pointsAction(request $request, Velo $velo)
+    public function pointsAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -260,16 +289,18 @@ class VeloController extends Controller
         $form = $this->createForm('AppBundle\Form\VeloPointsType',$velo);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
+
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/points.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
-            'membre' =>$membre
+            'membre' =>$membre,
+            'jaugeVelo' => $jaugeVelo
         ));
     }
 
@@ -334,20 +365,22 @@ class VeloController extends Controller
      * @Route("/{id}/supprimer", name="velo_supprimer")
      * @Method("GET")
      */
-    public function supprimerAction(Velo $velo)
+    public function supprimerAction(Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
         $deleteForm = $this->createDeleteForm($velo);
 
         return $this->render('velo/layoutVelo.html.twig',array(
             'formulaire'=>'velo/delete.html.twig',
             'velo' => $velo,
             'delete_form' => $deleteForm->createView(),
-            'membre' =>$membre
+            'membre' => $membre,
+            'jaugeVelo' => $jaugeVelo
         ));
     }
 
