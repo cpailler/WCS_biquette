@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Velo;
 
 /**
@@ -22,7 +21,7 @@ class AnnonceController extends Controller
      * @Route("/{id}", name="annonce")
      * @Method({"GET"})
      */
-    public function indexAction(request $request, Velo $velo)
+    public function indexAction(Velo $velo)
     {
         $membre = $this->getUser();
 
