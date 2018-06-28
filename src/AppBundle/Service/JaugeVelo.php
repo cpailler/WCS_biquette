@@ -5,27 +5,39 @@ namespace AppBundle\Service;
 use Doctrine\ORM\Mapping;
 
 class JaugeVelo {
-    public function indicativeJaugeVelo($description, $photo, $equipement, $antivol, $localisation, $calendrier)
+    public function indicativeJaugeVelo($titre, $description, $marque, $modele, $typeVelo, $etatVelo, $couleur, $photo, $localisation, $assurOblig)
     {
         $jaugeVelo = 0;
 
+        if(isset($titre)){
+            $jaugeVelo = $jaugeVelo + 10;
+        }
         if(isset($description)){
-            $jaugeVelo = $jaugeVelo + 20;
-        }
-        if(isset($photo)){
-            $jaugeVelo = $jaugeVelo + 20;
-        }
-        if(isset($equipement)){
             $jaugeVelo = $jaugeVelo + 10;
         }
-        if(isset($antivol)){
+        if(isset($marque)){
             $jaugeVelo = $jaugeVelo + 10;
+        }
+        if(isset($modele)){
+            $jaugeVelo = $jaugeVelo +10;
+        }
+        if(isset($typeVelo)){
+            $jaugeVelo = $jaugeVelo + 5;
+        }
+        if(isset($etatVelo)){
+            $jaugeVelo = $jaugeVelo + 5;
+        }
+        if(isset($couleur)){
+            $jaugeVelo = $jaugeVelo + 5;
+        }
+        if(count($photo) > 0){
+            $jaugeVelo = $jaugeVelo + 20;
         }
         if(isset($localisation)){
-            $jaugeVelo = $jaugeVelo + 20;
+            $jaugeVelo = $jaugeVelo + 15;
         }
-        if(isset($calendrier)){
-            $jaugeVelo = $jaugeVelo + 20;
+        if(($assurOblig) > 0){
+            $jaugeVelo = $jaugeVelo + 10;
         }
 
         return $jaugeVelo;
