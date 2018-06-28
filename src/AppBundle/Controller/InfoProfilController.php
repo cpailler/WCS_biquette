@@ -6,6 +6,7 @@ use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
 use AppBundle\Form\NewPasswordType;
+use AppBundle\Service\JaugeProfil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,12 +19,27 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class InfoProfilController extends Controller
 {
+    private function getJauge(Membre $membre, JaugeProfil $jaugeProfil)
+    {
+        return $jaugeProfil->indicativeJaugeProfil(
+            $membre->getGenre(),
+            $membre->getNom(),
+            $membre->getPrenom(),
+            $membre->getCodePostal(),
+            $membre->getVille(),
+            $membre->getEmail(),
+            $membre->getPays(),
+            $membre->getTel(),
+            $membre->getDateNaissance()
+        );
+    }
+
     /**
      * @Route("/infos", name="profil_infos")
      * @Method({"GET", "POST"})
      *
      */
-    public function InfosAction(Request $request)
+    public function InfosAction(Request $request, JaugeProfil $jaugeProfil)
     {
         $em = $this->getDoctrine()->getManager();
         $membre=$this->getUser();
@@ -37,12 +53,14 @@ class InfoProfilController extends Controller
         }
 
         $genres = $em->getRepository(Genre::class)->findAll();
+        $jaugeProfil = $this->getJauge($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/infoProfil.html.twig',
             'form'=>$form->createView(),
             'membre' => $membre,
-            'genres' => $genres
+            'genres' => $genres,
+            'jaugeProfil' => $jaugeProfil
         ));
     }
 
