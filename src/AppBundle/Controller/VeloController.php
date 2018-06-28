@@ -20,6 +20,7 @@ use AppBundle\Form\VeloPointsType;
 use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
+use AppBundle\Service\JaugeVelo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -59,7 +60,7 @@ class VeloController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function descriptionAction(request $request, Velo $velo)
+    public function descriptionAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -75,13 +76,24 @@ class VeloController extends Controller
             $em->flush();
         }
 
+        $jaugeVelo = $jaugeVelo->indicativeJaugeVelo(
+            $velo->getDescription(),
+            $velo->getPhotos(),
+            $velo->getEquipements(),
+            $velo->getAntivolKey(),
+            $velo->getLongitude(),
+            $velo->getReservations()
+        );
+        $description = $velo->getDescription();
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/description.html.twig',
             'velo' => $velo,
             'form' => $form->createView(),
             'couleurs'=>$couleurs,
-            'membre' => $membre
+            'membre' => $membre,
+            'jaugeVelo' =>$jaugeVelo,
+            'description' => $description
         ));
 
     }
