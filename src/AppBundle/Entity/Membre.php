@@ -25,7 +25,7 @@ class Membre extends BaseUser
 
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Velo", mappedBy="proprio")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Velo", mappedBy="proprio",cascade={"persist", "remove"})
      */
     private $velos;
 
