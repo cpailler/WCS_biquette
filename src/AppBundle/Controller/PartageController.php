@@ -47,4 +47,13 @@ class PartageController extends Controller
             'reservation' => $reservation,
             'membre' => $membre));
     }
+
+    public function proprietaireClotureAction(Reservation $reservation, Velo $velo) {
+        $membre = $this->getUser();
+
+        return $this->render('partage/proprietaire_cloture.html.twig', array(
+            'velo' => $velo,
+            'reservation' => $reservation,
+            'membre' => $membre));
+    }
 }
