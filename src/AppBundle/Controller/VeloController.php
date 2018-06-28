@@ -245,6 +245,7 @@ class VeloController extends Controller
         $form = $this->createForm('AppBundle\Form\VeloPointsType',$velo);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
@@ -331,6 +332,7 @@ class VeloController extends Controller
             'formulaire'=>'velo/delete.html.twig',
             'velo' => $velo,
             'delete_form' => $deleteForm->createView(),
+            'membre' =>$membre
         ));
     }
 

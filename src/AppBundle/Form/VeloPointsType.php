@@ -17,13 +17,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 
+
 class VeloPointsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('coutPts', IntegerType::class, array('label' => false))
-            ->add('caution',IntegerType::class, array('label' => false))
+            ->add('coutPts', IntegerType::class, array('attr' => array('min' => 0, 'max' => 3000, 'label' => false)))
+            ->add('caution',IntegerType::class, array('attr' => array('min' => 0, 'max' => 3000, 'label' => false)))
             ->add('cautionOblig', ChoiceType::class, array(
                 'label'    => false,
                 'required' => true,
