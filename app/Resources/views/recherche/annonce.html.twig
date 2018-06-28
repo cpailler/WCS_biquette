@@ -71,11 +71,10 @@
                                 function initMap() {
                                     // The location of myLatLng
 
-                                    let latitude = document.getElementById('latitude');
-                                    let longitude = document.getElementById('longitude');
+                                    let latitude = document.getElementById('latitude').value;
+                                    let longitude = document.getElementById('longitude').value;
 
-
-                                    let myLatLng = {lat: latitude, lng: longitude};
+                                    let myLatLng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
 
                                     // The map, centered at myLatLng
                                     let map = new google.maps.Map(

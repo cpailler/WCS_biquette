@@ -1,11 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
-@import url('/assets/fonts/avenirnext.ttc');
+//@import url('https://fonts.googleapis.com/css?family=Montserrat');
+//@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+//@import url('./../fonts/AvenirNext-Medium-06.ttf');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 $bikerr-green: #009925;
 
-$font: Avenir Next, Arial, Helvetica, sans-serif;
+$font: Nunito, Arial, Helvetica, sans-serif;
 $grey-background: #f9f9f9;
 $text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 $background-points: #d1f3e0;
@@ -14,6 +15,10 @@ $outline-grey: #dbdcd8;
 $text-dark: #333634;
 $text-grey: #949a96;
 $normButton:#ffffff;
+
+body {
+  font: $font;
+}
 
 .bouton {
   font-family: $font;
