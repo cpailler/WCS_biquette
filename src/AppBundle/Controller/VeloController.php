@@ -342,19 +342,22 @@ class VeloController extends Controller
      * @Route("/{id}/supprimer", name="velo_supprimer")
      * @Method("GET")
      */
-    public function supprimerAction(Velo $velo)
+    public function supprimerAction(Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
         }
 
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
         $deleteForm = $this->createDeleteForm($velo);
 
         return $this->render('velo/layoutVelo.html.twig',array(
             'formulaire'=>'velo/delete.html.twig',
             'velo' => $velo,
             'delete_form' => $deleteForm->createView(),
+            'membre' => $membre,
+            'jaugeVelo' => $jaugeVelo
         ));
     }
 
