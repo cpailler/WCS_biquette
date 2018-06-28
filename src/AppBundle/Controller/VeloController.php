@@ -9,11 +9,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Disponibilite;
 use AppBundle\Entity\Equipement;
 use AppBundle\Entity\Velo;
 use AppBundle\Entity\Couleur;
 use AppBundle\Entity\PhotoVelo;
 use AppBundle\Entity\Membre;
+use AppBundle\Form\DisponibiliteType;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
 use AppBundle\Form\VeloPointsType;
@@ -340,10 +342,19 @@ class VeloController extends Controller
         }
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
         }
+        $dispo = New Disponibilite();
+        $dispoForm = $this->createForm(DisponibiliteType::class, $dispo);
+        $dispoForm->handleRequest($request);
+        if ($dispoForm->isSubmitted() && $dispoForm->isValid()) {
+            $dispo->setVelo($velo);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($dispo);
+            $em->flush();
+        }
+
 
         $calendrier = new Calendrier($initMonth,$initYear);
 
@@ -353,7 +364,8 @@ class VeloController extends Controller
             'velo' => $velo,
             'form' => $form->createView(),
             'membre' =>$membre,
-            'calendrier'=>$calendrier
+            'calendrier'=>$calendrier,
+            'dispoForm'=>$dispoForm->createView()
         ));
     }
 
