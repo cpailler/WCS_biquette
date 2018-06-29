@@ -107,4 +107,29 @@ class Calendrier
         }
         return $dispo;
     }
+
+    public function getFullinfos(Velo $velo, \DateTime $date){
+        $fullinfos = ['status'=>'Non','disponibilites'=>[],'reservations'=>[]];
+        if ($velo->getDispoTotale()==1){
+            $fullinfos['status'] = 'disponible';
+        }
+        else {
+            $disponibilites = $velo->getDisponibilites();
+            foreach ($disponibilites as $disponibilite){
+                if ($disponibilite->getDebut()<=$date && $date<=$disponibilite->getFin()){
+                    $fullinfos['status'] = 'disponible';
+                    $fullinfos['disponibilites'][] = $disponibilite;
+                }
+            }
+        }
+        $reservations = $velo->getReservations();
+        foreach ($reservations as $reservation){
+            if ($reservation->getDebut()<=$date && $date<=$reservation->getFin()){
+                $fullinfos['status'] = 'reserve';
+                $fullinfos['reservations'][] = $reservation;
+                break;
+            }
+        }
+        return $fullinfos;
+    }
 }

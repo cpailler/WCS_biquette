@@ -334,30 +334,43 @@ class VeloController extends Controller
      * @Route("/{id}/calendrier/{initMonth}/{initYear}", name="velo_calendrier", defaults={"initMonth"=null, "initYear"=null})
      * @Method({"GET", "POST"})
      */
-    public function calendrierAction(request $request, Velo $velo, int $initMonth=null, int $initYear=null)
+    public function calendrierAction(request $request, Velo $velo, int $initMonth=null, int $initYear=null, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
         }
+        $em = $this->getDoctrine()->getManager();
+
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
         }
         $dispo = New Disponibilite();
         $dispoForm = $this->createForm(DisponibiliteType::class, $dispo);
         $dispoForm->handleRequest($request);
         if ($dispoForm->isSubmitted() && $dispoForm->isValid()) {
             $dispo->setVelo($velo);
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($dispo);
             $em->flush();
         }
+        $disponibilites = $velo->getDisponibilites();
 
+        foreach ($disponibilites as $disponibilite){
+            $id = $disponibilite->getId();
+            $dispo_forms[$id]= $this->createForm(DisponibiliteType::class, $disponibilite);
+            if ($dispo_forms[$id]->isSubmitted() && $dispo_forms[$id]->isValid()) {
+                echo 'coucou';
+                $em->flush();
+            }
+            $dispo_forms[$id] = $dispo_forms[$id]->createview();
+        }
+        dump($dispo_forms);
 
         $calendrier = new Calendrier($initMonth,$initYear);
-
+        $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/calendrier.html.twig',
@@ -365,8 +378,31 @@ class VeloController extends Controller
             'form' => $form->createView(),
             'membre' =>$membre,
             'calendrier'=>$calendrier,
-            'dispoForm'=>$dispoForm->createView()
+            'dispoForm'=>$dispoForm->createView(),
+            'dispo_forms'=>$dispo_forms,
+            'jaugeVelo'=>$jaugeVelo
         ));
+    }
+
+    /**
+     * @Route("/{velo}/{disponibilite}", name="update_dispo", defaults={"initMonth"=null, "initYear"=null})
+     * @Method({"GET", "POST"})
+     */
+    public function updatedispoAction(request $request, Velo $velo, Disponibilite $disponibilite)
+    {
+        $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(DisponibiliteType::class,$disponibilite);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('velo_calendrier', array('id'=>$velo->getId()));
     }
 
 
