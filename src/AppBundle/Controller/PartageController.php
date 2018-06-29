@@ -17,43 +17,49 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PartageController extends Controller
 {
     /**
-     * @Route("/", name="partage")
+     * @Route("/reservation", name="partage_reservation")
      *
      */
-    public function utilisateurReservationAction(Reservation $reservation, Velo $velo)
+    public function utilisateurReservationAction()
     {
         $membre = $this->getUser();
 
-        return $this->render('partage/utilisateur_reservation.html.twig', array(
+        return $this->render('partage/utilisateur_reservation.html.twig');
+           /* array(
             'velo' => $velo,
-            'reservation' => $reservation,
-            'membre' => $membre));
+            //'reservation' => $reservation,
+            'membre' => $membre));*/
     }
 
-    public function proprietaireValidationAction(Reservation $reservation, Velo $velo) {
+    /**
+     * @Route("/validation", name="partage_validation")
+     *
+     */
+
+    public function proprietaireValidationAction(Velo $velo) {
         $membre = $this->getUser();
 
         return $this->render('partage/proprietaire_validation.html.twig', array(
             'velo' => $velo,
-            'reservation' => $reservation,
+           // 'reservation' => $reservation,
             'membre' => $membre));
     }
 
-    public function utilisateurRetourAction(Reservation $reservation, Velo $velo) {
+    public function utilisateurRetourAction(Velo $velo) {
         $membre = $this->getUser();
 
         return $this->render('partage/utilisateur_retour.html.twig', array(
             'velo' => $velo,
-            'reservation' => $reservation,
+           // 'reservation' => $reservation,
             'membre' => $membre));
     }
 
-    public function proprietaireClotureAction(Reservation $reservation, Velo $velo) {
+    public function proprietaireClotureAction(Velo $velo) {
         $membre = $this->getUser();
 
         return $this->render('partage/proprietaire_cloture.html.twig', array(
             'velo' => $velo,
-            'reservation' => $reservation,
+            //'reservation' => $reservation,
             'membre' => $membre));
     }
 }
