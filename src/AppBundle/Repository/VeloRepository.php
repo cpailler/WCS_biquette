@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class VeloRepository extends EntityRepository
 {
-
     public function searchAnnonces()
     {
         return $this->getEntityManager()
@@ -25,5 +24,18 @@ class VeloRepository extends EntityRepository
             )
             ->getResult();
 
+    }
+
+    public function findByExampleField($nom)
+    {
+        $fields = ['v.ville'];
+        return $this->createQueryBuilder('v')
+        ->select($fields)
+        ->andWhere('v.ville LIKE :val')
+        ->setParameter('val', $nom.'%')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getResult()
+        ;
     }
 }
