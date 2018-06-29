@@ -85,9 +85,61 @@
                                 <tr>
                             {% endif %}
                             {% set date = date.modify("+1 day") %}
-                            <td class="{% if (month.withinMonth(date)) %}{% if calendrier.getStatus(velo, date)=='disponible' %}calendar_disponible{% elseif calendrier.getStatus(velo, date)=='reserve'  %}calendar_booked{% endif %}{% else %}calendar__otherMonth{% endif %} ">
+                            {% set infosdate = calendrier.getFullInfos(velo, date) %}
+                            <td class="{% if (month.withinMonth(date)) %}{% if infosdate.status=='disponible' %}calendar_disponible{% elseif infosdate.status == 'reserve'  %}calendar_booked{% endif %}{% else %}calendar__otherMonth{% endif %} ">
+                                <!-- Button trigger modal -->
+                                <a data-toggle="modal" data-target="#infos{{ date.format('m-d') }}">
+                                    <div class="calendar__day ">{{ date.format('d') }}</div>
+                                </a>
 
-                                <div class="calendar__day ">{{ date.format('d') }}</div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="infos{{ date.format('m-d') }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Informations du {{ date.format('d') }} {{ month }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            {% for key,form in dispo_forms %}
+                                                {% for dispo in infosdate.disponibilites %}
+                                                    {% if dispo.id == key %}
+                                                        <form name="app_bundle_disponibilite_type" method="post" action="{{ path('update_dispo', {'velo':velo.id,'disponibilite':key}) }}">
+                                                            <div class="row">
+                                                                <div class="form-group col-6">
+                                                                    <label for="app_bundle_disponibilite_type_debut" class="form-control-label required">Debut</label>
+                                                                    <input type="date" name="app_bundle_disponibilite_type[debut]" required="required" class="form-control" value="{{ form.children.debut.vars.data.format('Y-m-d') }}">
+                                                                </div>
+                                                                <div class="form-group col-6">
+                                                                    <label for="app_bundle_disponibilite_type_fin" class="form-control-label required">Fin</label>
+                                                                    <input type="date" name="app_bundle_disponibilite_type[fin]" required="required" class="form-control" value="{{ form.children.fin.vars.data.format('Y-m-d') }}">
+                                                                </div>
+                                                                <input type="hidden" name="app_bundle_disponibilite_type[_token]" value="{{ form.children._token.vars.data }}">
+                                                            </div>
+                                                            <div class="row">
+                                                                    <input class="bouton-sm" type="submit" value="Modifier" />
+                                                            </div>
+
+                                                        </form>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                            </div>
+                                            <div>
+                                                <div class="modal-footer" style="display: inline-block;">
+
+                                                </div>
+                                                <div class="modal-footer" style="float: right;">
+                                                    <button type="button" class="bouton-sm" style="color: white" data-dismiss="modal">Fermer</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </td>
                             {% if key%7==6 %}
                                 </tr>
