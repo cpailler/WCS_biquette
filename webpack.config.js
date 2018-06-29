@@ -9,9 +9,6 @@ Encore
 
     // will create web/build/app.js and web/build/app.css
     .addEntry('app', './assets/js/app.js')
-    .addEntry('autocomplete', './assets/js/autocomplete.js')
-    .addEntry('mapgoogle', './assets/js/mapgoogle.js')
-    .addEntry('plugmap', './assets/js/plugmap.js')
     .addEntry('tri', './assets/js/tri.js')
 
     .addEntry('style', './assets/scss/style.scss')
