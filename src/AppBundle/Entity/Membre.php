@@ -25,7 +25,7 @@ class Membre extends BaseUser
 
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Velo", mappedBy="proprio")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Velo", mappedBy="proprio",cascade={"persist", "remove"})
      */
     private $velos;
 
@@ -170,7 +170,7 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="membre_verifie", type="boolean", options={"default"=0})
      */
-    private $membreVerifie=0;
+        private $membreVerifie=0;
 
     /**
      * @var string

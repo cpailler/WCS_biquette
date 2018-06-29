@@ -1,10 +1,12 @@
 @import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
-@import url('/assets/fonts/avenirnext.ttc');
+//@import url('https://fonts.googleapis.com/css?family=Montserrat');
+//@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+//@import url('./../fonts/AvenirNext-Medium-06.ttf');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 $bikerr-green: #009925;
-$font: Avenir Next, Arial, Helvetica, sans-serif;
+
+$font: Nunito, Arial, Helvetica, sans-serif;
 $grey-background: #f9f9f9;
 $text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 $background-points: #d1f3e0;
@@ -13,6 +15,10 @@ $outline-grey: #dbdcd8;
 $text-dark: #333634;
 $text-grey: #949a96;
 $normButton:#ffffff;
+
+body {
+  font: $font;
+}
 
 .bouton {
   font-family: $font;
@@ -23,15 +29,14 @@ $normButton:#ffffff;
   color: white;
   width: 226px;
   height: 52px;
-  border-radius: 2px;
+  border-radius: 26px;
   background-color: $bikerr-green;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   margin: auto;
   text-shadow: none;
 }
 
 .bouton:hover {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.6), inset 0 2px 5px 0 rgba(0, 0, 0, 0.8);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   color: white;
   text-decoration: none;
   text-shadow: none;
@@ -135,3 +140,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+ .boutonAlert {
+   @extend .bouton;
+   background-color: red !important;
+ }

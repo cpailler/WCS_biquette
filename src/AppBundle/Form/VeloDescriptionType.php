@@ -98,6 +98,8 @@ class VeloDescriptionType extends AbstractType
                 'label_attr'=>array(
                     'class'=>'row col-sm-12')))
             ->add('dateAchat', DateType::class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y'), 1817),
                 'required'=>false,
                 'label_attr'=>array(
                     'class'=>'row col-sm-12'),

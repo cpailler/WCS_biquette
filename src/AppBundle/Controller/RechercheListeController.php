@@ -30,7 +30,8 @@ class RechercheListeController extends Controller
         // replace this example code with whatever you need
         return $this->render('recherche/rechercheListe.html.twig', array(
             'velos' => $velos,
-            'membre'=> $this->getUser()
+            'membre'=> $this->getUser(),
+
         ));
     }
 }

@@ -9,6 +9,7 @@ Encore
 
     // will create web/build/app.js and web/build/app.css
     .addEntry('app', './assets/js/app.js')
+    .addEntry('calendar', './assets/js/calendar.js')
 
     .addEntry('style', './assets/scss/style.scss')
     .addEntry('homepage', './assets/scss/homepage.scss')
@@ -18,6 +19,7 @@ Encore
     .addEntry('form', './assets/scss/form.scss')
     .addEntry('enregistrement', './assets/scss/enregistrement.scss')
     .addEntry('annonce', './assets/scss/annonce.scss')
+    .addEntry('calendrier', './assets/scss/calendrier.scss')
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()

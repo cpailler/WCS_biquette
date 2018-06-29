@@ -1,11 +1,123 @@
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/calendrier.css') }}">
 {% endblock %}
 
 
 {% block body %}
-    {{ form_start(form) }}
-    <h1>Calendrier</h1>
-    {{ form_end(form) }}
 
+    <h1>Calendrier</h1>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-10">
+            <p class="checkbox-label">Je souhaite que mon velo soit disponible tout le temps.</p>
+        </div>
+        <div class="col-2">
+            <label class="switch">
+                <input type="checkbox" {% if velo.dispoTotale==1 %}checked{% endif %} id="app_bundle_calendrier_type_dispo_totale" name="app_bundle_calendrier_type[dispo_totale]" required="required" class="form-check-input" value="1">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+    {% do form.dispo_totale.setRendered %}
+    {{ form_end(form) }}
+    {% if velo.dispoTotale==0 %}
+    <!-- Button trigger modal -->
+    <button type="button" class="bouton-sm" data-toggle="modal" data-target="#disponibilitéModal">
+        Ajouter une période de disponibilité
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="disponibilitéModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Nouvelle période de disponibilité</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(dispoForm) }}
+                    {{ form_widget(dispoForm) }}
+                    <input class="bouton-sm" type="submit" value="Enregistrer" />
+                    {{ form_end(dispoForm) }}
+                </div>
+                <div>
+                    <div class="modal-footer" style="display: inline-block;">
+
+                    </div>
+                    <div class="modal-footer" style="float: right;">
+                        <button type="button" class="bouton-sm" style="color: white" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <br>
+    <div class="row">
+        {% for month in calendrier.months %}
+        <div class="col-4">
+            <div class="row center-block">
+                <div class="col-12">
+                    <p class="calendar-month">{{ month }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row center-block">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <table class="calendar__table calendar__table--{{ month.getWeeks() }}weeks">
+                        <tr>
+                            {% for day in month.days %}
+                                <th class="calendar__otherMonth">{{ day }}</th>
+                            {% endfor %}
+                        </tr>
+                        {% set date = month.getStartingday %}
+                        {% if date.format('N')!=1 %}
+                            {% set date = date.modify('last monday') %}
+                        {% endif %}
+                        {% set date = date.modify("-1 day") %}
+                        {% for key in 0..(month.getWeeks*7-1) %}
+                            {% if key%7==0 %}
+                                <tr>
+                            {% endif %}
+                            {% set date = date.modify("+1 day") %}
+                            <td class="{% if (month.withinMonth(date)) %}{% if calendrier.getStatus(velo, date)=='disponible' %}calendar_disponible{% elseif calendrier.getStatus(velo, date)=='reserve'  %}calendar_booked{% endif %}{% else %}calendar__otherMonth{% endif %} ">
+
+                                <div class="calendar__day ">{{ date.format('d') }}</div>
+                            </td>
+                            {% if key%7==6 %}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        {% endfor %}
+
+    </div>
+    <div class="row">
+        <div class="col-6 text-left">
+            <a href="{{ path('velo_calendrier', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">←Précédent</a>
+        </div>
+        <div class="col-6 text-right">
+            <a href="{{ path('velo_calendrier', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant→</a>
+        </div>
+    </div>
+    {#<div class="col-md-4 col-xs-5">
+        <p></p> <a href="/Reservation/{{ previousMonth }}/{{ previousYear }}"
+                   class="btn-calender">&lt;</a>
+        <a href="/Reservation/{{ nextMonth }}/{{ nextYear }}"
+           class="btn-calender">&gt;</a></p>
+    </div>#}
+
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('build/calendar.js') }}"></script>
 {% endblock %}

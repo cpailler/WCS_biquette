@@ -47,6 +47,63 @@ class InfoProfilController extends Controller
     }
 
 
+    /**
+     *  @Route("/", name="profil_delete")
+     *  @Method("DELETE")
+     *
+     */
+    public function deleteAction(request $request)
+    {
+        $membre = $this->getUser();
+
+        $form = $this->createDeleteForm($membre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($membre);
+            $em->flush();
+        }
+        return $this->redirectToRoute('homepage_non_connect');
+
+    }
+
+    /**
+     * Finds and displays and delete a membre entity.
+     *
+     * @Route("/supprimer", name="profil_supprimer")
+     * @Method("GET")
+     */
+    public function supprimerAction()
+    {
+        $membre = $this->getUser();
+
+        $deleteForm = $this->createDeleteForm($membre);
+
+        return $this->render('profil/layoutProfil.html.twig',array(
+            'formulaire'=>'profil/delete.html.twig',
+            'delete_form' => $deleteForm->createView(),
+            'membre' =>$membre
+        ));
+    }
+
+    /**
+     * Creates a form to delete a profil entity.
+     *
+     * @param Membre $membre The membre entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(Membre $membre)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('profil_delete', array('id' => $membre->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+
 
 
 }
