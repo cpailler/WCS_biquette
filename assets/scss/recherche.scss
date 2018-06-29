@@ -139,3 +139,14 @@
 .marker.is-active::after {
   border-top-color: $bikerr-green;
 }
+
+#search-city {
+  width: 300px;
+}
+
+.hide {
+  transform: scale(0);
+  width: 0;
+  padding: 0;
+  transition: all 0.4s ease-in-out;
+}
