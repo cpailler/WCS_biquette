@@ -367,7 +367,7 @@ class VeloController extends Controller
             }
             $dispo_forms[$id] = $dispo_forms[$id]->createview();
         }
-        dump($dispo_forms);
+
 
         $calendrier = new Calendrier($initMonth,$initYear);
         $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
@@ -385,7 +385,7 @@ class VeloController extends Controller
     }
 
     /**
-     * @Route("/{velo}/{disponibilite}", name="update_dispo", defaults={"initMonth"=null, "initYear"=null})
+     * @Route("/{velo}/{disponibilite}/update", name="update_dispo")
      * @Method({"GET", "POST"})
      */
     public function updatedispoAction(request $request, Velo $velo, Disponibilite $disponibilite)
@@ -403,6 +403,27 @@ class VeloController extends Controller
         }
 
         return $this->redirectToRoute('velo_calendrier', array('id'=>$velo->getId()));
+    }
+
+    /**
+     * @Route("/{velo}/{disponibilite}/delete", name="delete_dispo")
+     * @Method({"GET", "POST"})
+     */
+    public function deletedispoAction(request $request, Velo $velo, Disponibilite $disponibilite)
+    {
+        $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+        else{
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($disponibilite);
+            $em->flush();
+            return $this->redirectToRoute('velo_calendrier', array('id'=>$velo->getId()));
+        }
+
+
+
     }
 
 

@@ -119,10 +119,13 @@
                                                                 <input type="hidden" name="app_bundle_disponibilite_type[_token]" value="{{ form.children._token.vars.data }}">
                                                             </div>
                                                             <div class="row">
-                                                                    <input class="bouton-sm" type="submit" value="Modifier" />
+                                                                <input class="bouton-sm" type="submit" value="Modifier" />
                                                             </div>
 
                                                         </form>
+                                                        <a href="{{ path('delete_dispo', {'velo':velo.id,'disponibilite':key}) }}">
+                                                            <button class="btn-danger">Supprimer</button>
+                                                        </a>
                                                     {% endif %}
                                                 {% endfor %}
                                             {% endfor %}
