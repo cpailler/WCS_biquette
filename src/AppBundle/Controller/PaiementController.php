@@ -70,11 +70,11 @@ class PaiementController extends Controller
 
         $CartePaiement= new CartePaiement();
 
-        $CartePaiement->setPreregistrationData($cardRegistration->PreregistrationData);
-        $CartePaiement->setAccessKey($cardRegistration->AccessKey);
+        $CartePaiement->setdata($cardRegistration->PreregistrationData);
+        $CartePaiement->setAccessKeyRef($cardRegistration->AccessKey);
         $CartePaiement->setReturnUrl($returnUrl);
         $form = $this->createForm(CartePaiementType::class, $CartePaiement, array(
-        'action' => $cardRegistration->CardRegistrationURL,
+            'action' => $cardRegistration->CardRegistrationURL,
         ));
 
         //sauveagarde en session de l'objet cardRegistration
@@ -86,16 +86,19 @@ class PaiementController extends Controller
         //Validation du formulaire
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $data=$request->query->get('data');
+            dump($data);
             $CardID = $form->getData();
-            //dump($CardID);
+
         }
 
         // Accès au retour de $_POST
         //$request->request->get('CardRegisterForm'); // post ???
 
-       // Envoi de la vue
+        // Envoi de la vue
         return $this->render('paiement/CartePaiement.html.twig',array(
-           'form'=>$form->createView(),
+            'form'=>$form->createView(),
             'cardregistration' => $cardRegistration
         ));
     }
@@ -109,6 +112,9 @@ class PaiementController extends Controller
         $session = new Session();
 
         $cardRegistration = $session->get('cardregistration');
+        //$RegistrationData = $session->get('RegistrationData');
+
+       // dump($RegistrationData);
 
         dump($cardRegistration);
 

@@ -24,9 +24,9 @@ class CartePaiement
 
     private $CardRegistrationURL;
 
-    private $PreregistrationData;
+    private $data;
 
-    private $AccessKey;
+    private $accessKeyRef;
 
     private $returnUrl;
 
@@ -46,6 +46,22 @@ class CartePaiement
         $this->returnUrl = $returnUrl;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAccessKeyRef()
+    {
+        return $this->accessKeyRef;
+    }
+
+    /**
+     * @param mixed $accessKeyRef
+     */
+    public function setAccessKeyRef($accessKeyRef)
+    {
+        $this->accessKeyRef = $accessKeyRef;
+    }
+
 
 
     /**
@@ -57,43 +73,27 @@ class CartePaiement
     }
 
     /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
      * @param mixed $CardRegistrationURL
      */
     public function setCardRegistrationURL($CardRegistrationURL)
     {
         $this->CardRegistrationURL = $CardRegistrationURL;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPreregistrationData()
-    {
-        return $this->PreregistrationData;
-    }
-
-    /**
-     * @param mixed $PreregistrationData
-     */
-    public function setPreregistrationData($PreregistrationData)
-    {
-        $this->PreregistrationData = $PreregistrationData;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAccessKey()
-    {
-        return $this->AccessKey;
-    }
-
-    /**
-     * @param mixed $AccessKey
-     */
-    public function setAccessKey($AccessKey)
-    {
-        $this->AccessKey = $AccessKey;
     }
 
 

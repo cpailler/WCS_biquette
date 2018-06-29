@@ -9,6 +9,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Membre;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 use MangoPay;
@@ -50,9 +51,14 @@ class MangoPayApi
         $MangoUser->Email = $membre->getEmail();
         $MangoUser->FirstName = $membre->getPrenom();
         $MangoUser->LastName = $membre->getNom();
-        $MangoUser->Birthday = $membre->getDateNaissance()->getTimestamp();
-        $MangoUser->Nationality = $membre->getPays();
-        $MangoUser->CountryOfResidence = $membre->getPays();
+        if($membre->getDateNaissance() == null) {
+            $MangoUser->Birthday = DateTime::createFromFormat('m/d/Y', '1/01/2000')->getTimestamp();
+        }else
+        {
+            $MangoUser->Birthday = $membre->getDateNaissance()->getTimestamp();
+        }
+        $MangoUser->Nationality = $membre->getPays()->getAlpha2();
+        $MangoUser->CountryOfResidence = $membre->getPays()->getAlpha2();
         $MangoUser = $this->connexionApi->Users->Create($MangoUser); //creation naturalUser with those parameter
         return $MangoUser->Id;
     }
@@ -81,12 +87,12 @@ class MangoPayApi
     // creation objet CardID
     public function CardUpdate(\MangoPay\CardRegistration $carte, $registrationId)
     {
-        //dump($registrationId);
-        //dump($carte);
+        dump($registrationId);
+        dump($carte);
         $CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
         $CardRegistration->RegistrationData = 'data=' . $registrationId;
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
-        //dump($CardUpdate);
+        dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
 
         //$this->connexionApi->Cards->Get($result->CardId);
@@ -215,4 +221,4 @@ class MangoPayApi
         $result = $mangoPayApi->Transfers->CreateRefund($TransferId, $Refund);
     }
 }
-    //preauthporization valable 7jour pour caution
+//preauthporization valable 7jour pour caution

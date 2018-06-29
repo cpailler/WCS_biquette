@@ -1,0 +1,8 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/virement.css') }}">
+{% endblock %}
+<p class="mt-2" id="notice">Nous utilisons vos coordonnées bancaires pour restituer les dépôts de garantie demandés par les propriétaires lorsque ces derniers en font la demande.
+    Veuillez remplir les champs marqués d’un * pour enregistrer votre compte bancaire.</p>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}

@@ -33,12 +33,17 @@ class CartePaiementType extends AbstractType
         $builder
 
 
-            ->add('PreregistrationData', HiddenType::class,
-                array('block_name' => 'data'))
+            ->add('data', HiddenType::class)//, array(
+               // 'block_name' => 'data'
+           // )
 
-            ->add('AccessKey', HiddenType::class)
+            ->add('accessKeyRef', HiddenType::class)//,array(
+                //'block_name' => 'AccessKey'
+           // ))
 
-            ->add('returnURL', HiddenType::class)
+            ->add('returnURL', HiddenType::class)//,array(
+              //  'block_name' => 'returnURL'
+           // ))
 
             ->add('card_type', ChoiceType::class, array(
                 'label' => false,
@@ -50,10 +55,10 @@ class CartePaiementType extends AbstractType
                     'MAESTRO' => true,
                     'MASTERCARD' => true,
                     'CB' => true
-                    ),
+                ),
                 'choice_label' => false
             ))
-      
+
 
 //            ->add('card_owner', TextType::class,array(
 //                'label' => false,
@@ -83,7 +88,7 @@ class CartePaiementType extends AbstractType
             ->add('checkbox', CheckboxType::class,array(
                 'mapped' =>false,
                 'label' => false
-                ))
+            ))
 
             ->add('submit', SubmitType::class);
 
