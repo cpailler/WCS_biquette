@@ -54,14 +54,20 @@ td {
 
 .calendar_disponible{
   background-color: $bikerr-green;
-  color: white;
   cursor: pointer;
+}
+
+.calendar_disponible .calendar__day{
+  color: white;
 }
 
 .calendar_booked {
   background-color: red;
-  color: white;
   cursor: pointer;
+}
+
+.calendar_booked .calendar__day{
+  color: white;
 }
 
 .td a{
@@ -69,8 +75,10 @@ td {
   width:100%;
 }
 
-.modal h5{
-  color: black;
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
 }
 
 a, a:hover {
