@@ -21,7 +21,7 @@ td {
 }
 
 .calendar__day {
-
+  background-color : inherit;
 }
 
 .calendar__otherMonth .calendar__day {
@@ -30,10 +30,6 @@ td {
 
 .btn-calender {
   color: #dcba79;
-}
-
-.calendar_booked{
-  background-color: #d0021b;
 }
 
 .badge {
@@ -58,8 +54,21 @@ td {
 
 .calendar_disponible{
   background-color: $bikerr-green;
+  color: white;
+  cursor: pointer;
 }
 
 .calendar_booked {
   background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+.td a{
+  display:block;
+  width:100%;
+}
+
+.modal h5{
+  color: black;
 }
