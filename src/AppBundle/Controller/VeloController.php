@@ -357,7 +357,7 @@ class VeloController extends Controller
             $em->flush();
         }
         $disponibilites = $velo->getDisponibilites();
-
+        $dispo_forms=[];
         foreach ($disponibilites as $disponibilite){
             $id = $disponibilite->getId();
             $dispo_forms[$id]= $this->createForm(DisponibiliteType::class, $disponibilite);

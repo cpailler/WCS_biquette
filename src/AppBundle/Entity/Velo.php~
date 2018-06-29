@@ -52,22 +52,22 @@ class Velo
     private $typeVelo;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PhotoVelo", mappedBy="velo")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\PhotoVelo", mappedBy="velo", cascade={"persist", "remove"})
      */
     private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Disponibilite", mappedBy="velo")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Disponibilite", mappedBy="velo", cascade={"persist", "remove"})
      */
     private $disponibilites;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="velo")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="velo", cascade={"persist", "remove"})
      */
     private $reservations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Equipement")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Equipement", cascade={"persist", "remove"})
      */
     private $equipements;
 

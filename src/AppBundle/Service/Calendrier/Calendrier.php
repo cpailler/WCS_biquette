@@ -127,7 +127,6 @@ class Calendrier
             if ($reservation->getDebut()<=$date && $date<=$reservation->getFin()){
                 $fullinfos['status'] = 'reserve';
                 $fullinfos['reservations'][] = $reservation;
-                break;
             }
         }
         return $fullinfos;
