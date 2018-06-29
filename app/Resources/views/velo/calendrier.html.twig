@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    <h1>Calendrier</h1>
+    <h1 class="mt-3">Calendrier de disponibilités</h1>
     {{ form_start(form) }}
     <div class="row">
         <div class="col-10">
@@ -22,7 +22,7 @@
     {{ form_end(form) }}
     {% if velo.dispoTotale==0 %}
     <!-- Button trigger modal -->
-    <button type="button" class="bouton-sm" data-toggle="modal" data-target="#disponibilitéModal">
+    <button type="button" class="bouton" data-toggle="modal" data-target="#disponibilitéModal">
         Ajouter une période de disponibilité
     </button>
 
@@ -39,7 +39,7 @@
                 <div class="modal-body">
                     {{ form_start(dispoForm) }}
                     {{ form_widget(dispoForm) }}
-                    <input class="bouton-sm" type="submit" value="Enregistrer" />
+                    <input class="bouton" type="submit" value="Enregistrer" />
                     {{ form_end(dispoForm) }}
                 </div>
                 <div>
@@ -156,10 +156,10 @@
     </div>
     <div class="row">
         <div class="col-6 text-left">
-            <a href="{{ path('velo_calendrier', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">←Précédent</a>
+            <a href="{{ path('velo_calendrier', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">← Précédent</a>
         </div>
         <div class="col-6 text-right">
-            <a href="{{ path('velo_calendrier', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant→</a>
+            <a href="{{ path('velo_calendrier', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant →</a>
         </div>
     </div>
     {#<div class="col-md-4 col-xs-5">
