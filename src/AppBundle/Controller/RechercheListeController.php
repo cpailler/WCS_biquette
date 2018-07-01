@@ -22,13 +22,25 @@ class RechercheListeController extends Controller
      * Lists velos.
      *
      * @Route("/", name="recherche-liste")
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      */
     public function indexAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        /*$velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>'Strasbourg'));*/
+
+        if (isset ($_POST['ville'])) {
+            $criteria = ($_POST['ville']);
+            $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$criteria));
+
+            // replace this example code with whatever you need
+            return $this->render('recherche/rechercheListe.html.twig', array(
+                'velos' => $velos,
+                'membre'=> $this->getUser(),
+            ));
+        }
+
         $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findAll();
+
         // replace this example code with whatever you need
         return $this->render('recherche/rechercheListe.html.twig', array(
             'velos' => $velos,
