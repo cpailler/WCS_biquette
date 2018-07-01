@@ -2,15 +2,15 @@
 
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-.bloc-recherche {
+/*.bloc-recherche {
   padding-top: 100px;
-}
+}*/
 
 #map {
   position: sticky!important;
   top: 0;
   left: 0;
-  height:100vh;
+  height: calc(100vh - 35px);
 }
 
 .controls {
@@ -23,7 +23,6 @@
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
-
 
 
 .annonce img {
@@ -150,3 +149,30 @@
   padding: 0;
   transition: all 0.4s ease-in-out;
 }
+
+.item img{
+  height: 180px;
+  width: 100%;
+}
+
+.tri-city ul {
+  position: absolute;
+  list-style: none;
+  padding: 0px;
+  border: 1px solid black;
+  background: white;
+  width: 300px;
+}
+
+.tri-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tri-city{
+  display: flex;
+  flex-direction: column;
+}
+
+

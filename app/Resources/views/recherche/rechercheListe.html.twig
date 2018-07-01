@@ -13,15 +13,19 @@
             <div class="container col-12 col-lg-7">
                 <div class="row">
                     <!-- barre de tri -->
-                    <div class="col-12 col-lg-12 form-control">
+                    <div class="col-12 col-lg-12 form-control recherche-map">
 
-                        <p><b>Start typing a name in the input field below:</b></p>
-                        <form>
-                            First name: <input type="text" onkeyup="showHint(this.value)">
+                        <form class="tri-box" method="post" action="">
+                            <div class="tri-city">
+                                <div>
+                                    <input id="search-city" name="ville" class="form-control" type="text" onkeyup="showHint(this.value)" placeholder="Dans quelle ville voulez-vous un vélo ?">
+                                </div>
+                                <div id="txtHint"></div>
+                            </div>
+                            <div>
+                                <input id="submit" class="bouton-sm" type="submit" value="Rechercher">
+                            </div>
                         </form>
-                        <p>Suggestions: <span id="txtHint"></span></p>
-
-                    
 
                         <select class="velos" name="velos">
                             <option>---- Type de vélo ----</option>
@@ -78,14 +82,14 @@
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     {#<img src="http://via.placeholder.com/400x260" alt="">#}
                                     {% if velo.photos.0.image is defined %}
-                                    <img src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt="">
+                                    <img class="image-annonce" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt="">
                                     {% endif %}
                                     <div class="bloc-titres">
                                         <div class="description"><h4>{{ velo.titre }}</h4></div>
                                         <div class="nb-pts"><h4>Pts/jour <span>{{ velo.coutPts }}</span></h4></div>
                                     </div>
-                                    <input class="ville" name="ville" value="{{ velo.ville }}">
-                                    <input class="type" name="type" value="{{ velo.typeVelo }}">
+                                    <input class="ville" name="ville" type="hidden" value="{{ velo.ville }}">
+                                    <input class="type" name="type" type="hidden" value="{{ velo.typeVelo }}">
                                 </div>
                             {% endfor %}
                         </div>
@@ -99,8 +103,7 @@
         </div>
     </div>
 
-
-
+    <!--          AUTOCOMPLETE VILLE           -->
     <script> function showHint(str) {
             if (str.length == 0) {
                 document.getElementById("txtHint").innerHTML = "";
@@ -108,13 +111,15 @@
             } else {
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
-            //console.log(this.readyState);
+                    //console.log(this.readyState);
                     console.log(this.status);
                     if (this.readyState == 4 && this.status == 200) {
                         console.log(this.responseText);
                         var obj = JSON.parse(this.responseText);
-                        document.getElementById("txtHint").innerHTML = obj[0].ville;
-                        console.log(obj[0].ville);
+                        document.getElementById("txtHint").innerHTML = '<ul><li>'+obj[0].ville+'</ul></li>';
+                        //console.log(obj[0].ville);
+                    } else {
+                        document.getElementById("txtHint").innerHTML = '<ul><li>Aucun vélos pour cette recherche</li></ul>';
                     }
                 }
                 xmlhttp.open("GET", "http://localhost:8000/recherche-liste/getVille/"+str, true);
@@ -123,20 +128,11 @@
         }
     </script>
 
-    <!--          TRI           -->
+    <!--          TRI VELO         -->
     <script src="{{ asset('build/tri.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!--          AUTOCOMPLETE           -->
-    <script>
-        function initAutocomplete() {
-            // Create the search box and link it to the UI element.
-            var input = document.getElementById('search-city');
-            var searchBox = new google.maps.places.SearchBox(input);
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap&libraries=places&callback=initAutocomplete"
-            async defer></script>
-    <!--          script divers          -->
+
+    <!--          SOMETHING ABOUT GOOGLE MAP           -->
     <script>
         /*!
   * $script.js JS loader & dependency manager
