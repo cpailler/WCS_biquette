@@ -158,10 +158,13 @@
 .tri-city ul {
   position: absolute;
   list-style: none;
-  padding: 0px;
-  border: 1px solid black;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 12px;
+  border: 1px solid #cccccc;
   background: white;
   width: 300px;
+  z-index: 20;
 }
 
 .tri-box {
