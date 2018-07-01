@@ -167,6 +167,11 @@
   z-index: 20;
 }
 
+.tri-city li:hover {
+  color: $bikerr-green;
+  cursor: default;
+}
+
 .tri-box {
   display: flex;
   flex-direction: row;
