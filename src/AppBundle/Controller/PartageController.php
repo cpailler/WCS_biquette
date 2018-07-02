@@ -7,6 +7,7 @@ use AppBundle\Entity\Velo;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Partage controller.
@@ -17,18 +18,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PartageController extends Controller
 {
     /**
-     * @Route("/reservation", name="partage_reservation")
+     * @Route("/{id}/reservation", name="partage_reservation")
      *
      */
-    public function utilisateurReservationAction()
+    public function utilisateurReservationAction(Request $request,Velo $velo)
     {
         $membre = $this->getUser();
 
-        return $this->render('partage/utilisateur_reservation.html.twig');
-           /* array(
-            'velo' => $velo,
-            //'reservation' => $reservation,
-            'membre' => $membre));*/
+
+        return $this->render('partage/utilisateur_reservation.html.twig',array(
+            'membre' => $membre,
+            'velo' => $velo));
     }
 
     /**

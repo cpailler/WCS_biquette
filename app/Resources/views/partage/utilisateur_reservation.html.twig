@@ -2,6 +2,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -11,3 +12,59 @@
         <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
     {% endfor %}
 </div>
+    <h4>Le velo de Ilya</h4>
+    <div class="container">
+        <table>
+            <tbody>
+            <div class="row">
+
+                    <tr class="col-4">
+                        <th>Jours</th>
+                        <td>8</td>
+
+                    </tr>
+
+
+                    <tr class="col-4">
+                        <th>Retrait</th>
+                    </tr>
+
+
+                    <tr class="col-4">
+                        <th>Retour</th>
+                    </tr>
+
+            </div>
+            <div class="row">
+            <tr>
+                <th>Points gagnés</th>
+                <td>{{ velo.coutPts }}PTS/JOUR</td>
+            </tr>
+            </div>
+            <tr>
+                <th>Dépôt de garantie</th>
+                <td>{{ velo.caution }}€ (5%) / {{ velo.caution * 0.05 }}€</td>
+            </tr>
+            <tr>
+                <th>Assurance</th>
+                <td>1€/JOUR</td>
+
+            </tr>
+            </tbody>
+        </table>
+        <table>
+            <tbody>
+            <tr>
+                <th>Total</th>
+                <td>-1200PTS/22€</td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <button type="button" class="class " href="{{ path('annonce', {'id': velo.id}) }}">J’annule ma demande de réservation</button>
+            <input type="submit" class="class " value="Je confirme ma demande de réservation" />
+        </div>
+
+    </div>
+{% endblock %}
