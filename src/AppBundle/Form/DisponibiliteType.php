@@ -3,15 +3,12 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Form\FormTypeInterface;
 
-class CalendrierType extends AbstractType
+class DisponibiliteType extends AbstractType
 {
     /**
      * {@inheritdoc} Including all fields from Review entity.
@@ -19,7 +16,15 @@ class CalendrierType extends AbstractType
     public function buildForm (FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dispo_totale', CheckboxType::class);
+            ->add('debut', DateType::class, array(
+                'widget'=>'single_text',
+                'html5'=>true
+    ))
+            ->add('fin', DateType::class, array(
+                'widget'=>'single_text',
+                'html5'=>true
+    ));
+
     }
 
     /**
@@ -28,12 +33,12 @@ class CalendrierType extends AbstractType
     public function configureOptions (OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Velo'
+            'data_class' => 'AppBundle\Entity\Disponibilite'
         ));
     }
 
     public function getBlockPrefix ()
     {
-        return 'app_bundle_calendrier_type';
+        return 'app_bundle_disponibilite_type';
     }
 }
