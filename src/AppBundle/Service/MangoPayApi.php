@@ -46,6 +46,7 @@ class MangoPayApi
      */
     public function CreateNaturalUser(Membre $membre)
     {
+        //TODO:creer condition pour verifier que id mangopay existe deja ou non
         $MangoUser = new MangoPay\UserNatural();  //initialisation MangoPay Object
         //injection parameter necessary
         $MangoUser->Email = $membre->getEmail();
@@ -65,6 +66,8 @@ class MangoPayApi
 
     public function CreateWallet(Membre $membre)
     {
+        //TODO:creer condition pour verifier que wallet mangopay existe deja ou non
+
         // CREATION WALLET NATURAL USER
         $Wallet = new \MangoPay\Wallet();
         $Wallet->Owners = array($membre->getIdMangopay());
@@ -81,27 +84,32 @@ class MangoPayApi
         $cardRegister->CardType = "CB_VISA_MASTERCARD";
         $cardRegister->Currency = "EUR";
         return $this->connexionApi->CardRegistrations->Create($cardRegister);
-
+        //dump($cardRegister);
     }
 
     // creation objet CardID
     public function CardUpdate(\MangoPay\CardRegistration $carte, $registrationId)
     {
-        dump($registrationId);
-        dump($carte);
+        //TODO:creer condition pour verifier que id mangopay existe deja ou non
+
+        //dump($registrationId);
+        //dump($carte);
         $CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
+
+        //$CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
         $CardRegistration->RegistrationData = 'data=' . $registrationId;
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
-        dump($CardUpdate);
+        //dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
 
-        //$this->connexionApi->Cards->Get($result->CardId);
 
     }
 
     //création d'une PayIn Card
     public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $amount, $fees)
     {
+        //TODO:creer condition pour verifier que id mangopay existe deja ou non
+
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
         $PayIn->AuthorId = $membre->getIdMangopay(); //TODO : verifier author id -> qui est ce ?

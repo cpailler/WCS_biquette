@@ -66,7 +66,7 @@ class PaiementController extends Controller
 
         $cardRegistration = $mangoPayApi->CardRegistration($membre);
 
-        dump($cardRegistration);
+        //dump($cardRegistration);
 
         $CartePaiement= new CartePaiement();
 

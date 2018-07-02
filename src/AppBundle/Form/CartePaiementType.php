@@ -90,7 +90,8 @@ class CartePaiementType extends AbstractType
                 'label' => false
             ))
 
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class,array(
+                'label' => 'effectuer un paiement'));
 
 
     }
