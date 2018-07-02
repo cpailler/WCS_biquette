@@ -27,27 +27,27 @@ $(document).ready(function(){
         console.log(selectedValue);
 
         $('.pts-velo').each(function() {
-
+            var pointsVelo = $(this).val();
             $(this).parent().show();
 
-            if(($(this).val() > 249) && (selectedValue == 'area1')) {
-                console.log($( this ).val());
+            if((pointsVelo > 249) && (selectedValue == 'area1')) {
+                console.log(pointsVelo);
                 $(this).parent().hide();
-            } else if(($(this).val() < 250) && ($(this).val() > 499) && (selectedValue == 'area2'))
+            } else if(((pointsVelo < 250) || (pointsVelo > 499)) && (selectedValue == 'area2'))
             {
-                console.log($( this ).val());
+                console.log(pointsVelo);
                 $(this).parent().hide();
-            } else if(($(this).val() < 500) && ($(this).val() > 749) && (selectedValue == 'area3'))
+            } else if(((pointsVelo < 500) || (pointsVelo > 749)) && (selectedValue == 'area3'))
             {
-                console.log($( this ).val());
+                console.log(pointsVelo);
                 $(this).parent().hide();
-            } else if(($(this).val() < 750) && ($(this).val() > 999) && (selectedValue == 'area4'))
+            } else if(((pointsVelo < 750) || (pointsVelo > 999)) && (selectedValue == 'area4'))
             {
-                console.log($( this ).val());
+                console.log(pointsVelo);
                 $(this).parent().hide();
-            } else if(($(this).val() < 1000) && (selectedValue == 'area5'))
+            } else if((pointsVelo < 1000) && (selectedValue == 'area5'))
             {
-                console.log($( this ).val());
+                console.log(pointsVelo);
                 $(this).parent().hide();
             }
         });
