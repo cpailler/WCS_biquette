@@ -30,6 +30,11 @@ class Membre extends BaseUser
     private $velos;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="locataire",cascade={"persist", "remove"})
+     */
+    private $reservations;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="id_mangopay", type="integer", nullable=true)
@@ -771,5 +776,45 @@ class Membre extends BaseUser
     public function getVelos()
     {
         return $this->velos;
+    }
+
+    public function afficheTel(){
+        return "(".$this->getIndicTel()->getIndice().")".$this->tel;
+    }
+
+    /**
+     * Add reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return Membre
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        return $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 }

@@ -25,6 +25,7 @@
         "doctrine/orm": "^2.5",
         "friendsofsymfony/user-bundle": "v2.1.2",
         "incenteev/composer-parameter-handler": "^2.0",
+        "jms/serializer-bundle": "^2.4",
         "mangopay/php-sdk-v2": "^2.8.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
