@@ -17,23 +17,28 @@
         <table>
             <tbody>
             <div class="row">
-
-                    <tr class="col-4">
-                        <th>Jours</th>
-                        <td>8</td>
-
-                    </tr>
-
-
-                    <tr class="col-4">
-                        <th>Retrait</th>
-                    </tr>
-
-
-                    <tr class="col-4">
-                        <th>Retour</th>
-                    </tr>
-
+                    <div class="col-4">
+                        <tr>
+                            <th>Jours</th>
+                            <td>8</td>
+                        </tr>
+                    </div>
+                    <div class="col-4">
+                        <tr>
+                            <th>Retrait</th>
+                            <div>
+                                {{ form_start(reservationForm) }}
+                                {{ form_widget(reservationForm) }}
+                                <input class="bouton" type="submit" value="Enregistrer" />
+                                {{ form_end(reservationForm) }}
+                            </div>
+                        </tr>
+                    </div>
+                    <div class="col-4">
+                        <tr>
+                            <th>Retour</th>
+                        </tr>
+                    </div>
             </div>
             <div class="row">
             <tr>
