@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="Container-titre">
+        <h3>Description</h3>
+    </div>
+    <div class="form-control">
+        {{ form_start(form) }}
+        {{ form_row(form.titre)}}
+        {{ form_row(form.description)}}
+        <div class="row">
+            <div class="col-sm-6 container-fluid">
+                {{ form_row(form.marque) }}
+            </div>
+            <div class="col-sm-6 container-fluid">
+                {{ form_row(form.modele) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 container-fluid">
+                {{ form_row(form.typeVelo) }}
+            </div>
+            <div class="col-sm-5 container-fluid">
+                {{ form_row(form.etatVelo) }}
+            </div>
+        </div>
+
+            {{ form_label(form.couleur) }}
+        <div id="appbundle_velo_couleur" class="row justify-content-center">
+            {% for couleur in couleurs %}
+            <label class="containerradio col-md-1">
+                <input type="radio" {% if velo.couleur==couleur %}checked{% endif %} id="appbundle_VeloDescription_couleur_{{ couleur.id }}" name="appbundle_VeloDescription[couleur]" required="required" value="{{ couleur.id }}">
+                <span class="checkmark" style="background-color: {{ couleur.codeHexa }}"></span>
+
+            </label>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {{ form_errors(form.couleur) }}
+        </div>
+
+        {{ form_row(form.neuf) }}
+        {{ form_row(form.numFacture)}}
+        {{ form_row(form.magasin) }}
+        {{ form_row(form.dateAchat) }}
+        {% do form.couleur.setRendered %}
+        <div class="row justify-content-center">
+            <input class="class bouton col-6" type="submit" value="Enregistrer" />
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

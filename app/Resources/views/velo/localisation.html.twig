@@ -1,0 +1,56 @@
+<h3>LOCALISATION</h3>
+{{ form_start(form) }}
+<div id="form-control">
+{{ form_label(form.adresse_velo) }}
+{{ form_errors(form.adresse_velo) }}
+{{ form_widget(form.adresse_velo) }}
+
+{{ form_errors(form.latitude) }}
+{{ form_widget(form.latitude) }}
+
+{{ form_errors(form.longitude) }}
+{{ form_widget(form.longitude) }}
+
+{{ form_errors(form.ville) }}
+{{ form_widget(form.ville) }}
+<input id="submit" class="bouton-sm" type="button" value="Rechercher">
+</div>
+<div id="map"></div>
+<input id="validate" class="bouton" type="submit" type="button" value="Enregistrer" />
+{{ form_end(form) }}
+
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: {lat: 48.866667, lng: 2.333333}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submit').addEventListener('click', function() {
+            geocodeAddress(geocoder, map);
+        });
+    }
+
+    function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('appbundle_velo_adresse_velo').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+                document.getElementById('appbundle_velo_latitude').value = results[0].geometry.location.lat();
+                document.getElementById('appbundle_velo_longitude').value = results[0].geometry.location.lng();
+                document.getElementById('appbundle_velo_ville').value = results[0].address_components[2].long_name;
+                console.log(results[0].address_components);
+            } else {
+                alert('Veuillez entrer une adresse valide: ' + status);
+            }
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap">
+</script>

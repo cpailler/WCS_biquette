@@ -33,3 +33,34 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    app.form.registration :
+        class : AppBundle\Form\EnregistrementType
+        tags :
+            - { name: form.type, alias: app_user_registration }
+
+    AppBundle\Controller\RegistrationController:
+        arguments:
+            $formFactory: '@fos_user.registration.form.factory'
+
+    AppBundle\Controller\ChangePasswordController :
+        arguments:
+            $formFactory: '@fos_user.change_password.form.factory'
+
+    AppBundle\Service\CustomEncoder:
+        arguments:
+
+    AppBundle\Service\PointsManager:
+        arguments:
+
+    AppBundle\Service\DateCheck:
+        arguments:
+
+    AppBundle\Service\CautionManager:
+        arguments:
+
+    AppBundle\Service\Calendrier\Calendrier:
+        arguments:
+
+    AppBundle\Service\Calendrier\Month:
+        arguments:

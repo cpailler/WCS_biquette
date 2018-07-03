@@ -1,0 +1,254 @@
+@import "main.scss";
+
+#layoutVelo {
+  display: flex;
+  flex-direction: column;
+}
+
+.headVelo, .completeVelo {
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.outilsVelo {
+  display: flex;
+  flex-direction: column;
+}
+
+.outilsVelo a {
+  font-size: 14px;
+  color: $text-grey;
+
+}
+
+.photoVelo {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px !important;
+}
+
+.photoVelo a {
+  font-size: 14px;
+  color: $text-grey;
+}
+
+.progressionVelo p {
+  font-size: 12px;
+  color: $text-grey;
+}
+
+.progressionVelo h2 {
+  font-size: 18px;
+  color: $text-dark;
+}
+
+.progressbarVelo p {
+  font-size: 14px;
+  color: $text-dark;
+}
+.progress{
+  width: 100%;
+}
+.cont1{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.progressionVelo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: dashed 1px $border-grey;
+  padding: 2vh;
+}
+
+.titre{
+  font-size: 1.2em;
+}
+
+.VoirAnnonce{
+  align-self: self-start;
+  float: left;
+}
+
+.VoirAnnonce a {
+  font-size: 14px;
+  color: $text-grey;
+  font-family: $font;
+}
+
+.infos_description{
+  font-size: 0.9em;
+  color: $text-grey;
+}
+
+.titreVelo {
+  align-self: self-start;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  float: right;
+  margin-left: 25%;
+
+}
+
+.titreVelo h1{
+  font-weight: bold;
+}
+
+.outilsVelo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.progressbarVelo {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.switchVelo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  text-align: left;
+  border-radius: 2px;
+  padding: 0;
+}
+
+
+
+.checkVelo{
+  display: flex;
+  flex-direction: row;
+  text-align: left;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.aidePointsButton {
+  padding-top: 8px;
+}
+
+.aidePointsButton p{
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+
+.VloEnLigne{
+  font-family: $font;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: right;
+  color: $text-grey;
+  display: flex;
+  padding-left: 20%;
+  margin-top: auto;
+}
+
+.aidePoints {
+  text-align: justify;
+  margin: auto;
+  padding: 1vh;
+  border-radius: 2px;
+  background-color: $background-points;
+  color: $bikerr-green;
+  font-size: 12px;
+}
+
+li {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+li a {
+  font-size: 14px;
+  color: $text-grey;
+}
+
+.formulaireVelo {
+  border: solid 1px $border-grey;
+}
+
+.picture{
+  background-color:$bikerr-green;
+}
+
+.points{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: inherit;
+}
+
+@media (max-width: 576px)
+{
+  .photos_crop {
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+  }
+  .photos_crop img {
+    display: block;
+    width: 100%;
+    height: 230px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px)
+{
+  .photos_crop {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .photos_crop img {
+    display: block;
+    width: 100%;
+    height: 200px;
+  }
+}
+
+@media (min-width: 769px)
+{
+  .photos_crop {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+  }
+  .photos_crop img {
+    display: block;
+    width: 100%;
+    height: 150px;
+  }
+}
+
+
+
+#map {
+  height: 400px;
+  width: auto;
+}
+
+#floating-panel {
+  top: 10px;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+  line-height: 30px;
+  padding-left: 10px;
+}

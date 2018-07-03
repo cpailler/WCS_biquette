@@ -22,20 +22,31 @@
     "require": {
         "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/orm":     "^2.5",
+        "doctrine/orm": "^2.5",
         "friendsofsymfony/user-bundle": "v2.1.2",
         "incenteev/composer-parameter-handler": "^2.0",
+        "jms/serializer-bundle": "^2.4",
+        "mangopay/php-sdk-v2": "^2.8.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "symfony/monolog-bundle": "^3.1.0",
+        "symfony/phpunit-bridge": "v3.4.11",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
-        "twig/twig": "^1.0||^2.0"
+        "symfony/templating": "v3.4.11",
+        "symfony/var-dumper": "^4.1",
+        "twig/twig": "^1.0||^2.0",
+        "vich/uploader-bundle": "^1.8"
     },
     "require-dev": {
-        "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "phpunit/phpunit": "^7",
+
+        "sensio/generator-bundle": "^3.0"
+
+
+
+
     },
     "scripts": {
         "symfony-scripts": [

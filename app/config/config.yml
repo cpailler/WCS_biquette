@@ -30,11 +30,14 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
 
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:
@@ -65,3 +68,27 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\Membre
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+    registration:
+        confirmation:
+            enabled: false
+        form:
+            type: AppBundle\Form\EnregistrementType
+    change_password :
+        form:
+            type: AppBundle\Form\NewPasswordType
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        velo_image:
+            uri_prefix: /uploads/
+            upload_destination: '%kernel.project_dir%/web/images/uploads/'
+            namer: Vich\UploaderBundle\Naming\HashNamer

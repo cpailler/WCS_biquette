@@ -1,0 +1,57 @@
+    <h2>INFORMATIONS CONFIDENTIELLES</h2>
+    <div class="form_control">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-12">
+                    {{ form_label(form.genre) }}
+                    <div id="appbundle_membre_genre" class="row justify-content-center">
+                        {% for genre in genres %}
+                            <label class="containergreen col-3 ">
+                                <input type="radio" {% if membre.genre==genre %}checked{% endif %} id="appbundle_membre_genre_{{ genre.id }}" name="appbundle_membre[genre]" required="required" value="{{ genre.id }}">
+                                <span class="checkmark"></span>
+                                <label class="form-check-label required" for="appbundle_membre_genre_{{ genre.id }}">{{ genre.genre }}</label>
+                            </label>
+                        {% endfor %}
+                    </div>
+                    {{ form_errors(form.genre) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.nom) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.prenom) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.codePostal) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.ville) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.pays) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.indicTel) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.tel) }}
+                </div>
+            </div>
+        {{ form_row(form.dateNaissance) }}
+
+        {% do form.genre.setRendered %}
+        <input type="submit" class="class bouton" value="Enregistrer" />
+        {{ form_end(form) }}
+    </div>
+

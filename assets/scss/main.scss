@@ -1,0 +1,146 @@
+@import '~bootstrap/scss/bootstrap';
+//@import url('https://fonts.googleapis.com/css?family=Montserrat');
+//@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+//@import url('./../fonts/AvenirNext-Medium-06.ttf');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+$bikerr-green: #009925;
+
+$font: Nunito, Arial, Helvetica, sans-serif;
+$grey-background: #f9f9f9;
+$text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+$background-points: #d1f3e0;
+$border-grey: #cccccc;
+$outline-grey: #dbdcd8;
+$text-dark: #333634;
+$text-grey: #949a96;
+$normButton:#ffffff;
+
+body {
+  font: $font;
+}
+
+.bouton {
+  font-family: $font;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  width: 226px;
+  height: 52px;
+  border-radius: 26px;
+  background-color: $bikerr-green;
+  margin: auto;
+  text-shadow: none;
+}
+
+.bouton:hover {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.bouton:active {
+  background-color: #028121;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.bouton-lg {
+  @extend .bouton;
+  width: 350px;
+}
+
+.bouton-sm {
+  @extend .bouton;
+  width: 120px;
+  height: 35px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font, Arial, Helvetica, sans-serif;
+}
+
+.crop {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.crop img {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+
+.bikerr-card {
+  padding: 20px !important;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  margin-top: 1vh;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  border: solid 1px $border-grey;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 2px;
+  background-color:$border-grey;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+
+  border: solid 1px $border-grey;
+  background-color: white;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  background-color: $bikerr-green;
+  -webkit-transform: translateX(14px);
+  -ms-transform: translateX(14px);
+  transform: translateX(14px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+ .boutonAlert {
+   @extend .bouton;
+   background-color: red !important;
+ }

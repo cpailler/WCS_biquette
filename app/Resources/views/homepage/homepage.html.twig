@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{{ asset('images/carrousel1.jpg') }}" alt="bikerr1">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ asset('images/carrousel2.jpg') }}" alt="bikerr2">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ asset('images/carrousel3.jpg') }}" alt="bikerr3">
+            </div>
+        </div>
+
+        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <div class="title_text_header">
+            <h1><strong>TROUVEZ LE BON VELO</strong></h1>
+            <h2 class="lead ">Partage de vélos entre amis</h2>
+            <a class="bouton mt-5" href="/register">Rejoindre la bande</a>
+        </div>
+    </div>
+
+
+    <div class="gradient_box">
+        <div class="explication_title white_text">
+            <h3>C’est gratuit grâce à notre système de Points</h3>
+            <h5>Il suffit simplement de partager un vélo.</h5>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-10 offset-md-1 offset-sm-1">
+                <img src="{{ asset('images/icn-gratuit-circle.svg') }}" alt="bikerr-gratuit" class="flexible-circle"><br>
+                <h4 class="explication_title white_text">100% GRATUIT</h4>
+            </div>
+            <div class="col-md-4 col-sm-10 offset-sm-1">
+                <p class="explication white_text">
+                    L'inscription est gratuite et vous pouvez tout de suite emprunter le vélo de votre choix.<br>
+                    Notre système de Points vous permet d'accéder gratuitement aux vélos partagés par les autres membres à condition que vous acceptiez également de partager le vôtre.
+                    <br>Le principe est simple. Vous gagnez des Points en partageant un vélo. Vous en dépensez lorsque vous utilisez le vélo d'un autre membre.
+                </p>
+            </div>
+            <div class="col-md-2 col-sm-10 offset-sm-1">
+                <img src="{{ asset('images/icn-flexible-circle.svg') }}" alt="bikerr-flexible" class="flexible-circle"><br>
+                <h4 class="explication_title white_text">100% FLEXIBLE</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr_container">
+        <h4 class="explication_title">Vélos partagés récemment</h4>
+        <br>
+        <div class="container_velo">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                    <div class="shadow">
+                        <div class="card crop">
+                            <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                    <div class="shadow">
+                        <div class="card crop">
+                            <img class="card-img-top" src="{{ asset('images/velos_partages/vintage-bike.jpg') }}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                    <div class="shadow">
+                        <div class="card crop">
+                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo_adulte.jpg') }}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                    <div class="shadow">
+                        <div class="card crop">
+                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo-giant.jpg') }}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                    <div class="shadow">
+                        <div class="card crop">
+                            <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                    <div class="shadow">
+                        <div class="card crop">
+                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo-pedego.jpg') }}" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <a class="btn btn-lg bouton" href="/register" role="button">Découvrir</a>
+        </div>
+    </div>
+
+    <div class="bikerr_container grey_container" >
+        <h4 class="explication_title">Vélo des villes ou vélo des champs, il en existe pour tous les goûts</h4><br>
+        <div style='background-image: url("{{ asset('images/velo-fond.png') }}"); width: 100%; height: 83px;'>
+
+        </div>
+    </div>
+
+    <div class="bikerr_container">
+        <h4 class="explication_title">Partagez en toute sécurité</h4><br>
+        <p class="explication_title">En option, des services complémentaires pour vous garantir un partage réussi.</p>
+        <br><br>
+
+        <div class="row">
+            <div class="col-md-2 col-sm-8 col-xs-10 offset-md-2 offset-sm-2 offset-xs-1">
+                <img src="{{ asset('images/icn-garantie.svg') }}" alt="bikerr-garantie" class="flexible-circle"><br>
+                <h5 class="explication_title">DEPOT DE GARANTIE</h5><br>
+                <p class="explication_title justify">Les Propriétaires peuvent le demander pour encourager les utilisateurs à prendre soin de leur vélo et se couvrir en cas d'incident. Le dépôt est retourné à la fin du partage.</p>
+            </div>
+            <div class="col-md-2 col-sm-8 col-xs-10 offset-md-1 offset-sm-2 offset-xs-1">
+                <img src="{{ asset('images/icn-verification.svg') }}" alt="bikerr-identite" class="flexible-circle"><br>
+                <h5 class="explication_title">VÉRIFICATION D’IDENTITÉ</h5><br>
+                <p class="explication_title justify">Bikerr vérifie l'identité des membres afin de sécuriser les échanges. Être un membre vérifié augmente vos chances de trouver et d'échanger des vélos.</p>
+            </div>
+            <div class="col-md-2 col-sm-8 col-xs-10 offset-md-1 offset-sm-2 offset-xs-1">
+                <img src="{{ asset('images/icn-assurance.svg') }}" alt="bikerr-assurance" class="flexible-circle"><br>
+                <h5 class="explication_title">ASSURANCE DÉPLACEMENT</h5><br>
+                <p class="explication_title justify">Bikerr propose une assurance avec la MAIF. Elle couvre les frais en cas d'annulation, vol, dommages et rembourse le propriétaire à hauteur de la garantie souscrite.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr_container grey_container">
+        <h4 class="explication_title">Quels que soient vos besoins de déplacements</h4>
+        <div class="bikerr_container">
+            <div class="row">
+                <div class="col-md-4 col-sm-10 col-xs-12 offset-md-0 offset-sm-1">
+                    <img src="{{ asset('images/bikerr-vacances.png') }}" alt="bikerr-vacances" class="images">
+                    <h3 class="title_text_section">EN VACANCES</h3>
+                </div>
+                <div class="col-md-4 col-sm-10 col-xs-12 offset-md-0 offset-sm-1">
+                    <img src="{{ asset('images/bikerr-proximite.png') }}" alt="bikerr-proximite" class="images">
+                    <h3 class="title_text_section">PRÈS DE CHEZ VOUS</h3>
+                </div>
+                <div class="col-md-4 col-sm-10 col-xs-12 offset-md-0 offset-sm-1">
+                    <img src="{{ asset('images/bikerr-deplacement.png') }}" alt="bikerr-proximite" class="images">
+                    <h3 class="title_text_section">EN DÉPLACEMENT</h3>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-lg bouton" href="/register" role="button">Partager mon vélo</a>
+    </div>
+
+    <div style="position: relative; width: 100%">
+        <img src="{{ asset('images/velo-pratique.jpg') }}" alt="velo-pratique" style="width: 100%">
+        <div class="title_text_header">
+            <h1><strong>GARDEZ UN VELO DANS VOTRE POCHE</strong></h1>
+        </div>
+    </div>
+
+{% endblock %}

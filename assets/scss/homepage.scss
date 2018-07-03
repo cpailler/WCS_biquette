@@ -1,0 +1,170 @@
+@import "main.scss";
+
+
+
+.title_text_header {
+  display: block;
+  position: absolute;
+  margin: auto;
+  top: 50%;
+  bottom: 50%;
+  left: 50%;
+  //right: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 4em;
+  text-align: center;
+  text-shadow: $text-shadow;
+  color: white;
+  width: 100%;
+  background-color: transparent;
+}
+
+.title_text_section {
+  display: block;
+  position: absolute;
+  margin: auto;
+  top: 45%;
+  bottom: 50%;
+  left: 50%;
+  //right: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  font-size: 2em;
+  font-weight: bolder;
+  text-shadow: $text-shadow;
+  color: white;
+  background-color: transparent;
+}
+
+.title_text_town {
+  @extend .title_text_section;
+  font-size: 1.5em;
+}
+
+.gradient_box {
+  width: 100%;
+  background-image: linear-gradient(252deg, #feda5c, #59b10d);
+  padding: 3em;
+}
+
+.explication_title {
+  text-align: center;
+  margin: auto;
+}
+
+.explication {
+  font-family: $font;
+  text-align: justify;
+  margin: auto;
+}
+
+.white_text {
+  color: white !important;
+}
+
+.justify {
+  text-align: justify !important;
+}
+
+.flexible-circle {
+  display: block;
+  object-fit: contain;
+  margin: auto;
+}
+
+.bikerr_container {
+  width: 100%;
+  padding: 3em;
+}
+
+.container_velo {
+  margin: auto;
+}
+
+.images {
+  width: 100%;
+  margin-top: 2em !important;
+}
+
+.shadow {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.crop_profile {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+}
+.crop_profile img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+.card-body {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.town_square{
+  background-color: $bikerr-green;
+  padding-bottom: 100%;
+  -webkit-transition: width 0.5s, height 0.5s, background-color 0.5s, -webkit-transform 0.5s;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.town_square:hover {
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+  background-color: #005f1c;
+}
+
+@media (max-width: 576px)
+{
+  .container_velo {
+    width: 100%;
+  }
+
+  .bikerr_container {
+    padding-right: 1em;
+    padding-left: 1em;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px)
+{
+  .container_velo {
+    width: 90%;
+  }
+
+  .bikerr_container {
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+  }
+}
+
+@media (min-width: 769px)
+{
+  .container_velo {
+    width: 80%;
+  }
+}
+
+.image_aide {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
+.bikerr-green {
+  color: $bikerr-green;
+}
+
+.container_aide {
+  display: flex;
+}

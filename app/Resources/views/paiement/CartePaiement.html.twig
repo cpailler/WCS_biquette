@@ -1,0 +1,89 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/cartePaiement.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="container justify-content-center">
+
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <h1>Paiement</h1>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            {{ form_start(form) }}
+            <div id="carte_paiement_card_type" class="containerradio_bis col-4">
+
+                <div class="form-check">
+                    <input id="carte_paiement_card_type_0" name="carte_paiement[card_type]" required="required" class="form-check-input" value="0" type="radio">
+                    <!--<label class="form-check-label required" for="carte_paiement_card_type_0"></label>-->
+                    <img src="{{ asset('images/paiement/icn-visa.png') }}" srcset="{{ asset('images/paiement/icn-visa@2x.png 2x,images/paiement/icn-visa@3x.png 3x') }}" class="Icn-Visa">
+                </div>
+
+                <div class="form-check">
+                    <input id="carte_paiement_card_type_1" name="carte_paiement[card_type]" required="required" class="form-check-input" value="1" type="radio">
+                    <!--<label class="form-check-label required" for="carte_paiement_card_type_1"></label>-->
+                    <img src="{{ asset('images/paiement/icn-maestro.png') }}" srcset="{{ asset('images/paiement/icn-maestro.png,images/paiement/icn-maestro@2x.png 2x,images/paiement/icn-maestro@3x.png 3x') }}" class="Icn-Maestro">
+                </div>
+
+                <div class="form-check">
+                    <input id="carte_paiement_card_type_2" name="carte_paiement[card_type]" required="required" class="form-check-input" value="2" type="radio">
+                    <!--<label class="form-check-label required" for="carte_paiement_card_type_2"></label>-->
+                    <img src="{{ asset('images/paiement/icn-mastercard.png') }}" srcset="{{ asset('images/paiement/icn-maestro.png,images/paiement/icn-mastercard@2x.png 2x,images/paiement/icn-mastercard@3x.png 3x') }}" class="Icn-Mastercard">
+                </div>
+
+                <div class="form-check">
+                    <input id="carte_paiement_card_type_3" name="carte_paiement[card_type]" required="required" class="form-check-input" value="3" type="radio">
+                    <!--<label class="form-check-label required" for="carte_paiement_card_type_3"></label>-->
+                    <img src="{{ asset('images/paiement/icn-cb.png') }}" srcset="{{ asset('images/paiement/icn-cb@2x.png 2x,images/paiement/icn-cb@3x.png 3x') }}" class="Icn-CB">
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <span class="left">Montant de l'assurance</span><span class="right">€3.00</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                {{ form_row(form.cardNumber, {'attr': {'placeholder': 'Numéro de la carte'} }) }}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-2">
+                {{ form_row(form.cardExpirationDate, {'attr': {'placeholder': 'MM/YY'} }) }}
+            </div>
+            <div class="col-2">
+                {{ form_row(form.cardCvx, {'attr': {'placeholder': 'CVV'} }) }}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-check col-4">
+
+                <p>{{ form_row(form.checkbox) }}J'accepte les Conditions générales applicables à ce partage de vélo,
+                    les modalités pratiques de mangopay,
+                    la politique de confidentialité de Bikerr et les conditions de l'assurance.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4 justify-content-center">
+                {{ form_row(form.submit) }}
+            </div>
+        </div>
+            {#{% do form.card_type.setRendered %}#}
+            {{ form_end(form) }}
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <img class="banniere" src="{{ asset('images/paiement/banniere_mangopay.png') }}" alt="banniere_mangopay" />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4 justify-content-center">
+                <button><a href="#" alt="">Annuler</a></button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
