@@ -23,6 +23,7 @@ use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
 use AppBundle\Service\Calendrier\Calendrier;
+use AppBundle\Service\DateCheck;
 use AppBundle\Service\JaugeVelo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -184,7 +185,6 @@ class VeloController extends Controller
 
     }
 
-
     /**
      * @Route("/{id}/equipement", name="velo_equipement")
      * @Method({"GET", "POST"})
@@ -334,7 +334,7 @@ class VeloController extends Controller
      * @Route("/{id}/calendrier/{initMonth}/{initYear}", name="velo_calendrier", defaults={"initMonth"=null, "initYear"=null})
      * @Method({"GET", "POST"})
      */
-    public function calendrierAction(request $request, Velo $velo, int $initMonth=null, int $initYear=null, JaugeVelo $jaugeVelo)
+    public function calendrierAction(request $request, Velo $velo, int $initMonth=null, int $initYear=null, JaugeVelo $jaugeVelo, DateCheck $dateCheck)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -351,21 +351,24 @@ class VeloController extends Controller
         $dispoForm = $this->createForm(DisponibiliteType::class, $dispo);
         $dispoForm->handleRequest($request);
         if ($dispoForm->isSubmitted() && $dispoForm->isValid()) {
-            $dispo->setVelo($velo);
+            if ($dateCheck->noCrossDispos($dispo,$velo)){
+                $dispo->setVelo($velo);
 
-            $em->persist($dispo);
-            $em->flush();
+                $em->persist($dispo);
+                $em->flush();
+                return $this->redirectToRoute('velo_calendrier', array('id'=>$velo->getId(),'initMonth'=>$initMonth,
+                    'initYear'=>$initYear));
+            }
+            else{
+                $this->addFlash('error','La période saisie est invalide.');
+            }
+
         }
         $disponibilites = $velo->getDisponibilites();
         $dispo_forms=[];
         foreach ($disponibilites as $disponibilite){
             $id = $disponibilite->getId();
-            $dispo_forms[$id]= $this->createForm(DisponibiliteType::class, $disponibilite);
-            if ($dispo_forms[$id]->isSubmitted() && $dispo_forms[$id]->isValid()) {
-                echo 'coucou';
-                $em->flush();
-            }
-            $dispo_forms[$id] = $dispo_forms[$id]->createview();
+            $dispo_forms[$id]= $this->createForm(DisponibiliteType::class, $disponibilite)->createview();
         }
 
 
@@ -388,7 +391,8 @@ class VeloController extends Controller
      * @Route("/{velo}/{disponibilite}/update", name="update_dispo")
      * @Method({"GET", "POST"})
      */
-    public function updatedispoAction(request $request, Velo $velo, Disponibilite $disponibilite)
+    public function updatedispoAction(request $request, Velo $velo,
+                                      Disponibilite $disponibilite, DateCheck $dateCheck)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -399,7 +403,12 @@ class VeloController extends Controller
         $form = $this->createForm(DisponibiliteType::class,$disponibilite);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+            if ($dateCheck->noCrossDispos($disponibilite,$velo)){
+                $em->flush();
+            }
+            else{
+                $this->addFlash('error','La période saisie est invalide.');
+            }
         }
 
         return $this->redirectToRoute('velo_calendrier', array('id'=>$velo->getId()));

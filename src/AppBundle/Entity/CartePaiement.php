@@ -16,11 +16,11 @@ class CartePaiement
 
    // private $card_owner;
 
-    private $card_number;
+    private $cardNumber;
 
-    private $card_exp;
+    private $cardExpirationDate;
 
-    private $card_cvv;
+    private $cardCvx;
 
     private $CardRegistrationURL;
 
@@ -135,47 +135,47 @@ class CartePaiement
      */
     public function getCardNumber()
     {
-        return $this->card_number;
+        return $this->cardNumber;
     }
 
     /**
-     * @param mixed $card_number
+     * @param mixed $cardNumber
      */
-    public function setCardNumber($card_number)
+    public function setCardNumber($cardNumber)
     {
-        $this->card_number = $card_number;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCardExp()
-    {
-        return $this->card_exp;
-    }
-
-    /**
-     * @param mixed $card_exp
-     */
-    public function setCardExp($card_exp)
-    {
-        $this->card_exp = $card_exp;
+        $this->cardNumber = $cardNumber;
     }
 
     /**
      * @return mixed
      */
-    public function getCardCvv()
+    public function getCardExpirationDate()
     {
-        return $this->card_cvv;
+        return $this->cardExpirationDate;
     }
 
     /**
-     * @param mixed $card_cvv
+     * @param mixed $cardExpirationDate
      */
-    public function setCardCvv($card_cvv)
+    public function setCardExpirationDate($cardExpirationDate)
     {
-        $this->card_cvv = $card_cvv;
+        $this->cardExpirationDate = $cardExpirationDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardCvx()
+    {
+        return $this->cardCvx;
+    }
+
+    /**
+     * @param mixed $cardCvx
+     */
+    public function setCardCvx($cardCvx)
+    {
+        $this->cardCvx = $cardCvx;
     }
 
 }
