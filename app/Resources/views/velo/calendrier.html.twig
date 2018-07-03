@@ -25,7 +25,11 @@
     <button type="button" class="bouton" data-toggle="modal" data-target="#disponibilitéModal">
         Ajouter une période de disponibilité
     </button>
-
+        {% for message in app.flashes('error') %}
+            <div class="alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
     <!-- Modal -->
     <div class="modal fade" id="disponibilitéModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

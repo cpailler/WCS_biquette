@@ -49,15 +49,15 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-4">
-                {{ form_row(form.card_number, {'attr': {'placeholder': 'Numéro de la carte'} }) }}
+                {{ form_row(form.cardNumber, {'attr': {'placeholder': 'Numéro de la carte'} }) }}
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-2">
-                {{ form_row(form.card_exp, {'attr': {'placeholder': 'MM/YY'} }) }}
+                {{ form_row(form.cardExpirationDate, {'attr': {'placeholder': 'MM/YY'} }) }}
             </div>
             <div class="col-2">
-                {{ form_row(form.card_cvv, {'attr': {'placeholder': 'CVV'} }) }}
+                {{ form_row(form.cardCvx, {'attr': {'placeholder': 'CVV'} }) }}
             </div>
         </div>
         <div class="row justify-content-center">
@@ -73,7 +73,7 @@
                 {{ form_row(form.submit) }}
             </div>
         </div>
-            {% do form.card_type.setRendered %}
+            {#{% do form.card_type.setRendered %}#}
             {{ form_end(form) }}
         <div class="row justify-content-center">
             <div class="col-4">

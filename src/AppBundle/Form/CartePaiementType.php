@@ -44,7 +44,7 @@ class CartePaiementType extends AbstractType
             ->add('returnURL', HiddenType::class)//,array(
               //  'block_name' => 'returnURL'
            // ))
-
+/*
             ->add('card_type', ChoiceType::class, array(
                 'label' => false,
                 'required' => true,
@@ -57,7 +57,7 @@ class CartePaiementType extends AbstractType
                     'CB' => true
                 ),
                 'choice_label' => false
-            ))
+            ))*/
 
 
 //            ->add('card_owner', TextType::class,array(
@@ -65,20 +65,20 @@ class CartePaiementType extends AbstractType
 //                'required' => false
 //            ))
 
-            ->add('card_number', NumberType::class, array(
+            ->add('cardNumber', NumberType::class, array(
                 'label' => false,
                 'constraints'=> array(
                     'maxlength'=>16
                 )))
 
-            ->add('card_exp', NumberType::class, array(
+            ->add('cardExpirationDate', NumberType::class, array(
                 'label' => false,
                 'constraints'=> array(
                     'maxlength'=>4
 
                 )))
 
-            ->add('card_cvv', NumberType::class,array(
+            ->add('cardCvx', NumberType::class,array(
                 'label' => false,
                 'constraints'=> array(
                     'maxlength'=>3

@@ -30,7 +30,7 @@ class MangoPayApi
         // login : password : temp directory
         $this->connexionApi->Config->ClientId = 'aurelgouilhers';
         $this->connexionApi->Config->ClientPassword = 'wr42AYOg5LU5OE3dn10qNrbfsDC7iYeRHu3N4Gjw3KtGDuSC1V';
-        $this->connexionApi->Config->TemporaryFolder = '/home/wilder/BIKERR SYMFONY PROJECT 3/bikerr/TEMP_MANGOPAY';
+        $this->connexionApi->Config->TemporaryFolder = '/Users/xavier/Sites/bikerr/TEMP_MANGOPAY';
     }
 
     /**
@@ -92,14 +92,14 @@ class MangoPayApi
     {
         //TODO:creer condition pour verifier que id mangopay existe deja ou non
 
-        //dump($registrationId);
-        //dump($carte);
+        dump($registrationId);
+        dump($carte);
         $CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
 
         //$CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
         $CardRegistration->RegistrationData = 'data=' . $registrationId;
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
-        //dump($CardUpdate);
+        dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
 
 
