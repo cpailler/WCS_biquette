@@ -84,7 +84,9 @@
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     {% if velo.photos.0.image is defined %}
-                                    <img class="image-annonce" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt="">
+                                    <div class="crop_profile">
+                                        <img class="image-annonce" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt="">
+                                    </div>
                                     {% endif %}
                                     <div class="bloc-titres">
                                         <div class="description"><h4>{{ velo.titre }}</h4></div>
@@ -230,7 +232,7 @@
     </script>
     <!--          API GOOGLE MAP         -->
     <script>
-        let $map = document.querySelector('#map')
+        var $map = document.querySelector('#map')
 
         class GoogleMap {
 
@@ -268,13 +270,13 @@
                             this.getPanes().overlayImage.appendChild(this.div)
                             this.div.addEventListener('click', (e) => {
                                 e.preventDefault()
-                            e.stopPropagation()
-                            this.activate()
-                        })
+                                e.stopPropagation()
+                                this.activate()
+                            })
                         }
 
                         draw () {
-                            let position = this.getProjection().fromLatLngToDivPixel(this.pos)
+                            var position = this.getProjection().fromLatLngToDivPixel(this.pos)
                             this.div.style.left = position.x + "px"
                             this.div.style.top = position.y + "px"
                         }
@@ -329,8 +331,8 @@
              * @return {TextMarker}
              */
             addMarker (lat, lng, text) {
-                let point = new google.maps.LatLng(lat,lng)
-                let marker = new this.textMarker(point, this.map, text)
+                var point = new google.maps.LatLng(lat,lng)
+                var marker = new this.textMarker(point, this.map, text)
                 marker.onActivation.push(() => {
                     this.map.setCenter(marker.pos)
             })
@@ -348,18 +350,18 @@
         }
 
         const initMap = async function () {
-            let map = new GoogleMap()
-            let activeMarker = null
-            let enableMarker = null
+            var map = new GoogleMap()
+            var activeMarker = null
+            var enabledMarker = null
             await map.load($map)
             Array.from(document.querySelectorAll('.item')).forEach(function (item) {
-                let marker = map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price + ' Pts')
+                var marker = map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price + ' Pts')
                 marker.setContent(item.innerHTML)
                 marker.onActivation.push(function () {
-                    if (enableMarker !== null) {
-                        enableMarker.out()
+                    if (enabledMarker !== null) {
+                        enabledMarker.deactivate()
                     }
-                    enableMarker = marker
+                    enabledMarker = marker
                 })
                 item.addEventListener('mouseover', function () {
                     marker.hover()
