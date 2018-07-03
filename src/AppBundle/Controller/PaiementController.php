@@ -32,9 +32,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class PaiementController extends Controller
 {
-
-
-
     /**
      * @Route("/card", name="paiement_card")
      * @Method({"GET", "POST"})
@@ -101,6 +98,12 @@ class PaiementController extends Controller
             'form'=>$form->createView(),
             'cardregistration' => $cardRegistration
         ));
+
+/*        return $this->render('default/cardRegisterForm.html.twig', array(
+            'cardregistration' => $cardRegistration,
+            'returnUrl'=>$returnUrl
+        ));*/
+
     }
     /**
      * @Route("/card_Id", name="get_card_id")
@@ -123,7 +126,7 @@ class PaiementController extends Controller
         dump($CarteUpdated);
 
         return $this->render('paiement/CartePaiement.html.twig',array(
-            'form'=>$form->createView(),
+            'form' => $form->createView(),
             'cardregistration' => $cardRegistration
         ));
 
