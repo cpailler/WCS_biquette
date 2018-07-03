@@ -69,9 +69,12 @@
                             <option value="à voile">à voile</option>
                         </select>
                         <select class="points" name="points">
-                            <option>----Tri Pts ----</option>
-                            <option value="croissant">croissant</option>
-                            <option value="decroissant">décroissant</option>
+                            <option>---- Nombre de Pts ----</option>
+                            <option value="area1">de 0 à 249 Pts</option>
+                            <option value="area2">de 250 à 499 Pts</option>
+                            <option value="area3">de 500 à 749 Pts</option>
+                            <option value="area4">de 750 à 999 Pts</option>
+                            <option value="area5">+ de 1000 Pts</option>
                         </select>
 
                     </div>
@@ -80,7 +83,6 @@
                             {% for velo in velos %}
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
-                                    {#<img src="http://via.placeholder.com/400x260" alt="">#}
                                     {% if velo.photos.0.image is defined %}
                                     <img class="image-annonce" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt="">
                                     {% endif %}
@@ -90,6 +92,7 @@
                                     </div>
                                     <input class="ville" name="ville" type="hidden" value="{{ velo.ville }}">
                                     <input class="type" name="type" type="hidden" value="{{ velo.typeVelo }}">
+                                    <input class="pts-velo" name="pts-velo" type="hidden" value="{{ velo.coutPts }}">
                                 </div>
                             {% endfor %}
                         </div>
