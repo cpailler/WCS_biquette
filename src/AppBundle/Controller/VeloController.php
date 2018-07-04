@@ -50,7 +50,8 @@ class VeloController extends Controller
     }
 
     private function getJauge(Velo $velo, JaugeVelo $jaugeVelo){
-        return $jaugeVelo->indicativeJaugeVelo(
+
+        $jauge =  $jaugeVelo->indicativeJaugeVelo(
             $velo->getTitre(),
             $velo->getDescription(),
             $velo->getMarque(),
