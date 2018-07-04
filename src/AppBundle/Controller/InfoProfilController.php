@@ -66,10 +66,10 @@ class InfoProfilController extends Controller
     }
 
     /**
-     * @Route("/{id}/photo", name="photo-profil")
+     * @Route("/photo", name="photo-profil")
      *
      */
-    public function photoProfilAction(request $request, Membre $membre, JaugeProfil $jaugeProfil)
+    public function photoProfilAction(request $request, JaugeProfil $jaugeProfil)
     {
 
         $membre = $this->getUser();
@@ -77,25 +77,25 @@ class InfoProfilController extends Controller
             return $this->redirectToAnnonce($velo);
         }*/
         //$photoVelo = new Photovelo();
-        $form = $this->createForm('AppBundle\Form\PhotoProfilType', $photoVelo);
+        $form = $this->createForm('AppBundle\Form\PhotoProfilType', $membre);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && count($velo->getPhotos())<1) {
+        if ($form->isSubmitted() && $form->isValid() ) {
 
             $em = $this->getDoctrine()->getManager();
-            $photoVelo->setVelo($velo);
-            $em->persist($photoVelo);
+            //$photoVelo->setVelo($velo);
+            $em->persist($membre);
             $em->flush();
 
-            return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
+            return $this->redirectToRoute('photo-profil', array());
         }
 
-        $jaugeProfil = $this->getJaugeProfil($velo, $jaugeProfil);
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire'=>'velo/photos.html.twig',
-            'photoVelo' => $photoVelo,
-            'velo'=>$velo,
+            //'photoProfil' => $photoVelo,
+            //'velo'=>$velo,
             'form' => $form->createView(),
             'membre' => $membre,
             'jaugeProfil' =>$jaugeProfil
