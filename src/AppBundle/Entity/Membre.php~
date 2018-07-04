@@ -191,6 +191,19 @@ class Membre extends BaseUser
      */
     private $points=0;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
+     */
+    private $profifCompleted = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="first_velo_completed", type="boolean", options={"default"=0})
+     */
+    private $firstVeloCompleted = 0;
 
 
     /**
@@ -779,7 +792,7 @@ class Membre extends BaseUser
     }
 
     public function afficheTel(){
-        return "(".$this->indicTel->indice.")".$this->tel;
+        return "(".$this->getIndicTel()->getIndice().")".$this->tel;
     }
 
     /**

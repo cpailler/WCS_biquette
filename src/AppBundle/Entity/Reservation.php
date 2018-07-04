@@ -33,6 +33,7 @@ class Reservation
      * @var int
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Membre", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $locataire;
 
