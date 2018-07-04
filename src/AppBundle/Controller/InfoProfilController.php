@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
+use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\NewPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -33,7 +34,6 @@ class InfoProfilController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($membre);
             $em->flush();
-
         }
 
         $genres = $em->getRepository(Genre::class)->findAll();

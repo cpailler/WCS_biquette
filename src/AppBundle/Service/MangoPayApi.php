@@ -10,6 +10,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Membre;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 use MangoPay;
@@ -199,6 +200,20 @@ class MangoPayApi
         $result = $mangoPayApi->PayOuts->Create($PayOut);
     }
 
+
+    public function CheckIdMangopay(Membre $membre){
+
+        if ((null == $membre->getIdMangopay()) && (null == $membre->getIdWallet()))
+        {
+            $this->CreateNaturalUser($membre);
+            $this->CreateWallet($membre);
+            return $membre;
+        }else
+            {
+               return $membre;
+            }
+
+    }
     // remboursement
     public function Refund()
     {

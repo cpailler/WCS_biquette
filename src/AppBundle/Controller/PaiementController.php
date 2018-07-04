@@ -19,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 
@@ -35,9 +37,13 @@ class PaiementController extends Controller
     /**
      * @Route("/card", name="paiement_card")
      * @Method({"GET", "POST"})
-     *
+     * @param Request $request
+     * @param MangoPayApi $mangoPayApi
+     * @param Membre $membre
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function RegisterCardView(Request $request,MangoPayApi $mangoPayApi)
+    public function RegisterCardView(Request $request,MangoPayApi $mangoPayApi,Membre $membre)
     {
         $session = new Session();
         //$session->start();
@@ -49,18 +55,10 @@ class PaiementController extends Controller
 
         //on récupere l'utilisateur actuel
         $membre = $this->getUser();
-
-        //si il n'a pas encore d'Id MangoPay, on lui crée
-        if($membre->getIdMangopay() == null)
-        {
-            $membre->setIdMangopay($mangoPayApi->CreateNaturalUser($membre));
-        }
-        //si il n'a pas encore de wallet, on lui crée
-        if($membre->getIdWallet() == null)
-        {
-            $membre->setIdWallet($mangoPayApi->CreateWallet($membre));
-        }
-
+        dump($membre);
+        $em = $this->getDoctrine()->getManager();
+        //on verifie que les id mangopay existe ou on les crée et les enregistre en BDD
+        $membre = $mangoPayApi->CheckIdMangopay($membre);
         $cardRegistration = $mangoPayApi->CardRegistration($membre);
 
         //dump($cardRegistration);
