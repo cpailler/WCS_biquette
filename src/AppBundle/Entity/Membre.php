@@ -191,6 +191,19 @@ class Membre extends BaseUser
      */
     private $points=0;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
+     */
+    private $profilCompleted = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="first_velo_completed", type="boolean", options={"default"=0})
+     */
+    private $firstVeloCompleted = 0;
 
 
     /**
@@ -816,5 +829,77 @@ class Membre extends BaseUser
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Set profifCompleted.
+     *
+     * @param bool $profifCompleted
+     *
+     * @return Membre
+     */
+    public function setProfifCompleted($profifCompleted)
+    {
+        $this->profifCompleted = $profifCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profifCompleted.
+     *
+     * @return bool
+     */
+    public function getProfifCompleted()
+    {
+        return $this->profifCompleted;
+    }
+
+    /**
+     * Set firstVeloCompleted.
+     *
+     * @param bool $firstVeloCompleted
+     *
+     * @return Membre
+     */
+    public function setFirstVeloCompleted($firstVeloCompleted)
+    {
+        $this->firstVeloCompleted = $firstVeloCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get firstVeloCompleted.
+     *
+     * @return bool
+     */
+    public function getFirstVeloCompleted()
+    {
+        return $this->firstVeloCompleted;
+    }
+
+    /**
+     * Set profilCompleted.
+     *
+     * @param bool $profilCompleted
+     *
+     * @return Membre
+     */
+    public function setProfilCompleted($profilCompleted)
+    {
+        $this->profilCompleted = $profilCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profilCompleted.
+     *
+     * @return bool
+     */
+    public function getProfilCompleted()
+    {
+        return $this->profilCompleted;
     }
 }
