@@ -255,6 +255,8 @@ class VeloController extends Controller
      */
     public function localisationAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
@@ -268,10 +270,13 @@ class VeloController extends Controller
 
         $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
 
+        $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findAll();
+
         // replace this example code with whatever you need
         return $this->render('velo/layoutVelo.html.twig', array(
             'formulaire' => 'velo/localisation.html.twig',
             'velo' => $velo,
+            'velos' => $velos,
             'form' => $form->createView(),
             'membre' => $membre,
             'jaugeVelo' => $jaugeVelo
