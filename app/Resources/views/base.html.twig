@@ -76,7 +76,14 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ membre.prenom }} {{ membre.nom }}<img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                        {{ membre.prenom }} {{ membre.nom }}
+                        {% if membre.image is defined %}
+                            <div class="crop_profile_nav">
+                                <img src="{{ asset('images/uploads/'~membre.image) }}" alt="profil">
+                            </div>
+                        {% else %}
+                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                        {% endif %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown4">
                         <a class="dropdown-item" href="{{ path('profil_infos') }}"><img src="{{ asset('images/icn-profil2.svg') }}" alt="partage" class="navbar-icon" style="display: inline-block">Mon profil</a>
