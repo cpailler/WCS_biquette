@@ -93,14 +93,14 @@ class MangoPayApi
     {
         //TODO:creer condition pour verifier que id mangopay existe deja ou non
 
-        dump($registrationId);
-        dump($carte);
+        //dump($registrationId);
+        //dump($carte);
         $CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
 
         //$CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
         $CardRegistration->RegistrationData = 'data=' . $registrationId;
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
-        dump($CardUpdate);
+        //dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
 
 
@@ -109,7 +109,6 @@ class MangoPayApi
     //création d'une PayIn Card
     public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $amount, $fees)
     {
-        //TODO:creer condition pour verifier que id mangopay existe deja ou non
 
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
@@ -136,7 +135,7 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardId = $CardObject->Id;
         //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/cardRegisterForm';
+        $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/CartePaiement.html.twig';
 
         return $this->connexionApi->PayIns->Create($PayIn);
     }
@@ -201,12 +200,14 @@ class MangoPayApi
     }
 
 
-    public function CheckIdMangopay(Membre $membre){
+    public function CheckIdMangopay(Membre $membre,EntityManagerInterface $em){
 
         if ((null == $membre->getIdMangopay()) && (null == $membre->getIdWallet()))
         {
-            $this->CreateNaturalUser($membre);
-            $this->CreateWallet($membre);
+            $membre->setIdMangopay($this->CreateNaturalUser($membre));
+            $membre->setIdWallet($this->CreateWallet($membre));
+            $em->persist($membre);
+            $em->flush($membre);
             return $membre;
         }else
             {
