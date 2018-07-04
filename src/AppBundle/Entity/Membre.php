@@ -196,7 +196,7 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
      */
-    private $profifCompleted = 0;
+    private $profilCompleted = 0;
 
     /**
      * @var bool
