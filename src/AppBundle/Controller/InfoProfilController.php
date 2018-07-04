@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+
+use AppBundle\Entity\BankAccount;
+use AppBundle\Form\preferencesVirementType;
 use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
@@ -43,6 +46,35 @@ class InfoProfilController extends Controller
             'form'=>$form->createView(),
             'membre' => $membre,
             'genres' => $genres
+        ));
+    }
+
+    /**
+     * @Route("/virement", name="virement_infos")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function VirementAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $membre=$this->getUser();
+
+        $bankAccount = new BankAccount();
+
+        $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$em->persist($bankAccount);
+            //$em->flush();
+            $form->getData();
+
+        }
+
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/preferencesVirement.html.twig',
+            'form'=>$form->createView(),
+            'membre' => $membre
+
         ));
     }
 
