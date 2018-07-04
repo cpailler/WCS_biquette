@@ -9,7 +9,7 @@
 namespace AppBundle\Service;
 
 class JaugeProfil {
-    public function indicativeJaugeProfil($genre, $nom, $prenom, $codePostal, $ville, $email, $pays, $tel, $dateNaissance)
+    public function indicativeJaugeProfil($genre, $nom, $prenom, $codePostal, $ville, $email, $pays, $tel, $dateNaissance, $image)
     {
         $jaugeProfil = 0;
 
@@ -40,9 +40,9 @@ class JaugeProfil {
         if(isset($dateNaissance)){
             $jaugeProfil = $jaugeProfil + 5;
         }
-        /*if(isset($photoProfil)){
+        if(isset($image)){
             $jaugeProfil = $jaugeProfil + 20;
-        }*/
+        }
 
         return $jaugeProfil;
     }

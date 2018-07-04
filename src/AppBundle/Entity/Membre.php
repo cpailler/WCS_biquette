@@ -57,6 +57,11 @@ class Membre extends BaseUser
 
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="locataire",cascade={"persist", "remove"})
+     */
+    private $reservations;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="id_mangopay", type="integer", nullable=true)
@@ -213,6 +218,19 @@ class Membre extends BaseUser
      */
     private $points=0;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
+     */
+    private $profilCompleted = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="first_velo_completed", type="boolean", options={"default"=0})
+     */
+    private $firstVeloCompleted = 0;
 
 
     /**
@@ -303,12 +321,11 @@ class Membre extends BaseUser
      *
      * @param string $image
      *
-     * @return PhotoVelo
+     * @return Membre
      */
     public function setImage($image)
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -336,6 +353,7 @@ class Membre extends BaseUser
     public function setImageFile ($imageFile)
     {
         $this->imageFile = $imageFile;
+        return $this;
     }
 
 
@@ -840,5 +858,93 @@ class Membre extends BaseUser
     public function getVelos()
     {
         return $this->velos;
+    }
+
+    public function afficheTel(){
+        return "(".$this->getIndicTel()->getIndice().")".$this->tel;
+    }
+
+    /**
+     * Add reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return Membre
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        return $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Set profifCompleted.
+     *
+     * @param bool $profifCompleted
+     *
+     * @return Membre
+     */
+    public function setProfifCompleted($profifCompleted)
+    {
+        $this->profifCompleted = $profifCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profifCompleted.
+     *
+     * @return bool
+     */
+    public function getProfifCompleted()
+    {
+        return $this->profifCompleted;
+    }
+
+    /**
+     * Set firstVeloCompleted.
+     *
+     * @param bool $firstVeloCompleted
+     *
+     * @return Membre
+     */
+    public function setFirstVeloCompleted($firstVeloCompleted)
+    {
+        $this->firstVeloCompleted = $firstVeloCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get firstVeloCompleted.
+     *
+     * @return bool
+     */
+    public function getFirstVeloCompleted()
+    {
+        return $this->firstVeloCompleted;
     }
 }

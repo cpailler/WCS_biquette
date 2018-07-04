@@ -5,15 +5,16 @@
 {% block body %}
     <div class="container">
         <h2 class="titre">PHOTOS DU Profil --> TEST</h2><br>
-        <p class="infos_description">Ajoutez 3 photos de votre vélo et augmentez vos chances de finaliser un partage. Choisissez des photos qui montrent le vélo de façon réaliste pour permettre aux utilisateurs de l’identifier facilement.</p>
+        <p class="infos_description">Ajoutez une photo de profil et augmentez vos chances de finaliser un partage !</p>
         <h4>Ajouter une photo :</h4>
-        {% if velo.photos|length<3 %}
+        {% if membre.image|length < 0 %}
             <div class="infos_description">
                 {{ form_start(form) }}
                 <div style="background-color: #e9ecef; margin: auto; width: 60%; border-radius: 5px;">
                     {{ form_widget(form.imageFile) }}
                     {{ form_errors(form.imageFile) }}
-                    <input class="bouton-sm" type="submit" value="Test photo profil" />
+                    <input class="bouton" type="submit" value="Enregistrer photo" />
+
                 </div>
 
             </div>
@@ -21,66 +22,10 @@
             {{ form_end(form) }}
         {% else %}
             <div class="infos_description">
-                <p class="alert-info">Vous avez déjà 3 photos pour votre vélo, veuillez en supprimer une si vous souhaitez en ajouter une autre</p>
+                <p class="alert-info">Vous avez déjà 1 photo pour de profil, vous pouvez la changer en cliquant ici.</p>
             </div>
         {% endif %}
         <br>
-        {% if velo.photos|length > 0 %}
-            <div class="row">
-                <p>Cliquez pour agrandir la photo</p>
-            </div>
-        {% endif %}
-        <div class="row">
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card photos_crop">
-                            <img class="card-img-top" src="{{ asset('images/uploads/' ~ photo.image ) }}" alt="">
-                        </div>
-                    </div>
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="bouton-sm" data-toggle="modal" data-target="#exampleModalCenter{{ photo.id }}">
-                        Voir le vélo
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter{{ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Mon vélo</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <img src="{{ asset('images/uploads/' ~ photo.image ) }}" alt="" style="width: 100%;">
-                                </div>
-                                <div>
-                                    <div class="modal-footer" style="display: inline-block;">
-                                        <a href="{{ path('photoVelo_delete', {'id' : photo.id}) }}">
-                                            <button type="button" class="bouton-sm" style="background-color: #949a96;" data-target="#exampleModalCenter{{ photo.id }}">
-                                                supprimer
-                                            </button>
-                                        </a>
-                                    </div>
-                                    <div class="modal-footer" style="float: right;">
-                                        <button type="button" class="bouton-sm" style="color: white" data-dismiss="modal">Fermer</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- bouton supprimer à mettre -->
-
-
-
-                </div>
-
-        </div>
 
     </div>
 

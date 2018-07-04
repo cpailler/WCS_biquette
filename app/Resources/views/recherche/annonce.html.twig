@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/calendrier.css') }}">
     <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
 {% endblock %}
@@ -101,7 +102,58 @@
 
                     <div id="bloc__calendrier" class="categorie mt-5">
                         <h4 class="titre">Calendrier des périodes de partage</h4>
-                        <p>Ici le calendrier</p>
+                        <div class="row">
+                            {% for month in calendrier.months %}
+                                <div class="col-4">
+                                    <div class="row center-block">
+                                        <div class="col-12">
+                                            <p class="calendar-month">{{ month }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row center-block">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <table class="calendar__table calendar__table--{{ month.getWeeks() }}weeks">
+                                                <tr>
+                                                    {% for day in month.days %}
+                                                        <th class="calendar__otherMonth">{{ day }}</th>
+                                                    {% endfor %}
+                                                </tr>
+                                                {% set date = month.getStartingday %}
+                                                {% if date.format('N')!=1 %}
+                                                    {% set date = date.modify('last monday') %}
+                                                {% endif %}
+                                                {% set date = date.modify("-1 day") %}
+                                                {% for key in 0..(month.getWeeks*7-1) %}
+                                                    {% if key%7==0 %}
+                                                        <tr>
+                                                    {% endif %}
+                                                    {% set date = date.modify("+1 day") %}
+                                                    <td class="{% if (month.withinMonth(date)) %}{% if calendrier.getStatus(velo, date)=='disponible' %}calendar_disponible{% elseif calendrier.getStatus(velo, date)=='reserve'  %}calendar_booked{% endif %}{% else %}calendar__otherMonth{% endif %} ">
+
+                                                        <div class="calendar__day ">{{ date.format('d') }}</div>
+                                                    </td>
+                                                    {% if key%7==6 %}
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">← Précédent</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant →</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div id="bloc__assurance" class="categorie mt-5">

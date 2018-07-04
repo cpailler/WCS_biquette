@@ -31,7 +31,8 @@ class InfoProfilController extends Controller
             $membre->getEmail(),
             $membre->getPays(),
             $membre->getTel(),
-            $membre->getDateNaissance()
+            $membre->getDateNaissance(),
+            $membre->getImage()
         );
     }
 
@@ -84,6 +85,7 @@ class InfoProfilController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             //$photoVelo->setVelo($velo);
+            $membre->setImage($membre);
             $em->persist($membre);
             $em->flush();
 
@@ -92,8 +94,8 @@ class InfoProfilController extends Controller
 
         $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
-        return $this->render('velo/layoutVelo.html.twig', array(
-            'formulaire'=>'velo/photos.html.twig',
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/photo_profil.html.twig',
             //'photoProfil' => $photoVelo,
             //'velo'=>$velo,
             'form' => $form->createView(),

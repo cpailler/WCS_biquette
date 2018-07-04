@@ -73,6 +73,21 @@ h1, h2, h3, h4, h5, h6 {
   height: 200px;
 }
 
+.crop_profile {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: auto;
+}
+.crop_profile img {
+  display: inline;
+  margin: 0 auto;
+  height: 102%;
+  width: auto;
+}
+
 .bikerr-card {
   padding: 20px !important;
 }

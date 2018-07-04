@@ -10,9 +10,9 @@
 </head>
 {% block body %}
 
-    <form id="form_global" action="{{ card.CardRegistrationURL }}" method="post" >
-        <input type="hidden" name="data" value="{{ card.PreregistrationData }}" />
-        <input type="hidden" name="accessKeyRef" value="{{ card.AccessKey }}" />
+    <form id="form_global" action="{{ cardregistration.CardRegistrationURL }}" method="post" >
+        <input type="hidden" name="data" value="{{ cardregistration.PreregistrationData }}" />
+        <input type="hidden" name="accessKeyRef" value="{{ cardregistration.AccessKey }}" />
         <input type="hidden" name="returnURL" value="{{ returnUrl }}" />
 
         <div id="info_suite_paiement">

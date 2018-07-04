@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div id="carousel-photos" class="justify-content-center row">
+    {% for photo in velo.photos %}
+        <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
+    {% endfor %}
+</div>

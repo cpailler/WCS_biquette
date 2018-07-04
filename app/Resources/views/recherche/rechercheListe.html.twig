@@ -13,25 +13,88 @@
             <div class="container col-12 col-lg-7">
                 <div class="row">
                     <!-- barre de tri -->
-                    <div class="col-12 col-lg-12 form-control">
-                            <label for="tri">Trier par</label>
-                            <select id="pac-input" name='ville' class="controls">
-                                <option value="distance">Distance</option>
-                                <option value="type">Type de vélo</option>
-                                <option value="italie">Points/Jour</option>
-                            </select>
+                    <div class="col-12 col-lg-12 form-control recherche-map">
+
+                        <form class="tri-box" method="post" action="">
+                            <div class="tri-city">
+                                <div>
+                                    <input id="search-city" name="ville" class="form-control" type="text" onkeyup="showHint(this.value)" placeholder="Dans quelle ville voulez-vous un vélo ?" autocomplete="off">
+                                </div>
+                                <div id="txtHint"></div>
+                            </div>
+                            <div>
+                                <input id="submit" class="bouton-sm" type="submit" value="Rechercher">
+                            </div>
+                        </form>
+
+                        <select class="velos" name="velos">
+                            <option>---- Type de vélo ----</option>
+                            <option value="draisienne">draisienne</option>
+                            <option value="tricycle">tricycle</option>
+                            <option value="trotinette">trotinette</option>
+                            <option value="hoverboard">hoverboard</option>
+                            <option value="enfant">enfant</option>
+                            <option value="remorque">remorque</option>
+                            <option value="bmx">bmx</option>
+                            <option value="fixie">fixie</option>
+                            <option value="singlespeed">singlespeed</option>
+                            <option value="trotinette électrique">trotinette électrique</option>
+                            <option value="ville">vélo de ville</option>
+                            <option value="cruiser">cruiser</option>
+                            <option value="lowrider">lowrider</option>
+                            <option value="tall bike">tall bike</option>
+                            <option value="vtc">vtc</option>
+                            <option value="vtt">vtt</option>
+                            <option value="hollandais">hollandais</option>
+                            <option value="pliant">pliant</option>
+                            <option value="grand-bi">grand-bi</option>
+                            <option value="roue électrique">roue électrique</option>
+                            <option value="fatbike">fatbike</option>
+                            <option value="rosalie">rosalie</option>
+                            <option value="vélo de course">vélo de course</option>
+                            <option value="gravel">gravel</option>
+                            <option value="vélo de piste">vélo de piste</option>
+                            <option value="vélo de route">vélo de route</option>
+                            <option value="vtt suspendu">vtt suspendu</option>
+                            <option value="tandem">tandem</option>
+                            <option value="biporteur">biporteur</option>
+                            <option value="cargo">cargo</option>
+                            <option value="rickshaw">rickshaw</option>
+                            <option value="à position couchée">à position couchée</option>
+                            <option value="à assistance électrique">à assistance électrique</option>
+                            <option value="gyropode (type segway)">gyropode (type segway)</option>
+                            <option value="triporteur">triporteur</option>
+                            <option value="triplette">triplette</option>
+                            <option value="trike">trike</option>
+                            <option value="à voile">à voile</option>
+                        </select>
+                        <select class="points" name="points">
+                            <option>---- Nombre de Pts ----</option>
+                            <option value="area1">de 0 à 249 Pts</option>
+                            <option value="area2">de 250 à 499 Pts</option>
+                            <option value="area3">de 500 à 749 Pts</option>
+                            <option value="area4">de 750 à 999 Pts</option>
+                            <option value="area5">+ de 1000 Pts</option>
+                        </select>
+
                     </div>
                     <div class="container col-12 col-lg-12 form-control">
                         <div class="row annonce">
                             {% for velo in velos %}
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
-                                    <img src="http://via.placeholder.com/400x260" alt="">
-                                    {#<img src="{{ asset('images/uploads/' ~ photo.image) }}" alt="">#}
+                                    {% if velo.photos.0.image is defined %}
+                                    <div class="crop_profile">
+                                        <a href="annonce/{{ velo.id }}" target="_blank"><img class="image-annonce" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
+                                    </div>
+                                    {% endif %}
                                     <div class="bloc-titres">
                                         <div class="description"><h4>{{ velo.titre }}</h4></div>
                                         <div class="nb-pts"><h4>Pts/jour <span>{{ velo.coutPts }}</span></h4></div>
                                     </div>
+                                    <input class="ville" name="ville" type="hidden" value="{{ velo.ville }}">
+                                    <input class="type" name="type" type="hidden" value="{{ velo.typeVelo }}">
+                                    <input class="pts-velo" name="pts-velo" type="hidden" value="{{ velo.coutPts }}">
                                 </div>
                             {% endfor %}
                         </div>
@@ -45,17 +108,43 @@
         </div>
     </div>
 
-    <!--<script>
-        function initAutocomplete() {
-            // Create the search box and link it to the UI element.
-            var input = document.getElementById('pac-input');
-            var searchBox = new google.maps.places.SearchBox(input);
+    <!--          AUTOCOMPLETE VILLE           -->
+    <script>
+        function showHint(str) {
+            if (str.length == 0) {
+                document.getElementById("txtHint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    //console.log(this.readyState);
+                    console.log(this.status);
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText);
+                        var obj = JSON.parse(this.responseText);
+                        document.getElementById("txtHint").innerHTML = '<ul><li>'+obj[0].ville+'</li></ul>';
+                        //console.log(obj[0].ville);
+                    } else {
+                        document.getElementById("txtHint").innerHTML = '<ul><li>Aucun vélos pour cette recherche</li></ul>';
+                    }
+                };
+                xmlhttp.open("GET", "http://localhost:8000/recherche-liste/getVille/"+str, true);
+                xmlhttp.send();
+
+                $(document).on('click', 'li', function () {
+                   var city = $(this).text();
+                   $("#search-city").val(city);
+                   $("#txtHint").html("");
+                });
+            }
         }
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap&libraries=places&callback=initAutocomplete"
-            async defer></script> -->
+    <!--          TRI VELO         -->
+    <script src="{{ asset('build/tri.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <!--          SOMETHING ABOUT GOOGLE MAP           -->
     <script>
         /*!
   * $script.js JS loader & dependency manager
@@ -141,9 +230,9 @@
             }());
         }
     </script>
-
+    <!--          API GOOGLE MAP         -->
     <script>
-       let $map = document.querySelector('#map')
+        var $map = document.querySelector('#map')
 
         class GoogleMap {
 
@@ -161,77 +250,77 @@
                 return new Promise((resolve, reject) => {
                     $script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA', () => {
 
-                        this.textMarker = class TextMarker extends google.maps.OverlayView {
+                    this.textMarker = class TextMarker extends google.maps.OverlayView {
 
-                            constructor (pos, map, text) {
-                                super()
-                                this.div = null
-                                this.html = null
-                                this.pos = pos
-                                this.text = text
-                                this.setMap(map)
-                                this.onActivation = []
-                            }
-
-                            onAdd () {
-                                this.div = document.createElement('div')
-                                this.div.classList.add('marker')
-                                this.div.style.position = 'absolute'
-                                this.div.innerHTML = this.text
-                                this.getPanes().overlayImage.appendChild(this.div)
-                                this.div.addEventListener('click', (e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    this.activate()
-                                })
-                            }
-
-                            draw () {
-                                let position = this.getProjection().fromLatLngToDivPixel(this.pos)
-                                this.div.style.left = position.x + "px"
-                                this.div.style.top = position.y + "px"
-                            }
-
-                            onRemove () {
-                                this.div.parentNode.removeChild(this.div)
-                            }
-
-                            hover () {
-                                if (this.div !== null) {
-                                    this.div.classList.add('is-active')
-                                }
-                            }
-
-                            out () {
-                                if (this.div !== null) {
-                                    this.div.classList.remove('is-active')
-                                }
-                            }
-
-                            activate () {
-                                if (this.div !== null) {
-                                    this.div.innerHTML = this.html
-                                }
-                                this.onActivation.forEach(function (cb) { cb() })
-                            }
-
-                            deactivate () {
-                                if (this.div !== null) {
-                                    this.div.innerHTML = this.text
-                                }
-                            }
-
-                            setContent (html) {
-                                this.html = html
-                            }
-
+                        constructor (pos, map, text) {
+                            super()
+                            this.div = null
+                            this.html = null
+                            this.pos = pos
+                            this.text = text
+                            this.setMap(map)
+                            this.onActivation = []
                         }
 
-                        this.map = new google.maps.Map(element)
-                        this.bounds = new google.maps.LatLngBounds()
-                        resolve()
-                    })
+                        onAdd () {
+                            this.div = document.createElement('div')
+                            this.div.classList.add('marker')
+                            this.div.style.position = 'absolute'
+                            this.div.innerHTML = this.text
+                            this.getPanes().overlayImage.appendChild(this.div)
+                            this.div.addEventListener('click', (e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                this.activate()
+                            })
+                        }
+
+                        draw () {
+                            var position = this.getProjection().fromLatLngToDivPixel(this.pos)
+                            this.div.style.left = position.x + "px"
+                            this.div.style.top = position.y + "px"
+                        }
+
+                        onRemove () {
+                            this.div.parentNode.removeChild(this.div)
+                        }
+
+                        hover () {
+                            if (this.div !== null) {
+                                this.div.classList.add('is-active')
+                            }
+                        }
+
+                        out () {
+                            if (this.div !== null) {
+                                this.div.classList.remove('is-active')
+                            }
+                        }
+
+                        activate () {
+                            if (this.div !== null) {
+                                this.div.innerHTML = this.html
+                            }
+                            this.onActivation.forEach(function (cb) { cb() })
+                        }
+
+                        deactivate () {
+                            if (this.div !== null) {
+                                this.div.innerHTML = this.text
+                            }
+                        }
+
+                        setContent (html) {
+                            this.html = html
+                        }
+
+                    }
+
+                    this.map = new google.maps.Map(element)
+                    this.bounds = new google.maps.LatLngBounds()
+                    resolve()
                 })
+            })
             }
 
             /**
@@ -242,11 +331,11 @@
              * @return {TextMarker}
              */
             addMarker (lat, lng, text) {
-                let point = new google.maps.LatLng(lat,lng)
-                let marker = new this.textMarker(point, this.map, text)
+                var point = new google.maps.LatLng(lat,lng)
+                var marker = new this.textMarker(point, this.map, text)
                 marker.onActivation.push(() => {
                     this.map.setCenter(marker.pos)
-                })
+            })
                 this.bounds.extend(point)
                 return marker
             }
@@ -261,40 +350,41 @@
         }
 
         const initMap = async function () {
-           let map = new GoogleMap()
-           let activeMarker = null
-           let enableMarker = null
-           await map.load($map)
-           Array.from(document.querySelectorAll('.item')).forEach(function (item) {
-               let marker = map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price + ' Pts')
-               marker.setContent(item.innerHTML)
-               marker.onActivation.push(function () {
-                   if (enableMarker !== null) {
-                       enableMarker.out()
-                   }
-                   enableMarker = marker
-               })
-               item.addEventListener('mouseover', function () {
-                   marker.hover()
-                   if (activeMarker !== null) {
-                       activeMarker.out()
-                   }
-                   activeMarker = marker
-               })
-               item.addEventListener('mouseleave', function () {
-                   if (activeMarker === marker) {
-                       marker.out()
-                       activeMarker = null
-                   }
-               })
-           })
-           map.centerMap()
-       }
+            var map = new GoogleMap()
+            var activeMarker = null
+            var enabledMarker = null
+            await map.load($map)
+            Array.from(document.querySelectorAll('.item')).forEach(function (item) {
+                var marker = map.addMarker(item.dataset.lat, item.dataset.lng, item.dataset.price + ' Pts')
+                marker.setContent(item.innerHTML)
+                marker.onActivation.push(function () {
+                    if (enabledMarker !== null) {
+                        enabledMarker.deactivate()
+                    }
+                    enabledMarker = marker
+                })
+                item.addEventListener('mouseover', function () {
+                    marker.hover()
+                    if (activeMarker !== null) {
+                        activeMarker.out()
+                    }
+                    activeMarker = marker
+                })
+                item.addEventListener('mouseleave', function () {
+                    if (activeMarker === marker) {
+                        marker.out()
+                        activeMarker = null
+                    }
+                })
+            })
+            map.centerMap()
+        }
 
         if ($map !== null) {
-           initMap()
+            initMap()
         }
     </script>
+
 
     </html>
 

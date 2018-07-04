@@ -32,9 +32,10 @@ class Reservation
     /**
      * @var int
      *
-     * @ORM\Column(name="locataire_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Membre", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $locataireId;
+    private $locataire;
 
     /**
      * @var \DateTime
@@ -248,5 +249,29 @@ class Reservation
     public function getAssurance()
     {
         return $this->assurance;
+    }
+
+    /**
+     * Set locataire.
+     *
+     * @param \AppBundle\Entity\Membre|null $locataire
+     *
+     * @return Reservation
+     */
+    public function setLocataire(\AppBundle\Entity\Membre $locataire = null)
+    {
+        $this->locataire = $locataire;
+
+        return $this;
+    }
+
+    /**
+     * Get locataire.
+     *
+     * @return \AppBundle\Entity\Membre|null
+     */
+    public function getLocataire()
+    {
+        return $this->locataire;
     }
 }
