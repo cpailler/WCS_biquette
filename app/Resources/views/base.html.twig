@@ -63,15 +63,23 @@
                         </span> PTS
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
-                        <a class="dropdown-item" href="#">Devenez membre vérifié<div class="pts_navbar"> +500 PTS</div></a>
+
+                        {% if membre.profilCompleted == 0 %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Complétez votre profil<span class="pts_navbar"> +250 PTS</span></a>
+                        <a class="dropdown-item" href="{{ path('profil_infos') }}">Complétez votre profil<span class="pts_navbar"> +250 PTS</span></a>
+                        {% endif %}
+
+
+                        {% if membre.firstVeloCompleted == 0 %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Complétez votre vélo<span class="pts_navbar"> +250 PTS</span></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Invitez des amis<span class="pts_navbar"> +50 PTS</span></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Total de mes points<span class="pts_navbar">1000 PTS</span></a>
+                        <a class="dropdown-item" href="
+                        {% if membre.velos|length > 0 %}
+                            {{ path('velo_description', {'id': membre.velos.0.id}) }}
+                        {% else %}
+                            {{ path('velo_nouveau') }}
+                        {% endif %}
+                        ">Complétez votre vélo<span class="pts_navbar"> +250 PTS</span></a>
+                        {% endif %}
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -90,7 +98,7 @@
                         <div class="dropdown-divider"></div>
 
                         {% for velo in membre.velos %}
-                        <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">{{ velo.titre }}</a>
+                            <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">{{ velo.titre }}</a>
                         {% endfor %}
 
                         <div class="dropdown-divider"></div>
@@ -170,7 +178,7 @@
                     <h5>Nous suivre</h5>
                     <p style="text-align: right">
                         <a href="https://www.facebook.com/BikerrFrance/" target="_blank" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
-                            <a href="https://twitter.com/bikerr" target="_blank" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
+                        <a href="https://twitter.com/bikerr" target="_blank" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
                         <a href="#" target="_blank" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
                     </p>
                 </div>

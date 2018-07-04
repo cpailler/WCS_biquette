@@ -947,4 +947,28 @@ class Membre extends BaseUser
     {
         return $this->firstVeloCompleted;
     }
+
+    /**
+     * Set profilCompleted.
+     *
+     * @param bool $profilCompleted
+     *
+     * @return Membre
+     */
+    public function setProfilCompleted($profilCompleted)
+    {
+        $this->profilCompleted = $profilCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profilCompleted.
+     *
+     * @return bool
+     */
+    public function getProfilCompleted()
+    {
+        return $this->profilCompleted;
+    }
 }

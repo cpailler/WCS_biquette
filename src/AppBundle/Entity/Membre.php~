@@ -196,7 +196,7 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
      */
-    private $profifCompleted = 0;
+    private $profilCompleted = 0;
 
     /**
      * @var bool
@@ -829,5 +829,53 @@ class Membre extends BaseUser
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Set profifCompleted.
+     *
+     * @param bool $profifCompleted
+     *
+     * @return Membre
+     */
+    public function setProfifCompleted($profifCompleted)
+    {
+        $this->profifCompleted = $profifCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profifCompleted.
+     *
+     * @return bool
+     */
+    public function getProfifCompleted()
+    {
+        return $this->profifCompleted;
+    }
+
+    /**
+     * Set firstVeloCompleted.
+     *
+     * @param bool $firstVeloCompleted
+     *
+     * @return Membre
+     */
+    public function setFirstVeloCompleted($firstVeloCompleted)
+    {
+        $this->firstVeloCompleted = $firstVeloCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get firstVeloCompleted.
+     *
+     * @return bool
+     */
+    public function getFirstVeloCompleted()
+    {
+        return $this->firstVeloCompleted;
     }
 }

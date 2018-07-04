@@ -195,6 +195,27 @@ li a {
   width: inherit;
 }
 
+#appbundle_velo_adresse_velo {
+  margin-bottom: 20px;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.bt-localisation {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 576px)
 {
   .photos_crop {
