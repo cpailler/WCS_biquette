@@ -44,6 +44,13 @@ class Membre extends BaseUser
     /**
      * @var int|null
      *
+     * @ORM\Column(name="id_bankaccount", type="integer", nullable=true)
+     */
+    private $idBankAccount;
+
+    /**
+     * @var int|null
+     *
      * @ORM\Column(name="id_wallet", type="integer", nullable=true)
      */
     private $idWallet;
@@ -877,5 +884,29 @@ class Membre extends BaseUser
     public function getFirstVeloCompleted()
     {
         return $this->firstVeloCompleted;
+    }
+
+    /**
+     * Set profilCompleted.
+     *
+     * @param bool $profilCompleted
+     *
+     * @return Membre
+     */
+    public function setProfilCompleted($profilCompleted)
+    {
+        $this->profilCompleted = $profilCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profilCompleted.
+     *
+     * @return bool
+     */
+    public function getProfilCompleted()
+    {
+        return $this->profilCompleted;
     }
 }
