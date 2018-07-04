@@ -60,8 +60,7 @@ class VeloController extends Controller
             $velo->getEtatVelo(),
             $velo->getCouleur(),
             $velo->getPhotos(),
-            $velo->getLongitude(),
-            $velo->getAssurOblig()
+            $velo->getLongitude()
         );
     }
 
