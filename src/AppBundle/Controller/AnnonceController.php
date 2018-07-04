@@ -11,7 +11,7 @@ use AppBundle\Entity\Velo;
 /**
  * Profil controller.
  *
- * @Route("/annonce")
+ * @Route("/recherche-liste/annonce")
  * @Method({"GET", "POST"})
  */
 class AnnonceController extends Controller

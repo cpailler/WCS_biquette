@@ -65,6 +65,10 @@ class RegistrationController extends BaseController
 
                 $userManager->updateUser($user);
 
+
+
+
+
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('profil_infos');
                     $response = new RedirectResponse($url);
