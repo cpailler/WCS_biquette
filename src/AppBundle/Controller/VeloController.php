@@ -50,7 +50,7 @@ class VeloController extends Controller
         return $this->redirectToRoute('annonce', array('id'=>$velo->getId()));
     }
 
-    private function getJauge(Velo $velo, JaugeVelo $jaugeVelo, PointsManager $pointsManager){
+    private function getJauge(Velo $velo, JaugeVelo $jaugeVelo){
 
 	    $jauge = $jaugeVelo->indicativeJaugeVelo(
             $velo->getTitre(),
@@ -64,14 +64,15 @@ class VeloController extends Controller
             $velo->getLongitude(),
             $velo->getAssurOblig()
         );
-	    
-	    if ($jauge == 100 && $velo->getProprio()->getFirstVeloComplete == 0) {
-		    $velo->getProprio()setFirstComplete(1);
+
+	    if ($jauge == 100 && $velo->getProprio()->getFirstVeloCompleted() == 0) {
+		    $velo->getProprio()->setFirstVeloCompleted(1);
+		    $pointsManager = New PointsManager($this->getDoctrine()->getManager());
 		    $pointsManager->givePoints($velo->getProprio(),250);
 	    }
 
 	    return $jauge;
-	    
+
     }
 
     /**
