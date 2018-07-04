@@ -65,9 +65,9 @@ class Reservation
     private $caution;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="assurance", type="boolean")
+     * @ORM\Column(name="assurance", type="integer")
      */
     private $assurance;
 

@@ -29,6 +29,11 @@
                             <div>
                                 {{ form_start(reservationForm) }}
                                 {{ form_widget(reservationForm) }}
+                                {% for message in app.flashes('error') %}
+                                    <div class="alert-danger">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
                                 <input class="bouton" type="submit" value="Enregistrer" />
                                 {{ form_end(reservationForm) }}
                             </div>
