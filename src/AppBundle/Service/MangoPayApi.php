@@ -30,7 +30,7 @@ class MangoPayApi
         // login : password : temp directory
         $this->connexionApi->Config->ClientId = 'aurelgouilhers';
         $this->connexionApi->Config->ClientPassword = 'wr42AYOg5LU5OE3dn10qNrbfsDC7iYeRHu3N4Gjw3KtGDuSC1V';
-        $this->connexionApi->Config->TemporaryFolder = '/Users/xavier/Sites/bikerr/TEMP_MANGOPAY';
+        $this->connexionApi->Config->TemporaryFolder = '/home/wilder/Projet-3/bikerr/TEMP_MANGOPAY';
     }
 
     /**

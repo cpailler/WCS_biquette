@@ -126,7 +126,7 @@ class PaiementController extends Controller
         dump($CarteUpdated);
 
         return $this->render('paiement/CartePaiement.html.twig',array(
-            'form' => $form->createView(),
+            //'form' => $form->createView(),
             'cardregistration' => $cardRegistration
         ));
 
