@@ -196,7 +196,7 @@ class Membre extends BaseUser
      *
      * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
      */
-    private $profifCompleted = 0;
+    private $profilCompleted = 0;
 
     /**
      * @var bool
@@ -877,5 +877,29 @@ class Membre extends BaseUser
     public function getFirstVeloCompleted()
     {
         return $this->firstVeloCompleted;
+    }
+
+    /**
+     * Set profilCompleted.
+     *
+     * @param bool $profilCompleted
+     *
+     * @return Membre
+     */
+    public function setProfilCompleted($profilCompleted)
+    {
+        $this->profilCompleted = $profilCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profilCompleted.
+     *
+     * @return bool
+     */
+    public function getProfilCompleted()
+    {
+        return $this->profilCompleted;
     }
 }
