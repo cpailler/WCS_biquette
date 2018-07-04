@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,8 +17,8 @@ class VeloAntivolType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('antivolKey', IntegerType::class, array('label' => 'Antivol à clé'))
-            ->add('antivolCode',IntegerType::class, array('label' => 'Antivol à combinaison'))
+            ->add('antivolKey', ChoiceType::class, array('label' => 'Antivol à clé', 'choices' => array('0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5)))
+            ->add('antivolCode',ChoiceType::class, array('label' => 'Antivol à combinaison', 'choices' => array('0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5)))
             ->add('bicycode', IntegerType::class, array('label' => 'Numéro Bicycode (si disponible)'));
     }
     /**
