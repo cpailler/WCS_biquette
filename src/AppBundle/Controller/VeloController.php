@@ -25,6 +25,7 @@ use AppBundle\Repository\CouleurRepository;
 use AppBundle\Service\Calendrier\Calendrier;
 use AppBundle\Service\DateCheck;
 use AppBundle\Service\JaugeVelo;
+use AppBundle\Service\PointsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -49,8 +50,9 @@ class VeloController extends Controller
         return $this->redirectToRoute('annonce', array('id'=>$velo->getId()));
     }
 
-    private function getJauge(Velo $velo, JaugeVelo $jaugeVelo){
-        return $jaugeVelo->indicativeJaugeVelo(
+    private function getJauge(Velo $velo, JaugeVelo $jaugeVelo, PointsManager $pointsManager){
+
+	    $jauge = $jaugeVelo->indicativeJaugeVelo(
             $velo->getTitre(),
             $velo->getDescription(),
             $velo->getMarque(),
@@ -62,6 +64,14 @@ class VeloController extends Controller
             $velo->getLongitude(),
             $velo->getAssurOblig()
         );
+	    
+	    if ($jauge == 100 && $velo->getProprio()->getFirstVeloComplete == 0) {
+		    $velo->getProprio()setFirstComplete(1);
+		    $pointsManager->givePoints($velo->getProprio(),250);
+	    }
+
+	    return $jauge;
+	    
     }
 
     /**
