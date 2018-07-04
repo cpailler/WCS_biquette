@@ -96,7 +96,8 @@ class PaiementController extends Controller
         // Envoi de la vue
         return $this->render('paiement/CartePaiement.html.twig',array(
             'form'=>$form->createView(),
-            'cardregistration' => $cardRegistration
+            'cardregistration' => $cardRegistration,
+            'returnUrl'=>$returnUrl
         ));
 
 /*        return $this->render('default/cardRegisterForm.html.twig', array(
