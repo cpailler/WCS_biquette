@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Velo;
 
 /**
  * InfoProfil controller.
@@ -19,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class InfoProfilController extends Controller
 {
-    private function getJauge(Membre $membre, JaugeProfil $jaugeProfil)
+    private function getJaugeProfil(Membre $membre, JaugeProfil $jaugeProfil)
     {
         return $jaugeProfil->indicativeJaugeProfil(
             $membre->getGenre(),
@@ -53,7 +54,7 @@ class InfoProfilController extends Controller
         }
 
         $genres = $em->getRepository(Genre::class)->findAll();
-        $jaugeProfil = $this->getJauge($membre, $jaugeProfil);
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/infoProfil.html.twig',
@@ -61,6 +62,43 @@ class InfoProfilController extends Controller
             'membre' => $membre,
             'genres' => $genres,
             'jaugeProfil' => $jaugeProfil
+        ));
+    }
+
+    /**
+     * @Route("/{id}/photo", name="photo-profil")
+     *
+     */
+    public function photoProfilAction(request $request, Membre $membre, JaugeProfil $jaugeProfil)
+    {
+
+        $membre = $this->getUser();
+        /*if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }*/
+        //$photoVelo = new Photovelo();
+        $form = $this->createForm('AppBundle\Form\PhotoProfilType', $photoVelo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() && count($velo->getPhotos())<1) {
+
+            $em = $this->getDoctrine()->getManager();
+            $photoVelo->setVelo($velo);
+            $em->persist($photoVelo);
+            $em->flush();
+
+            return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
+        }
+
+        $jaugeProfil = $this->getJaugeProfil($velo, $jaugeProfil);
+
+        return $this->render('velo/layoutVelo.html.twig', array(
+            'formulaire'=>'velo/photos.html.twig',
+            'photoVelo' => $photoVelo,
+            'velo'=>$velo,
+            'form' => $form->createView(),
+            'membre' => $membre,
+            'jaugeProfil' =>$jaugeProfil
         ));
     }
 
@@ -120,8 +158,5 @@ class InfoProfilController extends Controller
             ->getForm()
             ;
     }
-
-
-
 
 }

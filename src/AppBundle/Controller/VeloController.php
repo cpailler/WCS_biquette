@@ -128,9 +128,6 @@ class VeloController extends Controller
                 $em->persist($photoVelo);
                 $em->flush();
 
-
-
-
             return $this->redirectToRoute('velo_photos', array('id' => $velo->getId()));
         }
 
