@@ -85,7 +85,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ membre.prenom }} {{ membre.nom }}
-                        {% if membre.image is defined %}
+                        {% if membre.image is not null %}
                             <div class="crop_profile_nav">
                                 <img src="{{ asset('images/uploads/'~membre.image) }}" alt="profil">
                             </div>

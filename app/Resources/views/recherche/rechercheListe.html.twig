@@ -83,8 +83,8 @@
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     {% if velo.photos.0.image is defined %}
-                                    <div class="">
-                                        <a href="annonce/{{ velo.id }}" target="_blank"><img class="image-annonce img-fluid" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
+                                    <div>
+                                        <a href="annonce/{{ velo.id }}" target="_blank"><img class="img-fluid" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
                                     </div>
                                     {% endif %}
                                     <div class="bloc-titres">
