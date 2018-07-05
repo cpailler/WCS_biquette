@@ -64,10 +64,7 @@ class InfoProfilController extends Controller
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$em->persist($bankAccount);
-            //$em->flush();
             $form->getData();
-
         }
 
         return $this->render('profil/layoutProfil.html.twig', array(
