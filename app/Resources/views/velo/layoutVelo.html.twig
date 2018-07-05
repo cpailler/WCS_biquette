@@ -41,10 +41,13 @@
                                 <p>L'annonce du vélo est en ligne</p>
                             </div>
                             <div style="float:right">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
+                                <form name="app_bundle_mise_en_ligne_type" method="POST" action="{{ path('mise_en_ligne', {'id' : velo.getId}) }}">
+                                    <label class="switch">
+                                        <input type="checkbox" {% if velo.enLigne==1 %}checked{% endif %} id="app_bundle_mise_en_ligne_type_en_ligne" name="app_bundle_mise_en_ligne_type[en_ligne]" required="required" class="form-check-input" value="1" onclick="$(this).parents('form').submit()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                {% do miseEnLigne.en_ligne.setRendered %}
+                                {{ form_end(miseEnLigne) }}
                             </div>
                         </div>
 
@@ -59,7 +62,13 @@
                                 </label>
                             </div>
                         </div>
-
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                         <div class="progressbarVelo">
                             <div>
                                 <p>Annonce complétée à :</p>
