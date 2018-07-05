@@ -116,20 +116,16 @@ class InfoProfilController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $membre=$this->getUser();
-
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
         $bankAccount = new BankAccount();
 
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $Bank = $mangoPayApi->InitBankAccount($membre,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
             dump($Bank);
-
-
         }
-        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/preferencesVirement.html.twig',

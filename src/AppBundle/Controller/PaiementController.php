@@ -115,7 +115,7 @@ class PaiementController extends Controller
         $session = new Session();
 
         $cardRegistration = $session->get('cardregistration');
-        $membre = $session->get('membre');
+        $membre = $this->getUser();
 
         $returnURL = $session->get('returnURL');
 
@@ -123,12 +123,9 @@ class PaiementController extends Controller
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
         dump($CarteUpdated);
 
-        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500,$returnURL);
-
-        return $this->render('paiement/CartePaiement.html.twig',array(
-            //'form' => $form->createView(),
-            'cardregistration' => $CarteUpdated
-        ));
+        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500);
+        dump($PayIn);
+        return $this->redirectToRoute('profil_infos');
 
 
     }

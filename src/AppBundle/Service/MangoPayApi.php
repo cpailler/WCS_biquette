@@ -136,7 +136,7 @@ class MangoPayApi
         //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/paiement/card';
-
+        dump($PayIn);
         return $this->connexionApi->PayIns->Create($PayIn);
     }
 
