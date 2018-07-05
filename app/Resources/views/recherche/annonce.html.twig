@@ -45,6 +45,10 @@
                             </div>
                             <div class="col-6">
                                 <h4 class="titre">Antivol du vélo</h4>
+
+                                {% if velo.antivolKey == 0 and velo.antivolCode == 0 and velo.bicycode is null %}
+                                <h5>Aucun antivol</h5>
+                                {% else %}
                                 <ul>
                                     {% if velo.antivolKey > 0 %}
                                         <li class="equipementOK">Antivol à clé</li>
@@ -56,6 +60,8 @@
                                         <li class="equipementOK">Marquage Bicycode</li>
                                     {% endif %}
                                 </ul>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -148,10 +154,10 @@
                         </div>
                         <div class="row">
                             <div class="col-6 text-left">
-                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">←Précédent</a>
+                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">← Précédent</a>
                             </div>
                             <div class="col-6 text-right">
-                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant→</a>
+                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant →</a>
                             </div>
                         </div>
                     </div>

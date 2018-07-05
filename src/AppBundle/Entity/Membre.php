@@ -4,10 +4,13 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * membre
- *
+ * @Vich\Uploadable
  * @ORM\Table(name="membre")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MembreRepository")
  */
@@ -30,6 +33,30 @@ class Membre extends BaseUser
     private $velos;
 
     /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
+     *
+     * @var File
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     maxSizeMessage="Votre fichier est trop volumineux, veuillez charger un fichier plus petit",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Veuillez télécharger un fichier au format .jpg ou .png"
+     * )
+     *
+     */
+    protected $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    protected $image;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="locataire",cascade={"persist", "remove"})
      */
     private $reservations;
@@ -40,6 +67,13 @@ class Membre extends BaseUser
      * @ORM\Column(name="id_mangopay", type="integer", nullable=true)
      */
     private $idMangopay;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="id_bankaccount", type="integer", nullable=true)
+     */
+    private $idBankAccount;
 
     /**
      * @var int|null
@@ -191,6 +225,19 @@ class Membre extends BaseUser
      */
     private $points=0;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
+     */
+    private $profilCompleted = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="first_velo_completed", type="boolean", options={"default"=0})
+     */
+    private $firstVeloCompleted = 0;
 
 
     /**
@@ -274,6 +321,48 @@ class Membre extends BaseUser
     {
         return $this->idFacebook;
     }
+
+
+    /**
+     * Set image.
+     *
+     * @param string $image
+     *
+     * @return Membre
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @return File
+     */
+    public function getImageFile ()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     */
+    public function setImageFile ($imageFile)
+    {
+        $this->imageFile = $imageFile;
+        return $this;
+    }
+
 
     /**
      * Set prenom.
@@ -816,5 +905,101 @@ class Membre extends BaseUser
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Set profifCompleted.
+     *
+     * @param bool $profifCompleted
+     *
+     * @return Membre
+     */
+    public function setProfifCompleted($profifCompleted)
+    {
+        $this->profifCompleted = $profifCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profifCompleted.
+     *
+     * @return bool
+     */
+    public function getProfifCompleted()
+    {
+        return $this->profifCompleted;
+    }
+
+    /**
+     * Set firstVeloCompleted.
+     *
+     * @param bool $firstVeloCompleted
+     *
+     * @return Membre
+     */
+    public function setFirstVeloCompleted($firstVeloCompleted)
+    {
+        $this->firstVeloCompleted = $firstVeloCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get firstVeloCompleted.
+     *
+     * @return bool
+     */
+    public function getFirstVeloCompleted()
+    {
+        return $this->firstVeloCompleted;
+    }
+
+    /**
+     * Set profilCompleted.
+     *
+     * @param bool $profilCompleted
+     *
+     * @return Membre
+     */
+    public function setProfilCompleted($profilCompleted)
+    {
+        $this->profilCompleted = $profilCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profilCompleted.
+     *
+     * @return bool
+     */
+    public function getProfilCompleted()
+    {
+        return $this->profilCompleted;
+    }
+
+    /**
+     * Set idBankAccount.
+     *
+     * @param int|null $idBankAccount
+     *
+     * @return Membre
+     */
+    public function setIdBankAccount($idBankAccount = null)
+    {
+        $this->idBankAccount = $idBankAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get idBankAccount.
+     *
+     * @return int|null
+     */
+    public function getIdBankAccount()
+    {
+        return $this->idBankAccount;
     }
 }

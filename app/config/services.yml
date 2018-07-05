@@ -53,6 +53,9 @@ services:
     AppBundle\Service\PointsManager:
         arguments:
 
+    AppBundle\Service\DateCheck:
+        arguments:
+
     AppBundle\Service\CautionManager:
         arguments:
 

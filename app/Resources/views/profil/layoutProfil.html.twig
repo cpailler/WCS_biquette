@@ -11,8 +11,12 @@
         <div class="row">
             <!-- photo de profil -->
             <div class="col-12 col-lg-3 offset-lg-1 photoProfil">
+                {% if membre.image is defined %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                {% else %}
                 <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
-                <div><a href="#">Ajouter une photo de profil</a></div>
+                {% endif %}
+                <div><a href="{{ path('photo-profil') }}">Ajouter une photo de profil</a></div>
             </div>
             <!-- zone barre de progression -->
             <div class="col-12 col-lg-7 progressionProfil">
@@ -25,7 +29,7 @@
                         <div class="col-12 col-lg-6 progressbarProfil">
                             <div><p>Profil complété à :</p></div>
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ jaugeProfil }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ jaugeProfil }}%</div>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6 signinProfil">
@@ -55,6 +59,7 @@
             <!-- onglets + formulaire à compléter -->
             <div  class="col-12 col-8 col-lg-7 formulaireProfil">
                 {% include formulaire %}
+
             </div>
         </div>
     </div>
