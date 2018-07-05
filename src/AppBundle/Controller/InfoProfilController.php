@@ -75,7 +75,6 @@ class InfoProfilController extends Controller
      */
     public function photoProfilAction(request $request, JaugeProfil $jaugeProfil)
     {
-
         $membre = $this->getUser();
         /*if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
@@ -85,7 +84,13 @@ class InfoProfilController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
-
+            if( $membre->getImage() !== null ){
+                $image = $membre->getImage();
+                $fileToDelete = "images/uploads/".$image;
+                if(file_exists($fileToDelete)) {
+                    unlink($fileToDelete);
+                }
+            }
             $em = $this->getDoctrine()->getManager();
             //$photoVelo->setVelo($velo);
             $membre->setImage($membre);

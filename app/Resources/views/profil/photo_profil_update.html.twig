@@ -1,0 +1,25 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="titre">PHOTOS DU Profil --> UPDATE</h2><br>
+        <h4>Modifier votre :</h4>
+            <div class="infos_description">
+                {{ form_start(form) }}
+                <div style="background-color: #e9ecef; margin: auto; width: 60%; border-radius: 5px;">
+                    {{ form_widget(form.imageFile) }}
+                    {{ form_errors(form.imageFile) }}
+                    <input class="bouton" type="submit" value="Enregistrer photo" />
+
+                </div>
+
+            </div>
+
+            {{ form_end(form) }}
+        <br>
+
+    </div>
+
+{% endblock %}
