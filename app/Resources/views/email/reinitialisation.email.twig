@@ -1,0 +1,14 @@
+{% block subject %}Réinitialisation de mot de passe{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        <h2>Bonjour {{ membre.prenom }} !</h2>
+
+        <p>Une demande de réinitialisation de mot de passe du site Bikerr.fr a été faite.
+            Vous pouvez réinitialiser votre mot de passe en cliquant sur ce lien: {{ confirmationUrl }}.</p>
+        <p>Si vous n'êtes pas à l'origine de cette action, vous pouvez ignorer cet e-mail</p>
+
+        <p>Cordialement,<br>
+        L'équipe Bikerr</p>
+    {% endautoescape %}
+{% endblock %}

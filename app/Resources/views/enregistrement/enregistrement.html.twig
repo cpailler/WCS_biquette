@@ -9,7 +9,6 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <a href="http://127.0.0.1:8000/" onclick="$('#myModal').modal('hide')"><img src="{{ asset('images/icn-fermer.svg') }}"></a>
                 <h5 class="modal-title align-items-center">Inscription</h5>
             </div>
             <div class="modal-body">
@@ -21,6 +20,7 @@
                 <button type="submit" class="bouton w-100 mt-3"><img class ="mr-2" src="{{ asset('images/icn-bikerr.svg') }}">Inscription</button>
 
                 <div class="mt-3" id="conditions">
+                    <p>En cochant la case ci-dessous, vous confirmez avoir lu, compris et accepté nos <a href="/cgu">Conditions générales</a> et <a href="/utilisation">Utilisation du service</a>, <a href="/assurance">les Conditions de l’assurance</a> et notre <a href="/politique">Politique de confidentialité</a>. Je comprends que je m’engage à mettre à disposition mon vélo dès lors que j’accepte un Partage.</p>
                     {{ form_row(form.conditions) }}
                 </div>
 
