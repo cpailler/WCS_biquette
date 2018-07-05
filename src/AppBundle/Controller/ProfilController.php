@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\PreferencesVirement;
+use AppBundle\Form\PreferencesVirementType;
 use AppBundle\Entity\BankAccount;
 
 
@@ -35,7 +35,7 @@ class ProfilController extends Controller
 
         $BankAccount = new BankAccount();
         $membre = $this->getUser();
-        $form = $this->createForm(PreferencesVirement::class, $BankAccount);
+        $form = $this->createForm(PreferencesVirementType::class, $BankAccount);
 
         $form->handleRequest($request);
 
