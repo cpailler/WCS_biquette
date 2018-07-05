@@ -8,6 +8,7 @@ use AppBundle\Form\preferencesVirementType;
 use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
+use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\NewPasswordType;
 use AppBundle\Service\JaugeProfil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -54,7 +55,6 @@ class InfoProfilController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($membre);
             $em->flush();
-
         }
 
         $genres = $em->getRepository(Genre::class)->findAll();
@@ -112,7 +112,7 @@ class InfoProfilController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function VirementAction(Request $request)
+    public function VirementAction(Request $request,JaugeProfil $jaugeProfil,MangoPayApi $mangoPayApi)
     {
         $em = $this->getDoctrine()->getManager();
         $membre=$this->getUser();
@@ -122,13 +122,20 @@ class InfoProfilController extends Controller
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $Bank = $mangoPayApi->InitBankAccount($membre,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
+            dump($Bank);
+
+
         }
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/preferencesVirement.html.twig',
             'form'=>$form->createView(),
-            'membre' => $membre
+            'membre' => $membre,
+            'jaugeProfil' =>$jaugeProfil
 
         ));
     }

@@ -1,16 +1,47 @@
 @import "main.scss";
 
-.montant{
-  display:inline-flex;
-}
-.left{
-  float:left;
+body{
+  background-color: $bikerr-green;
 }
 
-.right{
-  float:right;
+.modal-title{
+  width: 101px;
+  height: 33px;
+  font-family: $font;
+  font-size: 24px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #333634;
+  color: var(--Text-Grey-Dark);
 }
-.carte_paiement_card_type{
-  display:inline-flex;
-  justify-content: center;
+
+modal-footer {
+  background-color: $grey-background ;
+  color: $text-dark;
+  height: 90px;
 }
+
+.modal-footer p {
+  font-size: 14px;
+}
+
+.modal-footer p, .modal-header h5 {
+  margin: auto;
+}
+
+.modal-dialog {
+  border-radius: 0 !important;
+  width: 471px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+}
+.banniere
+{
+  width: 391px;
+  height: 37.9px;
+}
+
+

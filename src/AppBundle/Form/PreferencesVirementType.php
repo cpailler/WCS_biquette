@@ -33,7 +33,7 @@ class PreferencesVirementType extends AbstractType
                 'label' => 'Adresse du titulaire (n° et voie)'
             ))
 
-            ->add('postal_code', TextType::class,array(
+            ->add('postal_code', NumberType::class,array(
                 'label' => 'Code postal'
             ))
 
@@ -41,11 +41,11 @@ class PreferencesVirementType extends AbstractType
                 'label' => 'Pays de domiciliation bancaire'
             ))
 
-            ->add('iban', NumberType::class,array(
+            ->add('iban', TextType::class,array(
         'label' => 'IBAN (Lettres incluses)'
              ))
 
-            ->add('bic', NumberType::class,array(
+            ->add('bic', TextType::class,array(
                 'label' => 'BIC ou SWIFT'
             ))
 
