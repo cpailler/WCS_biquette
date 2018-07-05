@@ -8,10 +8,13 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 
 class BankAccount
 {
-    private $iban;
+
+    protected $iban;
 
     private $bic;
 

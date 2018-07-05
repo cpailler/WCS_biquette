@@ -40,7 +40,7 @@ class Mailer {
      */
     public function sendEmail($preteur, $emprunteur)
     {
-        $body = $this->templating->render('email/demande.html.twig', [
+        $body = $this->templating->render('demande.email.twig', [
             'preteur' => $preteur,
             'emprunteur' => $emprunteur
         ]);

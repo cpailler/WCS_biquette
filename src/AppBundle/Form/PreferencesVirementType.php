@@ -7,7 +7,7 @@
  */
 
 namespace AppBundle\Form;
-
+use AppBundle\Entity\BankAccount;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class PreferencesVirement extends AbstractType
+class PreferencesVirementType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -33,7 +33,7 @@ class PreferencesVirement extends AbstractType
                 'label' => 'Adresse du titulaire (n° et voie)'
             ))
 
-            ->add('postal_code', TextType::class,array(
+            ->add('postal_code', NumberType::class,array(
                 'label' => 'Code postal'
             ))
 
@@ -41,11 +41,11 @@ class PreferencesVirement extends AbstractType
                 'label' => 'Pays de domiciliation bancaire'
             ))
 
-            ->add('iban', NumberType::class,array(
+            ->add('iban', TextType::class,array(
         'label' => 'IBAN (Lettres incluses)'
              ))
 
-            ->add('bic', NumberType::class,array(
+            ->add('bic', TextType::class,array(
                 'label' => 'BIC ou SWIFT'
             ))
 

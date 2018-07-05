@@ -85,7 +85,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ membre.prenom }} {{ membre.nom }}
-                        {% if membre.image is defined %}
+                        {% if membre.image is not null %}
                             <div class="crop_profile_nav">
                                 <img src="{{ asset('images/uploads/'~membre.image) }}" alt="profil">
                             </div>
@@ -163,6 +163,7 @@
                     <p>
                         <a href="{{ path('aide_comment') }}">Comment ça marche</a><br>
                         <a href="{{ path('aide_gratuit') }}">Un service gratuit</a><br>
+                        <a href="{{ path('aide_points') }}">Un système de Points innovant</a>
                         <a href="{{ path('aide_points') }}">Un système de Points innovant</a>
                     </p>
                 </div>

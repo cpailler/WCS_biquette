@@ -69,9 +69,9 @@ class Membre extends BaseUser
     private $idMangopay;
 
     /**
-     * @var int|null
+     * @var string|null
      *
-     * @ORM\Column(name="id_bankaccount", type="integer", nullable=true)
+     * @ORM\Column(name="id_bankaccount", type="string", nullable=true)
      */
     private $idBankAccount;
 
