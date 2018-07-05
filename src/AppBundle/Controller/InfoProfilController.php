@@ -112,6 +112,8 @@ class InfoProfilController extends Controller
         $membre= $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
+        
+
         $form = $this->createForm('AppBundle\Form\PhotoProfilType', $membre);
         $form->handleRequest($request);
 
