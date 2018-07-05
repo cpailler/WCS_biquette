@@ -16,6 +16,7 @@ use AppBundle\Entity\Couleur;
 use AppBundle\Entity\PhotoVelo;
 use AppBundle\Entity\Membre;
 use AppBundle\Form\DisponibiliteType;
+use AppBundle\Form\MiseEnLigneType;
 use AppBundle\Form\VeloDescriptionType;
 use AppBundle\Form\VeloAntivolType;
 use AppBundle\Form\VeloPointsType;
@@ -69,6 +70,13 @@ class VeloController extends Controller
 		    $pointsManager = New PointsManager($this->getDoctrine()->getManager());
 		    $pointsManager->givePoints($velo->getProprio(),250);
 	    }
+	    elseif ($jauge<100 && $velo->getEnLigne()==1){
+	        $velo->setEnLigne(0);
+	        $em = $this->getDoctrine()->getManager();
+	        $em->persist($velo);
+	        $em->flush();
+	        $this->addFlash('warning', 'Suite à vos dernières modifications le vélo n\'est plus en ligne, veuillez recompléter les informations de ce dernier.');
+        }
 
 	    return $jauge;
 
@@ -99,6 +107,33 @@ class VeloController extends Controller
 
     }
 
+
+    /**
+     * @Route("/{id}/publish", name="mise_en_ligne")
+     * @Method("POST")
+     */
+    public function miseEnLIgne(Request $request, Velo $velo, JaugeVelo $jaugeVelo){
+        $membre = $this->getUser();
+        if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(MiseEnLigneType::class, $velo);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->getJauge($velo, $jaugeVelo)==100){
+                $em->flush();
+            }
+            else{
+                $flashBag = $this->get('session')->getFlashBag();
+                $flashBag->get('warning');
+                $flashBag->add('danger', 'Veuillez compléter les informations de votre vélo avant de le mettre en ligne.');
+            }
+        }
+
+        return $this->redirectToRoute('velo_description', array('id'=>$velo->getId()));
+    }
+
     /**
      * @Route("/{id}/description", name="velo_description")
      * @Method({"GET", "POST"})
@@ -114,6 +149,7 @@ class VeloController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm('AppBundle\Form\VeloDescriptionType', $velo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
         $couleurs=$em->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
@@ -128,7 +164,8 @@ class VeloController extends Controller
             'form' => $form->createView(),
             'couleurs'=>$couleurs,
             'membre' => $membre,
-            'jaugeVelo' =>$jaugeVelo
+            'jaugeVelo' =>$jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
 
     }
@@ -146,6 +183,7 @@ class VeloController extends Controller
         }
         $photoVelo = new Photovelo();
         $form = $this->createForm('AppBundle\Form\PhotoVeloType', $photoVelo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
 
 
@@ -167,7 +205,8 @@ class VeloController extends Controller
             'velo'=>$velo,
             'form' => $form->createView(),
             'membre' => $membre,
-            'jaugeVelo' =>$jaugeVelo
+            'jaugeVelo' =>$jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 
@@ -205,6 +244,7 @@ class VeloController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(VeloEquipementType::class, $velo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -222,7 +262,8 @@ class VeloController extends Controller
             'velo'=>$velo,
             'equipements'=>$equipements,
             'membre' =>$membre,
-            'jaugeVelo' =>$jaugeVelo
+            'jaugeVelo' =>$jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 
@@ -238,6 +279,7 @@ class VeloController extends Controller
             return $this->redirectToAnnonce($velo);
         }
         $form = $this->createForm(VeloAntivolType::class,$velo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -251,7 +293,8 @@ class VeloController extends Controller
             'velo' => $velo,
             'form' => $form->createView(),
             'membre' =>$membre,
-            'jaugeVelo' =>$jaugeVelo
+            'jaugeVelo' =>$jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 
@@ -269,6 +312,7 @@ class VeloController extends Controller
             return $this->redirectToAnnonce($velo);
         }
         $form = $this->createForm('AppBundle\Form\LocalisationType', $velo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -286,7 +330,8 @@ class VeloController extends Controller
             'velos' => $velos,
             'form' => $form->createView(),
             'membre' => $membre,
-            'jaugeVelo' => $jaugeVelo
+            'jaugeVelo' => $jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 
@@ -301,6 +346,7 @@ class VeloController extends Controller
             return $this->redirectToAnnonce($velo);
         }
         $form = $this->createForm('AppBundle\Form\VeloPointsType',$velo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -314,7 +360,8 @@ class VeloController extends Controller
             'velo' => $velo,
             'form' => $form->createView(),
             'membre' =>$membre,
-            'jaugeVelo' => $jaugeVelo
+            'jaugeVelo' => $jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 
@@ -355,6 +402,7 @@ class VeloController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm('AppBundle\Form\CalendrierType',$velo);
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
@@ -395,7 +443,8 @@ class VeloController extends Controller
             'calendrier'=>$calendrier,
             'dispoForm'=>$dispoForm->createView(),
             'dispo_forms'=>$dispo_forms,
-            'jaugeVelo'=>$jaugeVelo
+            'jaugeVelo'=>$jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 
@@ -470,7 +519,8 @@ class VeloController extends Controller
             'velo' => $velo,
             'delete_form' => $deleteForm->createView(),
             'membre' => $membre,
-            'jaugeVelo' => $jaugeVelo
+            'jaugeVelo' => $jaugeVelo,
+            'miseEnLigne'=>$miseEnLigneForm->createView()
         ));
     }
 

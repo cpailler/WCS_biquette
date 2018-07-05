@@ -212,6 +212,26 @@ class Velo
      */
     private $dispoTotale = 0;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="en_ligne", type="boolean")
+     */
+    private $enLigne = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="verified_only", type="boolean")
+     */
+    private $verifiedOnly = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="times_reserved", type="integer")
+     */
+    private $timesReserved = 0;
 
     /**
      * Get id.
