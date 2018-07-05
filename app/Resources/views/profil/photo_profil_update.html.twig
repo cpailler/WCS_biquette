@@ -4,10 +4,8 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="titre">PHOTOS DU Profil --> TEST</h2><br>
-        <p class="infos_description">Ajoutez une photo de profil et augmentez vos chances de finaliser un partage !</p>
-        <h4>Ajouter une photo :</h4>
-        {% if membre.image|length < 0 %}
+        <h2 class="titre">PHOTOS DU Profil --> UPDATE</h2><br>
+        <h4>Modifier votre :</h4>
             <div class="infos_description">
                 {{ form_start(form) }}
                 <div style="background-color: #e9ecef; margin: auto; width: 60%; border-radius: 5px;">
@@ -20,11 +18,6 @@
             </div>
 
             {{ form_end(form) }}
-        {% else %}
-            <div class="infos_description">
-                <p class="alert-info">Vous avez déjà 1 photo pour de profil, vous pouvez la changer en <a href="{{ path("photo_profil_update") }}">cliquant ici.</a></p>
-            </div>
-        {% endif %}
         <br>
 
     </div>

@@ -104,6 +104,41 @@ class InfoProfilController extends Controller
         ));
     }
 
+    /**
+     * @Route("/photo_profil_update", name = "photo_profil_update")
+     *
+     */
+    public function updatePhotoProfil(request $request, JaugeProfil $jaugeProfil){
+        $membre= $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm('AppBundle\Form\PhotoProfilType', $membre);
+        $form->handleRequest($request);
+
+        $image = $membre->getImage();
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            $em = $this->getDoctrine()->getManager();
+            //$photoVelo->setVelo($velo);
+            $membre->setImage($membre);
+            $em->persist($membre);
+            $em->flush();
+
+            return $this->redirectToRoute('photo-profil', array());
+        }
+
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/photo_profil_update.html.twig',
+            //'photoProfil' => $photoVelo,
+            //'velo'=>$velo,
+            'form' => $form->createView(),
+            'membre' => $membre,
+            'jaugeProfil' =>$jaugeProfil
+        ));
+    }
+
 
     /**
      *  @Route("/", name="profil_delete")
