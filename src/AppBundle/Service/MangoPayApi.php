@@ -172,14 +172,15 @@ class MangoPayApi
         $BankAccount->OwnerAddress->AddressLine1 = $adresse;
         $BankAccount->OwnerAddress->AddressLine2 = "";
         $BankAccount->OwnerAddress->City = $membre->getVille();
-        $BankAccount->OwnerAddress->Country = $membre->getPays();
+        $BankAccount->OwnerAddress->Country = $membre->getPays()->getAlpha2();
         $BankAccount->OwnerAddress->PostalCode = $membre->getCodePostal();
         $BankAccount->OwnerAddress->Region = "";
         //$BankAccount->Active = true;
-        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount));
+        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount)->UserId);
         $em->persist($membre);
         $em->flush($membre);
-        //return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
+        return $membre->getIdBankAccount();
+       // return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
     }
 
 

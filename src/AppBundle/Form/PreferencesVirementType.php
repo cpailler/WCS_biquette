@@ -41,11 +41,11 @@ class PreferencesVirementType extends AbstractType
                 'label' => 'Pays de domiciliation bancaire'
             ))
 
-            ->add('iban', NumberType::class,array(
+            ->add('iban', TextType::class,array(
         'label' => 'IBAN (Lettres incluses)'
              ))
 
-            ->add('bic', NumberType::class,array(
+            ->add('bic', TextType::class,array(
                 'label' => 'BIC ou SWIFT'
             ))
 
