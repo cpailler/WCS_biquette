@@ -135,7 +135,7 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardId = $CardObject->Id;
         //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/CartePaiement.html.twig';
+        $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/paiement/card';
 
         return $this->connexionApi->PayIns->Create($PayIn);
     }
@@ -158,7 +158,7 @@ class MangoPayApi
 
     //creation BankAccount Object pour effectuer les PayOut
 
-    public function InitBankAccount(Membre $membre ,$iban, $bic, $titulaire, $adresse)
+    public function InitBankAccount(Membre $membre ,$iban, $bic, $titulaire, $adresse,EntityManagerInterface $em)
     {
         $UserId = $membre->getIdMangopay();
         $BankAccount = new \MangoPay\BankAccount();
@@ -176,8 +176,10 @@ class MangoPayApi
         $BankAccount->OwnerAddress->PostalCode = $membre->getCodePostal();
         $BankAccount->OwnerAddress->Region = "";
         //$BankAccount->Active = true;
-
-        return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
+        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount));
+        $em->persist($membre);
+        $em->flush($membre);
+        //return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
     }
 
 

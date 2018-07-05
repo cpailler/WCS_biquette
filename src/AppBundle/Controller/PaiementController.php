@@ -74,6 +74,7 @@ class PaiementController extends Controller
         //sauveagarde en session de l'objet cardRegistration
         $session->set('cardregistration', $cardRegistration);
         $session->set('membre', $membre);
+        $session->set('returnURL', $returnUrl);
 
         //recuperation requete GET & POST
         $form->handleRequest($request);
@@ -116,10 +117,13 @@ class PaiementController extends Controller
         $cardRegistration = $session->get('cardregistration');
         $membre = $session->get('membre');
 
+        $returnURL = $session->get('returnURL');
+
+
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
         dump($CarteUpdated);
 
-        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500);
+        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500,$returnURL);
 
         return $this->render('paiement/CartePaiement.html.twig',array(
             //'form' => $form->createView(),

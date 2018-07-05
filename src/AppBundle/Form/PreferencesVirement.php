@@ -33,7 +33,7 @@ class PreferencesVirement extends AbstractType
                 'label' => 'Adresse du titulaire (n° et voie)'
             ))
 
-            ->add('postal_code', TextType::class,array(
+            ->add('postal_code', NumberType::class,array(
                 'label' => 'Code postal'
             ))
 
