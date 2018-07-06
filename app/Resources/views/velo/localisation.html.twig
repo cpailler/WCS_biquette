@@ -31,9 +31,12 @@
         // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
         function initMap() {
+            var latitude = document.getElementById('appbundle_velo_latitude').value;
+            var longitude = document.getElementById('appbundle_velo_longitude').value;
+            console.log(latitude);
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 48.866667, lng: 2.333333},
-                zoom: 13
+                center: {lat: parseFloat(latitude), lng: parseFloat(longitude)},
+                zoom: 15
             });
             var input = document.getElementById('appbundle_velo_adresse_velo');
 

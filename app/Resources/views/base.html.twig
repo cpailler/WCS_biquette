@@ -85,9 +85,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ membre.prenom }} {{ membre.nom }}
-                        {% if membre.image is not null %}
+                        {% if membre.avatarImage is not null %}
                             <div class="crop_profile_nav">
-                                <img src="{{ asset('images/uploads/'~membre.image) }}" alt="profil">
+                                <img src="{{ asset('images/uploads/'~membre.avatarImage) }}" alt="profil">
                             </div>
                         {% else %}
                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
@@ -183,7 +183,19 @@
                     </p>
                 </div>
             </div>
-            <p style="text-align: center; font-size: 0.8em; font-style: italic;">Site réalisé par les élèves de la <a
+
+            <div class="row mt-2">
+                <div class="col-md-2 offset-3">
+                    <a href="/confidentialite">Confidentialité</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="/cookies">Cookies</a>
+                </div>
+                <div class="col-md-4">
+                    <p>© Bikerr 2018. Tous droits réservés.</p>
+                </div>
+            </div>
+            <p class="offset-3">Site réalisé par les élèves de la <a
                         href="https://wildcodeschool.fr/" target="_blank">Wild Code School</a> de Strasbourg :
                 <a href="https://www.linkedin.com/in/hery-rasamimanana/" target="_blank">Hery</a>, <a href="https://www.linkedin.com/in/clementpailler/" target="_blank">Clément</a>,
                 <a href="https://www.linkedin.com/in/aurelien-gouilhers-03b77812b/" target="_blank">Aurélien</a>, <a href="https://www.linkedin.com/in/xvrlng/" target="_blank">Xavier</a>,

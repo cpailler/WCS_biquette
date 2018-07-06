@@ -112,7 +112,7 @@ class VeloController extends Controller
      * @Route("/{id}/publish", name="mise_en_ligne")
      * @Method("POST")
      */
-    public function miseEnLIgne(Request $request, Velo $velo, JaugeVelo $jaugeVelo){
+    public function miseEnLigne(Request $request, Velo $velo, JaugeVelo $jaugeVelo){
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
@@ -507,9 +507,12 @@ class VeloController extends Controller
     public function supprimerAction(Velo $velo, JaugeVelo $jaugeVelo)
     {
         $membre = $this->getUser();
+
         if ($velo->getProprio()!=$membre){
             return $this->redirectToAnnonce($velo);
         }
+
+        $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
 
         $jaugeVelo = $this->getJauge($velo, $jaugeVelo);
         $deleteForm = $this->createDeleteForm($velo);

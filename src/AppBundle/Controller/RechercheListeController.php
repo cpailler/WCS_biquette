@@ -27,24 +27,25 @@ class RechercheListeController extends Controller
     public function indexAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if (isset ($_POST['ville'])) {
-            $criteria = ($_POST['ville']);
-            $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$criteria));
+        if (isset ($_POST['ville'])){
+            $ville = explode(",", $_POST['ville']);
+            $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$ville[0],'enLigne'=>true));
 
             // replace this example code with whatever you need
             return $this->render('recherche/rechercheListe.html.twig', array(
                 'velos' => $velos,
                 'membre'=> $this->getUser(),
+                'ville'=>$_POST['ville']
             ));
         }
 
-        $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findAll();
+
+        $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('enLigne'=>true));
 
         // replace this example code with whatever you need
         return $this->render('recherche/rechercheListe.html.twig', array(
             'velos' => $velos,
-            'membre'=> $this->getUser(),
+            'membre'=> $this->getUser()
 
         ));
     }
