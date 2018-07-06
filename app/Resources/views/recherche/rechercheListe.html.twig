@@ -27,56 +27,55 @@
                             </div>
                         </form>
 
-                        <select class="velos" name="velos">
-                            <option>---- Type de vélo ----</option>
-                            <option value="draisienne">draisienne</option>
-                            <option value="tricycle">tricycle</option>
-                            <option value="trotinette">trotinette</option>
-                            <option value="hoverboard">hoverboard</option>
-                            <option value="enfant">enfant</option>
-                            <option value="remorque">remorque</option>
-                            <option value="bmx">bmx</option>
-                            <option value="fixie">fixie</option>
-                            <option value="singlespeed">singlespeed</option>
-                            <option value="trotinette électrique">trotinette électrique</option>
-                            <option value="ville">vélo de ville</option>
-                            <option value="cruiser">cruiser</option>
-                            <option value="lowrider">lowrider</option>
-                            <option value="tall bike">tall bike</option>
-                            <option value="vtc">vtc</option>
-                            <option value="vtt">vtt</option>
-                            <option value="hollandais">hollandais</option>
-                            <option value="pliant">pliant</option>
-                            <option value="grand-bi">grand-bi</option>
-                            <option value="roue électrique">roue électrique</option>
-                            <option value="fatbike">fatbike</option>
-                            <option value="rosalie">rosalie</option>
-                            <option value="vélo de course">vélo de course</option>
-                            <option value="gravel">gravel</option>
-                            <option value="vélo de piste">vélo de piste</option>
-                            <option value="vélo de route">vélo de route</option>
-                            <option value="vtt suspendu">vtt suspendu</option>
-                            <option value="tandem">tandem</option>
-                            <option value="biporteur">biporteur</option>
-                            <option value="cargo">cargo</option>
-                            <option value="rickshaw">rickshaw</option>
-                            <option value="à position couchée">à position couchée</option>
-                            <option value="à assistance électrique">à assistance électrique</option>
-                            <option value="gyropode (type segway)">gyropode (type segway)</option>
-                            <option value="triporteur">triporteur</option>
-                            <option value="triplette">triplette</option>
-                            <option value="trike">trike</option>
-                            <option value="à voile">à voile</option>
-                        </select>
-                        <select class="points" name="points">
-                            <option>---- Nombre de Pts ----</option>
-                            <option value="area1">de 0 à 249 Pts</option>
-                            <option value="area2">de 250 à 499 Pts</option>
-                            <option value="area3">de 500 à 749 Pts</option>
-                            <option value="area4">de 750 à 999 Pts</option>
-                            <option value="area5">+ de 1000 Pts</option>
-                        </select>
-
+                            <select class="velos" name="velos">
+                                <option value="---- Type de vélo ----">---- Type de vélo ----</option>
+                                <option value="draisienne">draisienne</option>
+                                <option value="tricycle">tricycle</option>
+                                <option value="trotinette">trotinette</option>
+                                <option value="hoverboard">hoverboard</option>
+                                <option value="enfant">enfant</option>
+                                <option value="remorque">remorque</option>
+                                <option value="bmx">bmx</option>
+                                <option value="fixie">fixie</option>
+                                <option value="singlespeed">singlespeed</option>
+                                <option value="trotinette électrique">trotinette électrique</option>
+                                <option value="ville">vélo de ville</option>
+                                <option value="cruiser">cruiser</option>
+                                <option value="lowrider">lowrider</option>
+                                <option value="tall bike">tall bike</option>
+                                <option value="vtc">vtc</option>
+                                <option value="vtt">vtt</option>
+                                <option value="hollandais">hollandais</option>
+                                <option value="pliant">pliant</option>
+                                <option value="grand-bi">grand-bi</option>
+                                <option value="roue électrique">roue électrique</option>
+                                <option value="fatbike">fatbike</option>
+                                <option value="rosalie">rosalie</option>
+                                <option value="vélo de course">vélo de course</option>
+                                <option value="gravel">gravel</option>
+                                <option value="vélo de piste">vélo de piste</option>
+                                <option value="vélo de route">vélo de route</option>
+                                <option value="vtt suspendu">vtt suspendu</option>
+                                <option value="tandem">tandem</option>
+                                <option value="biporteur">biporteur</option>
+                                <option value="cargo">cargo</option>
+                                <option value="rickshaw">rickshaw</option>
+                                <option value="à position couchée">à position couchée</option>
+                                <option value="à assistance électrique">à assistance électrique</option>
+                                <option value="gyropode (type segway)">gyropode (type segway)</option>
+                                <option value="triporteur">triporteur</option>
+                                <option value="triplette">triplette</option>
+                                <option value="trike">trike</option>
+                                <option value="à voile">à voile</option>
+                            </select>
+                            <select class="points" name="points">
+                                <option value="---- Nombre de Pts ----">---- Nombre de Pts ----</option>
+                                <option value="area1">de 0 à 249 Pts</option>
+                                <option value="area2">de 250 à 499 Pts</option>
+                                <option value="area3">de 500 à 749 Pts</option>
+                                <option value="area4">de 750 à 999 Pts</option>
+                                <option value="area5">+ de 1000 Pts</option>
+                            </select>
                     </div>
                     <div class="container col-12 col-lg-12 form-control">
                         <div class="row annonce">
@@ -84,8 +83,8 @@
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     {% if velo.photos.0.image is defined %}
-                                    <div class="crop_profile">
-                                        <a href="annonce/{{ velo.id }}" target="_blank"><img class="image-annonce" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
+                                    <div>
+                                        <a href="annonce/{{ velo.id }}" target="_blank"><img class="img-fluid" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
                                     </div>
                                     {% endif %}
                                     <div class="bloc-titres">

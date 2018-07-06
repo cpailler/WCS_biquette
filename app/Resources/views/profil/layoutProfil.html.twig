@@ -11,8 +11,12 @@
         <div class="row">
             <!-- photo de profil -->
             <div class="col-12 col-lg-3 offset-lg-1 photoProfil">
+                {% if membre.avatarImage is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.avatarImage) }}" alt=""></div>
+                {% else %}
                 <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
-                <div><a href="#">Ajouter une photo de profil</a></div>
+                {% endif %}
+                <div><a href="{{ path('photo-profil') }}">Ajouter une photo de profil</a></div>
             </div>
             <!-- zone barre de progression -->
             <div class="col-12 col-lg-7 progressionProfil">
@@ -22,16 +26,17 @@
                 </div>
                 <div class="container outilsProfil">
                     <div class="row">
-                        <div class="col-12 col-lg-6 progressbarProfil">
+                        <div class="w-100 progressbarProfil">
                             <div><p>Profil complété à :</p></div>
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ jaugeProfil }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ jaugeProfil }}%</div>
                             </div>
                         </div>
-                        <div class="col-12 col-lg-6 signinProfil">
+                        {#<div class="col-12 col-lg-6 signinProfil">
                             <button class="bouton">Devenir membre Vérifié</button>
-                            <div class="aidePointsButton"><p>Faites vérifier votre profil et gagnez 500 Points.</p></div>
-                        </div>
+                            <div class="aidePointsButton"><p>Faites vérifier votre profil et gagnez 500 Points.</p>
+                            </div>
+                        </div>#}
                     </div>
                 </div>
             </div>
@@ -45,6 +50,7 @@
             <div class="col-12 col-lg-3 offset-lg-1 ongletVelo">
                 <div>
                     <ul>
+                        <li><a href="{{ path('virement_infos', {'id': membre.id}) }}">Préférence de virement</a></li>
                         <li><a href="{{ path('profil_infos', {'id': membre.id}) }}">Informations confidentielles</a></li>
                         <li><a href="{{ path('profil_password', {'id': membre.id}) }}">Mot de passe</a></li>
                         <li><a href="{{ path('profil_supprimer', {'id': membre.id}) }}">Supprimer mon compte</a></li>

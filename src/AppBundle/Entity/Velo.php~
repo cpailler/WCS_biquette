@@ -212,6 +212,26 @@ class Velo
      */
     private $dispoTotale = 0;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="en_ligne", type="boolean")
+     */
+    private $enLigne = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="verified_only", type="boolean")
+     */
+    private $verifiedOnly = 0;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="times_reserved", type="integer")
+     */
+    private $timesReserved = 0;
 
     /**
      * Get id.
@@ -959,5 +979,77 @@ class Velo
     public function getCautionOblig()
     {
         return $this->cautionOblig;
+    }
+
+    /**
+     * Set enLigne.
+     *
+     * @param bool $enLigne
+     *
+     * @return Velo
+     */
+    public function setEnLigne($enLigne)
+    {
+        $this->enLigne = $enLigne;
+
+        return $this;
+    }
+
+    /**
+     * Get enLigne.
+     *
+     * @return bool
+     */
+    public function getEnLigne()
+    {
+        return $this->enLigne;
+    }
+
+    /**
+     * Set verifiedOnly.
+     *
+     * @param bool $verifiedOnly
+     *
+     * @return Velo
+     */
+    public function setVerifiedOnly($verifiedOnly)
+    {
+        $this->verifiedOnly = $verifiedOnly;
+
+        return $this;
+    }
+
+    /**
+     * Get verifiedOnly.
+     *
+     * @return bool
+     */
+    public function getVerifiedOnly()
+    {
+        return $this->verifiedOnly;
+    }
+
+    /**
+     * Set timesReserved.
+     *
+     * @param int $timesReserved
+     *
+     * @return Velo
+     */
+    public function setTimesReserved($timesReserved)
+    {
+        $this->timesReserved = $timesReserved;
+
+        return $this;
+    }
+
+    /**
+     * Get timesReserved.
+     *
+     * @return int
+     */
+    public function getTimesReserved()
+    {
+        return $this->timesReserved;
     }
 }
