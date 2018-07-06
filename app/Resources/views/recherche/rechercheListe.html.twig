@@ -18,7 +18,7 @@
                         <form class="tri-box" method="post" action="">
                             <div class="tri-city">
                                 <div>
-                                    <input id="search-city" name="ville" class="form-control" type="text" onkeyup="showHint(this.value)" placeholder="Dans quelle ville voulez-vous un vélo ?" autocomplete="off">
+                                    <input id="search-city" name="ville" class="form-control" type="text" placeholder="Dans quelle ville voulez-vous un vélo ?" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
                                 </div>
                                 <div id="txtHint"></div>
                             </div>
@@ -109,35 +109,15 @@
 
     <!--          AUTOCOMPLETE VILLE           -->
     <script>
-        function showHint(str) {
-            if (str.length == 0) {
-                document.getElementById("txtHint").innerHTML = "";
-                return;
-            } else {
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                    //console.log(this.readyState);
-                    console.log(this.status);
-                    if (this.readyState == 4 && this.status == 200) {
-                        console.log(this.responseText);
-                        var obj = JSON.parse(this.responseText);
-                        document.getElementById("txtHint").innerHTML = '<ul><li>'+obj[0].ville+'</li></ul>';
-                        //console.log(obj[0].ville);
-                    } else {
-                        document.getElementById("txtHint").innerHTML = '<ul><li>Aucun vélos pour cette recherche</li></ul>';
-                    }
-                };
-                xmlhttp.open("GET", "http://localhost:8000/recherche-liste/getVille/"+str, true);
-                xmlhttp.send();
+        function initMap() {
+            var input = document.getElementById('search-city');
 
-                $(document).on('click', 'li', function () {
-                   var city = $(this).text();
-                   $("#search-city").val(city);
-                   $("#txtHint").html("");
-                });
-            }
+            var autocomplete = new google.maps.places.Autocomplete(
+                input, {placeIdOnly: true});
         }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
+            async defer></script>
 
     <!--          TRI VELO         -->
     <script src="{{ asset('build/tri.js') }}"></script>
@@ -348,7 +328,7 @@
             }
         }
 
-        const initMap = async function () {
+        const iMap = async function () {
             var map = new GoogleMap()
             var activeMarker = null
             var enabledMarker = null
@@ -380,7 +360,7 @@
         }
 
         if ($map !== null) {
-            initMap()
+            iMap()
         }
     </script>
 
