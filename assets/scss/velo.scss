@@ -36,7 +36,7 @@
 }
 
 .progressionVelo p {
-  font-size: 12px;
+  font-size: 0.7rem;
   color: $text-grey;
 }
 
@@ -193,6 +193,27 @@ li a {
   justify-content: space-between;
   flex-direction: row;
   width: inherit;
+}
+
+#appbundle_velo_adresse_velo {
+  margin-bottom: 20px;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.bt-localisation {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 576px)

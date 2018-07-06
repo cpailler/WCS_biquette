@@ -36,19 +36,19 @@
                             </div>
                     </div>
                     <div class="outilsVelo">
-                        <div class="checkVelo">
-                            <div class="VloEnLigne">
-                                <p>L'annonce du vélo est en ligne</p>
-                            </div>
-                            <div style="float:right">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
+                        <div class="row justify-content-end">
+                                <h5 class="align-content-center">L'annonce du vélo est en ligne</h5>
+                                <form name="app_bundle_mise_en_ligne_type" method="POST" action="{{ path('mise_en_ligne', {'id' : velo.getId}) }}">
+                                    <label class="switch">
+                                        <input type="checkbox" {% if velo.enLigne==1 %}checked{% endif %} id="app_bundle_mise_en_ligne_type_en_ligne" name="app_bundle_mise_en_ligne_type[en_ligne]" required="required" class="form-check-input" value="1" onclick="$(this).parents('form').submit()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                {% do miseEnLigne.en_ligne.setRendered %}
+                                {{ form_end(miseEnLigne) }}
+                                </form>
                         </div>
 
-                        <div class="checkVelo">
+{#                        <div class="checkVelo">
                             <div class="VloEnLigne">
                                 <p>Etre connecté uniquement par des membres vérifiés</p>
                             </div>
@@ -58,8 +58,15 @@
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div>#}
 
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                         <div class="progressbarVelo">
                             <div>
                                 <p>Annonce complétée à :</p>
@@ -82,12 +89,12 @@
                         <ul>
                             <li><a href="{{ path('velo_description', {'id': velo.id}) }}">Description</a></li>
                             <li><a href="{{ path('velo_photos', {'id': velo.id}) }}">Photos</a></li>
-                            <li><a href="{{ path('velo_equipement', {'id':velo.id }) }}">Equipements</a></li>
+                            <li><a href="{{ path('velo_equipement', {'id':velo.id }) }}">Équipements</a></li>
                             <li><a href="{{ path('velo_antivol', {'id': velo.id}) }}">Antivol et marquage Bicycode</a></li>
                             <li><a href="{{ path('velo_localisation', {'id': velo.id}) }}">Localisation et retrait</a></li>
                             <li><a href="{{ path('velo_calendrier', {'id': velo.id}) }}">Calendrier</a></li>
-                            <li><a href="{{ path('velo_points', {'id': velo.id}) }}">Points,dépôt de garantie et assurance</a></li>
-                            <li><a href="{{ path('velo_supprimer', {'id': velo.id}) }}">Supprimer le velo</a></li>
+                            <li><a href="{{ path('velo_points', {'id': velo.id}) }}">Points, dépôt de garantie et assurance</a></li>
+                            <li><a href="{{ path('velo_supprimer', {'id': velo.id}) }}">Supprimer le vélo</a></li>
                         </ul>
                     </div>
 

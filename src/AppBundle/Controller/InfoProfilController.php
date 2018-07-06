@@ -2,14 +2,20 @@
 
 namespace AppBundle\Controller;
 
+
+use AppBundle\Entity\BankAccount;
+use AppBundle\Form\preferencesVirementType;
 use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
 use AppBundle\Entity\Membre;
+use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\NewPasswordType;
+use AppBundle\Service\JaugeProfil;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Velo;
 
 /**
  * InfoProfil controller.
@@ -18,12 +24,28 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class InfoProfilController extends Controller
 {
+    private function getJaugeProfil(Membre $membre, JaugeProfil $jaugeProfil)
+    {
+        return $jaugeProfil->indicativeJaugeProfil(
+            $membre->getGenre(),
+            $membre->getNom(),
+            $membre->getPrenom(),
+            $membre->getCodePostal(),
+            $membre->getVille(),
+            $membre->getEmail(),
+            $membre->getPays(),
+            $membre->getTel(),
+            $membre->getDateNaissance(),
+            $membre->getAvatarImage()
+        );
+    }
+
     /**
      * @Route("/infos", name="profil_infos")
      * @Method({"GET", "POST"})
      *
      */
-    public function InfosAction(Request $request)
+    public function InfosAction(Request $request, JaugeProfil $jaugeProfil)
     {
         $em = $this->getDoctrine()->getManager();
         $membre=$this->getUser();
@@ -33,16 +55,89 @@ class InfoProfilController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($membre);
             $em->flush();
-
         }
 
         $genres = $em->getRepository(Genre::class)->findAll();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/infoProfil.html.twig',
             'form'=>$form->createView(),
             'membre' => $membre,
-            'genres' => $genres
+            'genres' => $genres,
+            'jaugeProfil' => $jaugeProfil
+        ));
+    }
+
+    /**
+     * @Route("/photo", name="photo-profil")
+     *
+     */
+    public function photoProfilAction(request $request, JaugeProfil $jaugeProfil)
+    {
+        $membre = $this->getUser();
+        /*if ($velo->getProprio()!=$membre){
+            return $this->redirectToAnnonce($velo);
+        }*/
+        //$photoVelo = new Photovelo();
+        $form = $this->createForm('AppBundle\Form\PhotoProfilType', $membre);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+            if( $membre->getImage() !== null ){
+                $image = $membre->getImage();
+                $fileToDelete = "images/uploads/".$image;
+                if(file_exists($fileToDelete)) {
+                    unlink($fileToDelete);
+                }
+            }
+            $em = $this->getDoctrine()->getManager();
+            //$photoVelo->setVelo($velo);
+            $membre->setImage($membre);
+            $em->persist($membre);
+            $em->flush();
+
+            return $this->redirectToRoute('photo-profil', array());
+        }
+
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/photo_profil.html.twig',
+            //'photoProfil' => $photoVelo,
+            //'velo'=>$velo,
+            'form' => $form->createView(),
+            'membre' => $membre,
+            'jaugeProfil' =>$jaugeProfil
+        ));
+    }
+
+    /**
+     * @Route("/virement", name="virement_infos")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function VirementAction(Request $request,JaugeProfil $jaugeProfil,MangoPayApi $mangoPayApi)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $membre=$this->getUser();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+        $bankAccount = new BankAccount();
+
+        $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $Bank = $mangoPayApi->InitBankAccount($membre,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
+            dump($Bank);
+        }
+
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/preferencesVirement.html.twig',
+            'form'=>$form->createView(),
+            'membre' => $membre,
+            'jaugeProfil' =>$jaugeProfil
+
         ));
     }
 
@@ -102,8 +197,5 @@ class InfoProfilController extends Controller
             ->getForm()
             ;
     }
-
-
-
 
 }

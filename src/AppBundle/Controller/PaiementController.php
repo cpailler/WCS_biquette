@@ -19,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 
@@ -35,7 +37,10 @@ class PaiementController extends Controller
     /**
      * @Route("/card", name="paiement_card")
      * @Method({"GET", "POST"})
-     *
+     * @param Request $request
+     * @param MangoPayApi $mangoPayApi
+     * @param Membre $membre
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function RegisterCardView(Request $request,MangoPayApi $mangoPayApi)
     {
@@ -49,17 +54,9 @@ class PaiementController extends Controller
 
         //on récupere l'utilisateur actuel
         $membre = $this->getUser();
-
-        //si il n'a pas encore d'Id MangoPay, on lui crée
-        if($membre->getIdMangopay() == null)
-        {
-            $membre->setIdMangopay($mangoPayApi->CreateNaturalUser($membre));
-        }
-        //si il n'a pas encore de wallet, on lui crée
-        if($membre->getIdWallet() == null)
-        {
-            $membre->setIdWallet($mangoPayApi->CreateWallet($membre));
-        }
+        $em = $this->getDoctrine()->getManager();
+        //on verifie que les id mangopay existe ou on les crée et les enregistre en BDD
+        $membre = $mangoPayApi->CheckIdMangopay($membre,$em);
 
         $cardRegistration = $mangoPayApi->CardRegistration($membre);
 
@@ -76,6 +73,8 @@ class PaiementController extends Controller
 
         //sauveagarde en session de l'objet cardRegistration
         $session->set('cardregistration', $cardRegistration);
+        $session->set('membre', $membre);
+        $session->set('returnURL', $returnUrl);
 
         //recuperation requete GET & POST
         $form->handleRequest($request);
@@ -85,8 +84,8 @@ class PaiementController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $data=$request->query->get('data');
-            dump($data);
-            $CardID = $form->getData();
+
+            //$CardID = $form->getData();
 
         }
 
@@ -116,20 +115,17 @@ class PaiementController extends Controller
         $session = new Session();
 
         $cardRegistration = $session->get('cardregistration');
-        //$RegistrationData = $session->get('RegistrationData');
+        $membre = $this->getUser();
 
-       // dump($RegistrationData);
+        $returnURL = $session->get('returnURL');
 
-        dump($cardRegistration);
 
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
-
         dump($CarteUpdated);
 
-        return $this->render('paiement/CartePaiement.html.twig',array(
-            'form' => $form->createView(),
-            'cardregistration' => $cardRegistration
-        ));
+        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500);
+        dump($PayIn);
+        return $this->redirectToRoute('profil_infos');
 
 
     }

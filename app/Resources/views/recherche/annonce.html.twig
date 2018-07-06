@@ -18,9 +18,9 @@
             <div class="row">
                 <div id="bloc__description" class="container mt-5 col-7">
                     <div class="row">
-                        {% if velo.proprio.membreVerifie == 1 %}
+{#                        {% if velo.proprio.membreVerifie == 1 %}
                             <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié">
-                        {% endif %}
+                        {% endif %}#}
                         <h2>{{ velo.titre }}</h2>
                     </div>
 
@@ -45,6 +45,10 @@
                             </div>
                             <div class="col-6">
                                 <h4 class="titre">Antivol du vélo</h4>
+
+                                {% if velo.antivolKey == 0 and velo.antivolCode == 0 and velo.bicycode is null %}
+                                <h5>Aucun antivol</h5>
+                                {% else %}
                                 <ul>
                                     {% if velo.antivolKey > 0 %}
                                         <li class="equipementOK">Antivol à clé</li>
@@ -56,6 +60,8 @@
                                         <li class="equipementOK">Marquage Bicycode</li>
                                     {% endif %}
                                 </ul>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -246,7 +252,7 @@
                             <input type="submit" value="Envoyer une demande de partage" id="carte__bouton" class="bouton">
                         </div>
                         <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
-                        <img id="carte__image" class="align-self-center" src="{{ asset('images/uploads/' ~ membre.avatarImage) }}" alt="Photo de profil">
+                        <img id="carte__image" class="align-self-center" src="{{ asset('images/uploads/' ~ velo.proprio.avatarImage) }}" alt="Photo de profil">
                         <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
                     </div>
                     <p id="notice" class="mt-3">En réservant ce vélo, une demande de contact est envoyé par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
