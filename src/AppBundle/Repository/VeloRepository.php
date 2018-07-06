@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class VeloRepository extends EntityRepository
 {
-    public function searchAnnonces()
+    /*public function searchAnnonces()
     {
         return $this->getEntityManager()
             ->createQuery(
@@ -37,5 +37,5 @@ class VeloRepository extends EntityRepository
         ->getQuery()
         ->getResult()
         ;
-    }
+    }*/
 }
