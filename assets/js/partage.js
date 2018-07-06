@@ -5,7 +5,7 @@ $('.dateclic').on('change', function () {
     var date1 = $('#app_bundle_reservation_type_debut').val();
     var date2 = $('#app_bundle_reservation_type_fin').val();
     if (date1 == 'undefined' || date2 == 'undefined') {
-        $('#nuite').val(0);
+        $('#nbJours').val(0);
     }
     else {
 
@@ -30,7 +30,7 @@ $('.dateclic').on('change', function () {
 
         // and finaly, in days :)
         var timeDifferenceInDays = timeDifferenceInHours / 24;
-        if (timeDifferenceInDays <= 0) {
+        if (timeDifferenceInDays <= 0 && timeDifferenceInDays == 'undefined') {
             $('#nbJours').replaceWith(`<h4 id="nbJours">Jours :<span class="badge badge-light">0</span></h4>`);
         } else {
             $('#nbJours').replaceWith(`<h4 id="nbJours"><span  class="badge badge-light">${timeDifferenceInDays} Jours</span></h4>`);
@@ -49,7 +49,6 @@ $('.dateclic').on('change', function () {
             var partCaution = $('#partCaution').html();
             var totalEuros = parseInt(partCaution) + parseInt(totalAssurance);
             $('#totalEuros').replaceWith(`<h4 id="totalEuros"><span  class="badge badge-light">${totalEuros}€</span></h4>`);
-            console.log(totalEuros);
 
         }
 

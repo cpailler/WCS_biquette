@@ -54,7 +54,7 @@ class PartageController extends Controller
                 $this->addFlash('error', 'La réservation n\'est pas valide, merci de vérifier la disponibilité du vélo.');
             }
         }
-        dump($reservation);
+
 
 
         return $this->render('partage/utilisateur_reservation.html.twig',array(
