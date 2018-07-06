@@ -125,6 +125,8 @@ class PaiementController extends Controller
 
         $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500);
         dump($PayIn);
+
+
         return $this->redirectToRoute('profil_infos');
 
 

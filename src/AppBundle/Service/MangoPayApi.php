@@ -106,13 +106,13 @@ class MangoPayApi
 
     }
 
-    //création d'une PayIn Card
+    //création d'une  Card direct PayIn // card web payin pour 3D secure avec redirecturl
     public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $amount, $fees)
     {
 
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
-        $PayIn->AuthorId = $membre->getIdMangopay(); //TODO : verifier author id -> qui est ce ?
+        $PayIn->AuthorId = $membre->getIdMangopay(); //
         $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
@@ -128,7 +128,6 @@ class MangoPayApi
         //$PayIn->ExecutionDetails->CardId = $Card->CardId;
         //$PayIn->ExecutionDetails->SecureMode="DEFAULT";
         //$PayIn->ExecutionDetails->Culture = "FR";
-        //dump($Card->Id);
         //TODO : Paiement type direct
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
@@ -136,7 +135,7 @@ class MangoPayApi
         //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/paiement/card';
-        dump($PayIn);
+        //dump($PayIn);
         return $this->connexionApi->PayIns->Create($PayIn);
     }
 
