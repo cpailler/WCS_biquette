@@ -36,7 +36,7 @@ class InfoProfilController extends Controller
             $membre->getPays(),
             $membre->getTel(),
             $membre->getDateNaissance(),
-            $membre->getImage()
+            $membre->getAvatarImage()
         );
     }
 

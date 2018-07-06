@@ -319,29 +319,6 @@ class Membre extends BaseUser
 
 
     /**
-     * Set image.
-     *
-     * @param string $image
-     *
-     * @return Membre
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    /**
-     * Get image.
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
      * @return File
      */
     public function getImageFile ()
