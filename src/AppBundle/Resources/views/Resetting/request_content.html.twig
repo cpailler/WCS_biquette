@@ -1,0 +1,22 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/enregistrement.css') }}">
+{% endblock %}
+
+<div class="text-center">
+    <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+</div>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title align-items-center">Réinitialiser mon mot de passe</h5>
+        </div>
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="post">
+            <div class="modal-body">
+                <input class="form-control" type="text" id="username" name="username" required="required" autocomplete="email" placeholder="Adresse email" />
+                <button type="submit" class="bouton w-100 mt-3"><img class ="mr-2" src="{{ asset('images/icn-bikerr.svg') }}">Envoyer</button>
+            </div>
+        </form>
+    </div>
+</div>
+<p id="copyright">©Bikerr 2018. Tous droits réservés.</p>

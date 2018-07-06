@@ -4,27 +4,36 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="titre">PHOTOS DU Profil --> TEST</h2><br>
+        <h2 class="titre">PHOTOS DE PROFIL</h2><br>
         <p class="infos_description">Ajoutez une photo de profil et augmentez vos chances de finaliser un partage !</p>
-        <h4>Ajouter une photo :</h4>
-        {% if membre.image|length < 0 %}
+
+        {% if membre.image|length > 0 %}
+            <h4>Mettre à jour la photo de profil :</h4><br>
+        {% else %}
+            <h4>Ajouter une photo de profil :</h4><br>
+        {% endif %}
+
             <div class="infos_description">
                 {{ form_start(form) }}
                 <div style="background-color: #e9ecef; margin: auto; width: 60%; border-radius: 5px;">
                     {{ form_widget(form.imageFile) }}
                     {{ form_errors(form.imageFile) }}
-                    <input class="bouton" type="submit" value="Enregistrer photo" />
-
+                    {% if membre.image|length > 0 %}
+                        <br><input class="bouton" type="submit" value="Mettre à jour" />
+                    {% else %}
+                        <br><input class="bouton" type="submit" value="Enregistrer" />
+                    {% endif %}
                 </div>
 
             </div>
 
             {{ form_end(form) }}
-        {% else %}
-            <div class="infos_description">
-                <p class="alert-info">Vous avez déjà 1 photo pour de profil, vous pouvez la changer en cliquant ici.</p>
-            </div>
-        {% endif %}
+            <br><br>
+            {% if membre.image|length > 0 %}
+                <div class="infos_description">
+                    <p class="alert-info">Vous avez déjà 1 photo pour de profil enregistrée, vous pouvez la modifier si vous le souhaitez : il vous suffit d'en télécharger une autre.</a></p>
+                </div>
+            {% endif %}
         <br>
 
     </div>

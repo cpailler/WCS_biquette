@@ -57,7 +57,7 @@ class EnregistrementType extends AbstractType
             ->add('conditions',CheckboxType::class, array(
                 'mapped' => false,
                 'required' => true,
-                'label' => 'En vous inscrivant vous acceptez les Conditions générales d’utilisation, les conditions de l’assurance, les modalités pratiques de Mangopay, et la politique de confidentialité de Bikerr.'
+                'label' => 'J\'ai lu et j\'accepte.'
                 ));
 
 
