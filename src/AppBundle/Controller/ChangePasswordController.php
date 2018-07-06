@@ -9,6 +9,9 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Membre;
+use AppBundle\Service\JaugeProfil;
+use AppBundle\Service\PointsManager;
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
@@ -17,14 +20,14 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * InfoProfil controller.
@@ -33,10 +36,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class ChangePasswordController extends BaseController
 {
+    private function getJaugeProfil(Membre $membre, JaugeProfil $jaugeProfil)
+    {
+        $jauge = $jaugeProfil->indicativeJaugeProfil(
+            $membre->getGenre(),
+            $membre->getNom(),
+            $membre->getPrenom(),
+            $membre->getCodePostal(),
+            $membre->getVille(),
+            $membre->getEmail(),
+            $membre->getPays(),
+            $membre->getTel(),
+            $membre->getDateNaissance(),
+            $membre->getAvatarImage()
+        );
+
+        if ($jauge == 100 && $membre->getProfilCompleted() == 0) {
+            $membre->setProfilCompleted(1);
+            $pointsManager = New PointsManager($this->getDoctrine()->getManager());
+            $pointsManager->givePoints($membre,250);
+        }
+        return $jauge;
+    }
+
     /**
      * @Route("/password", name="profil_password")
      * @Method({"GET", "POST"})
-     *
+     * @param Request $request
+     * @return null|Response
      */
     public function changePasswordAction(Request $request)
     {
@@ -73,11 +100,14 @@ class ChangePasswordController extends BaseController
 
             $this->addFlash('success','Mot de passe modifié avec succès!');
         }
+        $jaugeProfil = New JaugeProfil();
+        $jaugeProfil = $this->getJaugeProfil($user, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/passwordProfil.html.twig',
             'form' => $form->createView(),
-            'membre' => $user
+            'membre' => $user,
+            'jaugeProfil' => $jaugeProfil
         ));
     }
 }
