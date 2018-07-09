@@ -11,6 +11,7 @@ use AppBundle\Entity\Membre;
 use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\NewPasswordType;
 use AppBundle\Service\JaugeProfil;
+use AppBundle\Service\PointsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,7 +27,7 @@ class InfoProfilController extends Controller
 {
     private function getJaugeProfil(Membre $membre, JaugeProfil $jaugeProfil)
     {
-        return $jaugeProfil->indicativeJaugeProfil(
+        $jauge = $jaugeProfil->indicativeJaugeProfil(
             $membre->getGenre(),
             $membre->getNom(),
             $membre->getPrenom(),
@@ -38,6 +39,13 @@ class InfoProfilController extends Controller
             $membre->getDateNaissance(),
             $membre->getAvatarImage()
         );
+
+        if ($jauge == 100 && $membre->getProfilCompleted() == 0) {
+            $membre->setProfilCompleted(1);
+            $pointsManager = New PointsManager($this->getDoctrine()->getManager());
+            $pointsManager->givePoints($membre,250);
+        }
+        return $jauge;
     }
 
     /**
@@ -127,7 +135,6 @@ class InfoProfilController extends Controller
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $Bank = $mangoPayApi->InitBankAccount($membre,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
             dump($Bank);
         }

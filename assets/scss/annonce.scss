@@ -47,7 +47,6 @@ li {
 
 #carte {
   background-color: white;
-
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   padding: 20px;
 }
@@ -59,17 +58,13 @@ li {
 
 #carte__points__jour {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: bolder;
   margin-left: 12px;
 }
 
 #carte__points__jour__message {
   color: $text-grey;
   font-size: 12px;
-}
-
-#carte__bouton {
-  width: 100%;
 }
 
 #carte__texte__membre__verifie {
@@ -86,10 +81,9 @@ li {
 }
 
 #carte__image {
-  align-content: center;
-  text-align: center;
-  height: 80px;
   border-radius: 50%;
+  height: 80px;
+  width: 80px;
 }
 
 #carte__membre__depuis {

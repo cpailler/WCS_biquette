@@ -92,7 +92,19 @@
 
                 document.getElementById('appbundle_velo_latitude').value = place.geometry.location.lat();
                 document.getElementById('appbundle_velo_longitude').value = place.geometry.location.lng();
-                document.getElementById('appbundle_velo_ville').value = place.address_components[2].long_name;
+                if (place.address_components[0].types[0] == 'street_number'){
+                    document.getElementById('appbundle_velo_ville').value = place.address_components[2].long_name;
+                }
+                else if (place.address_components[0].types[0] == 'route'){
+                    document.getElementById('appbundle_velo_ville').value = place.address_components[1].long_name;
+                }
+                else if (place.address_components[0].types[0] == "locality"){
+                    document.getElementById('appbundle_velo_ville').value = place.address_components[0].long_name;
+
+                }
+                else{
+                    document.getElementById('appbundle_velo_ville').value = null;
+                }
             });
         }
 
