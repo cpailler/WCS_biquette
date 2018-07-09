@@ -48,7 +48,7 @@ class ChangePasswordController extends BaseController
             $membre->getPays(),
             $membre->getTel(),
             $membre->getDateNaissance(),
-            $membre->getAvatarImage()
+            $membre->getImage()
         );
 
         if ($jauge == 100 && $membre->getProfilCompleted() == 0) {

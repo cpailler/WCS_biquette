@@ -37,7 +37,7 @@ class InfoProfilController extends Controller
             $membre->getPays(),
             $membre->getTel(),
             $membre->getDateNaissance(),
-            $membre->getAvatarImage()
+            $membre->getImage()
         );
 
         if ($jauge == 100 && $membre->getProfilCompleted() == 0) {
@@ -81,39 +81,23 @@ class InfoProfilController extends Controller
      * @Route("/photo", name="photo-profil")
      *
      */
-    public function photoProfilAction(request $request, JaugeProfil $jaugeProfil)
+    public function photoProfilAction(Request $request, JaugeProfil $jaugeProfil)
     {
         $membre = $this->getUser();
-        /*if ($velo->getProprio()!=$membre){
-            return $this->redirectToAnnonce($velo);
-        }*/
-        //$photoVelo = new Photovelo();
+
+
         $form = $this->createForm('AppBundle\Form\PhotoProfilType', $membre);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid() ) {
-            if( $membre->getImage() !== null ){
-                $image = $membre->getImage();
-                $fileToDelete = "images/uploads/".$image;
-                if(file_exists($fileToDelete)) {
-                    unlink($fileToDelete);
-                }
-            }
             $em = $this->getDoctrine()->getManager();
-            //$photoVelo->setVelo($velo);
-            $membre->setImage($membre);
             $em->persist($membre);
             $em->flush();
-
-            return $this->redirectToRoute('photo-profil', array());
         }
 
         $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/photo_profil.html.twig',
-            //'photoProfil' => $photoVelo,
-            //'velo'=>$velo,
             'form' => $form->createView(),
             'membre' => $membre,
             'jaugeProfil' =>$jaugeProfil
