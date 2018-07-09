@@ -11,8 +11,8 @@
         <div class="row">
             <!-- photo de profil -->
             <div class="col-12 col-lg-3 offset-lg-1 photoProfil">
-                {% if membre.avatarImage is not null %}
-                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.avatarImage) }}" alt=""></div>
+                {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
                 {% else %}
                 <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
                 {% endif %}
