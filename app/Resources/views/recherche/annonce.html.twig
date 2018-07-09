@@ -257,7 +257,7 @@
                         <div class="mt-3 text-center">
                             <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
                             {% if membre.image is not null %}
-                            <img id="carte__image" class="mt-2 mb-2" src="{{ asset('images/uploads/' ~ velo.proprio.imagemage) }}" alt="Photo de profil">
+                            <img id="carte__image" class="mt-2 mb-2" src="{{ asset('images/uploads/' ~ velo.proprio.image) }}" alt="Photo de profil">
                             {% else %}
                                 <img src="{{ asset('images/icn-profil-over.svg') }}" alt="Image de profil">
                             {% endif %}
