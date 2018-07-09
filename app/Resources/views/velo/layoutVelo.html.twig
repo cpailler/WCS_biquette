@@ -36,11 +36,8 @@
                             </div>
                     </div>
                     <div class="outilsVelo">
-                        <div class="checkVelo">
-                            <div class="VloEnLigne">
-                                <p>L'annonce du vélo est en ligne</p>
-                            </div>
-                            <div style="float:right">
+                        <div class="row justify-content-end">
+                                <h5 class="align-content-center">L'annonce du vélo est en ligne</h5>
                                 <form name="app_bundle_mise_en_ligne_type" method="POST" action="{{ path('mise_en_ligne', {'id' : velo.getId}) }}">
                                     <label class="switch">
                                         <input type="checkbox" {% if velo.enLigne==1 %}checked{% endif %} id="app_bundle_mise_en_ligne_type_en_ligne" name="app_bundle_mise_en_ligne_type[en_ligne]" required="required" class="form-check-input" value="1" onclick="$(this).parents('form').submit()">
@@ -48,10 +45,10 @@
                                     </label>
                                 {% do miseEnLigne.en_ligne.setRendered %}
                                 {{ form_end(miseEnLigne) }}
-                            </div>
+                                </form>
                         </div>
 
-                        <div class="checkVelo">
+{#                        <div class="checkVelo">
                             <div class="VloEnLigne">
                                 <p>Etre contacté uniquement par des membres vérifiés</p>
                             </div>
@@ -61,7 +58,8 @@
                                     <span class="slider round"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div>#}
+
                         {% for label, messages in app.flashes %}
                             {% for message in messages %}
                                 <div class="alert alert-{{ label }}">

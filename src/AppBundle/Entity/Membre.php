@@ -35,7 +35,7 @@ class Membre extends BaseUser
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="avatar_image")
      *
      * @var File
      * @Assert\File(
@@ -49,11 +49,11 @@ class Membre extends BaseUser
     protected $imageFile;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
      *
-     * @var string
+     * @ORM\Column(name="avatar_image", type="string", length=255, nullable=true)
      */
-    protected $image;
+    private $avatarImage;
 
 
     /**
@@ -125,12 +125,7 @@ class Membre extends BaseUser
      */
     private $genre;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="avatar_image", type="string", length=255, nullable=true)
-     */
-    private $avatarImage;
+
 
     /**
      * @var \DateTime
@@ -322,29 +317,6 @@ class Membre extends BaseUser
         return $this->idFacebook;
     }
 
-
-    /**
-     * Set image.
-     *
-     * @param string $image
-     *
-     * @return Membre
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    /**
-     * Get image.
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
 
     /**
      * @return File
