@@ -16,11 +16,13 @@
     {% endfor %}
 </div>
 
-    <div class="container">
-        <h4>Le velo de Ilya</h4>
-            <div class="row">
+    <div class="titreVelo">
+        <h4>{{ velo.titre }}</h4>
+    </div>
+    <div class="container-fluid ">
+            <div id="dates" class="row justify-content-center">
                     <div class="col-4">
-                        <h4 id="nbJours" style="text-align: center;"></h4>
+                        <p id="nbJours" style="text-align: center;"></p>
                     </div>
                     <div class="col-4">
 
@@ -47,27 +49,30 @@
 
                     </div>
             </div>
-            <div class="row">
+            <div class="row justify-content-center">
 
                 <p>Points gagnés</p>
                 <p> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p>
-                <h4 id="nbPoints" style="text-align: center;"></h4>
+                <p id="nbPoints" style="text-align: center;"></p>
 
             </div>
+            <div class="row justify-content-center">
                 <p>Dépôt de garantie</p>
                 <p>{{ velo.caution }}€ (5%) / <span id="partCaution">{{ velo.caution * 0.05 }}</span> €</p>
-
+            </div>
+            <div class="row justify-content-center">
                 <p>Assurance</p>
                 <p>1€/JOUR</p>
                 <p><h4 id="totalAssurance" style="text-align: center;"></h4></p>
+            </div>
 
-            <div>
+            <div class="row justify-content-center">
                 <p>Total</p>
-                <p> <span><h4 id="totalPoints" style="text-align: center;"></h4></span> / <span><h4 id="totalEuros" style="text-align: center;"></h4></span> </p>
+                <p> <span><p id="totalPoints" style="text-align: center;"></p></span> / <span><p id="totalEuros" style="text-align: center;"></p></span> </p>
 
             </div>
 
-        <div class="row">
+        <div class="row justify-content-center">
             <button type="button" class="class " href="{{ path('annonce', {'id': velo.id}) }}">J’annule ma demande de réservation</button>
             <input type="submit" class="class " value="Je confirme ma demande de réservation" />
 

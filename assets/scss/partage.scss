@@ -1,1 +1,28 @@
 @import "main.scss";
+
+.h4{
+  display: flex;
+  font-family: $font;
+  font-weight: bold;
+  position: absolute;
+
+  border: 2px solid $border-grey;
+}
+
+.titreVelo{
+  border: 2px solid $border-grey;
+}
+
+col{
+
+}
+
+#dates{
+  display: flex;
+
+}
+
+#carousel-photos {
+  height: 287px;
+  width: 100%;
+}

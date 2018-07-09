@@ -31,24 +31,24 @@ $('.dateclic').on('change', function () {
         // and finaly, in days :)
         var timeDifferenceInDays = timeDifferenceInHours / 24;
         if (timeDifferenceInDays <= 0 && timeDifferenceInDays == 'undefined') {
-            $('#nbJours').replaceWith(`<h4 id="nbJours">Jours :<span class="badge badge-light">0</span></h4>`);
+            $('#nbJours').replaceWith(`<p id="nbJours">Jours :<span class="badge badge-light">0</span></p>`);
         } else {
-            $('#nbJours').replaceWith(`<h4 id="nbJours"><span  class="badge badge-light">${timeDifferenceInDays} Jours</span></h4>`);
+            $('#nbJours').replaceWith(`<p id="nbJours"><span  class="badge badge-light">${timeDifferenceInDays} Jours</span></p>`);
 
 
             var points = $('#points').html();
             var pointsCount = ((timeDifferenceInDays * points)*(-1));
-            $('#nbPoints').replaceWith(`<h4 id="nbPoints"><span  class="badge badge-light">${pointsCount}PTS</span></h4>`);
+            $('#nbPoints').replaceWith(`<p id="nbPoints"><span  class="badge badge-light">${pointsCount}PTS</span></p>`);
 
             var totalPoints = pointsCount;
-            $('#totalPoints').replaceWith(`<h4 id="totalPoints"><span  class="badge badge-light">${totalPoints}PTS</span></h4>`);
+            $('#totalPoints').replaceWith(`<p id="totalPoints"><span  class="badge badge-light">${totalPoints}PTS</span></p>`);
 
             var totalAssurance = (timeDifferenceInDays * 1);
-            $('#totalAssurance').replaceWith(`<h4 id="totalAssurance"><span  class="badge badge-light">${totalAssurance}€</span></h4>`);
+            $('#totalAssurance').replaceWith(`<p id="totalAssurance"><span  class="badge badge-light">${totalAssurance}€</span></p>`);
 
             var partCaution = $('#partCaution').html();
             var totalEuros = parseInt(partCaution) + parseInt(totalAssurance);
-            $('#totalEuros').replaceWith(`<h4 id="totalEuros"><span  class="badge badge-light">${totalEuros}€</span></h4>`);
+            $('#totalEuros').replaceWith(`<p id="totalEuros"><span  class="badge badge-light">${totalEuros}€</span></p>`);
 
         }
 

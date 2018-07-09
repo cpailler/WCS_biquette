@@ -51,7 +51,7 @@ class Membre extends BaseUser
     /**
      * @var string|null
      *
-     * @ORM\Column(name="avatar_image", type="string", length=255, nullable=true)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $avatarImage;
 
