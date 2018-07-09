@@ -33,9 +33,16 @@ class Membre extends BaseUser
     private $velos;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="avatar_image")
+     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
      *
      * @var File
      * @Assert\File(
@@ -48,12 +55,7 @@ class Membre extends BaseUser
      */
     protected $imageFile;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="avatar_image", type="string", length=255, nullable=true)
-     */
-    private $avatarImage;
+
 
 
     /**
@@ -319,29 +321,6 @@ class Membre extends BaseUser
 
 
     /**
-     * Set image.
-     *
-     * @param string $image
-     *
-     * @return Membre
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-        return $this;
-    }
-
-    /**
-     * Get image.
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
      * @return File
      */
     public function getImageFile ()
@@ -482,29 +461,7 @@ class Membre extends BaseUser
         return $this->genre;
     }
 
-    /**
-     * Set avatarImage.
-     *
-     * @param string|null $avatarImage
-     *
-     * @return Membre
-     */
-    public function setAvatarImage($avatarImage = null)
-    {
-        $this->avatarImage = $avatarImage;
 
-        return $this;
-    }
-
-    /**
-     * Get avatarImage.
-     *
-     * @return string|null
-     */
-    public function getAvatarImage()
-    {
-        return $this->avatarImage;
-    }
 
     /**
      * Set dateInscription.
@@ -996,5 +953,29 @@ class Membre extends BaseUser
     public function getIdBankAccount()
     {
         return $this->idBankAccount;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string|null $image
+     *
+     * @return Membre
+     */
+    public function setImage($image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string|null
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

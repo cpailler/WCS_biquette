@@ -11,6 +11,7 @@ use AppBundle\Entity\Membre;
 use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\NewPasswordType;
 use AppBundle\Service\JaugeProfil;
+use AppBundle\Service\PointsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,7 +27,7 @@ class InfoProfilController extends Controller
 {
     private function getJaugeProfil(Membre $membre, JaugeProfil $jaugeProfil)
     {
-        return $jaugeProfil->indicativeJaugeProfil(
+        $jauge = $jaugeProfil->indicativeJaugeProfil(
             $membre->getGenre(),
             $membre->getNom(),
             $membre->getPrenom(),
@@ -36,8 +37,15 @@ class InfoProfilController extends Controller
             $membre->getPays(),
             $membre->getTel(),
             $membre->getDateNaissance(),
-            $membre->getAvatarImage()
+            $membre->getImage()
         );
+
+        if ($jauge == 100 && $membre->getProfilCompleted() == 0) {
+            $membre->setProfilCompleted(1);
+            $pointsManager = New PointsManager($this->getDoctrine()->getManager());
+            $pointsManager->givePoints($membre,250);
+        }
+        return $jauge;
     }
 
     /**
@@ -73,39 +81,23 @@ class InfoProfilController extends Controller
      * @Route("/photo", name="photo-profil")
      *
      */
-    public function photoProfilAction(request $request, JaugeProfil $jaugeProfil)
+    public function photoProfilAction(Request $request, JaugeProfil $jaugeProfil)
     {
         $membre = $this->getUser();
-        /*if ($velo->getProprio()!=$membre){
-            return $this->redirectToAnnonce($velo);
-        }*/
-        //$photoVelo = new Photovelo();
+
+
         $form = $this->createForm('AppBundle\Form\PhotoProfilType', $membre);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid() ) {
-            if( $membre->getImage() !== null ){
-                $image = $membre->getImage();
-                $fileToDelete = "images/uploads/".$image;
-                if(file_exists($fileToDelete)) {
-                    unlink($fileToDelete);
-                }
-            }
             $em = $this->getDoctrine()->getManager();
-            //$photoVelo->setVelo($velo);
-            $membre->setImage($membre);
             $em->persist($membre);
             $em->flush();
-
-            return $this->redirectToRoute('photo-profil', array());
         }
 
         $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/photo_profil.html.twig',
-            //'photoProfil' => $photoVelo,
-            //'velo'=>$velo,
             'form' => $form->createView(),
             'membre' => $membre,
             'jaugeProfil' =>$jaugeProfil
@@ -127,7 +119,6 @@ class InfoProfilController extends Controller
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $Bank = $mangoPayApi->InitBankAccount($membre,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
             dump($Bank);
         }
