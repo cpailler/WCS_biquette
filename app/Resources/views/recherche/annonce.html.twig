@@ -256,7 +256,11 @@
 
                         <div class="mt-3 text-center">
                             <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
+                            {% if membre.avatarImage is not null %}
                             <img id="carte__image" class="mt-2 mb-2" src="{{ asset('images/uploads/' ~ velo.proprio.avatarImage) }}" alt="Photo de profil">
+                            {% else %}
+                                <img src="{{ asset('images/icn-profil-over.svg') }}" alt="Image de profil">
+                            {% endif %}
                             <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
                         </div>
                     </div>
