@@ -205,7 +205,7 @@
 
                     </div>
 
-                    {% if velo.caution > 0 %}
+                    {% if velo.cautionOblig == 1 %}
 
                         <div id="bloc__garantie" class="categorie mt-5 mb-2">
                             <h4 class="titre">Dépôt de garantie</h4>
@@ -221,7 +221,7 @@
 
                         <p id="notice__garantie">Le dépôt de garantie est demandé par certains propriétaires qui souhaitent se couvrir en cas de dommage, perte ou vol de leur vélo. Si tel est le cas, l’utilisateur donne une autorisation de prélèvement à Bikerr correspondant au montant défini par le propriétaire. Le dépôt de garantie n’est jamais débité (sauf en cas d’incident). Et il est intégralement restitué au terme de la période de partage. Bikerr prélève 5% de commission pour couvrir les frais de la plateforme.</p>
 
-                    {% elseif velo.caution == 0 %}
+                    {% elseif velo.cautionOblig == 0 %}
 
                         <div id="bloc__garantie" class="categorie mt-5 mb-5">
                             <h4 class="titre">Dépôt de garantie</h4>
@@ -240,20 +240,29 @@
                 </div>
 
                 <div id="bloc__carte" class="mt-5 col-4">
-                    <div id="carte" class="align-content-center">
+                    <div id="carte">
                         <div class="row">
                             <h1 id="carte__points" class="col-3">{{ velo.coutPts }}</h1>
-                            <div id="carte__points__jour" class="col-9">
+
+                            <div class="col-9">
                                 <h4 id="carte__points__jour__titre">Points / jour</h4>
                                 {%  if velo.coutPts > 0 %}
-                                    <p id="carte__points__jour__message">Avec vos {{ membre.points }} Points, vous pouvez emprunter ce vélo {{ membre.points // velo.coutPts }} jours.</p>
+                                    <p id="carte__points__jour__message">Avec vos {{ membre.points }} Points, vous pouvez emprunter ce vélo {{ membre.points // velo.coutPts }} jour(s).</p>
                                 {% endif %}
                             </div>
-                            <input type="submit" value="Envoyer une demande de partage" id="carte__bouton" class="bouton">
                         </div>
-                        <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
-                        <img id="carte__image" class="align-self-center" src="{{ asset('images/uploads/' ~ velo.proprio.avatarImage) }}" alt="Photo de profil">
-                        <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
+
+                        <input type="submit" value="Envoyer une demande de partage" class="bouton w-100">
+
+                        <div class="mt-3 text-center">
+                            <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
+                            {% if membre.image is not null %}
+                            <img id="carte__image" class="mt-2 mb-2" src="{{ asset('images/uploads/' ~ velo.proprio.image) }}" alt="Photo de profil">
+                            {% else %}
+                                <img src="{{ asset('images/icn-profil-over.svg') }}" alt="Image de profil">
+                            {% endif %}
+                            <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
+                        </div>
                     </div>
                     <p id="notice" class="mt-3">En réservant ce vélo, une demande de contact est envoyé par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
                 </div>

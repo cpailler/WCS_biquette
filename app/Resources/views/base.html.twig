@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="{{ asset('build/style.css') }}">
     {% block stylesheets %}{% endblock %}
 </head>
+<script type="text/javascript" id="cookieinfo"
+        src="//cookieinfoscript.com/js/cookieinfo.min.js"
+        data-bg="#333634"
+        data-divlinkbg="#009925"
+        data-divlink="#FFFFFF"
+        data-font-size="16px"
+        data-fg="#FFFFFF"
+        data-moreinfo="/cgu/cookies"
+        data-position="top"
+        data-link="#FFFFFF"
+        data-cookie="CookieInfoScript"
+        data-linkmsg="Pour en savoir plus."
+        data-text-align="center"
+        data-message="En poursuivant votre navigation sur ce site, vous acceptez notre Politique de confidentialité et l’utilisation de cookies pour vous proposer des contenus et services adaptés à vos partages de vélos."
+        data-close-text="Accepter les cookies">
+</script>
 
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <!-- navbar pour profils connectés -->
@@ -85,9 +101,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ membre.prenom }} {{ membre.nom }}
-                        {% if membre.avatarImage is not null %}
+                        {% if membre.image is not null %}
                             <div class="crop_profile_nav">
-                                <img src="{{ asset('images/uploads/'~membre.avatarImage) }}" alt="profil">
+                                <img src="{{ asset('images/uploads/'~membre.image) }}" alt="profil">
                             </div>
                         {% else %}
                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">

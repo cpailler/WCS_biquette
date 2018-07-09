@@ -19,7 +19,7 @@ class VeloAntivolType extends AbstractType
         $builder
             ->add('antivolKey', ChoiceType::class, array('label' => 'Antivol à clé', 'choices' => array('0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5)))
             ->add('antivolCode',ChoiceType::class, array('label' => 'Antivol à combinaison', 'choices' => array('0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5)))
-            ->add('bicycode', IntegerType::class, array('label' => 'Numéro Bicycode (si disponible)'));
+            ->add('bicycode', IntegerType::class, array('label' => 'Numéro Bicycode (si disponible)', 'required' => false));
     }
     /**
      * {@inheritdoc}
