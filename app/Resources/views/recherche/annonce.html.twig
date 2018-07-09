@@ -205,7 +205,7 @@
 
                     </div>
 
-                    {% if velo.caution > 0 %}
+                    {% if velo.cautionOblig == 1 %}
 
                         <div id="bloc__garantie" class="categorie mt-5 mb-2">
                             <h4 class="titre">Dépôt de garantie</h4>
@@ -221,7 +221,7 @@
 
                         <p id="notice__garantie">Le dépôt de garantie est demandé par certains propriétaires qui souhaitent se couvrir en cas de dommage, perte ou vol de leur vélo. Si tel est le cas, l’utilisateur donne une autorisation de prélèvement à Bikerr correspondant au montant défini par le propriétaire. Le dépôt de garantie n’est jamais débité (sauf en cas d’incident). Et il est intégralement restitué au terme de la période de partage. Bikerr prélève 5% de commission pour couvrir les frais de la plateforme.</p>
 
-                    {% elseif velo.caution == 0 %}
+                    {% elseif velo.cautionOblig == 0 %}
 
                         <div id="bloc__garantie" class="categorie mt-5 mb-5">
                             <h4 class="titre">Dépôt de garantie</h4>
