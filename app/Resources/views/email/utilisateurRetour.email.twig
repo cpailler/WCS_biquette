@@ -1,0 +1,18 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+{% endblock %}
+
+{% block subject %}Retour de votre vélo !{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        <h2>Bonjour {{ velo.proprio.prenom }},</h2>
+
+        <p>Le locataire {{ membre.prenom }} {{ membre.nom }} vient de confirmer le retour de votre vélo. Veuillez également valider que son retour a bien eu lieu en cliquant sur le lien ci-dessous :</p><br>
+        <p>L'équipe Bikerr</p>
+
+
+        <button class="bouton"><a href="">{{ confirmationUrl }}</a></button>
+
+    {% endautoescape %}
+{% endblock %}
