@@ -4,15 +4,16 @@
 {% endblock %}
 
 {% block body_html %}
+
     <div class="text-center">
         <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
     </div>
 
     <h2>Bonjour,</h2>
 
-    <p>Une demande de partage a été faite pour votre vélo "{{ proprio.velo.titre }}".</p>
+    <p>Votre demande de partage de vélo "{{ proprio.velo.titre }}" a été validée par son propriétaire".</p>
 
-    <p>Il s'agit de {{ membre.prenom }} {{ membre.nom }}. Pour voir sa demande, cliquez ici: (LIEN DE PARTAGE)</p>
+    <p>Vous allez être recontacté prochainement pour la suite des étapes.</p>
 
     <p>L'équipe Bikerr</p>
 
