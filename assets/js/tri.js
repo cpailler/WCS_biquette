@@ -54,19 +54,3 @@ $(document).ready(function(){
         });
     });
 });
-
-// tri / pagination
-(function($) {
-    $(document).ready(function(){
-        $.fn.customPaginate = function(options)
-        {
-            var default = {
-                itmesPerPage : 5
-            }
-
-            var settings = {};
-
-            $.extends(settings,);
-        }
-    });
-});
