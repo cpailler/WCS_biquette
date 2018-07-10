@@ -45,8 +45,6 @@ class PartageController extends Controller
                     $reservation->setAssurance(0);
                 }
 
-
-
                 $em->persist($reservation);
                 $em->flush();
             }
@@ -66,16 +64,19 @@ class PartageController extends Controller
     }
 
     /**
-     * @Route("/validation", name="partage_validation")
+     * @Route("/{id}/validation", name="partage_validation")
      *
      */
 
     public function proprietaireValidationAction(Velo $velo) {
         $membre = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $reservation = $em->getRepository(Reservation::class)->findAll();
+        dump($reservation);
 
         return $this->render('partage/proprietaire_validation.html.twig', array(
             'velo' => $velo,
-           // 'reservation' => $reservation,
+            'reservation' => $reservation,
             'membre' => $membre));
     }
 

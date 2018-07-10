@@ -1,6 +1,6 @@
 @import "main.scss";
 
-.h4{
+h4{
   display: flex;
   font-family: $font;
   font-weight: bold;
@@ -9,13 +9,17 @@
   border: 2px solid $border-grey;
 }
 
+.cadrePartage{
+  width: 80%;
+  margin: auto;
+  border: 5px solid black;
+}
+
 .titreVelo{
   border: 2px solid $border-grey;
 }
 
-col{
 
-}
 
 #dates{
   display: flex;
