@@ -8,6 +8,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Membre;
+
 class Mailer {
 
     /**
@@ -32,13 +34,32 @@ class Mailer {
     }
 
     /**
+     * @param $membre
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function registrationEmail(Membre $membre)
+    {
+        $body = $this->templating->render('email/reinitialisation.email.twig', [
+            'membre' => $membre,
+        ]);
+
+        $message = (new \Swift_Message('Réinitialiser votre mot de passe'))
+            ->setFrom(['infos@bikerr.fr' => 'Bikerr'])
+            ->setTo($membre->getEmail())
+            ->setBody($body,'text/html');
+            $this->mailer->send($message);
+    }
+
+    /**
      * @param $preteur
      * @param $emprunteur
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function sendEmail($preteur, $emprunteur)
+    public function demandeEmail($preteur, $emprunteur)
     {
         $body = $this->templating->render('demande.email.twig', [
             'preteur' => $preteur,
@@ -49,7 +70,7 @@ class Mailer {
             ->setFrom(['infos@bikerr.fr' => 'Bikerr'])
             ->setTo($emprunteur)
             ->setBody($body, 'text/html');
-            $this->mailer->send($message);
+        $this->mailer->send($message);
     }
 
 }

@@ -1,0 +1,26 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+{% endblock %}
+
+{% block subject %}Bienvenu Chez Bikerr{% endblock %}
+{% block body_text %}
+{% endblock %}
+{% block body_html %}
+    {% autoescape false %}
+        <h2>Bonjour,</h2>
+
+        <p>Nous Vous souhaitons la bienvenu dans la bande .</p><br>
+
+        <p>
+            Pour valider votre compte utilisateur, merci de vous rendre sur {{ confirmationUrl }}
+        </p><br>
+        <p>
+            Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.
+        </p><br>
+        <p>L'équipe Bikerr</p>
+
+
+        <button class="bouton"><a href="{{ confirmationUrl  }}">Confirmation</a></button>
+
+    {% endautoescape %}
+{% endblock %}
