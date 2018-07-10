@@ -56,7 +56,7 @@ class PointsManager
         try
         {
             $to->setPoints($to->getPoints()+$nbPts);
-            $this->em->persist($to);
+            $this->em   ->persist($to);
             $this->em->flush();
             return true;
         }
