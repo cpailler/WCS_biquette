@@ -47,17 +47,9 @@ class DateCheck
         if ($reservation->getDebut()>$reservation->getFin()){
             return false;
         }
-        foreach ($velo->getReservations() as $resa){
-            if($reservation->getDebut()<=$resa->getFin()
-                &&$reservation->getFin()>=$resa->getDebut()
-                &&$reservation->getId()!=$resa->getId())
-            {
-                return false;
-            }
-        }
-        $date = $reservation->getDebut();
+        $date = clone $reservation->getDebut();
         while ($date<=$reservation->getFin()){
-            if ($calendrier->getStatus()!='disponible'){
+            if ($calendrier->getStatus($velo,$date)!='disponible'){
                 return false;
             }
             $date->modify('+1 day');

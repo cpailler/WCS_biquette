@@ -11,6 +11,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('calendar', './assets/js/calendar.js')
     .addEntry('tri', './assets/js/tri.js')
+    .addEntry('partage', './assets/js/partage.js')
 
     .addEntry('style', './assets/scss/style.scss')
     .addEntry('homepage', './assets/scss/homepage.scss')

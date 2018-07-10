@@ -66,9 +66,9 @@ class Reservation
     private $caution;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="assurance", type="boolean")
+     * @ORM\Column(name="assurance", type="integer")
      */
     private $assurance;
 
@@ -230,7 +230,7 @@ class Reservation
     /**
      * Set assurance.
      *
-     * @param bool $assurance
+     * @param int $assurance
      *
      * @return Reservation
      */
@@ -244,7 +244,7 @@ class Reservation
     /**
      * Get assurance.
      *
-     * @return bool
+     * @return int
      */
     public function getAssurance()
     {
