@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="{{ asset('build/email.css') }}">
 {% endblock %}
 
-{% block subject %}Demande de partage !{% endblock %}
+{% block subject %}Partage de vélo accepté !{% endblock %}
 
 {% block body_html %}
 
@@ -13,9 +13,9 @@
 
     <h2>Bonjour,</h2>
 
-    <p>Un utilisateur souhaite emprunter votre vélo "{{ proprio.velo.titre }}".</p>
+    <p>Votre demande de partage de vélo "{{ proprio.velo.titre }}" a été validée par son propriétaire".</p>
 
-    <p>Il s'agit de {{ membre.prenom }} {{ membre.nom }}. Pour voir sa demande, cliquez ici: <a href="https://bikerr.fr/{{ path('') }}"></a></p>
+    <p>Vous allez être recontacté prochainement pour la suite des étapes.</p>
 
     <p>L'équipe Bikerr</p>
 

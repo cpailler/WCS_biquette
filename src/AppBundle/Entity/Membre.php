@@ -33,9 +33,16 @@ class Membre extends BaseUser
     private $velos;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
-     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="avatar_image")
+     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
      *
      * @var File
      * @Assert\File(
@@ -49,11 +56,10 @@ class Membre extends BaseUser
     protected $imageFile;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="avatar_image", type="string", length=255, nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
      */
-    private $avatarImage;
+    private $updatedAt;
 
 
     /**
@@ -332,7 +338,14 @@ class Membre extends BaseUser
     public function setImageFile ($imageFile)
     {
         $this->imageFile = $imageFile;
-        return $this;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
 
@@ -459,29 +472,7 @@ class Membre extends BaseUser
         return $this->genre;
     }
 
-    /**
-     * Set avatarImage.
-     *
-     * @param string|null $avatarImage
-     *
-     * @return Membre
-     */
-    public function setAvatarImage($avatarImage = null)
-    {
-        $this->avatarImage = $avatarImage;
 
-        return $this;
-    }
-
-    /**
-     * Get avatarImage.
-     *
-     * @return string|null
-     */
-    public function getAvatarImage()
-    {
-        return $this->avatarImage;
-    }
 
     /**
      * Set dateInscription.
@@ -973,5 +964,53 @@ class Membre extends BaseUser
     public function getIdBankAccount()
     {
         return $this->idBankAccount;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string|null $image
+     *
+     * @return Membre
+     */
+    public function setImage($image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string|null
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set updatedAt.
+     *
+     * @param \DateTime|null $updatedAt
+     *
+     * @return Membre
+     */
+    public function setUpdatedAt($updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

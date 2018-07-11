@@ -1,1 +1,32 @@
 @import "main.scss";
+
+h4{
+  display: flex;
+  font-family: $font;
+  font-weight: bold;
+  position: absolute;
+
+  border: 2px solid $border-grey;
+}
+
+.cadrePartage{
+  width: 80%;
+  margin: auto;
+  border: 5px solid black;
+}
+
+.titreVelo{
+  border: 2px solid $border-grey;
+}
+
+
+
+#dates{
+  display: flex;
+
+}
+
+#carousel-photos {
+  height: 287px;
+  width: 100%;
+}

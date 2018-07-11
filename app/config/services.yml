@@ -64,3 +64,9 @@ services:
 
     AppBundle\Service\Calendrier\Month:
         arguments:
+
+    app.mailer:
+        class: AppBundle\Service\Mailer
+        arguments:
+            $mailer: '@swiftmailer.mailer'
+            $templating: '@twig'

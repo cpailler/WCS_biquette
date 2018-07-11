@@ -1,5 +1,6 @@
 import $ from "jquery";
 
+// tri par type de velo
 $(document).ready(function(){
     $('.velos').change(function(){
         var selectedValue = $(this).val();
@@ -19,7 +20,7 @@ $(document).ready(function(){
     });
 });
 
-
+// tri par palier de points
 $(document).ready(function(){
     $('.points').change(function(){
         var selectedValue = $(this).val();

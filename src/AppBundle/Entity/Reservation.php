@@ -66,12 +66,18 @@ class Reservation
     private $caution;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="assurance", type="boolean")
+     * @ORM\Column(name="assurance", type="integer")
      */
     private $assurance;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="etape", type="integer")
+     */
+    private $etape = 0;
 
     /**
      * Get id.
@@ -230,7 +236,7 @@ class Reservation
     /**
      * Set assurance.
      *
-     * @param bool $assurance
+     * @param int $assurance
      *
      * @return Reservation
      */
@@ -244,7 +250,7 @@ class Reservation
     /**
      * Get assurance.
      *
-     * @return bool
+     * @return int
      */
     public function getAssurance()
     {
@@ -273,5 +279,29 @@ class Reservation
     public function getLocataire()
     {
         return $this->locataire;
+    }
+
+    /**
+     * Set etape.
+     *
+     * @param int $etape
+     *
+     * @return Reservation
+     */
+    public function setEtape($etape)
+    {
+        $this->etape = $etape;
+
+        return $this;
+    }
+
+    /**
+     * Get etape.
+     *
+     * @return int
+     */
+    public function getEtape()
+    {
+        return $this->etape;
     }
 }
