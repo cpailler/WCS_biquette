@@ -6,13 +6,17 @@
 
 {% block body_html %}
     {% autoescape false %}
+        <div class="text-center">
+            <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+        </div>
+
         <h2>Bonjour {{ membre.prenom }},</h2>
 
-        <p>Le propriétaire {{ velo.proprio.prenom }} a bien validé la réception du vélo. Votre dépôt de garantie vous a été restitué.</p><br>
+        <p>Le propriétaire {{ velo.proprio.prenom }} a bien validé la réception du vélo. Votre dépôt de garantie vous a été restitué. Pour effectuer une autre location ou proposer votre propre vélo, connectez-vous !</p><br>
         <p>L'équipe Bikerr</p>
 
-        <button class="bouton"><a href="">{{ confirmationUrl }}</a></button>
-        <!-- il faut modifier le lien de ce bouton pour se connecter à bikerr-->
+        <button class="bouton"><a href="https://www.bikerr.fr">Se connecter</a></button>
 
+        <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
     {% endautoescape %}
 {% endblock %}
