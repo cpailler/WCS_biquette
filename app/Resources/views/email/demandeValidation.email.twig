@@ -3,6 +3,9 @@
     <link rel="stylesheet" href="{{ asset('build/email.css') }}">
 {% endblock %}
 
+{% block body_text %}
+{% endblock %}
+
 {% block subject %}Partage de vélo accepté !{% endblock %}
 
 {% block body_html %}
@@ -13,9 +16,9 @@
 
     <h2>Bonjour,</h2>
 
-    <p>Votre demande de partage de vélo "{{ proprio.velo.titre }}" a été validée par son propriétaire".</p>
+    <p>Votre demande de partage de vélo "{{ reservation.velo.titre }}" a été validée par son propriétaire".</p>
 
-    <p>Vous allez être recontacté prochainement pour la suite des étapes.</p>
+    <p>Veuillez cliquer sur ce lien <a href="https://bikerr.fr/{{ path('partage/'~reservation.id) }}"></a> afin de procéder à l'échange de points et paiement (s'il y a lieu).</p>
 
     <p>L'équipe Bikerr</p>
 
