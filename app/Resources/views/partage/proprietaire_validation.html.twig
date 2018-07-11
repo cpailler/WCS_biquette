@@ -1,13 +1,69 @@
 {% extends 'base.html.twig' %}
+ {% block javascripts %}
+     <script src="{{ asset('build/partage.js') }}"></script>
+ {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<div id="carousel-photos" class="justify-content-center row">
-    {% for photo in velo.photos %}
-        <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
-    {% endfor %}
-</div>
+    <div id="carousel-photos" class="justify-content-center row">
+        {% for photo in velo.photos %}
+            <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
+        {% endfor %}
+    </div>
+
+    <div class="titreVelo">
+        <h4>{{ velo.titre }}</h4>
+    </div>
+    <div class="container-fluid ">
+        <div id="dates" class="row justify-content-center">
+            <div class="col-4">
+                <p id="nbJours" style="text-align: center;"></p>
+            </div>
+
+            {#Date de retrait#}
+            <div class="col-4">
+                {{ reservation.debut }}
+            </div>
+
+            {#Date de retour#}
+            <div class="col-4">
+                {{ reservation.fin }}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            <p>Points gagnés</p>
+            <p> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p>
+            <p id="nbPoints" style="text-align: center;"></p>
+
+        </div>
+        <div class="row justify-content-center">
+            <p>Dépôt de garantie</p>
+            <p>{{ velo.caution }}€ (5%) / <span id="partCaution">{{ velo.caution * 0.05 }}</span> €</p>
+        </div>
+        <div class="row justify-content-center">
+            <p>Assurance</p>
+            <p>1€/JOUR</p>
+            <p><h4 id="totalAssurance" style="text-align: center;"></h4></p>
+        </div>
+
+        <div class="row justify-content-center">
+            <p>Total</p>
+            <p> <span><p id="totalPoints" style="text-align: center;"></p></span> / <span><p id="totalEuros" style="text-align: center;"></p></span> </p>
+
+        </div>
+
+        <div class="row justify-content-center">
+            <button type="button" class="class " href="{{ path('annonce', {'id': velo.id}) }}">J’annule ma demande de réservation</button>
+            <input type="submit" class="class " value="Je confirme ma demande de réservation" />
+
+        </div>
+        {{ form_end(reservationForm) }}
+
+    </div>
+{% endblock %}

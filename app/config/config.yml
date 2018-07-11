@@ -83,7 +83,7 @@ fos_user:
 
     registration:
         confirmation:
-            template: '@FOSUser/Registration/email.txt.twig'
+            template: 'email/registration.email.twig'
             from_email:
                 address: enregistrement@bikerr.fr
                 sender_name: Ne pas répondre

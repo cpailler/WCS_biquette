@@ -1,0 +1,11 @@
+@import "main.scss";
+
+body {
+  background-color: $grey-background;
+}
+
+#copyright {
+  font-size: 14px;
+  color: $text-grey;
+  text-align: center;
+}
