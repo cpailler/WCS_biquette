@@ -1,0 +1,20 @@
+{% block javascripts %}
+<script src="{{ asset('build/partage.js') }}"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+{% endblock %}
+
+{% block subject %}Transaction réussie !{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        <h2>Bonjour {{ membre.prenom }},</h2>
+
+        <p>Votre transaction a bien été effectuée. Voici le récapitulatif :</p><br>
+
+    {% endautoescape %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+{% endblock %}
+
+{% block subject %}Votre dépôt de garantie !{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        <h2>Bonjour {{ membre.prenom }},</h2>
+
+        <p>Le propriétaire {{ velo.proprio.prenom }} a bien validé la réception du vélo. Votre dépôt de garantie vous a été restitué.</p><br>
+        <p>L'équipe Bikerr</p>
+
+        <button class="bouton"><a href="">{{ confirmationUrl }}</a></button>
+        <!-- il faut modifier le lien de ce bouton pour se connecter à bikerr-->
+
+    {% endautoescape %}
+{% endblock %}
