@@ -123,8 +123,9 @@ class PaiementController extends Controller
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
         dump($CarteUpdated);
 
-        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,1000,500);
+        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,10000,500);
         dump($PayIn);
+
 
 
         return $this->redirectToRoute('profil_infos');

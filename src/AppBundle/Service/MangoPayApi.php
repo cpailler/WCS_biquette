@@ -126,8 +126,6 @@ class MangoPayApi
         // $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
         //$PayIn->ExecutionDetails->SecureModeReturnURL = "http://127.0.0.1/";//".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?stepId=".($stepId+1);
         //$PayIn->ExecutionDetails->CardId = $Card->CardId;
-        //$PayIn->ExecutionDetails->SecureMode="DEFAULT";
-        //$PayIn->ExecutionDetails->Culture = "FR";
         //TODO : Paiement type direct
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
@@ -135,6 +133,8 @@ class MangoPayApi
         //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/paiement/card';
+        $PayIn->ExecutionDetails->SecureMode="FORCE";
+        $PayIn->ExecutionDetails->Culture = "FR";
         //dump($PayIn);
         return $this->connexionApi->PayIns->Create($PayIn);
     }
@@ -183,8 +183,8 @@ class MangoPayApi
     }
 
 
-    //cloturer transfert d'argent
-    public function PayOut(Membre $membre,\MangoPay\BankAccount $bankAccount, $amount, $fees)
+    //cloturer transfert d'argent \MangoPay\BankAccount
+    public function PayOut(Membre $membre, $bankAccount, $amount, $fees)
     {
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
@@ -197,8 +197,8 @@ class MangoPayApi
         $PayOut->Fees->Amount = $fees;
         $PayOut->PaymentType = \MangoPay\PayOutPaymentType::BankWire;
         $PayOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
-        $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount->Id;
-        $result = $mangoPayApi->PayOuts->Create($PayOut);
+        $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount; //->id;
+        return $this->connexionApi->PayOuts->Create($PayOut);
     }
 
 
