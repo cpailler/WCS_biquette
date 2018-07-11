@@ -6,7 +6,7 @@
 {% block body %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="gradient_box">
-            <h4 class="explication_title white_text">Salut {{ app.user.username }}, <br>besoin d'aide ou tu te décides à te bouger ?</h4>
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?!</h4>
         </div>
     {% else %}
         <div class="gradient_box">

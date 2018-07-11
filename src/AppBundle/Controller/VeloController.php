@@ -186,7 +186,6 @@ class VeloController extends Controller
         $miseEnLigneForm = $this->createForm(MiseEnLigneType::class, $velo);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid() && count($velo->getPhotos())<3) {
 
                 $em = $this->getDoctrine()->getManager();

@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
+ {% block javascripts %}
+     <script src="{{ asset('build/partage.js') }}"></script>
+ {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -11,3 +15,70 @@
         <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
     {% endfor %}
 </div>
+    <div class="container">
+        <div class="cadrePartage">
+            <div class="titreVelo">
+                <h4>{{ velo.titre }}</h4>
+            </div>
+
+                <div id="dates" class="row">
+                        <div class="col-4">
+                            <p id="nbJours" style="text-align: center;"></p>
+                        </div>
+                        <div class="col-4">
+
+                        {#Date de retrait#}
+                            <div>
+                                {{ form_start(reservationForm) }}
+                                {{ form_widget(reservationForm.debut,{ 'attr': {'class': 'dateclic'} }) }}
+                                {{ form_label(reservationForm.debut) }}
+                                {{ form_errors(reservationForm.debut) }}
+
+                            </div>
+                        </div>
+
+                        {#Date de retour#}
+                        <div class="col-4">
+                            {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
+                            {{ form_label(reservationForm.fin) }}
+                            {{ form_errors(reservationForm.fin) }}
+                            {% for message in app.flashes('error') %}
+                                <div class="alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                </div>
+                <div class="row justify-content-center">
+
+                    <p>Points gagnés</p>
+                    <p> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p>
+                    <p id="nbPoints" style="text-align: center;"></p>
+
+                </div>
+                <div class="row justify-content-center">
+                    <p>Dépôt de garantie</p>
+                    <p>{{ velo.caution }}€ (5%) / <span id="partCaution">{{ velo.caution * 0.05 }}</span> €</p>
+                </div>
+                <div class="row justify-content-center">
+                    <p>Assurance</p>
+                    <p>1€/JOUR</p>
+                    <p><h4 id="totalAssurance" style="text-align: center;"></h4></p>
+                </div>
+
+                <div class="row justify-content-center">
+                    <p>Total</p>
+                    <p> <span><p id="totalPoints" style="text-align: center;"></p></span> / <span><p id="totalEuros" style="text-align: center;"></p></span> </p>
+
+                </div>
+
+            <div class="row justify-content-center">
+                <button type="button" class="class " href="{{ path('annonce', {'id': velo.id}) }}">J’annule ma demande de réservation</button>
+                <input type="submit" class="class " value="Je confirme ma demande de réservation" />
+
+            </div>
+            {{ form_end(reservationForm) }}
+        </div>
+    </div>
+{% endblock %}
