@@ -62,7 +62,7 @@ class AideController extends Controller
     }
 
     /**
-     * @Route("/bikerr-assurance", name="aide_depot_garantie")
+     * @Route("/bikerr-assurance", name="aide_assurance")
      *
      */
     public function assurance (request $request)
