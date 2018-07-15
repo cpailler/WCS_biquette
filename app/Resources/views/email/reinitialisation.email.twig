@@ -9,17 +9,13 @@
 
 {% block body_html %}
     {% autoescape false %}
-        <div class="text-center">
-            <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
-        </div>
 
         <h2>Bonjour,</h2>
 
         <p>Nous avons reçu une demande de réinitialisation de votre mot de passe. Cliquez ci-dessous pour réinitialiser votre mot de passe.</p><br>
         <p>L'équipe Bikerr</p>
 
-
-        <a class="bouton" href="{{ confirmationUrl }}"></a>
+        <a href="{{ confirmationUrl }}"></a>
 
         <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
 
