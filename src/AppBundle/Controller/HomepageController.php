@@ -24,6 +24,18 @@ class HomepageController extends Controller
         $membre = $this->getUser();
 
         if (isset ($membre)){
+            if (isset ($_POST['ville'])){
+                $ville = explode(",", $_POST['ville']);
+                $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$ville[0],'enLigne'=>true));
+
+                // replace this example code with whatever you need
+                return $this->render('recherche/rechercheListe.html.twig', array(
+                    'velos' => $velos,
+                    'membre'=> $this->getUser(),
+                    'ville'=>$_POST['ville']
+                ));
+            }
+
             return $this->render('homepage/homepage_connect.html.twig', array(
                 'membre' => $membre
             ));

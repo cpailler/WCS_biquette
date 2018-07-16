@@ -23,6 +23,7 @@ Encore
     .addEntry('calendrier', './assets/scss/calendrier.scss')
     .addEntry('cartePaiement', './assets/scss/cartePaiement.scss')
     .addEntry('virement', './assets/scss/virement.scss')
+    .addEntry('cgu', './assets/scss/cgu.scss')
 
 
     // allow legacy applications to use $/jQuery as a global variable
