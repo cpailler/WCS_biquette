@@ -30,4 +30,13 @@ class CguController extends Controller {
         $membre = $this->getUser();
         return $this->render('cgu/utilisation.html.twig', array('membre' => $membre));
     }
+
+    /**
+     * @Route("/conditions-assurance", name="condition_assurance")
+     *
+     */
+    public function conditionsAssurance() {
+        $membre = $this->getUser();
+        return $this->render('cgu/assurance.html.twig', array('membre' => $membre));
+    }
 }
