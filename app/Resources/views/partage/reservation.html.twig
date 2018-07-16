@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
- {% block javascripts %}
-     <script src="{{ asset('build/partage.js') }}"></script>
- {% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
@@ -17,45 +15,46 @@
 </div>
     <div class="container">
         <div class="cadrePartage">
-            <div class="titreVelo">
-                <h4>{{ velo.titre }}</h4>
+            <div id="titreVelo" class="row">
+
+                    <h4>{{ velo.titre }}</h4>
+
             </div>
 
                 <div id="dates" class="row">
-                        <div class="col-4">
-                            <p id="nbJours" style="text-align: center;"></p>
+                    <div  id="jours" class="col-4">
+                        <p id="nbJours" style="text-align: center;"></p>
+                    </div>
+
+                    <div id="dateDebut" class="col-4">
+
+                    {#Date de retrait#}
+                        <div>
+                            {{ form_start(reservationForm) }}
+                            {{ form_widget(reservationForm.debut,{ 'attr': {'class': 'dateclic'} }) }}
+                            {{ form_label(reservationForm.debut) }}
+                            {{ form_errors(reservationForm.debut) }}
+
                         </div>
-                        <div class="col-4">
+                    </div>
 
-                        {#Date de retrait#}
-                            <div>
-                                {{ form_start(reservationForm) }}
-                                {{ form_widget(reservationForm.debut,{ 'attr': {'class': 'dateclic'} }) }}
-                                {{ form_label(reservationForm.debut) }}
-                                {{ form_errors(reservationForm.debut) }}
-
+                    {#Date de retour#}
+                    <div id="dateFin" class="col-4">
+                        {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
+                        {{ form_label(reservationForm.fin) }}
+                        {{ form_errors(reservationForm.fin) }}
+                        {% for message in app.flashes('error') %}
+                            <div class="alert-danger">
+                                {{ message }}
                             </div>
-                        </div>
+                        {% endfor %}
 
-                        {#Date de retour#}
-                        <div class="col-4">
-                            {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
-                            {{ form_label(reservationForm.fin) }}
-                            {{ form_errors(reservationForm.fin) }}
-                            {% for message in app.flashes('error') %}
-                                <div class="alert-danger">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
-
-                        </div>
+                    </div>
                 </div>
-                <div class="row justify-content-center">
-
-                    <p>Points gagnés</p>
-                    <p> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p>
-                    <p id="nbPoints" style="text-align: center;"></p>
-
+                <div id="pointsRes" class="row">
+                    <div class="col-4"><p>Points gagnés</p></div>
+                    <div class="col-4"><p> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p></div>
+                    <div class="col-4"><p id="nbPoints" style="text-align: center;"></p></div>
                 </div>
                 <div class="row justify-content-center">
                     <p>Dépôt de garantie</p>
@@ -81,4 +80,7 @@
             {{ form_end(reservationForm) }}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/partagejs.js') }}"></script>
 {% endblock %}

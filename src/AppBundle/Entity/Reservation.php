@@ -72,6 +72,13 @@ class Reservation
      */
     private $assurance;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_day", type="integer")
+     */
+    private $nbDay;
+
 
     /**
      * Get id.

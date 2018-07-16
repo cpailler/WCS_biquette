@@ -1,32 +1,55 @@
 @import "main.scss";
 
 h4{
-  display: flex;
+
   font-family: $font;
   font-weight: bold;
-  position: absolute;
 
-  border: 2px solid $border-grey;
+}
+
+p{
+  font-family: $font;
+
+
 }
 
 .cadrePartage{
   width: 80%;
   margin: auto;
-  border: 5px solid black;
+  border: 1px solid $border-grey;
 }
 
-.titreVelo{
-  border: 2px solid $border-grey;
+#titreVelo{
+  border-bottom: 1px solid $border-grey;
+  width: 100%;
+  margin: auto;
 }
-
 
 
 #dates{
   display: flex;
+  border-bottom: 1px solid $border-grey;
+  margin: auto;
 
+}
+
+#jours{
+  border-right: 1px solid $border-grey;
+  font: $text-grey;
+}
+
+#dateDebut{
+  border-right: 1px solid $border-grey;
 }
 
 #carousel-photos {
   height: 287px;
   width: 100%;
+}
+
+#pointsRes{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  border-bottom: 1px solid $border-grey;
 }

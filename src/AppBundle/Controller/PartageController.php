@@ -21,61 +21,18 @@ use Symfony\Component\HttpFoundation\Request;
 class PartageController extends Controller
 {
     /**
-     * @Route("/{id}/reservation", name="partage_reservation")
-     *
-     */
-    public function utilisateurReservationAction(Request $request, Velo $velo, DateCheck $dateCheck, Calendrier $calendrier)
-    {
-        $membre = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $reservation = New Reservation();
-        $reservationForm = $this->createForm(ReservationType::class, $reservation);
-        $reservationForm->handleRequest($request);
-        if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
-            if ($dateCheck->isLegalReservation($reservation, $velo, $calendrier)){
-                $nbDay = intval($reservation->getDebut()->diff($reservation->getFin(),true)->format('%d'))+1;
-                $reservation->setVelo($velo);
-                $reservation->setLocataire($membre);
-                $reservation->setCoutPts($velo->getCoutPts()*$nbDay);
-                $reservation->setCaution($velo->getCaution());
-                if($velo->getAssurOblig()==1){
-                $reservation->setAssurance(1*$nbDay);
-                }
-                else {
-                    $reservation->setAssurance(0);
-                }
-
-                $em->persist($reservation);
-                $em->flush();
-            }
-            else {
-                $this->addFlash('error', 'La réservation n\'est pas valide, merci de vérifier la disponibilité du vélo.');
-            }
-        }
-
-
-
-        return $this->render('partage/utilisateur_reservation.html.twig',array(
-
-            'membre' => $membre,
-            'reservation' => $reservation,
-            'reservationForm' => $reservationForm->createView(),
-            'velo' => $velo));
-    }
-
-    /**
-     * @Route("/{id}/validation", name="partage_validation")
+     * @Route("/{id}", name="partage")
      *
      */
 
-    public function proprietaireValidationAction(Velo $velo) {
+    public function proprietaireValidationAction(Reservation $reservation) {
         $membre = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $reservation = $em->getRepository(Reservation::class)->findAll();
-        dump($reservation);
 
-        return $this->render('partage/proprietaire_validation.html.twig', array(
-            'velo' => $velo,
+
+
+
+        return $this->render('partage/partage.html.twig', array(
+
             'reservation' => $reservation,
             'membre' => $membre));
     }
