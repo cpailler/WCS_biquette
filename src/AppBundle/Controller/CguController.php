@@ -39,4 +39,31 @@ class CguController extends Controller {
         $membre = $this->getUser();
         return $this->render('cgu/assurance.html.twig', array('membre' => $membre));
     }
+
+    /**
+     * @Route("/confidentialite", name="confidentialite")
+     *
+     */
+    public function confidentialite() {
+        $membre = $this->getUser();
+        return $this->render('cgu/confidentialite.html.twig', array('membre' => $membre));
+    }
+
+    /**
+     * @Route("/ecomobilite", name="ecomobilite")
+     *
+     */
+    public function ecomobilite() {
+        $membre = $this->getUser();
+        return $this->render('cgu/ecomobilite.html.twig', array('membre' => $membre));
+    }
+
+    /**
+     * @Route("/cookies", name="cookies")
+     *
+     */
+    public function cookies() {
+        $membre = $this->getUser();
+        return $this->render('cgu/cookies.html.twig', array('membre' => $membre));
+    }
 }

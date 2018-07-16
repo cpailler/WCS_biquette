@@ -266,8 +266,8 @@
                     <h5>À propos</h5>
                     <p>
                         <a href="#">Qui sommes-nous</a><br>
-                        <a href="#">Conditions générales</a><br>
-                        <a href="#">Utilisation du service</a>
+                        <a href="{{ path('conditions_generales') }}">Conditions générales</a><br>
+                        <a href="{{ path('utilisation_service') }}">Utilisation du service</a>
                     </p>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-2">
@@ -291,17 +291,17 @@
                     <p style="text-align: right">
                         <a href="https://www.facebook.com/BikerrFrance/" target="_blank" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
                         <a href="https://twitter.com/bikerr" target="_blank" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
-                        <a href="#" target="_blank" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
+                        <a href="https://www.instagram.com/bikerrfrance/" target="_blank" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
                     </p>
                 </div>
             </div>
 
             <div class="row mt-2">
                 <div class="col-md-2 offset-3">
-                    <a href="/confidentialite">Confidentialité</a>
+                    <a href={{ path('confidentialite') }}>Confidentialité</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/cookies">Cookies</a>
+                    <a href={{ path('cookies') }}>Cookies</a>
                 </div>
                 <div class="col-md-4">
                     <p>© Bikerr 2018. Tous droits réservés.</p>
