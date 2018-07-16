@@ -24,6 +24,9 @@ class AnnonceController extends Controller
      */
     public function indexAction(Velo $velo, int $initMonth=null, int $initYear=null)
     {
+        if (!$velo->getEnLigne()){
+            return $this->redirectToRoute('recherche-liste');
+        }
         $membre = $this->getUser();
         $calendrier = new Calendrier($initMonth,$initYear);
         return $this->render('/recherche/annonce.html.twig', array(
