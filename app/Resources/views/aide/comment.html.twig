@@ -6,7 +6,11 @@
 {% block body %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <div class="gradient_box">
-        <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?!</h4>
+        {% if membre.image is not null %}
+            <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+            <br>
+        {% endif %}
+        <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
     </div>
     {% else %}
         <div class="gradient_box">

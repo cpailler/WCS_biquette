@@ -52,12 +52,28 @@ class RechercheListeController extends Controller
     }
 
     /**
+     * Recherche vélos sur Paris
+     *
+     * @Route("/recherche_paris", name="recherche-Paris")
+     * @Method({"GET", "POST"})
+     */
+    public function rechercheParis(request $request){
+
+        $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>['Paris'],'enLigne'=>true));
+
+        return $this->render('recherche/rechercheListe.html.twig', array(
+            'velos' => $velos,
+            'membre'=> $this->getUser()
+        ));
+    }
+
+    /**
      * Search velos.
      *
      * @Route("/getVille/{nom}", name="ville_search")
      * @Method({"GET"})
      */
-    public function searchAction($nom, SerializerInterface $serializer): Response
+    /*public function searchAction($nom, SerializerInterface $serializer): Response
     {
         $em = $this->getDoctrine()->getManager();
         $result = $em->getRepository(Velo::class)->findByExampleField($nom);
@@ -73,6 +89,6 @@ class RechercheListeController extends Controller
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
-    }
+    }*/
 }
 
