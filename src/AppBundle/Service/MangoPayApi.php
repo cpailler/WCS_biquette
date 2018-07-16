@@ -122,17 +122,18 @@ class MangoPayApi
         $PayIn->Fees = new \MangoPay\Money();
         $PayIn->Fees->Currency = "EUR";
         $PayIn->Fees->Amount = $fees;
-        // $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
-        // $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
+         //$PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
         //$PayIn->ExecutionDetails->SecureModeReturnURL = "http://127.0.0.1/";//".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?stepId=".($stepId+1);
         //$PayIn->ExecutionDetails->CardId = $Card->CardId;
         //TODO : Paiement type direct
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
         $PayIn->PaymentDetails->CardId = $CardObject->Id;
-        //TODO : execution direct
+            //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/paiement/card';
+        //$PayIn->ExecutionDetails->ReturnURL = 'localhost:8001/profil/infos';
+        $PayIn->ExecutionDetails->SecureModeReturnURL = "localhost:8001/profil/infos";
         $PayIn->ExecutionDetails->SecureMode = "FORCE";
         $PayIn->ExecutionDetails->Culture = "FR";
         //dump($PayIn);
@@ -140,13 +141,15 @@ class MangoPayApi
 }
 
 // card web payin pour 3D secure avec redirecturl
-    public function CardWebPayIn(Membre $membre,$amount,$fees)
+    public function CardWebPayIn(Membre $membre,\MangoPay\Card $CardObject,$amount,$fees)
 {
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
         $PayIn->AuthorId = $membre->getIdMangopay();
         $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+            $PayIn->PaymentDetails->CardType = $CardObject->CardType;
+            $PayIn->PaymentDetails->CardId = $CardObject->Id;
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
         $PayIn->DebitedFunds = new \MangoPay\Money();
         $PayIn->DebitedFunds->Currency = "EUR";

@@ -117,7 +117,7 @@ class PaiementController extends Controller
         $cardRegistration = $session->get('cardregistration');
         $membre = $this->getUser();
 
-        $returnURL = $session->get('returnURL');
+        //$returnURL = $session->get('returnURL');
 
 
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
@@ -125,18 +125,16 @@ class PaiementController extends Controller
 
         $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,10000,500);
 
-        //dump($PayIn);
+        dump($PayIn);
 
         //$cardWebPay = $mangoPayApi->CardWebPayIn($membre,6000,500);
         //$redirect = $request->query->get();
         //dump($cardWebPay);
         //dump($PayIn->ExecutionDetails->SecureModeRedirectURL);
 
-        if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
+       if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
         {
-            return $this->redirectToRoute($PayIn->ExecutionDetails->SecureModeRedirectURL);
-        }else{
-            $this->redirectToRoute('profil/');
+            return $this->redirect($PayIn->ExecutionDetails->SecureModeRedirectURL);
         }
 
 
