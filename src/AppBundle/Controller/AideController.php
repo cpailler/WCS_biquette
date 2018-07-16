@@ -111,4 +111,16 @@ class AideController extends Controller
             'membre' => $membre
         ));
     }
+
+    /**
+     * @Route("/bikerr-aide-sinistre", name="aide_sinistre")
+     *
+     */
+    public function aideSinistre(request $request)
+    {
+        $membre = $this->getUser();
+        return $this->render('aide/aideSinistre.html.twig', array(
+            'membre' => $membre
+        ));
+    }
 }
