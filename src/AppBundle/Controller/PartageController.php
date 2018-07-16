@@ -64,7 +64,7 @@ class PartageController extends Controller
     }
 
     /**
-     * @Route("/{id}/validation", name="partage_validation")
+     * @Route("/{id}/validation", name="partage")
      *
      */
 

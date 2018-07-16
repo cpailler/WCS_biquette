@@ -65,8 +65,103 @@
                         <a class="dropdown-item" href="#">Nous contacter</a>
                     </div>
                 </li>
-                <li class="nav-item navbar-border">
-                    <a class="nav-link" href="#">Partage <img src="{{ asset('images/partage-over.svg') }}" alt="partage" class="navbar-icon"></a>
+                <li class="nav-item dropdown navbar-border">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Partage <img src="{{ asset('images/partage-over.svg') }}" alt="partage" class="navbar-icon"></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        {% for velo in membre.velos %}
+                             {% for reservation in velo.reservations %}
+                                 {% if reservation.etape == 0 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                         {% if reservation.locataire.image is not null %}
+                                             <div class="crop_profile_nav">
+                                                 <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                             </div>
+                                         {% else %}
+                                             <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                         {% endif %}
+                                         {{ reservation.locataire.prenom }} souhaite réserver votre vélo</a>
+                                     <div class="dropdown-divider"></div>
+                                 {% elseif reservation.etape == 1 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                     {% if reservation.locataire.image is not null %}
+                                         <div class="crop_profile_nav">
+                                             <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                         </div>
+                                     {% else %}
+                                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                     {% endif %}
+                                     {{ reservation.locataire.prenom }} va procéder au paiement</a>
+                                 {% elseif reservation.etape == 2 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                     {% if reservation.locataire.image is not null %}
+                                         <div class="crop_profile_nav">
+                                             <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                         </div>
+                                     {% else %}
+                                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                     {% endif %}
+                                     {{ reservation.locataire.prenom }} utilise votre velo</a>
+                                 {% elseif reservation.etape == 3 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                     {% if reservation.locataire.image is not null %}
+                                         <div class="crop_profile_nav">
+                                             <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                         </div>
+                                     {% else %}
+                                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                     {% endif %}
+                                     {{ reservation.locataire.prenom }} a retourné votre velo</a>
+                                 {% endif %}
+                             {% endfor %}
+                        {% endfor %}
+                        {% for reservation in membre.reservations %}
+                            {% if reservation.etape == 0 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} va valider votre réservation</a>
+                                <div class="dropdown-divider"></div>
+                            {% elseif reservation.etape == 1 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} attend votre paiement</a>
+                            {% elseif reservation.etape == 2 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} attend le retour de son velo</a>
+                            {% elseif reservation.etape == 3 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} va valider le retour de son velo</a>
+                            {% endif %}
+                        {% endfor %}
+                        <a class="dropdown-item" href="{#{{ path('partage_archives') }}#}">
+                            <span style="color: green;">Consulter l'historique des partages</span>
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown navbar-border">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
