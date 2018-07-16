@@ -1,12 +1,11 @@
-{% extends 'base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/email.css') }}">
 {% endblock %}
 
-{% block subject %}Demande de partage !{% endblock %}
-
 {% block body_text %}
 {% endblock %}
+
+{% block subject %}Paiement effectué{% endblock %}
 
 {% block body_html %}
 
@@ -16,9 +15,7 @@
 
     <h2>Bonjour,</h2>
 
-    <p>Un utilisateur souhaite emprunter votre vélo "{{ reservation.velo.titre }}".</p>
-
-    <p>Il s'agit de {{ reservation.locataire.prenom }} {{ reservation.locataire.nom }}. Pour voir sa demande, cliquez ici: <a href="https://bikerr.fr/{{ path('partage/'~reservation.id) }}"></a></p>
+    <p>Conformément aux critères listés dans l'annonce, {{ reservation.coutPts }} points vous ont été versés sur votre compte Bikerr.</p>
 
     <p>L'équipe Bikerr</p>
 

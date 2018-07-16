@@ -1,0 +1,31 @@
+{% block javascripts %}
+<script src="{{ asset('build/partage.js') }}"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+{% endblock %}
+
+{% block subject %}Transaction réussie !{% endblock %}
+
+{% block body_text %}
+{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        <div class="text-center"><div class="text-center">
+        <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+    </div>
+
+            <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+        </div>
+
+        <h2>Bonjour {{ membre.prenom }},</h2>
+
+        <p>Votre transaction a bien été effectuée. Voici le récapitulatif :</p><br>
+
+        <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
+    {% endautoescape %}
+{% endblock %}

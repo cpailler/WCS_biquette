@@ -2,17 +2,22 @@
     <link rel="stylesheet" href="{{ asset('build/email.css') }}">
 {% endblock %}
 
+{% block body_text %}
+{% endblock %}
+
 {% block subject %}Réinitialiser votre mot de passe{% endblock %}
 
 {% block body_html %}
     {% autoescape false %}
-        <h2>Bonjour {{ membre.prenom }},</h2>
+
+        <h2>Bonjour,</h2>
 
         <p>Nous avons reçu une demande de réinitialisation de votre mot de passe. Cliquez ci-dessous pour réinitialiser votre mot de passe.</p><br>
         <p>L'équipe Bikerr</p>
 
+        <a href="{{ confirmationUrl }}"></a>
 
-        <button class="bouton"><a href="">{{ confirmationUrl }}</a></button>
+        <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
 
     {% endautoescape %}
 {% endblock %}
