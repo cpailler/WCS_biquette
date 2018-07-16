@@ -244,44 +244,68 @@
         <div class="container_velo">
             <div class="row">
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square ">
-                        <h3 class="title_text_town">PARIS</h3>
-                    </div>
+                    <form id="paris" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Paris">
+                        <div class="town_square" onclick="document.getElementById('paris').submit();">
+                            <h3 class="title_text_town">PARIS</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class=" col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">NICE</h3>
-                    </div>
+                    <form id="nice" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Nice">
+                        <div class="town_square" onclick="document.getElementById('nice').submit();">
+                            <h3 class="title_text_town">NICE</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">STRASBOURG</h3>
-                    </div>
+                    <form id="strasbourg" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Strasbourg">
+                        <div class="town_square" onclick="document.getElementById('strasbourg').submit();">
+                            <h3 class="title_text_town">STRASBOURG</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">BORDEAUX</h3>
-                    </div>
+                    <form id="bordeaux" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Bordeaux">
+                        <div class="town_square" onclick="document.getElementById('bordeaux').submit();">
+                            <h3 class="title_text_town">BORDEAUX</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square ">
-                        <h3 class="title_text_town">LYON</h3>
-                    </div>
+                    <form id="lyon" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Lyon">
+                        <div class="town_square" onclick="document.getElementById('lyon').submit();">
+                            <h3 class="title_text_town">LYON</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class=" col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">TOULOUSE</h3>
-                    </div>
+                    <form id="toulouse" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Toulouse">
+                        <div class="town_square" onclick="document.getElementById('toulouse').submit();">
+                            <h3 class="title_text_town">TOULOUSE</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">NANTES</h3>
-                    </div>
+                    <form id="nantes" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Nantes">
+                        <div class="town_square" onclick="document.getElementById('nantes').submit();">
+                            <h3 class="title_text_town">NANTES</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">PERPIGNAN</h3>
-                    </div>
+                    <form id="perpignan" action="{{ path('recherche-liste') }}" method="post">
+                        <input type="hidden" name="ville" value="Perpignan">
+                        <div class="town_square" onclick="document.getElementById('perpignan').submit();">
+                            <h3 class="title_text_town">PERPIGNAN</h3>
+                        </div>
+                    </form>
                 </div>
 
 
