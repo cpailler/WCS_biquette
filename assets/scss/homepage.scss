@@ -115,6 +115,16 @@
   background-color: #005f1c;
 }
 
+.img-aide {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  text-align: center;
+}
+
+.img-aide img {
+  max-width: 80%
+}
+
 @media (max-width: 576px)
 {
   .container_velo {
@@ -157,4 +167,9 @@
 
 .container_aide {
   display: flex;
+}
+
+.exemple {
+  background: $grey-background;
+  padding: 20px;
 }

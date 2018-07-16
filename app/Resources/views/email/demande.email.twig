@@ -5,6 +5,9 @@
 
 {% block subject %}Demande de partage !{% endblock %}
 
+{% block body_text %}
+{% endblock %}
+
 {% block body_html %}
 
     <div class="text-center">
@@ -13,9 +16,9 @@
 
     <h2>Bonjour,</h2>
 
-    <p>Un utilisateur souhaite emprunter votre vélo "{{ proprio.velo.titre }}".</p>
+    <p>Un utilisateur souhaite emprunter votre vélo "{{ reservation.velo.titre }}".</p>
 
-    <p>Il s'agit de {{ membre.prenom }} {{ membre.nom }}. Pour voir sa demande, cliquez ici: <a href="https://bikerr.fr/{{ path('') }}"></a></p>
+    <p>Il s'agit de {{ reservation.locataire.prenom }} {{ reservation.locataire.nom }}. Pour voir sa demande, cliquez ici: <a href="https://bikerr.fr/{{ path('partage/'~reservation.id) }}"></a></p>
 
     <p>L'équipe Bikerr</p>
 

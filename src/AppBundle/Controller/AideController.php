@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Velo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +57,33 @@ class AideController extends Controller
     public function depotGarantie (request $request)
     {
         $membre = $this->getUser();
+        $velo = $membre->getVelos();
         return $this->render('aide/depotGarantie.html.twig', array(
+            'membre' => $membre,
+            'velo' => $velo
+        ));
+    }
+
+    /**
+     * @Route("/bikerr-assurance", name="aide_assurance")
+     *
+     */
+    public function assurance (request $request)
+    {
+        $membre = $this->getUser();
+        return $this->render('aide/assurance.html.twig', array(
+            'membre' => $membre
+        ));
+    }
+
+    /**
+     * @Route("/bikerr-equipement", name="aide_equipement")
+     *
+     */
+    public function aideEquipement(request $request)
+    {
+        $membre = $this->getUser();
+        return $this->render('aide/aideEquipement.html.twig', array(
             'membre' => $membre
         ));
     }
