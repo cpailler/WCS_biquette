@@ -16,6 +16,18 @@ $text-dark: #333634;
 $text-grey: #949a96;
 $normButton:#ffffff;
 
+.text_color_bikerr{
+  color: $bikerr-green;
+}
+
+.text_color_bikerr a{
+  color: $bikerr-green;
+}
+
+.text_color_bikerr a:hover{
+  text-decoration: underline;
+}
+
 .body {
   font: $font;
 }

@@ -77,13 +77,37 @@ class AideController extends Controller
     }
 
     /**
-     * @Route("/bikerr-equipement", name="aide_equipement")
-     *
-     */
+ * @Route("/bikerr-equipement", name="aide_equipement")
+ *
+ */
     public function aideEquipement(request $request)
     {
         $membre = $this->getUser();
         return $this->render('aide/aideEquipement.html.twig', array(
+            'membre' => $membre
+        ));
+    }
+
+    /**
+     * @Route("/bikerr-attacher_velo", name="aide_attache")
+     *
+     */
+    public function aideAttacheVelo(request $request)
+    {
+        $membre = $this->getUser();
+        return $this->render('aide/aideAttacheVelo.html.twig', array(
+            'membre' => $membre
+        ));
+    }
+
+    /**
+     * @Route("/bikerr-marquage-bicycode", name="aide_bicycode")
+     *
+     */
+    public function marquageBicycode(request $request)
+    {
+        $membre = $this->getUser();
+        return $this->render('aide/aideBicycode.html.twig', array(
             'membre' => $membre
         ));
     }
