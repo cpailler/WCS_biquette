@@ -12,11 +12,13 @@
             <!-- photo de profil -->
             <div class="col-12 col-lg-3 offset-lg-1 photoProfil">
                 {% if membre.image is not null %}
-                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                    <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                    <div><a href="{{ path('photo-profil') }}">Modifier ma photo de profil</a></div>
                 {% else %}
-                <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
+                    <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
+                    <div><a href="{{ path('photo-profil') }}">Ajouter une photo de profil</a></div>
                 {% endif %}
-                <div><a href="{{ path('photo-profil') }}">Ajouter une photo de profil</a></div>
+
             </div>
             <!-- zone barre de progression -->
             <div class="col-12 col-lg-7 progressionProfil">
