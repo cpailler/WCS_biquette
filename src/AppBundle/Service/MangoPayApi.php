@@ -106,13 +106,13 @@ class MangoPayApi
 
     }
 
-    //création d'une  Card direct PayIn // card web payin pour 3D secure avec redirecturl
+    //création d'une  Card direct PayIn
     public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $amount, $fees)
     {
 
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
-        $PayIn->AuthorId = $membre->getIdMangopay(); //
+        $PayIn->AuthorId = $membre->getIdMangopay();
         $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
@@ -133,9 +133,34 @@ class MangoPayApi
         //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
         $PayIn->ExecutionDetails->SecureModeReturnURL = 'http://localhost/paiement/card';
-        $PayIn->ExecutionDetails->SecureMode="FORCE";
+        $PayIn->ExecutionDetails->SecureMode = "FORCE";
         $PayIn->ExecutionDetails->Culture = "FR";
         //dump($PayIn);
+        return $this->connexionApi->PayIns->Create($PayIn);
+}
+
+// card web payin pour 3D secure avec redirecturl
+    public function CardWebPayIn(Membre $membre,$amount,$fees)
+{
+        $PayIn = new \MangoPay\PayIn();
+        $PayIn->CreditedWalletId = $membre->getIdWallet();
+        $PayIn->AuthorId = $membre->getIdMangopay();
+        $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
+        $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+        $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
+        $PayIn->DebitedFunds = new \MangoPay\Money();
+        $PayIn->DebitedFunds->Currency = "EUR";
+        $PayIn->DebitedFunds->Amount = $amount;
+        $PayIn->Fees = new \MangoPay\Money();
+        $PayIn->Fees->Currency = "EUR";
+        $PayIn->Fees->Amount = $fees;
+        $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
+        $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+        $PayIn->ExecutionDetails->ReturnURL = 'http://localhost/paiement/card';
+        $PayIn->ExecutionDetails->SecureMode = "FORCE";
+        $PayIn->ExecutionDetails->SecureModeNeeded = "TRUE";
+
+        $PayIn->ExecutionDetails->Culture = "FR";
         return $this->connexionApi->PayIns->Create($PayIn);
     }
 

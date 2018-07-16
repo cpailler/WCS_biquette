@@ -124,11 +124,20 @@ class PaiementController extends Controller
         dump($CarteUpdated);
 
         $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,10000,500);
-        dump($PayIn);
 
+        //dump($PayIn);
 
+        //$cardWebPay = $mangoPayApi->CardWebPayIn($membre,6000,500);
+        //$redirect = $request->query->get();
+        //dump($cardWebPay);
+        //dump($PayIn->ExecutionDetails->SecureModeRedirectURL);
 
-        return $this->redirectToRoute('profil_infos');
+        if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
+        {
+            return $this->redirectToRoute($PayIn->ExecutionDetails->SecureModeRedirectURL);
+        }else{
+            $this->redirectToRoute('profil/');
+        }
 
 
     }
