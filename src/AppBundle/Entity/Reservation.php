@@ -72,6 +72,12 @@ class Reservation
      */
     private $assurance;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="etape", type="integer")
+     */
+    private $etape = 0;
 
     /**
      * Get id.
@@ -273,5 +279,29 @@ class Reservation
     public function getLocataire()
     {
         return $this->locataire;
+    }
+
+    /**
+     * Set etape.
+     *
+     * @param int $etape
+     *
+     * @return Reservation
+     */
+    public function setEtape($etape)
+    {
+        $this->etape = $etape;
+
+        return $this;
+    }
+
+    /**
+     * Get etape.
+     *
+     * @return int
+     */
+    public function getEtape()
+    {
+        return $this->etape;
     }
 }

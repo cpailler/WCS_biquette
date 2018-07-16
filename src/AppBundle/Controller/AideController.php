@@ -60,4 +60,16 @@ class AideController extends Controller
             'membre' => $membre
         ));
     }
+
+    /**
+     * @Route("/bikerr-assurance", name="aide_assurance")
+     *
+     */
+    public function assurance (request $request)
+    {
+        $membre = $this->getUser();
+        return $this->render('aide/assurance.html.twig', array(
+            'membre' => $membre
+        ));
+    }
 }

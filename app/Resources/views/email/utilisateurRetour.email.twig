@@ -1,0 +1,27 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+{% endblock %}
+
+{% block body_text %}
+{% endblock %}
+
+{% block subject %}Retour de votre vélo !{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        <div class="text-center">
+            <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+        </div>
+
+        <h2>Bonjour {{ velo.proprio.prenom }},</h2>
+
+        <p>Le locataire {{ membre.prenom }} {{ membre.nom }} vient de confirmer le retour de votre vélo. Veuillez également valider que son retour a bien eu lieu en cliquant sur le lien ci-dessous :</p><br>
+        <p>L'équipe Bikerr</p>
+
+
+        <a class="bouton"><a href="">{{ confirmationUrl }}</a>
+        <!-- il faut modifier le lien -->
+
+        <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
+    {% endautoescape %}
+{% endblock %}
