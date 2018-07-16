@@ -26,6 +26,7 @@ class RechercheListeController extends Controller
      */
     public function indexAction(request $request)
     {
+        dump($_POST);
         $em = $this->getDoctrine()->getManager();
         if (isset ($_POST['ville'])){
             $ville = explode(",", $_POST['ville']);
