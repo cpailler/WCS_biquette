@@ -30,7 +30,7 @@
         <div class="title_text_header">
             <h1><strong>TROUVEZ LE BON VELO</strong></h1>
             <h2 class="lead ">Partage de vélos entre amis</h2>
-            <a class="bouton mt-5" href="/register">Rejoindre la bande</a>
+            <a class="bouton mt-5" href="{{ path('enregistrement') }}">Rejoindre la bande</a>
         </div>
     </div>
 
@@ -60,80 +60,28 @@
         </div>
     </div>
 
+    <!-- vélos partagés -->
     <div class="bikerr_container">
         <h4 class="explication_title">Vélos partagés récemment</h4>
-        <br>
         <div class="container_velo">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/vintage-bike.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                {% for veloPartage in velosPartages %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                        <div class="shadow">
+                            <div class="card crop">
+                                <a href="{{ path('enregistrement') }}">
+                                    <img class="card-img-top" src="{{ asset('images/uploads/' ~ veloPartage.photos.0.image ) }}" alt="velo_electrique">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="title-announce">{{ veloPartage }} <span>{{ veloPartage.coutPts }}</span></h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo_adulte.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo-giant.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo-pedego.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
-            <br>
-            <a class="btn btn-lg bouton" href="/register" role="button">Découvrir</a>
+
+            <a class="btn btn-lg bouton" href="{{ path('enregistrement') }}" role="button">Découvrir</a>
         </div>
     </div>
 
@@ -186,7 +134,7 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-lg bouton" href="/register" role="button">Partager mon vélo</a>
+        <a class="btn btn-lg bouton" href="{{ path('enregistrement') }}" role="button">Partager mon vélo</a>
     </div>
 
     <div style="position: relative; width: 100%">
