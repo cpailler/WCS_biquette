@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 class AideController extends Controller
 {
     /**
- * @Route("/comment-ca-marche", name="aide_comment")
- *
- */
+     * @Route("/comment-ca-marche", name="aide_comment")
+     *
+     */
     public function commentCaMarche (request $request)
     {
         $membre = $this->getUser();
