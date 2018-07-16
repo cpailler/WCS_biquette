@@ -1,8 +1,32 @@
+{#
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/enregistrement.css') }}">
+{% endblock %}
+
+<div class="text-center">
+    <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+</div>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title align-items-center">Mot de passe réinitialisé</h5>
+        </div>
+        <form action="{{ path('fos_user_resetting_reset') }}" method="post">
+            <div class="modal-body">
+                <input class="form-control" type="text" id="username" name="username" required="required" autocomplete="email" placeholder="Adresse email" />
+                <button type="submit" value="{{ 'resetting.reset.submit' }}" class="bouton w-100 mt-3"><img class ="mr-2" src="{{ asset('images/icn-bikerr.svg') }}">Envoyer</button>
+            </div>
+        </form>
+    </div>
+</div>
+<p id="copyright">©Bikerr 2018. Tous droits réservés.</p>#}
+
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
     {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
-    </div>
+<div>
+    <input type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
+</div>
 {{ form_end(form) }}

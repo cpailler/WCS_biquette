@@ -3,16 +3,22 @@
     <link rel="stylesheet" href="{{ asset('build/email.css') }}">
 {% endblock %}
 
+{% block subject %}Demande de partage !{% endblock %}
+
+{% block body_text %}
+{% endblock %}
+
 {% block body_html %}
+
     <div class="text-center">
         <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
     </div>
 
     <h2>Bonjour,</h2>
 
-    <p>Une demande de partage a été faite pour votre vélo "{{ proprio.velo.titre }}".</p>
+    <p>Un utilisateur souhaite emprunter votre vélo "{{ reservation.velo.titre }}".</p>
 
-    <p>Il s'agit de {{ membre.prenom }} {{ membre.nom }}. Pour voir sa demande, cliquez ici: (LIEN DE PARTAGE)</p>
+    <p>Il s'agit de {{ reservation.locataire.prenom }} {{ reservation.locataire.nom }}. Pour voir sa demande, cliquez ici: <a href="https://bikerr.fr/{{ path('partage/'~reservation.id) }}"></a></p>
 
     <p>L'équipe Bikerr</p>
 

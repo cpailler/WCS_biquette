@@ -4,8 +4,16 @@ body {
   background-color: $grey-background;
 }
 
+#logo {
+  margin: auto;
+}
+
 #copyright {
   font-size: 14px;
   color: $text-grey;
   text-align: center;
+}
+
+a, a:hover {
+  text-decoration: none;
 }
