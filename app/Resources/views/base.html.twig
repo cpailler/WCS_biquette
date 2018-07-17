@@ -210,7 +210,14 @@
                         <div class="dropdown-divider"></div>
 
                         {% for velo in membre.velos %}
-                            <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">{{ velo.titre }}</a>
+                            <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}">
+                                <img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">
+                                {% if velo.titre is not null %}
+                                    {{ velo.titre }}
+                                {% else %}
+                                    Mon vélo
+                                {% endif %}
+                            </a>
                         {% endfor %}
 
                         <div class="dropdown-divider"></div>
