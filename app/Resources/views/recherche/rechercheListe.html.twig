@@ -15,7 +15,7 @@
                     <!-- barre de tri -->
                     <div class="col-12 col-lg-12 form-control recherche-map">
 
-                        <form class="tri-box" method="post" action="">
+                        <form class="tri-box" method="post" action="{{ path('recherche-liste') }}">
                             <div class="tri-city">
                                 <div>
                                     <input id="search-city" name="ville" class="form-control" type="text" placeholder="Dans quelle ville voulez-vous un vélo ?" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
@@ -127,16 +127,7 @@
         </div>
     </div>
 
-    <!--          AUTOCOMPLETE VILLE           -->
-    <script>
-        function initMap() {
-            var input = document.getElementById('search-city');
-            var autocomplete = new google.maps.places.Autocomplete(
-                input, {placeIdOnly: true});
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
-            async defer></script>
+
 
     <!--          TRI VELO         -->
     <script src="{{ asset('build/tri.js') }}"></script>
