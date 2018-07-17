@@ -3,7 +3,14 @@
         {{ form_start(form) }}
             <div class="row">
                 <div class="col-12">
-                    {{ form_label(form.genre) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.genre) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
                     <div id="appbundle_membre_genre" class="row justify-content-center">
                         {% for genre in genres %}
                             <label class="containergreen col-3 ">
@@ -18,26 +25,80 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    {{ form_row(form.nom) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.nom) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.nom) }}
+                    {{ form_widget(form.nom) }}
                 </div>
                 <div class="col-6">
-                    {{ form_row(form.prenom) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.prenom) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.prenom) }}
+                    {{ form_widget(form.prenom) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    {{ form_row(form.codePostal) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.codePostal) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.codePostal) }}
+                    {{ form_widget(form.codePostal) }}
                 </div>
                 <div class="col-6">
-                    {{ form_row(form.ville) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.ville) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.ville) }}
+                    {{ form_widget(form.ville) }}
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    {{ form_row(form.email) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.email) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.email) }}
+                    {{ form_widget(form.email) }}
                 </div>
                 <div class="col-6">
-                    {{ form_row(form.pays) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.pays) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.pays) }}
+                    {{ form_widget(form.pays) }}
                 </div>
             </div>
             <div class="row">
@@ -45,11 +106,31 @@
                     {{ form_row(form.indicTel) }}
                 </div>
                 <div class="col-6">
-                    {{ form_row(form.tel) }}
+                    <div>
+                        <div style="display: inline-block;">
+                            {{ form_label(form.tel) }}
+                        </div>
+                        <div class="asterix">
+                            (*)
+                        </div>
+                    </div>
+                    {{ form_errors(form.tel) }}
+                    {{ form_widget(form.tel) }}
                 </div>
             </div>
-        {{ form_row(form.dateNaissance) }}
-
+        <div class="col-6">
+            <div>
+                <div style="display: inline-block;">
+                    {{ form_label(form.dateNaissance, 'Date de Naissance') }}
+                </div>
+                <div class="asterix">
+                    (*)
+                </div>
+            </div>
+            {{ form_errors(form.dateNaissance) }}
+            {{ form_widget(form.dateNaissance) }}
+        </div>
+        <br>
         {% do form.genre.setRendered %}
         <input type="submit" class="class bouton" value="Enregistrer" />
         {{ form_end(form) }}
