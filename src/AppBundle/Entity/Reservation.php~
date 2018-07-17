@@ -311,28 +311,4 @@ class Reservation
     {
         return $this->etape;
     }
-
-    /**
-     * Set nbDay.
-     *
-     * @param int $nbDay
-     *
-     * @return Reservation
-     */
-    public function setNbDay($nbDay)
-    {
-        $this->nbDay = $nbDay;
-
-        return $this;
-    }
-
-    /**
-     * Get nbDay.
-     *
-     * @return int
-     */
-    public function getNbDay()
-    {
-        return $this->nbDay;
-    }
 }

@@ -41,6 +41,7 @@ class ReservationController extends Controller
         if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
             if ($dateCheck->isLegalReservation($reservation, $velo, $calendrier)) {
                 $nbDay = intval($reservation->getDebut()->diff($reservation->getFin(), true)->format('%d')) + 1;
+                $reservation->setNbDay($nbDay);
                 $reservation->setVelo($velo);
                 $reservation->setLocataire($membre);
                 $reservation->setCoutPts($velo->getCoutPts() * $nbDay);
@@ -53,9 +54,14 @@ class ReservationController extends Controller
 
                 $em->persist($reservation);
                 $em->flush();
+                return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+
+
             } else {
                 $this->addFlash('error', 'La réservation n\'est pas valide, merci de vérifier la disponibilité du vélo.');
             }
+
+
         }
 
 

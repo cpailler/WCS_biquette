@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
- {% block javascripts %}
-     <script src="{{ asset('build/partage.js') }}"></script>
- {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('build/partage.js') }}"></script>
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
@@ -22,7 +22,7 @@
     <div class="container-fluid ">
         <div id="dates" class="row justify-content-center">
             <div class="col-4">
-                <p id="nbJours" style="text-align: center;"></p>
+                <p>{{ reservation.nbDay }} Jours</p>
             </div>
 
             {#Date de retrait#}
@@ -59,9 +59,12 @@
         </div>
 
         <div class="row justify-content-center">
-            <button type="button" class="class " href="{{ path('partage', {'id': reservation.id}) }}">J’annule ma demande de réservation</button>
-            <input type="submit" class="class " value="Je confirme ma demande de réservation" />
-
+            {% if reservation.etape == 0 %}
+                <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >En attente de la validation</button></a>
+            {% else %}
+                <a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="class ">J’annule ma demande de réservation</button></a>
+                <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >Je confirme ma demande de réservation</button></a>
+            {% endif %}
         </div>
 
 

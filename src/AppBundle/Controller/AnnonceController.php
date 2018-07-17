@@ -26,10 +26,15 @@ class AnnonceController extends Controller
     {
         $membre = $this->getUser();
         $calendrier = new Calendrier($initMonth,$initYear);
+
+
         return $this->render('/recherche/annonce.html.twig', array(
             'velo' => $velo,
             'membre' => $membre,
             'calendrier' => $calendrier
         ));
+
+
     }
+
 }
