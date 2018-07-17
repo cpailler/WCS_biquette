@@ -253,4 +253,16 @@
         </div>
     </div>
 
+    <!--          AUTOCOMPLETE VILLE           -->
+    <script>
+        function initMap() {
+            var input = document.getElementById('search-city');
+            var autocomplete = new google.maps.places.Autocomplete(
+                input, {placeIdOnly: true});
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
+            async defer></script>
+    <!--         END AUTOCOMPLETE VILLE           -->
+
 {% endblock %}
