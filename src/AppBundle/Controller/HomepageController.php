@@ -27,7 +27,10 @@ class HomepageController extends Controller
 
         //retourne tous les velos electriques qui sont en ligne
         $velosElectriques = $this->getDoctrine()->getRepository(Velo::class)->findBy(
-            array('typeVelo' =>'33', 'enLigne' => '1')
+            array('typeVelo' =>'33', 'enLigne' => '1'),
+            array('id' => 'desc'),
+            3,
+            0
         );
 
         //retourne tous les vélos récemment mis en ligne, ordonnés par dernière date de publication
