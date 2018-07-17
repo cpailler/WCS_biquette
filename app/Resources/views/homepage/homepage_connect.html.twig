@@ -32,11 +32,11 @@
             <h2 class="lead ">Partage de vélos entre amis</h2>
 
             <div class="row">
-                <form class="form-inline container_velo">
-                    <input class="form-control col-md-5 col-sm-6 " type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search">
-                    <input class="form-control col-md-1 col-sm-2 offset-md-1" type="date" name="debut" min="{{ "now"|date("m/d/Y") }}">
-                    <input class="form-control col-md-1 col-sm-2" type="date" name="debut" >
-                    <button class="btn btn-lg bouton col-md-2 offset-md-1" type="submit">Rechercher</button>
+                <form class="form-inline container_velo" method="post" action="{{ path('recherche-liste') }}">
+                    <input id="search-city" name="ville" class="form-control col-md-5 col-sm-5 " type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
+                    <!-- <input class="form-control col-md-1 col-sm-2 offset-md-1" type="date" name="debut" min=" TWIG "now"|date("m/d/Y") TWIG ">
+                    <input class="form-control col-md-1 col-sm-2" type="date" name="debut" > -->
+                    <button class="btn btn-lg bouton col-md-5 col-sm-5" type="submit">Rechercher</button>
                 </form>
             </div>
         </div>
@@ -321,5 +321,15 @@
         </div>
     </div>
 
+    <!--          AUTOCOMPLETE VILLE           -->
+    <script>
+        function initMap() {
+            var input = document.getElementById('search-city');
+            var autocomplete = new google.maps.places.Autocomplete(
+                input, {placeIdOnly: true});
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
+            async defer></script>
 
 {% endblock %}

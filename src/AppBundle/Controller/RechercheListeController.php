@@ -27,7 +27,6 @@ class RechercheListeController extends Controller
     public function indexAction(request $request)
     {
         dump($_POST);
-        $em = $this->getDoctrine()->getManager();
         if (isset ($_POST['ville'])){
             $ville = explode(",", $_POST['ville']);
             $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$ville[0],'enLigne'=>true));
