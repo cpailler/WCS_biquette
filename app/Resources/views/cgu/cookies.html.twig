@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/cgu.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <nav class="justify-content-center h-75 navbar navbar-expand-lg navbar-light bg-dark text-light">
+        <a class="mr-5" href="{{ path('conditions_generales') }}">1.Conditions générales</a>
+        <a class="mr-5" href="{{ path('utilisation_service') }}">2.Utilisation du service</a>
+        <a class="mr-5" href="{{ path('condition_assurance')}}">3.Conditions de l'assurance</a>
+        <a class="mr-5" href="{{ path('confidentialite') }}">4.Confidentialité</a>
+        <a class="mr-5" href="{{ path('ecomobilite') }}">5.Securité</a>
+        <a class="mr-5" href="{{ path('cookies') }}">6.Cookies</a>
+    </nav>
+
+<div class="container mt-5">
+
+    <h2 class="text-center mt-5">VI. Cookies</h2>
+    <h5 class="text-center">Dernière Mise à jour : 28 juin 2018</h5>
+    <hr class="mt-5 mb-5">
+    <strong><p>VEUILLEZ LIRE ATTENTIVEMENT LES CONDITIONS GÉNÉRALES D’UTILISATION DU SITE BIKERR.FR CAR ELLES CONTIENNENT DES INFORMATIONS IMPORTANTES CONCERNANT VOS DROITS, RECOURS ET OBLIGATIONS.</p>
+        <p>LES PRESENTES CONDITIONS GENERALES D’UTILISATION S'APPLIQUENT AUX SERVICES PROPOSES PAR LE SITE BIKERR.FR.</p>
+        <p>LE SERVICE DE PARTAGE DE VELOS EST EDITE PAR BIKERR SASU – AU CAPITAL DE 1000,00 € – R.C.S. STRASBOURG TI 818 919 094 – AYANT SON SIEGE SOCIAL, 141 A RUE DE BALE, 67100 STRASBOURG.</p>
+        <p>L'HEBERGEMENT DU SITE EST ASSURE PAR LA SOCIETE OVH.</p></strong>
+    <hr class="mt-5 mb-5">
+
+    <p>Les Visiteurs et les Membres sont informés que, lors de leurs visites sur le Site, un ou plusieurs cookies peuvent s’installer automatiquement sur leur logiciel de navigation.
+    Un cookie est un bloc de données qui sert à enregistrer des informations relatives à la navigation du Visiteur ou du Membre sur le Site.
+    Le paramétrage du logiciel de navigation permet d’activer ou désactiver l’utilisation des cookies et chaque Visiteur et Membre est invité à consulter les conditions de paramétrage proposées par son ou ses logiciels de navigation.</p>
+
+    <hr>
+    <strong><p class="text-center">*** Fin des cookies ***</p></strong>
+    <hr>
+
+</div>
+
+    <div class="container">
+        <h6>Mentions légales</h6>
+        <p>Ce site Internet est développé et géré par la société Bikerr SASU (Société par Actions Simplifiées unipersonnelle). Ce site Internet et tout son contenu et les &quot;Points&quot; sont la propriété de Bikerr SASU, dont les bureaux sont situés au 141 A rue de Bâle, 67100 Strasbourg, France.</p>
+        <p>SIRET: TI 818 919 094 R.C.S. STRASBOURG</p>
+        <p>N° TVA CEE : FR 76 818919094</p>
+        <br>
+        <p>En vous connectant sur <a href="bikerr.fr">www.bikerr.fr</a> vous acceptez les Conditions Générales d'Utilisation. En acceptant nos Conditions Générales d'Utilisation, vous reconnaissez avoir lu et compris ces dernières. Les Conditions Générales d'Utilisations sont applicables dès lors que l'internaute les a acceptées en s'inscrivant. Pour nous contacter, vous pouvez nous envoyer un mail à <a href="mailto:contact@bikerr.fr">contact@bikerr.fr</a></p>
+    </div>
+{% endblock %}

@@ -6,7 +6,16 @@
 
 {% block body %}
 
-<div class="container mt-5">
+    <nav class="justify-content-center h-75 navbar navbar-expand-lg navbar-light bg-dark text-light">
+        <a class="mr-5" href="{{ path('conditions_generales') }}">1.Conditions générales</a>
+        <a class="mr-5" href="{{ path('utilisation_service') }}">2.Utilisation du service</a>
+        <a class="mr-5" href="{{ path('condition_assurance')}}">3.Conditions de l'assurance</a>
+        <a class="mr-5" href="{{ path('confidentialite') }}">4.Confidentialité</a>
+        <a class="mr-5" href="{{ path('ecomobilite') }}">5.Securité</a>
+        <a class="mr-5" href="{{ path('cookies') }}">6.Cookies</a>
+    </nav>
+
+    <div class="container mt-5">
 
     <h2 class="text-center mt-5">III. Conditions de l'assurance</h2>
     <h5 class="text-center">Dernière Mise à jour : 28 juin 2018</h5>

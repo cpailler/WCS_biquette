@@ -24,6 +24,7 @@ use AppBundle\Form\VeloEquipementType;
 use AppBundle\Form\LocalisationType;
 use AppBundle\Repository\CouleurRepository;
 use AppBundle\Service\Calendrier\Calendrier;
+use AppBundle\Service\CautionManager;
 use AppBundle\Service\DateCheck;
 use AppBundle\Service\JaugeVelo;
 use AppBundle\Service\PointsManager;
@@ -139,7 +140,8 @@ class VeloController extends Controller
      * @Method({"GET", "POST"})
      *
      */
-    public function descriptionAction(request $request, Velo $velo, JaugeVelo $jaugeVelo)
+    public function descriptionAction(request $request, Velo $velo, JaugeVelo $jaugeVelo, PointsManager
+    $pointsManager, CautionManager $cautionManager)
     {
         $membre = $this->getUser();
         if ($velo->getProprio()!=$membre){
@@ -153,6 +155,13 @@ class VeloController extends Controller
         $form->handleRequest($request);
         $couleurs=$em->getRepository(Couleur::class)->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($velo->getCoutPts() == 0){
+                $velo->setCoutPts($pointsManager->indicativePointsValue($velo));
+            }
+            if ($velo->getCaution() == 0){
+                $velo->setCaution($cautionManager->indicativeCautionValue($velo));
+            }
+            $em->persist($velo);
             $em->flush();
         }
 

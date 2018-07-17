@@ -27,55 +27,55 @@
                             </div>
                         </form>
 
-                            <select class="velos" name="velos">
-                                <option value="---- Type de vélo ----">---- Type de vélo ----</option>
-                                <option value="draisienne">draisienne</option>
-                                <option value="tricycle">tricycle</option>
-                                <option value="trotinette">trotinette</option>
-                                <option value="hoverboard">hoverboard</option>
-                                <option value="enfant">enfant</option>
-                                <option value="remorque">remorque</option>
-                                <option value="bmx">bmx</option>
-                                <option value="fixie">fixie</option>
-                                <option value="singlespeed">singlespeed</option>
-                                <option value="trotinette électrique">trotinette électrique</option>
-                                <option value="ville">vélo de ville</option>
-                                <option value="cruiser">cruiser</option>
-                                <option value="lowrider">lowrider</option>
-                                <option value="tall bike">tall bike</option>
-                                <option value="vtc">vtc</option>
-                                <option value="vtt">vtt</option>
-                                <option value="hollandais">hollandais</option>
-                                <option value="pliant">pliant</option>
-                                <option value="grand-bi">grand-bi</option>
-                                <option value="roue électrique">roue électrique</option>
-                                <option value="fatbike">fatbike</option>
-                                <option value="rosalie">rosalie</option>
-                                <option value="vélo de course">vélo de course</option>
-                                <option value="gravel">gravel</option>
-                                <option value="vélo de piste">vélo de piste</option>
-                                <option value="vélo de route">vélo de route</option>
-                                <option value="vtt suspendu">vtt suspendu</option>
-                                <option value="tandem">tandem</option>
-                                <option value="biporteur">biporteur</option>
-                                <option value="cargo">cargo</option>
-                                <option value="rickshaw">rickshaw</option>
-                                <option value="à position couchée">à position couchée</option>
-                                <option value="à assistance électrique">à assistance électrique</option>
-                                <option value="gyropode (type segway)">gyropode (type segway)</option>
-                                <option value="triporteur">triporteur</option>
-                                <option value="triplette">triplette</option>
-                                <option value="trike">trike</option>
-                                <option value="à voile">à voile</option>
-                            </select>
-                            <select class="points" name="points">
-                                <option value="---- Nombre de Pts ----">---- Nombre de Pts ----</option>
-                                <option value="area1">de 0 à 249 Pts</option>
-                                <option value="area2">de 250 à 499 Pts</option>
-                                <option value="area3">de 500 à 749 Pts</option>
-                                <option value="area4">de 750 à 999 Pts</option>
-                                <option value="area5">+ de 1000 Pts</option>
-                            </select>
+                        <select class="velos" name="velos">
+                            <option value="---- Type de vélo ----">---- Type de vélo ----</option>
+                            <option value="draisienne">draisienne</option>
+                            <option value="tricycle">tricycle</option>
+                            <option value="trotinette">trotinette</option>
+                            <option value="hoverboard">hoverboard</option>
+                            <option value="enfant">enfant</option>
+                            <option value="remorque">remorque</option>
+                            <option value="bmx">bmx</option>
+                            <option value="fixie">fixie</option>
+                            <option value="singlespeed">singlespeed</option>
+                            <option value="trotinette électrique">trotinette électrique</option>
+                            <option value="ville">vélo de ville</option>
+                            <option value="cruiser">cruiser</option>
+                            <option value="lowrider">lowrider</option>
+                            <option value="tall bike">tall bike</option>
+                            <option value="vtc">vtc</option>
+                            <option value="vtt">vtt</option>
+                            <option value="hollandais">hollandais</option>
+                            <option value="pliant">pliant</option>
+                            <option value="grand-bi">grand-bi</option>
+                            <option value="roue électrique">roue électrique</option>
+                            <option value="fatbike">fatbike</option>
+                            <option value="rosalie">rosalie</option>
+                            <option value="vélo de course">vélo de course</option>
+                            <option value="gravel">gravel</option>
+                            <option value="vélo de piste">vélo de piste</option>
+                            <option value="vélo de route">vélo de route</option>
+                            <option value="vtt suspendu">vtt suspendu</option>
+                            <option value="tandem">tandem</option>
+                            <option value="biporteur">biporteur</option>
+                            <option value="cargo">cargo</option>
+                            <option value="rickshaw">rickshaw</option>
+                            <option value="à position couchée">à position couchée</option>
+                            <option value="à assistance électrique">à assistance électrique</option>
+                            <option value="gyropode (type segway)">gyropode (type segway)</option>
+                            <option value="triporteur">triporteur</option>
+                            <option value="triplette">triplette</option>
+                            <option value="trike">trike</option>
+                            <option value="à voile">à voile</option>
+                        </select>
+                        <select class="points" name="points">
+                            <option value="---- Nombre de Pts ----">---- Nombre de Pts ----</option>
+                            <option value="area1">de 0 à 249 Pts</option>
+                            <option value="area2">de 250 à 499 Pts</option>
+                            <option value="area3">de 500 à 749 Pts</option>
+                            <option value="area4">de 750 à 999 Pts</option>
+                            <option value="area5">+ de 1000 Pts</option>
+                        </select>
                     </div>
                     <div class="container col-12 col-lg-12 form-control">
                         <div class="row annonce">
@@ -83,9 +83,9 @@
                                 <!-- annonce -->
                                 <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     {% if velo.photos.0.image is defined %}
-                                    <div>
-                                        <a href="annonce/{{ velo.id }}" target="_blank"><img class="img-fluid" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
-                                    </div>
+                                        <div>
+                                            <a href="annonce/{{ velo.id }}" target="_blank"><img class="img-fluid" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
+                                        </div>
                                     {% endif %}
                                     <div class="bloc-titres">
                                         <div class="description"><h4>{{ velo.titre }}</h4></div>
@@ -131,7 +131,6 @@
     <script>
         function initMap() {
             var input = document.getElementById('search-city');
-
             var autocomplete = new google.maps.places.Autocomplete(
                 input, {placeIdOnly: true});
         }
@@ -151,7 +150,6 @@
   * (c) Dustin Diaz 2014 | License MIT
   */
         (function(e,t){typeof module!="undefined"&&module.exports?module.exports=t():typeof define=="function"&&define.amd?define(t):this[e]=t()})("$script",function(){function p(e,t){for(var n=0,i=e.length;n<i;++n)if(!t(e[n]))return r;return 1}function d(e,t){p(e,function(e){return t(e),1})}function v(e,t,n){function g(e){return e.call?e():u[e]}function y(){if(!--h){u[o]=1,s&&s();for(var e in f)p(e.split("|"),g)&&!d(f[e],g)&&(f[e]=[])}}e=e[i]?e:[e];var r=t&&t.call,s=r?t:n,o=r?e.join(""):t,h=e.length;return setTimeout(function(){d(e,function t(e,n){if(e===null)return y();!n&&!/^https?:\/\//.test(e)&&c&&(e=e.indexOf(".js")===-1?c+e+".js":c+e);if(l[e])return o&&(a[o]=1),l[e]==2?y():setTimeout(function(){t(e,!0)},0);l[e]=1,o&&(a[o]=1),m(e,y)})},0),v}function m(n,r){var i=e.createElement("script"),u;i.onload=i.onerror=i[o]=function(){if(i[s]&&!/^c|loade/.test(i[s])||u)return;i.onload=i[o]=null,u=1,l[n]=2,r()},i.async=1,i.src=h?n+(n.indexOf("?")===-1?"?":"&")+h:n,t.insertBefore(i,t.lastChild)}var e=document,t=e.getElementsByTagName("head")[0],n="string",r=!1,i="push",s="readyState",o="onreadystatechange",u={},a={},f={},l={},c,h;return v.get=m,v.order=function(e,t,n){(function r(i){i=e.shift(),e.length?v(i,r):v(i,t,n)})()},v.path=function(e){c=e},v.urlArgs=function(e){h=e},v.ready=function(e,t,n){e=e[i]?e:[e];var r=[];return!d(e,function(e){u[e]||r[i](e)})&&p(e,function(e){return u[e]})?t():!function(e){f[e]=f[e]||[],f[e][i](t),n&&n(r)}(e.join("|")),v},v.done=function(e){v([null],e)},v})
-
         // Production steps of ECMA-262, Edition 6, 22.1.2.1
         // Référence : https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from
         if (!Array.from) {
@@ -171,20 +169,16 @@
                     var len = toInteger(value);
                     return Math.min(Math.max(len, 0), maxSafeInteger);
                 };
-
                 // La propriété length de la méthode vaut 1.
                 return function from(arrayLike/*, mapFn, thisArg */) {
                     // 1. Soit C, la valeur this
                     var C = this;
-
                     // 2. Soit items le ToObject(arrayLike).
                     var items = Object(arrayLike);
-
                     // 3. ReturnIfAbrupt(items).
                     if (arrayLike == null) {
                         throw new TypeError("Array.from doit utiliser un objet semblable à un tableau - null ou undefined ne peuvent pas être utilisés");
                     }
-
                     // 4. Si mapfn est undefined, le mapping sera false.
                     var mapFn = arguments.length > 1 ? arguments[1] : void undefined;
                     var T;
@@ -194,22 +188,18 @@
                         if (!isCallable(mapFn)) {
                             throw new TypeError('Array.from: lorsqu il est utilisé le deuxième argument doit être une fonction');
                         }
-
                         // 5. b. si thisArg a été fourni, T sera thisArg ; sinon T sera undefined.
                         if (arguments.length > 2) {
                             T = arguments[2];
                         }
                     }
-
                     // 10. Soit lenValue pour Get(items, "length").
                     // 11. Soit len pour ToLength(lenValue).
                     var len = toLength(items.length);
-
                     // 13. Si IsConstructor(C) vaut true, alors
                     // 13. a. Soit A le résultat de l'appel à la méthode interne [[Construct]] avec une liste en argument qui contient l'élément len.
                     // 14. a. Sinon, soit A le résultat de ArrayCreate(len).
                     var A = isCallable(C) ? Object(new C(len)) : new Array(len);
-
                     // 16. Soit k égal à 0.
                     var k = 0;  // 17. On répète tant que k < len…
                     var kValue;
@@ -232,15 +222,12 @@
     <!--          API GOOGLE MAP         -->
     <script>
         var $map = document.querySelector('#map')
-
         class GoogleMap {
-
             constructor () {
                 this.map = null
                 this.bounds = null
                 this.textMarker = null
             }
-
             /**
              * Charge la carte sur un element
              * @param {HTMLElement} element
@@ -248,9 +235,7 @@
             async load (element) {
                 return new Promise((resolve, reject) => {
                     $script('https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA', () => {
-
                     this.textMarker = class TextMarker extends google.maps.OverlayView {
-
                         constructor (pos, map, text) {
                             super()
                             this.div = null
@@ -260,7 +245,6 @@
                             this.setMap(map)
                             this.onActivation = []
                         }
-
                         onAdd () {
                             this.div = document.createElement('div')
                             this.div.classList.add('marker')
@@ -269,59 +253,49 @@
                             this.getPanes().overlayImage.appendChild(this.div)
                             this.div.addEventListener('click', (e) => {
                                 e.preventDefault()
-                                e.stopPropagation()
-                                this.activate()
-                            })
+                            e.stopPropagation()
+                            this.activate()
+                        })
                         }
-
                         draw () {
                             var position = this.getProjection().fromLatLngToDivPixel(this.pos)
                             this.div.style.left = position.x + "px"
                             this.div.style.top = position.y + "px"
                         }
-
                         onRemove () {
                             this.div.parentNode.removeChild(this.div)
                         }
-
                         hover () {
                             if (this.div !== null) {
                                 this.div.classList.add('is-active')
                             }
                         }
-
                         out () {
                             if (this.div !== null) {
                                 this.div.classList.remove('is-active')
                             }
                         }
-
                         activate () {
                             if (this.div !== null) {
                                 this.div.innerHTML = this.html
                             }
                             this.onActivation.forEach(function (cb) { cb() })
                         }
-
                         deactivate () {
                             if (this.div !== null) {
                                 this.div.innerHTML = this.text
                             }
                         }
-
                         setContent (html) {
                             this.html = html
                         }
-
                     }
-
                     this.map = new google.maps.Map(element)
                     this.bounds = new google.maps.LatLngBounds()
                     resolve()
                 })
             })
             }
-
             /**
              * Ajoute un marker sur la carte
              * @param {string} lat
@@ -338,7 +312,6 @@
                 this.bounds.extend(point)
                 return marker
             }
-
             /**
              * Centre la carte pour englober les markers
              */
@@ -347,7 +320,6 @@
                 this.map.fitBounds(this.bounds)
             }
         }
-
         const iMap = async function () {
             var map = new GoogleMap()
             var activeMarker = null
@@ -378,7 +350,6 @@
             })
             map.centerMap()
         }
-
         if ($map !== null) {
             iMap()
         }
@@ -388,4 +359,3 @@
     </html>
 
 {% endblock %}
-
