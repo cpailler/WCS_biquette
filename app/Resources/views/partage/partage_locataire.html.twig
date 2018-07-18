@@ -43,18 +43,29 @@
 
         </div>
         <div class="row justify-content-center">
+
             <p>Dépôt de garantie</p>
-            <p>{{ reservation.velo.caution }}€ (5%) / <span id="partCaution">{{ reservation.velo.caution * 0.05 }}</span> €</p>
+            {% if reservation.velo.cautionOblig == 0 %}
+                <p>Aucun</p>
+                <p id="partCaution">{{ reservation.velo.caution }}€ (5%) / {{ reservation.velo.caution * 0.05 }} €</p>
+            {% else %}
+                <p>{{ reservation.velo.caution }}€ (5%) / <span id="partCaution">{{ reservation.velo.caution * 0.05 }}</span> €</p>
+            {% endif %}
         </div>
         <div class="row justify-content-center">
             <p>Assurance</p>
-            <p>1€/JOUR</p>
-            <p><h4 id="totalAssurance" style="text-align: center;"></h4></p>
+            {% if reservation.velo.assurOblig == 0 %}
+                <p>Optionnelle</p>
+                <p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }} €</p>
+            {% else %}
+                <p>1€/JOUR</p>
+                <p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }} €</p>
+            {% endif %}
         </div>
 
         <div class="row justify-content-center">
             <p>Total</p>
-            <p> <span><p id="totalPoints" style="text-align: center;"></p></span> / <span><p id="totalEuros" style="text-align: center;"></p></span> </p>
+            <p id="totalPoints" style="text-align: center;">- {{ reservation.coutPts }} PTS</p> / <p id="totalEuros" style="text-align: center;">{{ reservation.caution * 0.05 + reservation.assurance }} €</p>
 
         </div>
 

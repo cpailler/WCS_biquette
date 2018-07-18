@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="gradient_box">
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
+        </div>
+    {% else %}
+        <div class="gradient_box">
+            <br><br>
+            <h1 class="explication_title white_text">Découvrez le concept</h1>
+            <br><br>
+        </div>
+    {% endif %}
+
+    <div class="bikerr_container">
+        <h4 class="explication_title bikerr-green">Que faire en cas de sinistre ?</h4>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <hr>
+                <p class="explication bikerr-green text-center">
+                    Suivez les étapes ci-dessous :
+                </p>
+                <hr>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <h4 class="explication_title bikerr-green">1. Dépôt de plainte</h4><br>
+                <p class="explication">
+                    En cas de vol ou dégradations, déposez tout d’abord plainte auprès des autorités de police compétentes en mentionnant le vol du vélo, la marque, le modèle, le numéro de gravage éventuel, et les circonstances du vol ou des dégradations occasionnées. Il est important que vous déposiez plainte, cela permet d&apos;avoir des chiffres plus précis du nombre de vélos volés et de mettre en place de nouvelles mesures pour lutter activement contre le vol et le recel de vélos.
+                </p><br><br>
+                <h4 class="explication_title bikerr-green">2. Déclaration du sinistre</h4><br>
+                <p class="explication">
+                    Déclarez ensuite l’incident à Bikerr qui se chargera de transmettre les informations à la MAIF. Merci de nous transmettre par voie postale :
+                </p>
+                    <br>
+                <ul>
+                    <li class="explication">Le récit des circonstances de l’accident ;</li>
+                    <li class="explication">La facture d’achat initiale du bien endommagé ;</li>
+                    <li class="explication">Le devis de remplacement ou de réparation du bien ;</li>
+                    <li class="explication">Le récépissé de dépôt de plainte en cas de vol.</li>
+                </ul>
+                <br>
+                <p class="explication">Communiquer tous les éléments nécessaires à l’instruction du dossier par voie postale :</p>
+                <br>
+                <p class="exemple explication" style="text-align: center; font-weight: bold;">
+                    Bikerr France / Sinistre
+                    <br>141 A rue de Bâle
+                    <br>67100 Strasbourg
+                </p><br><br>
+                <h4 class="explication_title bikerr-green">3. Déclaration registre Bicycode</h4><br>
+                <p class="explication">
+                    Déclarez également le vol sur le site Bicycode.org. Si votre vélo n&apos;est pas encore marqué BICYCODE®, vous avez tout de même la possibilité de le déclarer sur ce site en cas de vol.
+                    <br><br>
+                    Si le vélo est retrouvé par les forces de l&apos;ordre ayant accès au fichier, elle pourront vous contacter.
+                </p><br><br>
+                <h4 class="explication_title bikerr-green">4. Recherchez votre vélo</h4><br>
+                <p class="explication">
+                    Une fois la plainte pour vol introduite, nous vous conseillons :
+                </p><br>
+                <ul>
+                    <li class="explication">D’ouvrir l&apos;oeil afin de retrouver votre vélo ;</li>
+                    <li class="explication">De consulter les sites de vente d&apos;occasion tels que Le Bon Coin, Ebay, …</li>
+                    <li class="explication">De vous rendre dans les brocantes, marchés, magasins d&apos;occasion.</li>
+                </ul>
+                <p class="explication">
+                    Attention : si vous n&apos;avez pas préalablement porté plainte, vous ne disposez d&apos;aucune légitimité pour réclamer votre vélo à l&apos;éventuel voleur.
+                </p><br><br>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

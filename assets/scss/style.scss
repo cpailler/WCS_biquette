@@ -41,6 +41,7 @@ body{
 .title-announce {
   text-align: left;
   font-family: $font;
+  text-transform: uppercase;
 }
 .title-announce span {
   float: right;
@@ -154,4 +155,9 @@ body{
   vertical-align: center !important;
   width: 226px !important;
   border-radius: 26px !important;
+}
+
+.asterix {
+  display: inline-block;
+  color: $bikerr-green;
 }

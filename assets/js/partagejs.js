@@ -36,7 +36,7 @@ $('.dateclic').on('change', function () {
         }
     }
 
-    $('#nbJours').replaceWith(`<p id="nbJours"><span  class="badge badge-light">${timeDifferenceInDays} Jours</span></p>`);
+    $('#nbJours').replaceWith(`<p id="nbJours"><span  class="badge badge-light">${timeDifferenceInDays}</span></p>`);
     console.log(timeDifferenceInDays);
 
     var points = $('#points').html();

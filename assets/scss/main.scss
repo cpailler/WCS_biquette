@@ -16,6 +16,19 @@ $text-dark: #333634;
 $text-grey: #949a96;
 $normButton:#ffffff;
 
+.text_color_bikerr{
+  color: $bikerr-green;
+}
+
+.text_color_bikerr a{
+  color: $bikerr-green;
+}
+
+.text_color_bikerr a:hover{
+  color: $bikerr-green;
+  text-decoration: underline;
+}
+
 .body {
   font: $font;
 }
@@ -33,6 +46,8 @@ $normButton:#ffffff;
   background-color: $bikerr-green;
   margin: auto;
   text-shadow: none;
+  -webkit-transition: width 0.5s, height 0.5s, background-color 0.5s, -webkit-transform 0.5s;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
 }
 
 .bouton:hover {
@@ -40,6 +55,8 @@ $normButton:#ffffff;
   color: white;
   text-decoration: none;
   text-shadow: none;
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .bouton:active {
@@ -71,6 +88,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 100%;
   height: 200px;
+  object-fit: cover;
 }
 
 .crop_profile {
@@ -80,6 +98,7 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   border-radius: 50%;
   margin: auto;
+  border: 3px solid white;
 }
 .crop_profile img {
   display: inline;
@@ -108,6 +127,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .bikerr-card {
   padding: 20px !important;
+  -webkit-transition: width 0.5s, height 0.5s, background-color 0.5s, -webkit-transform 0.5s;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+}
+
+.bikerr-card:hover{
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* The switch - the box around the slider */

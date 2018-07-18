@@ -34,9 +34,10 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" style="width: 310px;">
-                <button class="btn btn-outline-success my-2 my-sm-0 bouton-sm" type="submit">Rechercher</button>
+            <form class="form-inline my-2 my-lg-0" method="post" action="">
+                <input id="navbar-city" name="ville" class="form-control mr-sm-2" type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0 bouton-sm" type="submit">Rechercher</button> -->
+                <input id="submit" class="bouton-sm" type="submit" value="Rechercher">
             </form>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown navbar-border">
@@ -54,19 +55,114 @@
                         <div class="dropdown-divider"></div>#}
                         <a class="dropdown-item" href="{{ path('aide_assurance') }}">À quoi sert l'assurance ?</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Quel équipement à vélo ?</a>
+                        <a class="dropdown-item" href="{{ path('aide_equipement') }}">Quel équipement à vélo ?</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Comment attacher un vélo ?</a>
+                        <a class="dropdown-item" href="{{ path('aide_attache') }}">Comment attacher un vélo ?</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">C'est quoi le marquage Bicycode ?</a>
+                        <a class="dropdown-item" href="{{ path('aide_bicycode') }}">C'est quoi le marquage Bicycode ?</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Que faire en cas de sinistre ?</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Nous contacter</a>
+                        <a class="dropdown-item" href="{{ path('aide_sinistre') }}">Que faire en cas de sinistre ?</a>
+                        {#<div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Nous contacter</a>#}
                     </div>
                 </li>
-                <li class="nav-item navbar-border">
-                    <a class="nav-link" href="#">Partage <img src="{{ asset('images/partage-over.svg') }}" alt="partage" class="navbar-icon"></a>
+                <li class="nav-item dropdown navbar-border">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Partage <img src="{{ asset('images/partage-over.svg') }}" alt="partage" class="navbar-icon"></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        {% for velo in membre.velos %}
+                             {% for reservation in velo.reservations %}
+                                 {% if reservation.etape == 0 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                         {% if reservation.locataire.image is not null %}
+                                             <div class="crop_profile_nav">
+                                                 <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                             </div>
+                                         {% else %}
+                                             <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                         {% endif %}
+                                         {{ reservation.locataire.prenom }} souhaite réserver votre vélo</a>
+                                     <div class="dropdown-divider"></div>
+                                 {% elseif reservation.etape == 1 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                     {% if reservation.locataire.image is not null %}
+                                         <div class="crop_profile_nav">
+                                             <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                         </div>
+                                     {% else %}
+                                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                     {% endif %}
+                                     {{ reservation.locataire.prenom }} va procéder au paiement</a>
+                                 {% elseif reservation.etape == 2 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                     {% if reservation.locataire.image is not null %}
+                                         <div class="crop_profile_nav">
+                                             <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                         </div>
+                                     {% else %}
+                                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                     {% endif %}
+                                     {{ reservation.locataire.prenom }} utilise votre velo</a>
+                                 {% elseif reservation.etape == 3 %}
+                                     <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                     {% if reservation.locataire.image is not null %}
+                                         <div class="crop_profile_nav">
+                                             <img src="{{ asset('images/uploads/'~reservation.locataire.image) }}" alt="profil">
+                                         </div>
+                                     {% else %}
+                                         <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                     {% endif %}
+                                     {{ reservation.locataire.prenom }} a retourné votre velo</a>
+                                 {% endif %}
+                             {% endfor %}
+                        {% endfor %}
+                        {% for reservation in membre.reservations %}
+                            {% if reservation.etape == 0 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} va valider votre réservation</a>
+                                <div class="dropdown-divider"></div>
+                            {% elseif reservation.etape == 1 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} attend votre paiement</a>
+                            {% elseif reservation.etape == 2 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} attend le retour de son velo</a>
+                            {% elseif reservation.etape == 3 %}
+                                <a class="dropdown-item" href="{{ path('partage', {'id': reservation.id}) }}">
+                                    {% if reservation.velo.proprio.image is not null %}
+                                        <div class="crop_profile_nav">
+                                            <img src="{{ asset('images/uploads/'~reservation.velo.proprio.image) }}" alt="profil">
+                                        </div>
+                                    {% else %}
+                                        <img src="{{ asset('images/icn-profil-over.svg') }}" alt="profil" class="navbar-icon">
+                                    {% endif %}
+                                    {{ reservation.velo.proprio.prenom }} va valider le retour de son velo</a>
+                            {% endif %}
+                        {% endfor %}
+                        <a class="dropdown-item" href="{#{{ path('partage_archives') }}#}">
+                            <span style="color: green;">Consulter l'historique des partages</span>
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item dropdown navbar-border">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -114,7 +210,14 @@
                         <div class="dropdown-divider"></div>
 
                         {% for velo in membre.velos %}
-                            <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}"><img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">{{ velo.titre }}</a>
+                            <a class="dropdown-item" href="{{ path('velo_description', {'id': velo.id}) }}">
+                                <img src="{{ asset('images/icn-velo.svg') }}" alt="profil" class="navbar-icon">
+                                {% if velo.titre is not null %}
+                                    {{ velo.titre }}
+                                {% else %}
+                                    Mon vélo
+                                {% endif %}
+                            </a>
                         {% endfor %}
 
                         <div class="dropdown-divider"></div>
@@ -193,19 +296,19 @@
                 <div class="col-md-2 col-sm-4 col-xs-2">
                     <h5>Nous suivre</h5>
                     <p style="text-align: right">
-                        <a href="https://www.facebook.com/BikerrFrance/" target="_blank" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook"></span><br>
-                        <a href="https://twitter.com/bikerr" target="_blank" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter"></span><br>
-                        <a href="#" target="_blank" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram"></span>
+                        <a href="https://www.facebook.com/BikerrFrance/" target="_blank" style="float: left; text-align: left;">Facebook</a><span><img src="{{ asset('images/facebook.png') }}" alt="facebook_bikerr"></span><br>
+                        <a href="https://twitter.com/bikerr" target="_blank" style="float: left">Twitter</a><span><img src="{{ asset('images/twitter.png') }}" alt="twitter_bikerr"></span><br>
+                        <a href="https://www.instagram.com/bikerrfrance/" target="_blank" style="float: left">Instagram</a><span><img src="{{ asset('images/instagram.png') }}" alt="instagram_bikerr"></span>
                     </p>
                 </div>
             </div>
 
             <div class="row mt-2">
                 <div class="col-md-2 offset-3">
-                    <a href="/confidentialite">Confidentialité</a>
+                    <a href={{ path('confidentialite') }}>Confidentialité</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/cookies">Cookies</a>
+                    <a href={{ path('cookies') }}>Cookies</a>
                 </div>
                 <div class="col-md-4">
                     <p>© Bikerr 2018. Tous droits réservés.</p>
@@ -223,6 +326,20 @@
 {% endblock %}
 <script src="{{ asset('build/app.js') }}"></script>
 {% block javascripts %}
+    <!--          AUTOCOMPLETE VILLE           -->
+    <script>
+        function initMap() {
+            var input = document.getElementById('search-city');
+            var navInput = document.getElementById('navbar-city');
+            var autocomplete = new google.maps.places.Autocomplete(
+                input, {placeIdOnly: true});
+            var autocompleteNav = new google.maps.places.Autocomplete(
+                navInput, {placeIdOnly: true});
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
+            async defer></script>
+    <!--         END AUTOCOMPLETE VILLE           -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>

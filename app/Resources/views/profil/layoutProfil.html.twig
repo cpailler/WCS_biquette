@@ -12,11 +12,24 @@
             <!-- photo de profil -->
             <div class="col-12 col-lg-3 offset-lg-1 photoProfil">
                 {% if membre.image is not null %}
-                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                    <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                    <div>
+                        <a href="{{ path('photo-profil') }}">
+                            <div>
+                                <div style="display: inline-block;">
+                                    Modifier ma photo de profil
+                                </div>
+                                <div class="asterix">
+                                    (*)
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 {% else %}
-                <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
+                    <div><img src="{{ asset('images/icn-profil.png') }}"/></div>
+                    <div><a href="{{ path('photo-profil') }}">Ajouter une photo de profil</a></div>
                 {% endif %}
-                <div><a href="{{ path('photo-profil') }}">Ajouter une photo de profil</a></div>
+
             </div>
             <!-- zone barre de progression -->
             <div class="col-12 col-lg-7 progressionProfil">
@@ -50,8 +63,8 @@
             <div class="col-12 col-lg-3 offset-lg-1 ongletVelo">
                 <div>
                     <ul>
+                        <li><a href="{{ path('profil_infos', {'id': membre.id}) }}">Profil</a></li>
                         <li><a href="{{ path('virement_infos', {'id': membre.id}) }}">Préférence de virement</a></li>
-                        <li><a href="{{ path('profil_infos', {'id': membre.id}) }}">Informations confidentielles</a></li>
                         <li><a href="{{ path('profil_password', {'id': membre.id}) }}">Mot de passe</a></li>
                         <li><a href="{{ path('profil_supprimer', {'id': membre.id}) }}">Supprimer mon compte</a></li>
                     </ul>

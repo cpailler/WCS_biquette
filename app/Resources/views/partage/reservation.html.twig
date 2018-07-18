@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}" xmlns="http://www.w3.org/1999/html">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
     <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
 {% endblock %}
@@ -23,7 +23,8 @@
 
                 <div id="dates" class="row">
                     <div  id="jours" class="col-4">
-                        <p id="nbJours" style="text-align: center;"></p>
+                       <div><p id="nbJours" style="text-align: center;"></p></div>
+                        <div>Jours</div>
                     </div>
 
                     <div id="dateDebut" class="col-4">
@@ -52,31 +53,32 @@
                     </div>
                 </div>
                 <div id="pointsRes" class="row">
-                    <div class="col-4"><p>Points gagnés</p></div>
-                    <div class="col-4"><p> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p></div>
-                    <div class="col-4"><p id="nbPoints" style="text-align: center;"></p></div>
+                    <div class="col-4"><p id="points1">Points gagnés</p></div>
+                    <div class="col-4"><p id="points2"> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p></div>
+                    <div class="col-4"><p id="nbPoints" style="text-align: right;"></p></div>
                 </div>
-                <div class="row justify-content-center">
-                    <p>Dépôt de garantie</p>
-                    <p>{{ velo.caution }}€ (5%) / <span id="partCaution">{{ velo.caution * 0.05 }}</span> €</p>
+                <div id="caution" class="row">
+                    <div class="col-4"><p id="caution1">Dépôt de garantie</p></div>
+                    <div class="col-4"><p id="caution2">{{ velo.caution }}€ (5%)</p></div>
+                    <div class="col-4"><p><span id="partCaution">{{ velo.caution * 0.05 }}€</span></p></div>
                 </div>
-                <div class="row justify-content-center">
-                    <p>Assurance</p>
-                    <p>1€/JOUR</p>
-                    <p><h4 id="totalAssurance" style="text-align: center;"></h4></p>
-                </div>
-
-                <div class="row justify-content-center">
-                    <p>Total</p>
-                    <p> <span><p id="totalPoints" style="text-align: center;"></p></span> / <span><p id="totalEuros" style="text-align: center;"></p></span> </p>
-
+                <div id="assurance" class="row">
+                    <div class="col-4"><p id="assurance1">Assurance</p></div>
+                    <div class="col-4"><p id="assurance2">1€/JOUR</p></div>
+                    <div class="col-4"><p id="totalAssurance" style="text-align: center;"></p></div>
                 </div>
 
-            <div class="row justify-content-center">
-                <a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="class ">J’annule ma demande de réservation</button></a>
-                <input type="submit" class="class " value="Je confirme ma demande de réservation" />
+                <div id="total" class="row">
+                    <div class="col-6"><p id="total1">Total</p></div>
+                    <div class="col-6"><p id="total2"><span id="totalPoints" style="text-align: center;"></span>/<span id="totalEuros" style="text-align: center;"></span></p></div>
 
-            </div>
+                </div>
+
+                <div id="buttons" class="row">
+                    <div class="col-6"><a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="boutonPartage " id="buttonDecline">J’annule ma demande de réservation</button></a></div>
+                    <div class="col-6"><button type="submit" class="boutonPartage" id="buttonValid">Je confirme ma demande de réservation</button></div>
+
+                </div>
             {{ form_end(reservationForm) }}
         </div>
     </div>

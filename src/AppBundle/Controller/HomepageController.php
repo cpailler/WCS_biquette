@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\TypeVelo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,15 +23,51 @@ class HomepageController extends Controller
     {
 
         $membre = $this->getUser();
+        $velos = $this->getDoctrine()->getRepository(Velo::class)->findAll();
+
+        //retourne tous les velos electriques qui sont en ligne
+        $velosElectriques = $this->getDoctrine()->getRepository(Velo::class)->findBy(
+            array('typeVelo' =>'33', 'enLigne' => '1'),
+            array('id' => 'desc'),
+            3,
+            0
+        );
+
+        //retourne tous les vélos récemment mis en ligne, ordonnés par dernière date de publication
+        $velosPartages = $this->getDoctrine()->getRepository(Velo::class)->findBy(
+            array('enLigne' => '1'),
+            array('id' => 'desc'),
+            6,
+            0
+        );
+
 
         if (isset ($membre)){
+            if (isset ($_POST['ville'])){
+                $ville = explode(",", $_POST['ville']);
+                $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$ville[0],'enLigne'=>true));
+
+                // replace this example code with whatever you need
+                return $this->render('recherche/rechercheListe.html.twig', array(
+                    'velos' => $velos,
+                    'membre'=> $this->getUser(),
+                    'ville'=>$_POST['ville']
+                ));
+            }
+
             return $this->render('homepage/homepage_connect.html.twig', array(
-                'membre' => $membre
+                'membre' => $membre,
+                'velos' => $velos,
+                'velosElectriques' => $velosElectriques,
+                'velosPartages' => $velosPartages
             ));
         }
         else{
             return $this->render('homepage/homepage.html.twig', array(
-                'membre' => $membre
+                'membre' => $membre,
+                'velos' => $velos,
+                'velosElectriques' => $velosElectriques,
+                'velosPartages' => $velosPartages
             ));
         }
     }
@@ -43,14 +80,22 @@ class HomepageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $membre= $this->getUser();
+        $velos = $this->getDoctrine()->getRepository(Velo::class)->find('id');
+        $velosElectriques = $this->getDoctrine()->getRepository(Velo::class)->findBy(
+            array('typeVelo' =>'33')
+        );
 
         if(!isset ($membre)){
             return $this->render('homepage/homepage.html.twig', array(
-                'membre' => $membre
+                'membre' => $membre,
+                'velosElectriques' => $velosElectriques,
+                'velos' => $velos
             ));
         }else {
             return $this->render('homepage/homepage_connect.html.twig', array(
-                'membre' => $membre
+                'membre' => $membre,
+                'velosElectriques' => $velosElectriques,
+                'velos' => $velos
             ));
         }
     }
