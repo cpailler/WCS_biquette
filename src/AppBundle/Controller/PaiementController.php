@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Membre;
+use AppBundle\Entity\Reservation;
 use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\CartePaiementType;
 use AppBundle\Entity\CartePaiement;
@@ -20,9 +21,6 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\ORM\EntityManagerInterface;
-
-
-
 
 
 
@@ -45,67 +43,44 @@ class PaiementController extends Controller
     public function RegisterCardView(Request $request,MangoPayApi $mangoPayApi)
     {
         $session = new Session();
-        //$session->start();
-
-        //declaration reoute retour pour recuperation card_Id object
-        $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
-        $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
-        $returnUrl .= 'paiement/card_Id';
 
         //on récupere l'utilisateur actuel
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         //on verifie que les id mangopay existe ou on les crée et les enregistre en BDD
         $membre = $mangoPayApi->CheckIdMangopay($membre,$em);
-
+        //si le wallet n'est pas crée on fait une redirection
+        if($membre->getIdWallet() == null)
+        {
+            return $this->redirectToRoute("profil_infos");
+        }
+        //le profil mango Pay et le wallet MP sont crée alors on enregistre sa carte
         $cardRegistration = $mangoPayApi->CardRegistration($membre);
-
-        //dump($cardRegistration);
-
+        //on crée l'objet de l'entité CartePaiement qui nous servira à faire notre formulaire
+        //on le rempli avec les informations récupérés dans card registration
         $CartePaiement= new CartePaiement();
-
         $CartePaiement->setdata($cardRegistration->PreregistrationData);
         $CartePaiement->setAccessKeyRef($cardRegistration->AccessKey);
+        $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
+        $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
+        $returnUrl .="paiement/card_Id";
         $CartePaiement->setReturnUrl($returnUrl);
+        //on crée le formulaire d'enregistrement de carte
         $form = $this->createForm(CartePaiementType::class, $CartePaiement, array(
             'action' => $cardRegistration->CardRegistrationURL,
         ));
 
-        //sauveagarde en session de l'objet cardRegistration
+        //sauvegarde en session de l'objet cardRegistration
         $session->set('cardregistration', $cardRegistration);
-        //$session->set('membre', $membre);
-        //$session->set('returnURL', $returnUrl);
-
-        //recuperation requete GET & POST
-        $form->handleRequest($request);
-
-        //Validation du formulaire
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            //$data=$request->query->get('data');
-
-            //$CardID = $form->getData();
-
-        }
-
-        // Accès au retour de $_POST
-        //$post = $request->request->get(''); // post ???
-
         // Envoi de la vue
         return $this->render('paiement/CartePaiement.html.twig',array(
             'form'=>$form->createView(),
             'cardregistration' => $cardRegistration,
             'returnUrl'=>$returnUrl
-            //'post' => $post
         ));
 
-/*        return $this->render('default/cardRegisterForm.html.twig', array(
-            'cardregistration' => $cardRegistration,
-            'returnUrl'=>$returnUrl
-        ));*/
-
     }
+
     /**
      * @Route("/card_Id", name="get_card_id")
      * @Method({"GET", "POST"})
@@ -114,27 +89,27 @@ class PaiementController extends Controller
     public function GetCardID(Request $request,MangoPayApi $mangoPayApi)
     {
         $session = new Session();
-
         $cardRegistration = $session->get('cardregistration');
+
+        //on récuperer l'information de carte envoyé dans le retour du formulaire
+        $dataCard = $request->query->get('data');
+
+        if($cardRegistration == null || $dataCard == null)
+        {
+            return $this->redirectToRoute("paiement_card");
+        }
+
         $membre = $this->getUser();
 
-        //$returnURL = $session->get('returnURL');
+        $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$dataCard);
 
+        $reservation = new Reservation();
+        $reservation->setCaution(30);
+        $reservation->setAssurance(5);
 
-        $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
-        //dump($CarteUpdated);
+        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,$reservation->getCaution(), $reservation->getAssurance());
 
-        //$post = $request->request->get('');
-
-        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,10000,500);
-
-        dump($PayIn);
-
-        //$cardWebPay = $mangoPayApi->CardWebPayIn($membre,6000,500);
-        //$redirect = $request->query->get();
-        //dump($cardWebPay);
-        //dump($PayIn->ExecutionDetails->SecureModeRedirectURL);
-
+        //si le sécure mode est necessaire
        if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
         {
             return $this->redirect($PayIn->ExecutionDetails->SecureModeRedirectURL);
@@ -162,7 +137,6 @@ class PaiementController extends Controller
     public function CheckTransaction(Request $request,MangoPayApi $mangoPayApi)
     {
         $session = new Session();
-        $membre1 = $this->getUser();
 
         $payInStatus = $mangoPayApi->CheckPayIn($request->query->get('transactionId'));
 
@@ -177,11 +151,10 @@ class PaiementController extends Controller
             return $this->redirectToRoute('paiement_card');
         }
 
-
-        //TODO : check method transfert et payout
-
-
-
-
     }
+
+
+    //TODO : check method transfert et payout
+
+
 }
