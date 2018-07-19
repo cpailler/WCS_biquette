@@ -1,24 +1,16 @@
-{% extends 'base.html.twig' %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
-{% endblock %}
-
 {% block body_text %}
 {% endblock %}
 
-{% block subject %}Partage de vélo accepté !{% endblock %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
 
 {% block body_html %}
-
-    <div class="text-center">
-        <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
-    </div>
 
     <h2>Bonjour,</h2>
 
     <p>Votre demande de partage de vélo "{{ reservation.velo.titre }}" a été validée par son propriétaire".</p>
 
-    <p>Veuillez cliquer sur ce lien <a href="{{ path('partage/'~reservation.id) }}"></a> afin de procéder à l'échange de points et paiement (s'il y a lieu).</p>
+    <p>Veuillez cliquer <a href="{{ app.request.getSchemeAndHttpHost() ~ path('partage',{'id':reservation.id}) }}"><strong>ICI</strong></a></p> afin de procéder à l'échange de points et paiement (s'il y a lieu).</p>
 
     <p>L'équipe Bikerr</p>
 
