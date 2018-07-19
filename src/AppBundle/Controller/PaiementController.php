@@ -13,6 +13,7 @@ use AppBundle\Entity\Reservation;
 use AppBundle\Service\MangoPayApi;
 use AppBundle\Form\CartePaiementType;
 use AppBundle\Entity\CartePaiement;
+use Doctrine\Common\Annotations\Annotation\Target;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -154,7 +155,17 @@ class PaiementController extends Controller
     }
 
 
-    //TODO : check method transfert et payout
+
+    /*public function PayOutAction(MangoPayApi $mangoPayApi)
+   {
+       $membre = $this->getUser();
+
+       //retour de fond d un wallet vers le vrai compte de l utilisateur
+       $Payout = $mangoPayApi->PayOut($membre, 51559063,30);
+
+       return $this->redirectToRoute('profil_infos');
+   }*/
+
 
 
 }

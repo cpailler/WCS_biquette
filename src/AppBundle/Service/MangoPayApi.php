@@ -128,10 +128,10 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
         $PayIn->DebitedFunds = new \MangoPay\Money();
         $PayIn->DebitedFunds->Currency = "EUR";
-        $PayIn->DebitedFunds->Amount = ($caution+$assurance)*100;//on multiplie par 100 car MP prends en centimes
+        $PayIn->DebitedFunds->Amount = ($caution)*100;//on multiplie par 100 car MP prends en centimes
         $PayIn->Fees = new \MangoPay\Money();
         $PayIn->Fees->Currency = "EUR";
-        $PayIn->Fees->Amount = (int)($fees*100);//on multiplie par 100 car MP prends en centimes
+        $PayIn->Fees->Amount = (int)(($fees+$assurance)*100);//on multiplie par 100 car MP prends en centimes
         $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
@@ -145,25 +145,29 @@ class MangoPayApi
         return $this->connexionApi->PayIns->Create($PayIn);
 }
 
-    //transferer l'argent d'un wallet a un autre wallet
-    public function transfert(Membre $membre, Membre $membre2, $amount)
-    {
-        $Transfer = new \MangoPay\Transfer();
-        $Transfer->AuthorId = $membre->getIdMangopay();
-        $Transfer->DebitedFunds = new \MangoPay\Money();
-        $Transfer->DebitedFunds->Currency = "EUR";
-        $Transfer->DebitedFunds->Amount = $amount*100; //on multiplie par 100 car MP est en centimes
-        $Transfer->Fees = new \MangoPay\Money();
-        $Transfer->Fees->Currency = "EUR";
-        $Transfer->Fees->Amount = 0; //on ne mets pas de fees pour le transfert
-        $Transfer->DebitedWalletID = $membre->getIdWallet();
-        $Transfer->CreditedWalletId = $membre2->getIdWallet();
-        return $this->connexionApi->Transfers->Create($Transfer);
-    }
+//    //transferer l'argent d'un wallet a un autre wallet
+//    public function transfert(Membre $membre, Membre $membre2, $amount)
+//    {
+//        $Transfer = new \MangoPay\Transfer();
+//        $Transfer->AuthorId = $membre->getIdMangopay();
+//        $Transfer->DebitedFunds = new \MangoPay\Money();
+//        $Transfer->DebitedFunds->Currency = "EUR";
+//        $Transfer->DebitedFunds->Amount = $amount*100; //on multiplie par 100 car MP est en centimes
+//        $Transfer->Fees = new \MangoPay\Money();
+//        $Transfer->Fees->Currency = "EUR";
+//        $Transfer->Fees->Amount = 0; //on ne mets pas de fees pour le transfert
+//        $Transfer->DebitedWalletID = $membre->getIdWallet();
+//        $Transfer->CreditedWalletId = $membre2->getIdWallet();
+//        return $this->connexionApi->Transfers->Create($Transfer);
+//    }
 
     //creation BankAccount Object pour effectuer les PayOut
     public function InitBankAccount(Membre $membre ,$iban, $bic, $titulaire, $adresse,EntityManagerInterface $em)
     {
+        /*if($membre->getIdBankAccount() != null)
+        {
+            return $membre->getIdBankAccount();
+        }*/
         $UserId = $membre->getIdMangopay();
         $BankAccount = new \MangoPay\BankAccount();
         $BankAccount->UserId=$membre->getIdMangopay();
@@ -180,7 +184,7 @@ class MangoPayApi
         $BankAccount->OwnerAddress->PostalCode = $membre->getCodePostal();
         $BankAccount->OwnerAddress->Region = "";
         //$BankAccount->Active = true;
-        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount)->UserId);
+        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount)->Id);
         $em->persist($membre);
         $em->flush();
         return $membre->getIdBankAccount();
@@ -188,8 +192,9 @@ class MangoPayApi
     }
 
     //cloturer transfert d'argent \MangoPay\BankAccount
-    public function PayOut(Membre $membre, $bankAccount, $amount)
+    public function PayOut(Membre $membre, $amount,$fees)
     {
+        dump($membre->getIdBankAccount());
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
         $PayOut->DebitedWalletId = $membre->getIdWallet();
@@ -198,10 +203,11 @@ class MangoPayApi
         $PayOut->DebitedFunds->Amount = $amount*100; // on multiplie par 100 car MP est en centime
         $PayOut->Fees = new \MangoPay\Money();
         $PayOut->Fees->Currency = "EUR";
-        $PayOut->Fees->Amount = 0; //les fees sont seulement sur les PayIn
+        $PayOut->Fees->Amount = $fees; //les fees sont seulement sur les PayIn
         $PayOut->PaymentType = \MangoPay\PayOutPaymentType::BankWire;
         $PayOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
-        $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount;
+        $PayOut->MeanOfPaymentDetails->BankAccountId = $membre->getIdBankAccount();
+        dump($PayOut);
         return $this->connexionApi->PayOuts->Create($PayOut);
     }
 
