@@ -54,6 +54,9 @@ class ReservationController extends Controller
 
                 $em->persist($reservation);
                 $em->flush();
+
+                // TODO Mail au proprio pour valider la reservation (demande)
+
                 return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
 
 

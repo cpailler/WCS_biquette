@@ -10,6 +10,12 @@ h4{
 p{
   font-family: $font;
 
+}
+
+.espaceVide{
+  display: inline-block;
+  height: 200px;
+
 
 }
 
@@ -43,8 +49,10 @@ p{
 }
 
 #carousel-photos {
-  height: 287px;
+  height: 28.7rem;
   width: 100%;
+  display:flex;
+  justify-content: center;
 }
 
 #nbJours{
@@ -142,6 +150,7 @@ p{
   flex-direction: row;
   margin: auto;
   border-bottom: 1px solid $border-grey;
+  border-top: 1px solid $border-grey;
 }
 
 #total1{
@@ -178,8 +187,18 @@ p{
   width: 100%;
 }
 
-.boutonPartage{
+.boutonPartageVal{
   @extend .bouton;
   border-radius: unset;
+  height: 5rem;
 
 }
+
+.boutonPartageAnn{
+  @extend .bouton;
+  border-radius: unset;
+  background-color: $grey-background;
+  color: $text-grey;
+
+}
+

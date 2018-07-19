@@ -8,7 +8,7 @@
 
 {% block body %}
 
-<div id="carousel-photos" class="justify-content-center row">
+<div id="carousel-photos" class="row">
     {% for photo in velo.photos %}
         <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
     {% endfor %}
@@ -67,6 +67,9 @@
                     <div class="col-4"><p id="assurance2">1€/JOUR</p></div>
                     <div class="col-4"><p id="totalAssurance" style="text-align: center;"></p></div>
                 </div>
+                <div class="espaceVide">
+
+                </div>
 
                 <div id="total" class="row">
                     <div class="col-6"><p id="total1">Total</p></div>
@@ -75,8 +78,8 @@
                 </div>
 
                 <div id="buttons" class="row">
-                    <div class="col-6"><a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="boutonPartage " id="buttonDecline">J’annule ma demande de réservation</button></a></div>
-                    <div class="col-6"><button type="submit" class="boutonPartage" id="buttonValid">Je confirme ma demande de réservation</button></div>
+                    <div class="col-6"><a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="boutonPartageAnn " id="buttonDecline">J’annule ma demande de réservation</button></a></div>
+                    <div class="col-6"><button type="submit" class="boutonPartageVal" id="buttonValid">Je confirme ma demande de réservation</button></div>
 
                 </div>
             {{ form_end(reservationForm) }}

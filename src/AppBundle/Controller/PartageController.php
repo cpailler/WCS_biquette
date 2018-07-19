@@ -78,6 +78,8 @@ class PartageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
+
+            // TODO Le mail au locataire ( demandeValidation)
         }
 
         return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
@@ -95,11 +97,18 @@ class PartageController extends Controller
 
         if($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
 
+            //Si la personne n'a pas encore de Wallet MP,
+            //il faut lui créer à partir de ses informations User
+
+            //si la personne a déja un wallet MP, on effectue le PayIn
+
             $reservation->setEtape(2);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
+
+            // TODO Mail au proprio ( paiementPointProprio) et mail au locataire (paiementPoints)
 
 
 
