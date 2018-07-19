@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    <script src="{{ asset('build/partage.js') }}"></script>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="carousel-photos" class="justify-content-center row">
+        {% for photo in reservation.velo.photos %}
+            <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
+        {% endfor %}
+    </div>
+
+    <div class="titreVelo">
+        <h4>{{ reservation.velo.titre }}</h4>
+    </div>
+    <div class="container-fluid ">
+        <div id="dates" class="row justify-content-center">
+            <div class="col-4">
+                <p>{{ reservation.nbDay }} Jours</p>
+            </div>
+
+            {#Date de retrait#}
+            <div class="col-4">
+                {{ reservation.debut|date('Y-m-d') }}
+            </div>
+
+            {#Date de retour#}
+            <div class="col-4">
+                {{ reservation.fin|date('Y-m-d') }}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            <p>Points gagnés</p>
+            <p> <span id="points">{{ reservation.velo.coutPts }}</span> PTS/JOUR</p>
+            <p id="nbPoints" style="text-align: center;"></p>
+
+        </div>
+        <div class="row justify-content-center">
+
+            <p>Dépôt de garantie</p>
+            {% if reservation.velo.cautionOblig == 0 %}
+                <p>Aucun</p>
+                <p id="partCaution">{{ reservation.velo.caution }}€ (5%) / {{ reservation.velo.caution * 0.05 }} €</p>
+            {% else %}
+                <p>{{ reservation.velo.caution }}€ (5%) / <span id="partCaution">{{ reservation.velo.caution * 0.05 }}</span> €</p>
+            {% endif %}
+        </div>
+        <div class="row justify-content-center">
+            <p>Assurance</p>
+            {% if reservation.velo.assurOblig == 0 %}
+                <p>Optionnelle</p>
+                <p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }} €</p>
+            {% else %}
+                <p>1€/JOUR</p>
+                <p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }} €</p>
+            {% endif %}
+        </div>
+
+        <div class="row justify-content-center">
+            <p>Total</p>
+            <p id="totalPoints" style="text-align: center;">- {{ reservation.coutPts }} PTS</p> / <p id="totalEuros" style="text-align: center;">{{ reservation.caution * 0.05 + reservation.assurance }} €</p>
+
+        </div>
+
+        <div class="row justify-content-center">
+            {% if reservation.etape == 0 %}
+                <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >En attente de la validation</button></a>
+            {% else %}
+                <a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="class ">J’annule ma demande de réservation</button></a>
+                <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >Je confirme ma demande de réservation</button></a>
+            {% endif %}
+        </div>
+
+
+    </div>
+{% endblock %}
