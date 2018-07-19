@@ -21,80 +21,230 @@ use Symfony\Component\HttpFoundation\Request;
 class PartageController extends Controller
 {
     /**
-     * @Route("/{id}/reservation", name="partage_reservation")
+     * @Route("/{id}", name="partage")
      *
      */
-    public function utilisateurReservationAction(Request $request, Velo $velo, DateCheck $dateCheck, Calendrier $calendrier)
-    {
-        $membre = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $reservation = New Reservation();
-        $reservationForm = $this->createForm(ReservationType::class, $reservation);
-        $reservationForm->handleRequest($request);
-        if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
-            if ($dateCheck->isLegalReservation($reservation, $velo, $calendrier)){
-                $nbDay = intval($reservation->getDebut()->diff($reservation->getFin(),true)->format('%d'))+1;
-                $reservation->setVelo($velo);
-                $reservation->setLocataire($membre);
-                $reservation->setCoutPts($velo->getCoutPts()*$nbDay);
-                $reservation->setCaution($velo->getCaution());
-                if($velo->getAssurOblig()==1){
-                $reservation->setAssurance(1*$nbDay);
-                }
-                else {
-                    $reservation->setAssurance(0);
-                }
 
-                $em->persist($reservation);
-                $em->flush();
-            }
-            else {
-                $this->addFlash('error', 'La réservation n\'est pas valide, merci de vérifier la disponibilité du vélo.');
-            }
+    public function partageAction(Reservation $reservation) {
+
+        $membre = $this->getUser();
+
+        if($membre == $reservation->getVelo()->getProprio()){
+
+            return $this->render('partage/partage_proprietaire.html.twig', array(
+
+                'reservation' => $reservation,
+                'membre' => $membre));
+
+        }elseif ($membre == $reservation->getLocataire()){
+
+            return $this->render('partage/partage_locataire.html.twig', array(
+
+                'reservation' => $reservation,
+                'membre' => $membre));
+        }else{
+
+            return $this->redirectToRoute('recherche-liste');
+
         }
 
-
-
-        return $this->render('partage/utilisateur_reservation.html.twig',array(
-
-            'membre' => $membre,
-            'reservation' => $reservation,
-            'reservationForm' => $reservationForm->createView(),
-            'velo' => $velo));
     }
 
     /**
-     * @Route("/{id}/validation", name="partage")
      *
+     * @Route("/attentevalidation/{id}", name="partage_attente_validation")
      */
-
-    public function proprietaireValidationAction(Velo $velo) {
-        $membre = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $reservation = $em->getRepository(Reservation::class)->findAll();
-        dump($reservation);
-
-        return $this->render('partage/proprietaire_validation.html.twig', array(
-            'velo' => $velo,
-            'reservation' => $reservation,
-            'membre' => $membre));
-    }
-
-    public function utilisateurRetourAction(Velo $velo) {
+    public function attenteValidationAction(Reservation $reservation) {
         $membre = $this->getUser();
 
-        return $this->render('partage/utilisateur_retour.html.twig', array(
-            'velo' => $velo,
-           // 'reservation' => $reservation,
-            'membre' => $membre));
+        if($membre == $reservation->getLocataire() && $reservation->getEtape() == 0) {
+
+            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+        }
+
     }
 
-    public function proprietaireClotureAction(Velo $velo) {
+    /**
+     *
+     * @Route("/validationproprio/{id}", name="partage_validation_proprio")
+     */
+    public function validationAction(Reservation $reservation) {
         $membre = $this->getUser();
 
-        return $this->render('partage/proprietaire_cloture.html.twig', array(
-            'velo' => $velo,
-            //'reservation' => $reservation,
-            'membre' => $membre));
+        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 0) {
+
+            $reservation->setEtape(1);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
+
+            // TODO Le mail au locataire ( demandeValidation)
+        }
+
+        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
     }
+
+
+
+    /**
+     *
+     * @Route("/paiement/{id}", name="partage_paiement")
+     */
+    public function paiementAction(Reservation $reservation) {
+
+        $membre = $this->getUser();
+
+        if($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
+
+            //Si la personne n'a pas encore de Wallet MP,
+            //il faut lui créer à partir de ses informations User
+
+            //si la personne a déja un wallet MP, on effectue le PayIn
+
+            $reservation->setEtape(2);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
+
+            // TODO Mail au proprio ( paiementPointProprio) et mail au locataire (paiementPoints)
+
+
+
+            /*  Mails
+             *  Le récapitulatif de paiement à envoyer au locataire
+             *  La notification du payment effectué à envoyer au proprio
+             *
+             *  Actions
+             *  Page locataire avec le bouton "payer" et rédirection sur la page de paiement Mangopay
+             *  Après la validaion du paiement passage à l'étape 2
+
+            */
+
+
+            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+        }
+
+
+    }
+
+
+    /**
+     *
+     * @Route("/retour_locataire/{id}", name="partage_retour_locataire")
+     */
+    public function retourLocataireAction(Reservation $reservation) {
+
+        $membre = $this->getUser();
+
+        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 2) {
+
+            $reservation->setEtape(3);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
+
+            /*  Mails
+             *
+             *  Mail de rappel de valider la retour de vélo à envoyer au proprio
+             *
+             *  Actions
+             *  Page locataire avec le bouton "Je confirme le retour"
+            */
+
+
+            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+        }
+
+
+    }
+
+    /**
+     *
+     * @Route("/retour_locataire/{id}", name="partage_retour_proprio")
+     */
+    public function retourProprioAction(Reservation $reservation) {
+
+        $membre = $this->getUser();
+
+        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 3) {
+
+            $reservation->setEtape(4);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
+
+            /*  Mails
+             *
+             *  Mail de rappel de valider la retour de vélo à envoyer au proprio
+             *
+             *  Actions
+             *  Page proprio avec les bouton "Tout s’est bien passé, je clos le partage" et "Il y un problème, j’ouvre un cas de litige"
+            */
+
+
+            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+        }
+
+
+    }
+
+    /**
+     *
+     * @Route("/retour_locataire/{id}", name="partage_retour_proprio")
+     */
+    public function archivageAction(Reservation $reservation) {
+
+        $membre = $this->getUser();
+
+        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 3) {
+
+            $reservation->setEtape(4);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
+
+            /*  Mails
+             *
+             *  Mail de rappel de valider la retour de vélo à envoyer au proprio
+             *
+             *  Actions
+             *  Page proprio avec les bouton "Tout s’est bien passé, je clos le partage" et "Il y un problème, j’ouvre un cas de litige"
+            */
+
+
+            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+        }
+
+
+    }
+
+
+
+
+    /**
+     *
+     * @Route("/suppressionpartage/{id}", name="partage_suppression")
+     */
+    public function suppressionAction(Reservation $reservation) {
+        $membre = $this->getUser();
+
+        if(($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 0) ||
+        ($membre == $reservation->getLocataire() && $reservation->getEtape() == 1)) {
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($reservation);
+            $em->flush();
+
+        }
+
+        return $this->redirectToRoute('recherche-liste');
+    }
+
+
 }

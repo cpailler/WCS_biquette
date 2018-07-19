@@ -78,6 +78,13 @@ class Reservation
      * @ORM\Column(name="etape", type="integer")
      */
     private $etape = 0;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_day", type="integer")
+     */
+    private $nbDay;
+
 
     /**
      * Get id.
@@ -303,5 +310,29 @@ class Reservation
     public function getEtape()
     {
         return $this->etape;
+    }
+
+    /**
+     * Set nbDay.
+     *
+     * @param int $nbDay
+     *
+     * @return Reservation
+     */
+    public function setNbDay($nbDay)
+    {
+        $this->nbDay = $nbDay;
+
+        return $this;
+    }
+
+    /**
+     * Get nbDay.
+     *
+     * @return int
+     */
+    public function getNbDay()
+    {
+        return $this->nbDay;
     }
 }

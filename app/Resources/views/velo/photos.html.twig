@@ -4,7 +4,13 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="titre">PHOTOS DU VÉLO</h2><br>
+        <div style="display: inline-block;">
+            <h2 class="titre">PHOTOS DU VÉLO</h2>
+        </div>
+        <div class="asterix">
+            (*)
+        </div>
+        <br>
         <p class="infos_description">Ajoutez 3 photos de votre vélo et augmentez vos chances de finaliser un partage. Choisissez des photos qui montrent le vélo de façon réaliste pour permettre aux utilisateurs de l’identifier facilement.</p>
         <h4>Ajouter une photo :</h4>
         {% if velo.photos|length<3 %}
