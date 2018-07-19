@@ -31,7 +31,7 @@ class ReservationController extends Controller
      * @Route("/{id}", name="reservation")
      *
      */
-    public function utilisateurReservationAction(Request $request, Velo $velo, DateCheck $dateCheck, Calendrier $calendrier)
+    public function utilisateurReservationAction(Request $request, Velo $velo, DateCheck $dateCheck, Calendrier $calendrier, \Swift_Mailer $mailer)
     {
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -56,6 +56,22 @@ class ReservationController extends Controller
                 $em->flush();
 
                 // TODO Mail au proprio pour valider la reservation (demande)
+
+                $emailProprio = $velo->getProprio()->getEmail();
+
+                $message = (new \Swift_Message('Demande de réservation'))
+                    ->setFrom('infos@bikerr.fr')
+                    ->setTo($emailProprio)
+                    ->setBody(
+                        $this->renderView(
+                            'email/demande.email.twig',
+                            array('reservation' => $reservation)
+                        ),
+                        'text/html'
+                    )
+                ;
+
+                $mailer->send($message);
 
                 return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
 
