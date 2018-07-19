@@ -254,7 +254,11 @@
                         </div>
 
 
-                        <a href="{{ path('reservation', {'id': velo.id}) }}"><button type="button" class="bouton w-100" >Envoyer une demande de partage</button></a>
+                        <a href="{{ path('reservation', {'id': velo.id}) }}">
+                            <button type="button" class="bouton w-100" >
+                                Envoyer une demande de partage
+                            </button>
+                        </a>
 
                         <div class="mt-3 text-center">
                             <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
