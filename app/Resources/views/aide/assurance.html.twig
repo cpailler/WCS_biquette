@@ -6,7 +6,11 @@
 {% block body %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="gradient_box">
-            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?!</h4>
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
         </div>
     {% else %}
         <div class="gradient_box">
@@ -44,21 +48,22 @@
 
                 <h4 class="bikerr-green">Vous êtes un utilisateur:</h4>
 
-                <p>En tant qu’utilisateur, si le propriétaire a indiqué que l’assurance est obligatoire, vous devez souscrire une assurance pour finaliser le partage. Cela indique au propriétaire que vous êtes couvert pour la durée du partage par une assurance responsabilité civile qui protège le vélo en question. En revanche si l’assurance est optionnelle, vous pouvez choisir de souscrire ou pas l’assurance.</p>
-
+                <p class="explication">En tant qu’utilisateur, si le propriétaire a indiqué que l’assurance est obligatoire, vous devez souscrire une assurance pour finaliser le partage. Cela indique au propriétaire que vous êtes couvert pour la durée du partage par une assurance responsabilité civile qui protège le vélo en question. En revanche si l’assurance est optionnelle, vous pouvez choisir de souscrire ou pas l’assurance.</p>
+                <br>
                 <ol>
-                    <li>Vous êtes protégé en cas d’annulation du propriétaire du vélo</li>
-                    <li>Vous êtes protégé si vous êtes contraint d’annuler le partage</li>
-                    <li>Et le vélo du propriétaire est assuré</li>
+                    <li class="explication">Vous êtes protégé en cas d’annulation du propriétaire du vélo</li>
+                    <li class="explication">Vous êtes protégé si vous êtes contraint d’annuler le partage</li>
+                    <li class="explication">Et le vélo du propriétaire est assuré</li>
                 </ol>
+                <br>
 
                 <h4 class="bikerr-green">Vous êtes un propriétaire de vélo:</h4>
 
-                <p>En tant que propriétaire, vous avez le choix de définir l’assurance comme obligatoire ou optionnelle. Si vous choisissez «obligatoire», votre invité doit souscrire à l’assurance pour finaliser le partage. Vous avez ainsi la certitude que votre vélo est protégé.</p>
+                <p class="explication">En tant que propriétaire, vous avez le choix de définir l’assurance comme obligatoire ou optionnelle. Si vous choisissez «obligatoire», votre invité doit souscrire à l’assurance pour finaliser le partage. Vous avez ainsi la certitude que votre vélo est protégé.</p>
 
                 <ol>
-                    <li>Votre vélo est protégé en cas de vol et dommages causés par l’utilisateur pendant la période de partage</li>
-                    <li>Tous vos utilisateurs devront obligatoirement choisir une assurance Bikerr/MAIF pour leur déplacement si vous la mettez en obligatoire</li>
+                    <li class="explication">Votre vélo est protégé en cas de vol et dommages causés par l’utilisateur pendant la période de partage</li>
+                    <li class="explication">Tous vos utilisateurs devront obligatoirement choisir une assurance Bikerr/MAIF pour leur déplacement si vous la mettez en obligatoire</li>
                 </ol>
 
                 <p class="exemple">Exemple : Pendant le partage, le vélo est volé alors que je l’avais bien attaché. Le propriétaire n’avait pas défini de
@@ -66,12 +71,16 @@
                     à ma charge et le reste est couvert par l’assurance.</p>
 
                 <h4 class="bikerr-green">Que couvre l'assurance ?</h4>
-                <p>L’assurance couvre les dommages, le vol et offrent une couverture en responsabilité civile sur l’intégralité de la période de partage. La garantie intervient au titre de l’assurance dommages aux biens à concurrence d&apos;un plafond de 5 000 €, assortie d&apos;une franchise contractuelle de 50€ à la charge de l’utilisateur pour tout événement à caractère accidentel survenu lors de la location d’un vélo sur Bikerr. Le vol est inclus.
-                </p>
-                <p>La simple crevaison qui ne revêt pas de caractère accidentel est de ce fait exclut de la garantie. Plus largement, Bikerr considère en effet qu’il revient aux propriétaires d’entretenir leurs vélos et de proposer des montures en bon état équipés de pneumatiques adéquates.</p>
-                <p>Bikerr propose une garantie performante adaptée au partage de vélos entre particuliers qui intègre également une couverture en responsabilité civile en cas de survenance d’un dommage du fait d’une défaillance mécanique du vélo, à concurrence d’un plafond de 15 000 000 € pour les dommages corporels.</p>
-                <p>Les garanties excluent le risque circulation qui impliquerait le vélo loué dans un accident avec un véhicule terrestre à moteur (voiture, moto…) conformément à la Loi Badinter. Dans cette hypothèse, il appartient à l’emprunteur de faire intervenir son assureur personnel.</p>
+                <p class="explication">L’assurance couvre les dommages, le vol et offrent une couverture en responsabilité civile sur l’intégralité de la période de partage. La garantie intervient au titre de l’assurance dommages aux biens à concurrence d&apos;un plafond de 5 000 €, assortie d&apos;une franchise contractuelle de 50€ à la charge de l’utilisateur pour tout événement à caractère accidentel survenu lors de la location d’un vélo sur Bikerr. Le vol est inclus.
+                </p><br>
+                <p class="explication">La simple crevaison qui ne revêt pas de caractère accidentel est de ce fait exclut de la garantie. Plus largement, Bikerr considère en effet qu’il revient aux propriétaires d’entretenir leurs vélos et de proposer des montures en bon état équipés de pneumatiques adéquates.</p>
+                <br>
+                <p class="explication">Bikerr propose une garantie performante adaptée au partage de vélos entre particuliers qui intègre également une couverture en responsabilité civile en cas de survenance d’un dommage du fait d’une défaillance mécanique du vélo, à concurrence d’un plafond de 15 000 000 € pour les dommages corporels.</p>
+                <br>
+                <p class="explication">Les garanties excluent le risque circulation qui impliquerait le vélo loué dans un accident avec un véhicule terrestre à moteur (voiture, moto…) conformément à la Loi Badinter. Dans cette hypothèse, il appartient à l’emprunteur de faire intervenir son assureur personnel.</p>
+                <br><br>
             </div>
+
         </div>
 
     </div>

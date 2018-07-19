@@ -6,7 +6,11 @@
 {% block body %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="gradient_box">
-            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?!</h4>
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
         </div>
     {% else %}
         <div class="gradient_box">
@@ -22,7 +26,7 @@
                 <img src="{{ asset('images/icn-depotdegarantie-big.svg') }}" alt="depot-garantie" class="image_aide">
             </div>
             <div class="container_aide">
-                <h4 class="explication_title bikerr-green">Le dépôt de garantie, c'est quoi ?</h4>
+                <h4 class="explication_title bikerr-green">Le dépôt de garantie c’est quoi ?</h4>
             </div>
         </div>
     </div>
@@ -31,29 +35,61 @@
     <div class="bikerr-container">
         <div class="row">
             <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
-                <p class="explication bikerr-green text-center">Le dépôt de garantie c’est d’abord un service de protection pendant le partage de votre vélo. C’est  une précaution de sécurité que les propriétaires peuvent adopter lorsqu’ils partagent leurs vélos.</p>
+                <p class="explication bikerr-green">
+                    Le dépôt de garantie c’est d’abord un service de protection pendant le partage de votre vélo. C’est  une précaution de sécurité que les propriétaires peuvent adopter lorsqu’ils partagent leurs vélos.
+                </p>
+                <br><br><br><br>
             </div>
         </div>
     </div>
 
-    <div class="bikerr-container mt-5">
+    <div class="bikerr-container">
         <div class="row">
             <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
-                <h4 class="bikerr-green">Une option qui sécurise</h4>
-                <p>Lorsqu’un vélo est ajouté sur Bikerr, un montant est suggéré par le site et prend en compte les caractéristiques de votre vélo. C’est une suggestion et vous pouvez la modifier sur le profil vélo dans l’onglet / Points, dépôt de garantie et assurance /.</p>
-                <p class="exemple">Exemple 1 : J’organise un partage de vélo avec Laurent pour mes deux semaines de vacances. Son vélo électrique 	requiert un dépôt de garantie de 500 euros. Je finalise le partage, je rentre mes informations bancaires, donnant  	ainsi l’accord d’être prélevé du montant du dépôt de garantie en cas de dommages. Je règle 25 euros soit 5% de 	commission pour l’usage de son vélo électrique pendant mes 14 jours de vacances.</p>
-                <h4 class="bikerr-green">Quels sont les avantages ?</h4>
-                <p>Le dépôt de garantie offre plusieurs avantages pour le propriétaire et l’utilisateur. Cela permet au propriétaire du vélo de se couvrir en cas d’incident. Mais cela permet aussi au futur emprunteur de rassurer le propriétaire puisqu’il accepte de le payer. L’utilisateur prouve ainsi qu’il est digne de confiance et qu’il prendra soin du vélo. Lorsqu’un propriétaire rend obligatoire le dépôt de garantie, il est important pour le futur emprunteur d’accepter de payer le dépôt de garantie car il est une étape cruciale à la finalisation du partage. En cas de refus, le propriétaire pourra légitimement annuler la transaction.</p>
-                <h4 class="bikerr-green">Comment ça marche ?</h4>
-                <p>Après que les parties ont validé et approuvé les détails du partage, l’utilisateur doit finaliser la transaction. Dans le processus de finalisation, le futur emprunteur est amené́ à entrer les détails de sa carte de paiement. Seule une commission de 5% est prélevée sur le dépôt de garantie. Le montant demandé par le propriétaire n’est pas prélevé́. Bikerr acte la transaction comme un accord entre Bikerr et l’utilisateur autorisant à demander le montant total ou une partie du dépôt de garantie dans les 30 jours qui suivent la fin du partage en cas d’incident.</p>
-                <h4 class="bikerr-green">Pourquoi une commission sur le dépôt de garantie ?</h4>
-                <p>Les 5% de commission sur le dépôt de garantie recouvrent le service que Bikerr réalise en agissant comme un tiers de confiance ainsi que le coût et la gestion des solutions de paiement.</p>
-                <h4 class="bikerr-green">Que se passe-t-il en cas d'incident ?</h4>
-                <p>Les 5% de commission sur le dépôt de garantie recouvrent le service que Bikerr réalise en agissant comme un tiers de confiance ainsi que le coût et la gestion des solutions de paiement.</p>
-                <p>Au terme de la période de partage, Bikerr demande au propriétaire son accord pour restituer le dépôt de garantie et annule ainsi tout prélèvement du dépôt de garante sur le compte de l’utilisateur. Si le propriétaire n’est pas d’accord, le propriétaire et l’utilisateur doivent trouver un accord pour le dépôt de garantie et le montant à en prélever en fonction de la nature du préjudice. Le propriétaire a 10 jours pour réclamer le dépôt de garantie et indiquer le motif de sa plainte. Notez qu’il est important que les dommages soient justifiés par le propriétaire du vélo pour que le dépôt de garantie soit réclamé.</p>
-                <p>Quoiqu’il en soit, nous suggérons au propriétaire de discuter avec l’utilisateur avant de contacter Bikerr. Une fois la plainte enregistrée, Bikerr informe l’utilisateur et agira comme un tiers de confiance. Informé de la situation, l’utilisateur dispose de 10 jours pour donner son consentement ou pour faire part de son désaccord. Si l’utilisateur et le propriétaire parviennent à un accord, le montant du dépôt de garantie est prélevé́ du compte bancaire de l’utilisateur et transféré́ vers celui du propriétaire. Le reste du dépôt de garantie qui n’est jamais débité par Bikerr, est restitué à l’utilisateur.</p>
-                <p>Plus précisément, Bikerr libère le dépôt de garantie. L’utilisateur est informé de la plainte du propriétaire et donne son approbation. Si aucun accord n’est trouvé dans les 30 jours qui suivent la fin de la période de partage, le dépôt de garantie est débité et transféré sur un compte spécifique jusqu’à ce qu’une décision négociée ou judiciaire soit prise.</p>
-                <p class="exemple">Exemple 2 : Je casse involontairement le panier fixé à l’avant du vélo. Caroline en informe Bikerr en justifiant le 	dommage et me dit que 30 euros sont nécessaires pour acheter un nouveau panier. Je ne suis pas d’accord sur le 	montant. Je dispose de 30 jours après la fin de la période de partage pour trouver un accord avec Caroline. Si nous ne tombons pas d’accord, Bikerr me prélève le dépôt de garantie et le transfère sur un compte spécifique jusqu’à ce qu’un accord soit trouvé entre Caroline et moi.</p>
+                <h4 class="explication_title bikerr-green">Une option qui sécurise</h4><br>
+                <p class="explication">
+                    Lorsqu’un vélo est ajouté sur Bikerr, un montant est suggéré par le site et prend en compte les caractéristiques de votre vélo. C’est une suggestion et vous pouvez la modifier sur le profil vélo dans l’onglet / Points, dépôt de garantie et assurance /.
+                </p><br>
+                <div class="grey_container" style="width: 90%; margin: auto; padding: 2em;">
+                    <p class="explication">
+                        Exemple 1 : J’organise un partage de vélo avec Laurent pour mes deux semaines de vacances. Son vélo électrique 	requiert un dépôt de garantie de 500 euros. Je finalise le partage, je rentre mes informations bancaires, donnant  	ainsi l’accord d’être prélevé du montant du dépôt de garantie en cas de dommages. Je règle 25 euros soit 5% de 	commission pour l’usage de son vélo électrique pendant mes 14 jours de vacances.
+                    </p>
+                </div>
+                <h4 class="explication_title bikerr-green">Quels sont les avantages</h4><br>
+                <p class="explication">
+                    Le dépôt de garantie offre plusieurs avantages pour le propriétaire et l’utilisateur. Cela permet au propriétaire du vélo de se couvrir en cas d’incident. Mais cela permet aussi au futur emprunteur de rassurer le propriétaire puisqu’il accepte de le payer. L’utilisateur prouve ainsi qu’il est digne de confiance et qu’il prendra soin du vélo. Lorsqu’un propriétaire rend obligatoire le dépôt de garantie, il est important pour le futur emprunteur d’accepter de payer le dépôt de garantie car il est une étape cruciale à la finalisation du partage. En cas de refus, le propriétaire pourra légitimement annuler la transaction.
+                </p><br>
+                <h4 class="explication_title bikerr-green">Comment ça marche ?</h4><br>
+                <p class="explication">
+                    Après que les parties ont validé et approuvé les détails du partage, l’utilisateur doit finaliser la transaction. Dans le processus de finalisation, le futur emprunteur est amené à entrer les détails de sa carte de paiement. Seule une commission de 5% est prélevée sur le dépôt de garantie. Le montant demandé par le propriétaire n’est pas prélevé. Bikerr acte la transaction comme un accord entre Bikerr et l’utilisateur autorisant à demander le montant total ou une partie du dépôt de garantie dans les 30 jours qui suivent la fin du partage en cas d’incident.
+                </p><br>
+                <h4 class="explication_title bikerr-green">Pourquoi une commission sur le dépôt de garantie ?</h4><br>
+                <p class="explication">
+                    Les 5% de commission sur le dépôt de garantie recouvrent le service que Bikerr réalise en agissant comme un tiers de confiance ainsi que le coût et la gestion des solutions de paiement.
+                </p><br>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if membre.velos|length > 0 %}
+                        <a class="btn btn-lg bouton-lg" href="{{ path('velo_description', {'id': membre.velos.0.id}) }}" role="button">Modifier mon dépôt de garantie</a>
+                        <br><br>
+                    {% endif %}
+                {% endif %}
+
+                <h4 class="explication_title bikerr-green">Que se passe-t-il en cas d'incident ?</h4><br>
+                <p class="explication">
+                    Au terme de la période de partage, Bikerr demande au propriétaire son accord pour restituer le dépôt de garantie et annule ainsi tout prélèvement du dépôt de garante sur le compte de l’utilisateur. Si le propriétaire n’est pas d’accord, le propriétaire et l’utilisateur doivent trouver un accord pour le dépôt de garantie et le montant à en prélever en fonction de la nature du préjudice. Le propriétaire a 10 jours pour réclamer le dépôt de garantie et indiquer le motif de sa plainte. Notez qu’il est important que les dommages soient justifiés par le propriétaire du vélo pour que le dépôt de garantie soit réclamé.
+                    <br><br>
+                    Quoiqu’il en soit, nous suggérons au propriétaire de discuter avec l’utilisateur avant de contacter Bikerr. Une fois la plainte enregistrée, Bikerr informe l’utilisateur et agira comme un tiers de confiance. Informé de la situation, l’utilisateur dispose de 10 jours pour donner son consentement ou pour faire part de son désaccord. Si l’utilisateur et le propriétaire parviennent à un accord, le montant du dépôt de garantie est prélevé du compte bancaire de l’utilisateur et transféré vers celui du propriétaire. Le reste du dépôt de garantie qui n’est jamais débité par Bikerr, est restitué à l’utilisateur.
+                    <br><br>
+                    Plus précisément, Bikerr libère le dépôt de garantie. L’utilisateur est informé de la plainte du propriétaire et donne son approbation. Si aucun accord n’est trouvé dans les 30 jours qui suivent la fin de la période de partage, le dépôt de garantie est débité et transféré sur un compte spécifique jusqu’à ce qu’une décision négociée ou judiciaire soit prise.
+                </p><br>
+                <div class="grey_container" style="width: 90%; margin: auto; padding: 2em;">
+                    <p class="explication">
+                        Exemple 2 : Je casse involontairement le panier fixé à l’avant du vélo. Caroline en informe Bikerr en justifiant le 	dommage et me dit que 30 euros sont nécessaires pour acheter un nouveau panier. Je ne suis pas d’accord sur le 	montant. Je dispose de 30 jours après la fin de la période de partage pour trouver un accord avec Caroline. Si nous
+                        ne tombons pas d’accord, Bikerr me prélève le dépôt de garantie et le transfère sur un compte spécifique jusqu’à
+                        ce qu’un accord soit trouvé entre Caroline et moi.
+
+                    </p>
+                </div><br><br><br>
             </div>
         </div>
 

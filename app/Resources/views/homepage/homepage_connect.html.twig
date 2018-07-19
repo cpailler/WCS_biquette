@@ -32,91 +32,41 @@
             <h2 class="lead ">Partage de vélos entre amis</h2>
 
             <div class="row">
-                <form class="form-inline container_velo">
-                    <input class="form-control col-md-5 col-sm-6 " type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search">
-                    <input class="form-control col-md-1 col-sm-2 offset-md-1" type="date" name="debut" min="{{ "now"|date("m/d/Y") }}">
-                    <input class="form-control col-md-1 col-sm-2" type="date" name="debut" >
-                    <button class="btn btn-lg bouton col-md-2 offset-md-1" type="submit">Rechercher</button>
+                <form class="form-inline container_velo" method="post" action="{{ path('recherche-liste') }}">
+                    <input id="search-city" name="ville" class="form-control col-md-5 col-sm-5 " type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
+                    <!-- <input class="form-control col-md-1 col-sm-2 offset-md-1" type="date" name="debut" min=" TWIG "now"|date("m/d/Y") TWIG ">
+                    <input class="form-control col-md-1 col-sm-2" type="date" name="debut" > -->
+                    <button class="btn btn-lg bouton col-md-5 col-sm-5" type="submit">Rechercher</button>
                 </form>
             </div>
         </div>
     </div>
 
 
+    <!-- vélos partagés -->
     <div class="bikerr_container">
         <h4 class="explication_title">Vélos partagés récemment</h4>
         <br>
         <div class="container_velo">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/vintage-bike.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                {% for veloPartage in velosPartages %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                        <div class="shadow">
+                            <div class="card crop">
+                                <a href="{{ path('annonce', {'id':veloPartage.id}) }}">
+                                    <img class="card-img-top" src="{{ asset('images/uploads/' ~ veloPartage.photos.0.image ) }}" alt="velo_electrique">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="title-announce">{{ veloPartage }} <span>{{ veloPartage.coutPts }}</span></h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo_adulte.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo-giant.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/gray-bike.jpeg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velos_partages/velo-pedego.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
+
             <br>
-            <a class="btn btn-lg bouton" href="#" role="button">Découvrir</a>
+            <a class="btn btn-lg bouton" href="{{ path('recherche-liste') }}" role="button">Découvrir</a>
         </div>
     </div>
 
@@ -149,7 +99,9 @@
         <br><a href="#" class="btn btn-lg bouton-lg" role="button">Voir les vélos des membres Vérifiés</a>
     </div>#}
 
-    <div class="bikerr_container">
+    <!--vélos cargos -->
+
+   {# <div class="bikerr_container">
         <h4 class="explication_title">Transport XXL : découvrez les cargos</h4>
         <div class="container_velo">
             <div class="row">
@@ -191,97 +143,101 @@
             <br>
             <a class="btn btn-lg bouton" href="#" role="button">Découvrir les cargos</a>
         </div>
-    </div>
+    </div>#}
 
     <!-- vélos électriques -->
-
     <div class="bikerr_container background-color">
         <h4 class="explication_title">Focus VAE : découvrez les électriques</h4>
         <div class="container_velo">
             <div class="row">
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velo-electrique1.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velo-electrique2.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
+                {% for veloElectrique in velosElectriques %}
+                    <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
+                        <div class="shadow">
+                            <div class="card crop">
+                                <a href="{{ path('annonce', {'id':veloElectrique.id}) }}">
+                                    <img class="card-img-top" src="{{ asset('images/uploads/' ~ veloElectrique.photos.0.image ) }}" alt="velo_electrique">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="title-announce">{{ veloElectrique }} <span>{{ veloElectrique.coutPts }}</span></h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-12 bikerr-card">
-                    <div class="shadow">
-                        <div class="card crop">
-                            <img class="card-img-top" src="{{ asset('images/velo-electrique3.jpg') }}" alt="">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="title-announce">{{ "Velo Strasbourg" }} <span>{{ '45' }}</span></h5>
-                        </div>
-                    </div>
-                </div>
-
+                {% endfor %}
             </div>
             <br>
-            <a class="btn btn-lg bouton-lg" href="#" role="button">Découvrir les électriques</a>
+            {#<a class="btn btn-lg bouton" href="#" role="button">Découvrir les électriques</a>#}
         </div>
     </div>
+
 
     <div class="bikerr_container">
         <h4 class="explication_title">Visitez les destinations les plus recherchées</h4><br>
         <div class="container_velo">
             <div class="row">
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square ">
-                        <h3 class="title_text_town">PARIS</h3>
-                    </div>
+                    <form id="paris" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Paris">
+                        <div class="town_square" onclick="document.getElementById('paris').submit();">
+                            <h3 class="title_text_town">PARIS</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class=" col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">NICE</h3>
-                    </div>
+                    <form id="nice" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Nice">
+                        <div class="town_square" onclick="document.getElementById('nice').submit();">
+                            <h3 class="title_text_town">NICE</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">STRASBOURG</h3>
-                    </div>
+                    <form id="strasbourg" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Strasbourg">
+                        <div class="town_square" onclick="document.getElementById('strasbourg').submit();">
+                            <h3 class="title_text_town">STRASBOURG</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">BORDEAUX</h3>
-                    </div>
+                    <form id="bordeaux" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Bordeaux">
+                        <div class="town_square" onclick="document.getElementById('bordeaux').submit();">
+                            <h3 class="title_text_town">BORDEAUX</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square ">
-                        <h3 class="title_text_town">LYON</h3>
-                    </div>
+                    <form id="lyon" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Lyon">
+                        <div class="town_square" onclick="document.getElementById('lyon').submit();">
+                            <h3 class="title_text_town">LYON</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class=" col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">TOULOUSE</h3>
-                    </div>
+                    <form id="toulouse" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Toulouse">
+                        <div class="town_square" onclick="document.getElementById('toulouse').submit();">
+                            <h3 class="title_text_town">TOULOUSE</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">NANTES</h3>
-                    </div>
+                    <form id="nantes" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Nantes">
+                        <div class="town_square" onclick="document.getElementById('nantes').submit();">
+                            <h3 class="title_text_town">NANTES</h3>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-md-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
-                    <div class="town_square">
-                        <h3 class="title_text_town">PERPIGNAN</h3>
-                    </div>
+                    <form id="perpignan" action="{{ path('recherche-liste') }}" method="post" style="cursor: pointer;">
+                        <input type="hidden" name="ville" value="Perpignan">
+                        <div class="town_square" onclick="document.getElementById('perpignan').submit();">
+                            <h3 class="title_text_town">PERPIGNAN</h3>
+                        </div>
+                    </form>
                 </div>
 
 
@@ -297,5 +253,6 @@
         </div>
     </div>
 
+    <!--         END AUTOCOMPLETE VILLE           -->
 
 {% endblock %}

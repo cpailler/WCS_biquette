@@ -79,6 +79,10 @@
   padding: 3em;
 }
 
+.background-color{
+  background-color: $grey-background;
+}
+
 .container_velo {
   margin: auto;
 }
@@ -106,9 +110,19 @@
 }
 
 .town_square:hover {
-  -webkit-transform: rotate(15deg);
-  transform: rotate(15deg);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
   background-color: #005f1c;
+}
+
+.img-aide {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  text-align: center;
+}
+
+.img-aide img {
+  max-width: 80%
 }
 
 @media (max-width: 576px)
