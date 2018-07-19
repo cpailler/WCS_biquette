@@ -45,7 +45,12 @@ class ReservationController extends Controller
                 $reservation->setVelo($velo);
                 $reservation->setLocataire($membre);
                 $reservation->setCoutPts($velo->getCoutPts() * $nbDay);
-                $reservation->setCaution($velo->getCaution());
+                if ($velo->getCautionOblig() == 1){
+                    $reservation->setCaution($velo->getCaution());
+                }else{
+                    $reservation->setCaution(0);
+                }
+
                 if ($velo->getAssurOblig() == 1) {
                     $reservation->setAssurance(1 * $nbDay);
                 } else {

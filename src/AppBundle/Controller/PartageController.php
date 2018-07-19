@@ -195,9 +195,10 @@ class PartageController extends Controller
             $em->persist($reservation);
             $em->flush();
 
+
             /*  Mails
              *
-             *  Mail de rappel de valider la retour de vélo à envoyer au proprio
+             *  TODO Mail de rappel de valider la retour de vélo à envoyer au proprio
              *
              *  Actions
              *  Page proprio avec les bouton "Tout s’est bien passé, je clos le partage" et "Il y un problème, j’ouvre un cas de litige"
