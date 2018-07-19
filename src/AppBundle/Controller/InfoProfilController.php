@@ -112,21 +112,23 @@ class InfoProfilController extends Controller
     public function VirementAction(Request $request,JaugeProfil $jaugeProfil,MangoPayApi $mangoPayApi)
     {
         $em = $this->getDoctrine()->getManager();
-        $membre=$this->getUser();
-        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+        $membre1=$this->getUser();
+        $jaugeProfil = $this->getJaugeProfil($membre1, $jaugeProfil);
         $bankAccount = new BankAccount();
 
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $Bank = $mangoPayApi->InitBankAccount($membre,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
+            $Bank = $mangoPayApi->InitBankAccount($membre1,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
             dump($Bank);
+            $PayOut = $mangoPayApi->PayOut($membre1,$Bank,1000,500);
+            dump($PayOut);
         }
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/preferencesVirement.html.twig',
             'form'=>$form->createView(),
-            'membre' => $membre,
+            'membre' => $membre1,
             'jaugeProfil' =>$jaugeProfil
 
         ));
