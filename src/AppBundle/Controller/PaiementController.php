@@ -42,7 +42,7 @@ class PaiementController extends Controller
      * @param Membre $membre
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function RegisterCardView(Request $request,MangoPayApi $mangoPayApi)
+    public function RegisterCardViewAction(Request $request,MangoPayApi $mangoPayApi)
     {
         $session = new Session();
         //$session->start();
