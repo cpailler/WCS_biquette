@@ -15,7 +15,7 @@
                     <!-- barre de tri -->
                     <div class="col-12 col-lg-12 form-control recherche-map">
 
-                        <form class="tri-box" method="post" action="{{ path('recherche-liste') }}">
+                        <form class="tri-box" method="post" action="">
                             <div class="tri-city">
                                 <div>
                                     <input id="search-city" name="ville" class="form-control" type="text" placeholder="Dans quelle ville voulez-vous un vélo ?" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
@@ -128,7 +128,6 @@
     </div>
 
 
-
     <!--          TRI VELO         -->
     <script src="{{ asset('build/tri.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -232,7 +231,7 @@
                             this.div = null
                             this.html = null
                             this.pos = pos
-                            this.text = text!m
+                            this.text = text
                             this.setMap(map)
                             this.onActivation = []
                         }
