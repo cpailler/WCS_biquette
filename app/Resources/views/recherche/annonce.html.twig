@@ -16,7 +16,7 @@
     <form action="">
         <div class="container">
             <div class="row">
-                <div id="bloc__description" class="container mt-5 col-7">
+                <div id="bloc__description" class="container mt-5 col-lg-7 col-md-10">
                     <div class="row">
                         {#Ci-dessous, la fonction permettant à l'utilisateur de n'être contacté que par les membres vérifiés#}
 {#                        {% if velo.proprio.membreVerifie == 1 %}
@@ -240,7 +240,7 @@
 
                 </div>
 
-                <div id="bloc__carte" class="mt-5 col-4">
+                <div id="bloc__carte" class="mt-5 col-lg-4 col-md-12">
                     <div id="carte">
                         <div class="row">
                             <h1 id="carte__points" class="col-3">{{ velo.coutPts }}</h1>
@@ -262,6 +262,7 @@
                         </a>
                         {% else %}
                             <p class="notice">Vous devez compléter votre profil à 85% au moins avant de pouvoir réserver un vélo</p>
+                            <br>
                             <button type="button" class="bouton-disabled w-100" disabled>
                                 Envoyer une demande de partage
                             </button>
