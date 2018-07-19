@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $ from "jquery"
 
 $('.dateclic').on('change', function () {
 
