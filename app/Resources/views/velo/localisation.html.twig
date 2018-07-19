@@ -1,4 +1,11 @@
-<h3>LOCALISATION</h3>
+{% block body %}
+
+<div style="display: inline-block;">
+    <h2 class="titre">LOCALISATION</h2>
+</div>
+<div class="asterix">
+    (*)
+</div>
 {{ form_start(form) }}
 <div id="form-control">
 {{ form_label(form.adresse_velo, 'Adresse de retrait du vélo') }}
@@ -113,3 +120,4 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
             async defer></script>
+{% endblock %}

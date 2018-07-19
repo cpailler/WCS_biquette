@@ -4,7 +4,16 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="titre">PHOTOS DE PROFIL</h2><br>
+        <div>
+            <div style="display: inline-block;">
+                <h2 class="titre">PHOTOS DE PROFIL</h2>
+            </div>
+            <div class="asterix">
+                (*)
+            </div>
+        </div>
+
+        <br>
         <p class="infos_description">Ajoutez une photo de profil et augmentez vos chances de finaliser un partage !</p>
 
         {% if membre.image|length > 0 %}

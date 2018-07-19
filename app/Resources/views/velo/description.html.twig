@@ -4,26 +4,85 @@
     </div>
     <div class="form-control">
         {{ form_start(form) }}
-        {{ form_row(form.titre)}}
-        {{ form_row(form.description)}}
+        <div>
+            <div style="display: inline-block;">
+                {{ form_label(form.titre) }}
+            </div>
+            <div class="asterix">
+                (*)
+            </div>
+        </div>
+        {{ form_errors(form.titre) }}
+        {{ form_widget(form.titre) }}
+        <div>
+            <div style="display: inline-block;">
+                {{ form_label(form.description) }}
+            </div>
+            <div class="asterix">
+                (*)
+            </div>
+        </div>
+        {{ form_errors(form.description) }}
+        {{ form_widget(form.description) }}
         <div class="row">
             <div class="col-sm-6 container-fluid">
-                {{ form_row(form.marque) }}
+                <div>
+                    <div style="display: inline-block;">
+                        {{ form_label(form.marque) }}
+                    </div>
+                    <div class="asterix">
+                        (*)
+                    </div>
+                </div>
+                {{ form_errors(form.marque) }}
+                {{ form_widget(form.marque) }}
             </div>
             <div class="col-sm-6 container-fluid">
-                {{ form_row(form.modele) }}
+                <div>
+                    <div style="display: inline-block;">
+                        {{ form_label(form.modele) }}
+                    </div>
+                    <div class="asterix">
+                        (*)
+                    </div>
+                </div>
+                {{ form_errors(form.modele) }}
+                {{ form_widget(form.modele) }}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-5 container-fluid">
-                {{ form_row(form.typeVelo) }}
+                <div>
+                    <div style="display: inline-block;">
+                        {{ form_label(form.typeVelo) }}
+                    </div>
+                    <div class="asterix">
+                        (*)
+                    </div>
+                </div>
+                {{ form_errors(form.typeVelo) }}
+                {{ form_widget(form.typeVelo) }}
             </div>
             <div class="col-sm-5 container-fluid">
-                {{ form_row(form.etatVelo) }}
+                <div>
+                    <div style="display: inline-block;">
+                        {{ form_label(form.etatVelo) }}
+                    </div>
+                    <div class="asterix">
+                        (*)
+                    </div>
+                </div>
+                {{ form_errors(form.etatVelo) }}
+                {{ form_widget(form.etatVelo) }}
             </div>
         </div>
 
+        <div style="display: inline-block;">
             {{ form_label(form.couleur) }}
+        </div>
+        <div class="asterix">
+            (*)
+        </div>
         <div id="appbundle_velo_couleur" class="row justify-content-center">
             {% for couleur in couleurs %}
             <label class="containerradio col-md-1">
