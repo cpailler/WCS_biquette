@@ -73,8 +73,8 @@ class PaiementController extends Controller
 
         //sauveagarde en session de l'objet cardRegistration
         $session->set('cardregistration', $cardRegistration);
-        $session->set('membre', $membre);
-        $session->set('returnURL', $returnUrl);
+        //$session->set('membre', $membre);
+        //$session->set('returnURL', $returnUrl);
 
         //recuperation requete GET & POST
         $form->handleRequest($request);
@@ -83,20 +83,21 @@ class PaiementController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $data=$request->query->get('data');
+            //$data=$request->query->get('data');
 
             //$CardID = $form->getData();
 
         }
 
         // Accès au retour de $_POST
-        //$request->request->get('CardRegisterForm'); // post ???
+        //$post = $request->request->get(''); // post ???
 
         // Envoi de la vue
         return $this->render('paiement/CartePaiement.html.twig',array(
             'form'=>$form->createView(),
             'cardregistration' => $cardRegistration,
             'returnUrl'=>$returnUrl
+            //'post' => $post
         ));
 
 /*        return $this->render('default/cardRegisterForm.html.twig', array(
@@ -121,7 +122,9 @@ class PaiementController extends Controller
 
 
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$request->query->get('data'));
-        dump($CarteUpdated);
+        //dump($CarteUpdated);
+
+        //$post = $request->request->get('');
 
         $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,10000,500);
 
@@ -136,6 +139,49 @@ class PaiementController extends Controller
         {
             return $this->redirect($PayIn->ExecutionDetails->SecureModeRedirectURL);
         }
+
+        if($PayIn->Status == "SUCCEEDED")
+        {
+            $session->getFlashBag()->add('notice', 'Paiement réussi');
+            return $this->redirectToRoute('profil_infos');
+        }else
+        {
+            $session->getFlashBag()->add('error', 'Paiement échoué');
+            return $this->redirectToRoute('paiement_card');
+        }
+
+    }
+
+    /**
+     * @Route("/check_transaction", name="check_transaction")
+     * @Method({"GET"})
+     * @param Request $request
+     * @param MangoPayApi $mangoPayApi
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function CheckTransaction(Request $request,MangoPayApi $mangoPayApi)
+    {
+        $session = new Session();
+        $membre1 = $this->getUser();
+
+        $payInStatus = $mangoPayApi->CheckPayIn($request->query->get('transactionId'));
+
+
+        if($payInStatus == "SUCCEEDED")
+        {
+            $session->getFlashBag()->add('notice', 'Paiement réussi');
+            return $this->redirectToRoute('profil_infos');
+        }else
+        {
+            $session->getFlashBag()->add('error', 'Paiement échoué');
+            return $this->redirectToRoute('paiement_card');
+        }
+
+
+        //TODO : check method transfert et payout
+
+
+
 
 
     }

@@ -132,8 +132,8 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardId = $CardObject->Id;
             //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        //$PayIn->ExecutionDetails->ReturnURL = 'localhost:8001/profil/infos';
-        $PayIn->ExecutionDetails->SecureModeReturnURL = "localhost:8001/profil/infos";
+        $PayIn->ExecutionDetails->ReturnURL = "http://localhost:8000/paiement/check_transaction";     //support@mangopay.com
+        $PayIn->ExecutionDetails->SecureModeReturnURL = "http://localhost:8000/paiement/check_transaction";
         $PayIn->ExecutionDetails->SecureMode = "FORCE";
         $PayIn->ExecutionDetails->Culture = "FR";
         //dump($PayIn);
@@ -273,6 +273,15 @@ class MangoPayApi
         $Refund->Fees->Currency = "EUR";
         $Refund->Fees->Amount = -150;
         $result = $mangoPayApi->Transfers->CreateRefund($TransferId, $Refund);
+    }
+
+    //verifie le statut paiement
+    public function CheckPayIn($transactionId)
+    {
+        dump($transactionId);
+        $payInStatus = $this->connexionApi->PayIns->Get($transactionId)->Status;
+        dump ($payInStatus);
+        return $payInStatus;
     }
 }
 //preauthporization valable 7jour pour caution
