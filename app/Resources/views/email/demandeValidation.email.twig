@@ -18,7 +18,7 @@
 
     <p>Votre demande de partage de vélo "{{ reservation.velo.titre }}" a été validée par son propriétaire".</p>
 
-    <p>Veuillez cliquer sur ce lien <a href="https://bikerr.fr/{{ path('partage/'~reservation.id) }}"></a> afin de procéder à l'échange de points et paiement (s'il y a lieu).</p>
+    <p>Veuillez cliquer sur ce lien <a href="{{ path('partage/'~reservation.id) }}"></a> afin de procéder à l'échange de points et paiement (s'il y a lieu).</p>
 
     <p>L'équipe Bikerr</p>
 

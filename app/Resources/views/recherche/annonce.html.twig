@@ -254,7 +254,18 @@
                         </div>
 
 
-                        <a href="{{ path('reservation', {'id': velo.id}) }}"><button type="button" class="bouton w-100" >Envoyer une demande de partage</button></a>
+                        {% if jaugeProfil > 85 %}
+                        <a href="{{ path('reservation', {'id': velo.id}) }}">
+                            <button type="button" class="bouton w-100" >
+                                Envoyer une demande de partage
+                            </button>
+                        </a>
+                        {% else %}
+                            <p class="notice">Vous devez compléter votre profil à 85% au moins avant de pouvoir réserver un vélo</p>
+                            <button type="button" class="bouton-disabled w-100" disabled>
+                                Envoyer une demande de partage
+                            </button>
+                        {% endif %}
 
                         <div class="mt-3 text-center">
                             <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
@@ -266,7 +277,7 @@
                             <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
                         </div>
                     </div>
-                    <p id="notice" class="mt-3">En réservant ce vélo, une demande de contact est envoyé par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
+                    <p class="notice mt-3">En réservant ce vélo, une demande de contact est envoyée par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
                 </div>
 
             </div>
