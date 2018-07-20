@@ -73,10 +73,13 @@
                 <div class="modal-content">
                     <div class="modal-header" >
 
-                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Mangopay</h4>
+                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Paiement Mangopay</h4>
                     </div>
                     <div class="modal-body">
-
+                        {{ render(controller(
+                            'AppBundle:Paiement:RegisterCardView',
+                            { 'reservation_id': reservation.id }
+                        )) }}
                     </div>
                     <div class="modal-footer">
 

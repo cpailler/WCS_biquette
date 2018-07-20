@@ -32,6 +32,7 @@ class MangoPayApi
         // login : password : temp directory
         $this->connexionApi->Config->ClientId = 'aurelgouilhers';
         $this->connexionApi->Config->ClientPassword = 'wr42AYOg5LU5OE3dn10qNrbfsDC7iYeRHu3N4Gjw3KtGDuSC1V';
+        //dump($this->get('kernel')->locateResource('@AppBundle/../TEMP_MANGO_PAY'));
         $this->connexionApi->Config->TemporaryFolder = '/home/wilder/Projet-3/bikerr/TEMP_MANGOPAY';
         //declaration reoute retour pour recuperation card_Id object
         $this->urlServer = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
@@ -117,10 +118,11 @@ class MangoPayApi
     }
 
     //création d'une  Card direct PayIn
-    public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $caution, $assurance)
+    public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $caution, $assurance, $id_transaction)
     {
         //on calcul les fees de 5% sur la caution;
         $fees = ($caution * 5)/100;
+        $caution = $caution - $fees;
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
         $PayIn->AuthorId = $membre->getIdMangopay();
@@ -138,8 +140,8 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
         $PayIn->PaymentDetails->CardId = $CardObject->Id;
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        $PayIn->ExecutionDetails->ReturnURL = $this->urlServer."paiement/check_transaction";     //support@mangopay.com
-        $PayIn->ExecutionDetails->SecureModeReturnURL = $this->urlServer."paiement/check_transaction";
+        $PayIn->ExecutionDetails->ReturnURL = $this->urlServer."paiement/check_transaction/".$id_transaction;     //support@mangopay.com
+        $PayIn->ExecutionDetails->SecureModeReturnURL = $this->urlServer."paiement/check_transaction/".$id_transaction;
         $PayIn->ExecutionDetails->SecureMode = "DEFAULT";
         $PayIn->ExecutionDetails->Culture = "FR";
         //dump($PayIn);

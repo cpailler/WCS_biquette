@@ -34,17 +34,19 @@ use Doctrine\ORM\EntityManagerInterface;
 class PaiementController extends Controller
 {
     /**
-     * @Route("/card", name="paiement_card")
+     * @Route("/card/{reservation_id}", name="paiement_card")
      * @Method({"GET", "POST"})
      * @param Request $request
      * @param MangoPayApi $mangoPayApi
      * @param Membre $membre
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function RegisterCardViewAction(Request $request,MangoPayApi $mangoPayApi)
+    public function RegisterCardViewAction(Request $request,MangoPayApi $mangoPayApi, $reservation_id)
     {
-        $session = new Session();
 
+        $session = new Session();
+        $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($reservation_id);
+        dump($reservation);
         //on récupere l'utilisateur actuel
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -64,7 +66,7 @@ class PaiementController extends Controller
         $CartePaiement->setAccessKeyRef($cardRegistration->AccessKey);
         $returnUrl = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
         $returnUrl .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
-        $returnUrl .="paiement/card_Id";
+        $returnUrl .="paiement/card_Id/".$reservation_id;
         $CartePaiement->setReturnUrl($returnUrl);
         //on crée le formulaire d'enregistrement de carte
         $form = $this->createForm(CartePaiementType::class, $CartePaiement, array(
@@ -77,17 +79,18 @@ class PaiementController extends Controller
         return $this->render('paiement/CartePaiement.html.twig',array(
             'form'=>$form->createView(),
             'cardregistration' => $cardRegistration,
-            'returnUrl'=>$returnUrl
+            'returnUrl'=>$returnUrl,
+            'reservation' => $reservation
         ));
 
     }
 
     /**
-     * @Route("/card_Id", name="get_card_id")
+     * @Route("/card_Id/{reservation_id}", name="get_card_id")
      * @Method({"GET", "POST"})
      *
      */
-    public function GetCardID(Request $request,MangoPayApi $mangoPayApi)
+    public function GetCardID(Request $request,MangoPayApi $mangoPayApi, $reservation_id)
     {
         $session = new Session();
         $cardRegistration = $session->get('cardregistration');
@@ -104,11 +107,9 @@ class PaiementController extends Controller
 
         $CarteUpdated = $mangoPayApi->CardUpdate($cardRegistration,$dataCard);
 
-        $reservation = new Reservation();
-        $reservation->setCaution(30);
-        $reservation->setAssurance(5);
+        $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($reservation_id);
 
-        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,$reservation->getCaution(), $reservation->getAssurance());
+        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,$reservation->getCaution(), $reservation->getAssurance(), $reservation_id);
 
         //si le sécure mode est necessaire
        if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
@@ -118,8 +119,12 @@ class PaiementController extends Controller
 
         if($PayIn->Status == "SUCCEEDED")
         {
+            $reservation->setEtape(2);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
             $session->getFlashBag()->add('notice', 'Paiement réussi');
-            return $this->redirectToRoute('profil_infos');
+            return $this->redirectToRoute('partage_paiement', array('id' => $reservation_id));
         }else
         {
             $session->getFlashBag()->add('error', 'Paiement échoué');
@@ -129,13 +134,13 @@ class PaiementController extends Controller
     }
 
     /**
-     * @Route("/check_transaction", name="check_transaction")
+     * @Route("/check_transaction/{reservation_id}", name="check_transaction")
      * @Method({"GET"})
      * @param Request $request
      * @param MangoPayApi $mangoPayApi
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function CheckTransaction(Request $request,MangoPayApi $mangoPayApi)
+    public function CheckTransaction(Request $request,MangoPayApi $mangoPayApi, $reservation_id)
     {
         $session = new Session();
 
@@ -144,8 +149,13 @@ class PaiementController extends Controller
 
         if($payInStatus == "SUCCEEDED")
         {
+            $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($reservation_id);
+            $reservation->setEtape(2);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reservation);
+            $em->flush();
             $session->getFlashBag()->add('notice', 'Paiement réussi');
-            return $this->redirectToRoute('profil_infos');
+            return $this->redirectToRoute('partage_paiement', array('id' => $reservation_id));
         }else
         {
             $session->getFlashBag()->add('error', 'Paiement échoué');
