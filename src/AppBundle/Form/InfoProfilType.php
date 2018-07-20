@@ -31,7 +31,7 @@ class InfoProfilType extends AbstractType
             ->add('email', EmailType::class)
             ->add('pays')
             ->add('indicTel')
-            ->add('tel')
+            ->add('tel', TextType::class    )
             ->add('dateNaissance', DateType::class, array(
                 'widget' => 'choice',
                  'years' => range(date('Y')-100, date('Y'))

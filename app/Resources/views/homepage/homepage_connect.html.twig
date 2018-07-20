@@ -8,13 +8,13 @@
 
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active crop_header">
                 <img class="d-block w-100" src="{{ asset('images/carrousel1.jpg') }}" alt="bikerr1">
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item crop_header">
                 <img class="d-block w-100" src="{{ asset('images/carrousel2.jpg') }}" alt="bikerr2">
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item crop_header">
                 <img class="d-block w-100" src="{{ asset('images/carrousel3.jpg') }}" alt="bikerr3">
             </div>
         </div>
@@ -33,10 +33,10 @@
 
             <div class="row">
                 <form class="form-inline container_velo" method="post" action="{{ path('recherche-liste') }}">
-                    <input id="search-city" name="ville" class="form-control col-md-5 col-sm-5 " type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
+                    <input id="search-city" name="ville" class="form-control col-md-5 col-sm-5 input_recherche_ville" type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
                     <!-- <input class="form-control col-md-1 col-sm-2 offset-md-1" type="date" name="debut" min=" TWIG "now"|date("m/d/Y") TWIG ">
                     <input class="form-control col-md-1 col-sm-2" type="date" name="debut" > -->
-                    <button class="btn btn-lg bouton col-md-5 col-sm-5" type="submit">Rechercher</button>
+                    <button class="btn bouton" type="submit">Rechercher</button>
                 </form>
             </div>
         </div>
@@ -246,7 +246,7 @@
         </div>
     </div>
 
-    <div style="position: relative; width: 100%">
+    <div style="position: relative; width: 100%" class="crop_header">
         <img src="{{ asset('images/velo-pratique.jpg') }}" alt="velo-pratique" style="width: 100%">
         <div class="title_text_header">
             <h1><strong>GARDEZ UN VELO DANS VOTRE POCHE</strong></h1>
