@@ -149,12 +149,14 @@ class PartageController extends Controller
 
             //TODO Mail au proprio ( paiementPointProprio)  RECUPERER MAIL PROPRIO VOIR VUE TWIG CORRESPONDANTE
 
-            $message = (new \Swift_Message('Récapitulatif réservation'))
+            $emailProprio = $velo->getProprio()->getEmail();
+
+            $message = (new \Swift_Message('Demande de réservation'))
                 ->setFrom('infos@bikerr.fr')
-                ->setTo($emailLocataire)
+                ->setTo($emailProprio)
                 ->setBody(
                     $this->renderView(
-                        'email/recapitulatifLocataire.email.twig',
+                        'email/demande.email.twig',
                         array('reservation' => $reservation)
                     ),
                     'text/html'
@@ -170,9 +172,7 @@ class PartageController extends Controller
              *  Actions
              *  Page locataire avec le bouton "payer" et rédirection sur la page de paiement Mangopay
              *  Après la validaion du paiement passage à l'étape 2
-
-            */
-
+             */
 
             return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
         }
