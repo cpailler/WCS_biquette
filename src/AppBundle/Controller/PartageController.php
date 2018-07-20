@@ -126,9 +126,42 @@ class PartageController extends Controller
             $em->persist($reservation);
             $em->flush();
 
-            // TODO Mail au proprio ( paiementPointProprio) et mail au locataire (paiementPoints)
+            // TODO Mail au locataire (paiementPoints)
 
 
+            $locataire = $reservation->getLocataire();
+            $emailLocataire = $locataire->getEmail();
+
+            $message = (new \Swift_Message('Récapitulatif réservation'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailLocataire)
+                ->setBody(
+                    $this->renderView(
+                        'email/recapitulatifLocataire.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+
+            //TODO Mail au proprio ( paiementPointProprio)  RECUPERER MAIL PROPRIO VOIR VUE TWIG CORRESPONDANTE
+
+            $message = (new \Swift_Message('Récapitulatif réservation'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailLocataire)
+                ->setBody(
+                    $this->renderView(
+                        'email/recapitulatifLocataire.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
 
             /*  Mails
              *  Le récapitulatif de paiement à envoyer au locataire
