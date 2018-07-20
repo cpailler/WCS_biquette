@@ -325,19 +325,18 @@
     </div>
 {% endblock %}
 <script src="{{ asset('build/app.js') }}"></script>
-<!--          AUTOCOMPLETE VILLE           -->
-<script>
-    function initMap() {
-        var input = document.getElementById('search-city');
-        var inputnav = document.getElementById('navbar-city');
-        var autocomplete = new google.maps.places.Autocomplete(
-            input, {placeIdOnly: true});
-        var autocompletenav = new google.maps.places.Autocomplete(
-            inputnav, {placeIdOnly: true});
-    }
-</script>
-
 {% block javascripts %}
+    <!--          AUTOCOMPLETE VILLE           -->
+    <script>
+        function initMap() {
+            var input = document.getElementById('search-city');
+            var inputnav = document.getElementById('navbar-city');
+            var autocomplete = new google.maps.places.Autocomplete(
+                input, {placeIdOnly: true});
+            var autocompletenav = new google.maps.places.Autocomplete(
+                inputnav, {placeIdOnly: true});
+        }
+    </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
             async defer></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
