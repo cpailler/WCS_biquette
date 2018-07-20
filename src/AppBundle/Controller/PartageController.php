@@ -141,10 +141,9 @@ class PartageController extends Controller
             */
 
 
-            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
         }
 
-
+        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
     }
 
 
@@ -156,7 +155,7 @@ class PartageController extends Controller
 
         $membre = $this->getUser();
 
-        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 2) {
+        if($membre == $reservation->getLocataire() && $reservation->getEtape() == 2) {
 
             $reservation->setEtape(3);
 
@@ -173,15 +172,15 @@ class PartageController extends Controller
             */
 
 
-            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
-        }
 
+        }
+        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
 
     }
 
     /**
      *
-     * @Route("/retour_locataire/{id}", name="partage_retour_proprio")
+     * @Route("/retour_proprio/{id}", name="partage_retour_proprio")
      */
     public function retourProprioAction(Reservation $reservation) {
 
@@ -205,42 +204,13 @@ class PartageController extends Controller
             */
 
 
-            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
         }
+        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
 
 
     }
 
-    /**
-     *
-     * @Route("/retour_locataire/{id}", name="partage_retour_proprio")
-     */
-    public function archivageAction(Reservation $reservation) {
 
-        $membre = $this->getUser();
-
-        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 3) {
-
-            $reservation->setEtape(4);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reservation);
-            $em->flush();
-
-            /*  Mails
-             *
-             *  Mail de rappel de valider la retour de vélo à envoyer au proprio
-             *
-             *  Actions
-             *  Page proprio avec les bouton "Tout s’est bien passé, je clos le partage" et "Il y un problème, j’ouvre un cas de litige"
-            */
-
-
-            return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
-        }
-
-
-    }
 
 
 
