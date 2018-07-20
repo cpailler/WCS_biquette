@@ -138,10 +138,10 @@ class InfoProfilController extends Controller
      * @Route("/retour_caution", name="retour_caution")
      *
      */
-    public function RetourCautionAction(Request $request,JaugeProfil $jaugeProfil, MangoPayApi $mangoPayApi){
+    public function RetourCautionAction(Request $request,JaugeProfil $jaugeProfil, \MangoPay\MangoPayApi $mangoPayApi){
         $membre = $this->getUser();
         $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
-
+        //TODO a tester de recuperer l id wallet par le membre ??
 
 
         return $this->render('profil/layoutProfil.html.twig', array(
