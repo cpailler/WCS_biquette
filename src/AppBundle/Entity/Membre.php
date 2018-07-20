@@ -188,6 +188,7 @@ class Membre extends BaseUser
      * @var int
      *
      * @ORM\Column(name="tel", type="integer", nullable=true)
+     * @Assert\Regex(pattern="/[1-9][0-9]{8}/", match=true, message="Veuillez rentrer un numéro au format 10000000000")
      */
     private $tel;
 
