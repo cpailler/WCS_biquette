@@ -8,13 +8,13 @@
 
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active crop_header">
                 <img class="d-block w-100" src="{{ asset('images/carrousel1.jpg') }}" alt="bikerr1">
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item crop_header">
                 <img class="d-block w-100" src="{{ asset('images/carrousel2.jpg') }}" alt="bikerr2">
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item crop_header">
                 <img class="d-block w-100" src="{{ asset('images/carrousel3.jpg') }}" alt="bikerr3">
             </div>
         </div>
@@ -137,7 +137,7 @@
         <a class="btn btn-lg bouton" href="{{ path('enregistrement') }}" role="button">Partager mon vélo</a>
     </div>
 
-    <div style="position: relative; width: 100%">
+    <div style="position: relative; width: 100%" class="crop_header">
         <img src="{{ asset('images/velo-pratique.jpg') }}" alt="velo-pratique" style="width: 100%">
         <div class="title_text_header">
             <h1><strong>GARDEZ UN VELO DANS VOTRE POCHE</strong></h1>

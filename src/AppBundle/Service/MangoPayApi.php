@@ -22,6 +22,7 @@ class MangoPayApi
 {
 
     private $connexionApi;
+    private $urlServer;
 
     //Appel a l'API MangoPay
     public function __construct()
@@ -31,34 +32,47 @@ class MangoPayApi
         // login : password : temp directory
         $this->connexionApi->Config->ClientId = 'aurelgouilhers';
         $this->connexionApi->Config->ClientPassword = 'wr42AYOg5LU5OE3dn10qNrbfsDC7iYeRHu3N4Gjw3KtGDuSC1V';
-        $this->connexionApi->Config->TemporaryFolder = '/home/wilder/Projet-3/bikerr/TEMP_MANGOPAY';
+        $this->connexionApi->Config->TemporaryFolder = __DIR__."/../../../TEMP_MANGOPAY";
+        //declaration reoute retour pour recuperation card_Id object
+        $this->urlServer = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
+        $this->urlServer .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
+
     }
 
-    /**
-     * Create MangoUser
-     * @return MangoPayUser $mangoUser
-     * @param $email
-     * @param $firstname
-     * @param $lastname
-     * @param $birthday
-     * @param $nationality
-     * @param $country
-     * @paramConverter
-     */
+    public function CheckIdMangopay(Membre $membre,EntityManagerInterface $em){
+
+        if($membre->getEmail() == null
+            || $membre->getPays()->getAlpha2() == null
+            || $membre->getPrenom() == null
+            || $membre->getNom() == null
+            || $membre->getDateNaissance() == null)
+        {
+            //on ne pourra pas créer l'id mango pay sans les informations alors on sort
+            return $membre;
+        }
+
+        if ((null == $membre->getIdMangopay()) && (null == $membre->getIdWallet()))
+        {
+
+            $membre->setIdMangopay($this->CreateNaturalUser($membre));
+            $membre->setIdWallet($this->CreateWallet($membre));
+            $em->persist($membre);
+            $em->flush();
+            return $membre;
+        }else
+        {
+            return $membre;
+        }
+
+    }
+
     public function CreateNaturalUser(Membre $membre)
     {
-        //TODO:creer condition pour verifier que id mangopay existe deja ou non
-        $MangoUser = new MangoPay\UserNatural();  //initialisation MangoPay Object
-        //injection parameter necessary
+        $MangoUser = new MangoPay\UserNatural();
         $MangoUser->Email = $membre->getEmail();
         $MangoUser->FirstName = $membre->getPrenom();
         $MangoUser->LastName = $membre->getNom();
-        if($membre->getDateNaissance() == null) {
-            $MangoUser->Birthday = DateTime::createFromFormat('m/d/Y', '1/01/2000')->getTimestamp();
-        }else
-        {
-            $MangoUser->Birthday = $membre->getDateNaissance()->getTimestamp();
-        }
+        $MangoUser->Birthday = $membre->getDateNaissance()->getTimestamp();
         $MangoUser->Nationality = $membre->getPays()->getAlpha2();
         $MangoUser->CountryOfResidence = $membre->getPays()->getAlpha2();
         $MangoUser = $this->connexionApi->Users->Create($MangoUser); //creation naturalUser with those parameter
@@ -67,14 +81,18 @@ class MangoPayApi
 
     public function CreateWallet(Membre $membre)
     {
-        //TODO:creer condition pour verifier que wallet mangopay existe deja ou non
-
         // CREATION WALLET NATURAL USER
         $Wallet = new \MangoPay\Wallet();
         $Wallet->Owners = array($membre->getIdMangopay());
         $Wallet->Description = "Wallet of " . $membre->getPrenom() . " " . $membre->getNom();
         $Wallet->Currency = "EUR";
         return $this->connexionApi->Wallets->Create($Wallet)->Id;
+
+    }
+
+    public function getBalance(Membre $membre)
+    {
+        return $this->connexionApi->Wallets->Get($membre->getIdWallet())->Balance;
     }
 
     //creation objet CARD
@@ -82,10 +100,9 @@ class MangoPayApi
     {
         $cardRegister = new \MangoPay\CardRegistration();
         $cardRegister->UserId = $membre->getIdMangopay();
-        $cardRegister->CardType = "CB_VISA_MASTERCARD";
+        $cardRegister->CardType = "CB_VISA_MASTERCARD"; //on écrit le card type en dur car on a pas encore le type de carte
         $cardRegister->Currency = "EUR";
         return $this->connexionApi->CardRegistrations->Create($cardRegister);
-        //dump($cardRegister);
     }
 
     // creation objet CardID
@@ -96,20 +113,18 @@ class MangoPayApi
         //dump($registrationId);
         //dump($carte);
         $CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
-
-        //$CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
         $CardRegistration->RegistrationData = 'data=' . $registrationId;
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
         //dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
-
-
     }
 
     //création d'une  Card direct PayIn
-    public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $amount, $fees)
+    public function PayIn(Membre $membre, \MangoPay\Card $CardObject, $caution, $assurance, $id_transaction)
     {
-
+        //on calcul les fees de 5% sur la caution;
+        $fees = ($caution * 5)/100;
+        $caution = $caution - $fees;
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
         $PayIn->AuthorId = $membre->getIdMangopay();
@@ -118,75 +133,46 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
         $PayIn->DebitedFunds = new \MangoPay\Money();
         $PayIn->DebitedFunds->Currency = "EUR";
-        $PayIn->DebitedFunds->Amount = $amount;
+        $PayIn->DebitedFunds->Amount = ($caution)*100;//on multiplie par 100 car MP prends en centimes
         $PayIn->Fees = new \MangoPay\Money();
         $PayIn->Fees->Currency = "EUR";
-        $PayIn->Fees->Amount = $fees;
+        $PayIn->Fees->Amount = (int)(($fees+$assurance)*100);//on multiplie par 100 car MP prends en centimes
         $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
-         //$PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
-        //$PayIn->ExecutionDetails->SecureModeReturnURL = "http://127.0.0.1/";//".$_SERVER["HTTP_HOST"].$_SERVER["SCRIPT_NAME"]."?stepId=".($stepId+1);
-        //$PayIn->ExecutionDetails->CardId = $Card->CardId;
-        //TODO : Paiement type direct
         $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
         $PayIn->PaymentDetails->CardType = $CardObject->CardType;
         $PayIn->PaymentDetails->CardId = $CardObject->Id;
-            //TODO : execution direct
         $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsDirect();
-        $PayIn->ExecutionDetails->ReturnURL = "http://localhost:8000/paiement/check_transaction";     //support@mangopay.com
-        $PayIn->ExecutionDetails->SecureModeReturnURL = "http://localhost:8000/paiement/check_transaction";
-        $PayIn->ExecutionDetails->SecureMode = "FORCE";
+        $PayIn->ExecutionDetails->ReturnURL = $this->urlServer."paiement/check_transaction/".$id_transaction;     //support@mangopay.com
+        $PayIn->ExecutionDetails->SecureModeReturnURL = $this->urlServer."paiement/check_transaction/".$id_transaction;
+        $PayIn->ExecutionDetails->SecureMode = "DEFAULT";
         $PayIn->ExecutionDetails->Culture = "FR";
         //dump($PayIn);
         return $this->connexionApi->PayIns->Create($PayIn);
 }
 
-// card web payin pour 3D secure avec redirecturl
-    public function CardWebPayIn(Membre $membre,\MangoPay\Card $CardObject,$amount,$fees)
-{
-        $PayIn = new \MangoPay\PayIn();
-        $PayIn->CreditedWalletId = $membre->getIdWallet();
-        $PayIn->AuthorId = $membre->getIdMangopay();
-        $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
-        $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
-            $PayIn->PaymentDetails->CardType = $CardObject->CardType;
-            $PayIn->PaymentDetails->CardId = $CardObject->Id;
-        $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
-        $PayIn->DebitedFunds = new \MangoPay\Money();
-        $PayIn->DebitedFunds->Currency = "EUR";
-        $PayIn->DebitedFunds->Amount = $amount;
-        $PayIn->Fees = new \MangoPay\Money();
-        $PayIn->Fees->Currency = "EUR";
-        $PayIn->Fees->Amount = $fees;
-        $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
-        $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
-        $PayIn->ExecutionDetails->ReturnURL = 'http://localhost/paiement/card';
-        $PayIn->ExecutionDetails->SecureMode = "FORCE";
-        $PayIn->ExecutionDetails->SecureModeNeeded = "TRUE";
-
-        $PayIn->ExecutionDetails->Culture = "FR";
-        return $this->connexionApi->PayIns->Create($PayIn);
-    }
-
-    //transferer l'argent d'un wallet a un autre wallet
-    public function transfert(Membre $membre, Membre $membre2, $amount, $fees)
-    {
-        $Transfer = new \MangoPay\Transfer();
-        $Transfer->AuthorId = $membre->getIdMangopay();
-        $Transfer->DebitedFunds = new \MangoPay\Money();
-        $Transfer->DebitedFunds->Currency = "EUR";
-        $Transfer->DebitedFunds->Amount = $amount;
-        $Transfer->Fees = new \MangoPay\Money();
-        $Transfer->Fees->Currency = "EUR";
-        $Transfer->Fees->Amount = $fees;
-        $Transfer->DebitedWalletID = $membre->getIdWallet();
-        $Transfer->CreditedWalletId = $membre2->getIdWallet();
-        return $this->connexionApi->Transfers->Create($Transfer);
-    }
+//    //transferer l'argent d'un wallet a un autre wallet
+//    public function transfert(Membre $membre, Membre $membre2, $amount)
+//    {
+//        $Transfer = new \MangoPay\Transfer();
+//        $Transfer->AuthorId = $membre->getIdMangopay();
+//        $Transfer->DebitedFunds = new \MangoPay\Money();
+//        $Transfer->DebitedFunds->Currency = "EUR";
+//        $Transfer->DebitedFunds->Amount = $amount*100; //on multiplie par 100 car MP est en centimes
+//        $Transfer->Fees = new \MangoPay\Money();
+//        $Transfer->Fees->Currency = "EUR";
+//        $Transfer->Fees->Amount = 0; //on ne mets pas de fees pour le transfert
+//        $Transfer->DebitedWalletID = $membre->getIdWallet();
+//        $Transfer->CreditedWalletId = $membre2->getIdWallet();
+//        return $this->connexionApi->Transfers->Create($Transfer);
+//    }
 
     //creation BankAccount Object pour effectuer les PayOut
-
     public function InitBankAccount(Membre $membre ,$iban, $bic, $titulaire, $adresse,EntityManagerInterface $em)
     {
+        /*if($membre->getIdBankAccount() != null)
+        {
+            return $membre->getIdBankAccount();
+        }*/
         $UserId = $membre->getIdMangopay();
         $BankAccount = new \MangoPay\BankAccount();
         $BankAccount->UserId=$membre->getIdMangopay();
@@ -203,76 +189,32 @@ class MangoPayApi
         $BankAccount->OwnerAddress->PostalCode = $membre->getCodePostal();
         $BankAccount->OwnerAddress->Region = "";
         //$BankAccount->Active = true;
-        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount)->UserId);
+        $membre->setIdBankAccount($this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount)->Id);
         $em->persist($membre);
-        $em->flush($membre);
+        $em->flush();
         return $membre->getIdBankAccount();
-       // return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
+        // return $this->connexionApi->Users->CreateBankAccount($UserId, $BankAccount);
     }
 
-
     //cloturer transfert d'argent \MangoPay\BankAccount
-    public function PayOut(Membre $membre, $bankAccount, $amount, $fees)
+    public function PayOut(Membre $membre, $amount,$fees)
     {
+        dump($this->connexionApi->Clients->GetWallet()->Balance);
+        dump($membre->getIdBankAccount());
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
         $PayOut->DebitedWalletId = $membre->getIdWallet();
         $PayOut->DebitedFunds = new \MangoPay\Money();
         $PayOut->DebitedFunds->Currency = "EUR";
-        $PayOut->DebitedFunds->Amount = $amount;
+        $PayOut->DebitedFunds->Amount = $amount*100; // on multiplie par 100 car MP est en centime
         $PayOut->Fees = new \MangoPay\Money();
         $PayOut->Fees->Currency = "EUR";
-        $PayOut->Fees->Amount = $fees;
+        $PayOut->Fees->Amount = $fees; //les fees sont seulement sur les PayIn
         $PayOut->PaymentType = \MangoPay\PayOutPaymentType::BankWire;
         $PayOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
-        $PayOut->MeanOfPaymentDetails->BankAccountId = $bankAccount; //->id;
+        $PayOut->MeanOfPaymentDetails->BankAccountId = $membre->getIdBankAccount();
+        dump($PayOut);
         return $this->connexionApi->PayOuts->Create($PayOut);
-    }
-
-
-    public function CheckIdMangopay(Membre $membre,EntityManagerInterface $em){
-
-        if ((null == $membre->getIdMangopay()) && (null == $membre->getIdWallet()))
-        {
-            $membre->setIdMangopay($this->CreateNaturalUser($membre));
-            $membre->setIdWallet($this->CreateWallet($membre));
-            $em->persist($membre);
-            $em->flush($membre);
-            return $membre;
-        }else
-            {
-               return $membre;
-            }
-
-    }
-    // remboursement
-    public function Refund()
-    {
-        $PayInId = $_SESSION["MangoPayDemo"]["PayInCardWeb"];
-        $Refund = new \MangoPay\Refund();
-        $Refund->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
-        $Refund->DebitedFunds = new \MangoPay\Money();
-        $Refund->DebitedFunds->Currency = "EUR";
-        $Refund->DebitedFunds->Amount = 650;
-        $Refund->Fees = new \MangoPay\Money();
-        $Refund->Fees->Currency = "EUR";
-        $Refund->Fees->Amount = -50;
-        $result = $mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
-    }
-
-    //executer le remboursement
-    public function DoARefund()
-    {
-        $TransferId = $_SESSION["MangoPayDemo"]["Transfer"];
-        $Refund = new \MangoPay\Refund();
-        $Refund->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
-        $Refund->DebitedFunds = new \MangoPay\Money();
-        $Refund->DebitedFunds->Currency = "EUR";
-        $Refund->DebitedFunds->Amount = 760;//Note that partial Refunds for Transfers are not possible
-        $Refund->Fees = new \MangoPay\Money();
-        $Refund->Fees->Currency = "EUR";
-        $Refund->Fees->Amount = -150;
-        $result = $mangoPayApi->Transfers->CreateRefund($TransferId, $Refund);
     }
 
     //verifie le statut paiement
@@ -283,5 +225,63 @@ class MangoPayApi
         dump ($payInStatus);
         return $payInStatus;
     }
+
+// card web payin pour 3D secure avec redirecturl
+//    public function CardWebPayIn(Membre $membre,\MangoPay\Card $CardObject,$amount,$fees)
+//{
+//        $PayIn = new \MangoPay\PayIn();
+//        $PayIn->CreditedWalletId = $membre->getIdWallet();
+//        $PayIn->AuthorId = $membre->getIdMangopay();
+//        $PayIn->PaymentType = \MangoPay\PayInPaymentType::Card;
+//        $PayIn->PaymentDetails = new \MangoPay\PayInPaymentDetailsCard();
+//            $PayIn->PaymentDetails->CardType = $CardObject->CardType;
+//            $PayIn->PaymentDetails->CardId = $CardObject->Id;
+//        $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
+//        $PayIn->DebitedFunds = new \MangoPay\Money();
+//        $PayIn->DebitedFunds->Currency = "EUR";
+//        $PayIn->DebitedFunds->Amount = $amount;
+//        $PayIn->Fees = new \MangoPay\Money();
+//        $PayIn->Fees->Currency = "EUR";
+//        $PayIn->Fees->Amount = $fees;
+//        $PayIn->ExecutionType = \MangoPay\PayInExecutionType::Web;
+//        $PayIn->ExecutionDetails = new \MangoPay\PayInExecutionDetailsWeb();
+//        $PayIn->ExecutionDetails->ReturnURL = 'http://localhost/paiement/card';
+//        $PayIn->ExecutionDetails->SecureMode = "FORCE";
+//        $PayIn->ExecutionDetails->SecureModeNeeded = "TRUE";
+//
+//        $PayIn->ExecutionDetails->Culture = "FR";
+//        return $this->connexionApi->PayIns->Create($PayIn);
+//    }
+
+    // remboursement
+//    public function Refund()
+//    {
+//        $PayInId = $_SESSION["MangoPayDemo"]["PayInCardWeb"];
+//        $Refund = new \MangoPay\Refund();
+//        $Refund->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
+//        $Refund->DebitedFunds = new \MangoPay\Money();
+//        $Refund->DebitedFunds->Currency = "EUR";
+//        $Refund->DebitedFunds->Amount = 650;
+//        $Refund->Fees = new \MangoPay\Money();
+//        $Refund->Fees->Currency = "EUR";
+//        $Refund->Fees->Amount = -50;
+//        $result = $mangoPayApi->PayIns->CreateRefund($PayInId, $Refund);
+//    }
+
+    //executer le remboursement
+//    public function DoARefund()
+//    {
+//        $TransferId = $_SESSION["MangoPayDemo"]["Transfer"];
+//        $Refund = new \MangoPay\Refund();
+//        $Refund->AuthorId = $_SESSION["MangoPayDemo"]["UserNatural"];
+//        $Refund->DebitedFunds = new \MangoPay\Money();
+//        $Refund->DebitedFunds->Currency = "EUR";
+//        $Refund->DebitedFunds->Amount = 760;//Note that partial Refunds for Transfers are not possible
+//        $Refund->Fees = new \MangoPay\Money();
+//        $Refund->Fees->Currency = "EUR";
+//        $Refund->Fees->Amount = -150;
+//        $result = $mangoPayApi->Transfers->CreateRefund($TransferId, $Refund);
+//    }
+
+
 }
-//preauthporization valable 7jour pour caution

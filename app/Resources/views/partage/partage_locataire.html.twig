@@ -73,38 +73,19 @@
                 <div class="modal-content">
                     <div class="modal-header" >
 
-                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Mangopay</h4>
+                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Paiement Mangopay</h4>
                     </div>
                     <div class="modal-body">
-
+                        {{ render(controller(
+                            'AppBundle:Paiement:RegisterCardView',
+                            { 'reservation_id': reservation.id }
+                        )) }}
                     </div>
-                    <div class="modal-footer">
 
-                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" >
-
-                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Mangopay</h4>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="row justify-content-center">
             {% if reservation.etape == 0 %}

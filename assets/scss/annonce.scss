@@ -1,7 +1,6 @@
 @import "main.scss";
 
 #carousel-photos {
-  height: 287px;
   width: 100%;
 }
 
@@ -136,4 +135,39 @@ li {
 
 a, a:hover {
   color: $bikerr-green;
+}
+
+@media (max-width: 576px)
+{
+  #carousel-photos img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 685px)
+{
+  #carousel-photos img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 686px) and (max-width: 768px)
+{
+  #carousel-photos img {
+    height: 210px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 900px)
+{
+  #carousel-photos img {
+    height: 230px;
+  }
+}
+
+@media (min-width: 901px)
+{
+  #carousel-photos img {
+    height: 287px;
+  }
 }

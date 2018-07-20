@@ -12,10 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     *
+     *@Route("/popo", name="popo")
      */
-    public function indexAction(Request $request, MangoPayApi $mangopayapi)
+    public function indexAction(Request $request, MangoPayApi $mangopayapi,\MangoPay\MangoPayApi $api)
     {
+
+
 
         // On crée une session pour simuler la persistance des données
         $session = $request->getSession();

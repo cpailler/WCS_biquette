@@ -16,7 +16,7 @@
     <form action="">
         <div class="container">
             <div class="row">
-                <div id="bloc__description" class="container mt-5 col-7">
+                <div id="bloc__description" class="container mt-5 col-lg-7 col-md-10">
                     <div class="row">
                         {#Ci-dessous, la fonction permettant à l'utilisateur de n'être contacté que par les membres vérifiés#}
 {#                        {% if velo.proprio.membreVerifie == 1 %}
@@ -36,7 +36,7 @@
 
                     <div class="categorie container mt-5">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-sm-6 col-xs-12">
                                 <h4 class="titre">Équipements</h4>
                                 <ul>
                                     {% for equipement in velo.equipements %}
@@ -44,7 +44,7 @@
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="col-6">
+                            <div class="col-sm-6 col-xs-12">
                                 <h4 class="titre">Antivol du vélo</h4>
 
                                 {% if velo.antivolKey == 0 and velo.antivolCode == 0 and velo.bicycode is null %}
@@ -111,7 +111,7 @@
                         <h4 class="titre">Calendrier des périodes de partage</h4>
                         <div class="row">
                             {% for month in calendrier.months %}
-                                <div class="col-4">
+                                <div class="col-md-4 col-sm-6">
                                     <div class="row center-block">
                                         <div class="col-12">
                                             <p class="calendar-month">{{ month }}</p>
@@ -240,10 +240,10 @@
 
                 </div>
 
-                <div id="bloc__carte" class="mt-5 col-4">
+                <div id="bloc__carte" class="mt-5 col-lg-4 col-md-12">
                     <div id="carte">
                         <div class="row">
-                            <h1 id="carte__points" class="col-3">{{ velo.coutPts }}</h1>
+                            <h1 id="carte__points" class="col-sm-3 col-xs-6">{{ velo.coutPts }}</h1>
 
                             <div class="col-9">
                                 <h4 id="carte__points__jour__titre">Points / jour</h4>
@@ -254,14 +254,15 @@
                         </div>
 
 
-                        {% if jaugeProfil > 85 %}
+                        {% if jaugeProfil >= 80 %}
                         <a href="{{ path('reservation', {'id': velo.id}) }}">
                             <button type="button" class="bouton w-100" >
                                 Envoyer une demande de partage
                             </button>
                         </a>
                         {% else %}
-                            <p class="notice">Vous devez compléter votre profil à 85% au moins avant de pouvoir réserver un vélo</p>
+                            <p class="notice">Vous devez compléter votre profil à 80% au moins avant de pouvoir réserver un vélo</p>
+                            <br>
                             <button type="button" class="bouton-disabled w-100" disabled>
                                 Envoyer une demande de partage
                             </button>
