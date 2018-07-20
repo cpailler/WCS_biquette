@@ -87,6 +87,7 @@ class MangoPayApi
         $Wallet->Description = "Wallet of " . $membre->getPrenom() . " " . $membre->getNom();
         $Wallet->Currency = "EUR";
         return $this->connexionApi->Wallets->Create($Wallet)->Id;
+
     }
 
     //creation objet CARD
@@ -194,6 +195,7 @@ class MangoPayApi
     //cloturer transfert d'argent \MangoPay\BankAccount
     public function PayOut(Membre $membre, $amount,$fees)
     {
+        dump($this->connexionApi->Clients->GetWallet()->Balance);
         dump($membre->getIdBankAccount());
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
