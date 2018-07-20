@@ -134,6 +134,22 @@ class InfoProfilController extends Controller
         ));
     }
 
+    /**
+     * @Route("/retour_caution", name="retour_caution")
+     *
+     */
+    public function RetourCautionAction(Request $request,JaugeProfil $jaugeProfil, MangoPayApi $mangoPayApi){
+        $membre = $this->getUser();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+
+
+
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'',
+            'membre'=>$membre,
+            'jaugeProfil'=>$jaugeProfil
+        ));
+    }
 
     /**
      *  @Route("/", name="profil_delete")
