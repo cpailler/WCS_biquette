@@ -8,9 +8,7 @@
 
     <h2>Bonjour,</h2>
 
-    <p>Votre demande de partage de vélo "{{ reservation.velo.titre }}" a été validée par son propriétaire".</p>
-
-    <p>Veuillez cliquer <a href="{{ app.request.getSchemeAndHttpHost() ~ path('partage',{'id':reservation.id}) }}"><strong>ICI</strong></a> afin de procéder à l'échange de points et paiement (s'il y a lieu).</p>
+    <p>Le locataire n'a finalement pas donné suite à la réservation de votre vélo "{{ reservation.velo.titre }}".</p>
 
     <p>L'équipe Bikerr</p>
 
