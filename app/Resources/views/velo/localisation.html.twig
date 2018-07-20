@@ -37,7 +37,7 @@
         // parameter when you first load the API. For example:
         // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-        function initMap() {
+        function initiMap() {
             var latitude = document.getElementById('appbundle_velo_latitude').value;
             var longitude = document.getElementById('appbundle_velo_longitude').value;
             console.log(latitude);
@@ -114,10 +114,9 @@
                 }
             });
         }
-
     </script>
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initiMap"
             async defer></script>
 {% endblock %}
