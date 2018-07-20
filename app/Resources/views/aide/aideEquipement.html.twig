@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="gradient_box">
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
+        </div>
+    {% else %}
+        <div class="gradient_box">
+            <br><br>
+            <h1 class="explication_title white_text">Découvrez le concept</h1>
+            <br><br>
+        </div>
+    {% endif %}
+
+    <div class="bikerr_container">
+        <div class="container_aide">
+            <h4 class="explication_title bikerr-green">Obligatoires VS facultatifs</h4>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <hr>
+                <p class="explication bikerr-green text-center">
+                    Les équipements obligatoires et facultatifs à vélo.
+                </p>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr_container container_velo">
+        <h4 class="explication_title bikerr-green">Obligatoires</h4><br>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">1. L’éclairage</h4><br>
+                <p class="explication">
+                    Le vélo doit être doté d’un feu avant éclairant et d’un feu arrière rouge. Cet équipement est obligatoire de nuit comme de jour en cas de mauvaise visibilité.
+                </p>
+                <div class="img-aide">
+                    <img src="{{ asset('images/photo-01.png') }}" alt="bikerr-eclairage"><br>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">2. La signalisation visuelle</h4><br>
+                <p class="explication">
+                    De jour comme de nuit, le cycle doit être équipé d’un dispositif rétro-réfléchissant (catadioptre rouge à l’arrière et orange à l’avant de chaque pédale et deux visibles latéralement).
+                </p>
+                <div class="img-aide">
+                    <img src="{{ asset('images/photo-02.png') }}" alt="bikerr-visuel"><br>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">3. La signalisation sonore</h4><br>
+                <p class="explication">
+                    Vous devez pouvoir signaler votre présence par un moyen sonore audible à 50 mètres au moins (timbre, avertisseur, grelot et même tête de mort pour vous rappeler l’importance d’une signalisation sonore).
+                </p>
+                <div class="img-aide">
+                    <img src="{{ asset('images/photo-03.png') }}" alt="bikerr-signalisation"><br>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">4. Le freinage</h4><br>
+                <p class="explication">
+                    Chaque roue doit être équipée d’un dispositif de freinage. L’absence de l’un de ces équipements constitue une contravention de 1ère classe passible d’une amende de 17 euros (article R239 du code de la route).
+                </p>
+                <div class="img-aide">
+                    <img src="{{ asset('images/photo-04.png') }}" alt="bikerr-freinage"><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr_container container_velo">
+        <h4 class="explication_title bikerr-green">Facultatifs</h4><br>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">1. Le gilet fluo</h4><br>
+                <p class="explication">
+                    Il est facultatif et devient obligatoire pour tous les cyclistes et passagers circulant la nuit ou lorsque la visibilité est insuffisante.
+                </p>
+                <div class="img-aide">
+                    <div class="img-aide">
+                        <img src="{{ asset('images/img-gilet.png') }}" alt="bikerr-gilet-fluo"><br>
+                    </div>
+                </div>
+                <p class="explication">
+                    Néanmoins un gilet ou des vêtements clairs munis de bandes réfléchissantes sont recommandés. Évitez les vêtements amples qui peuvent se prendre dans les rayons des roues du vélo (ou utilisez des pinces à vélo). Portez des vêtements couvrant bras et jambes, ainsi que des gants.
+                </p>
+                <div class="img-aide">
+                    <img src="{{ asset('images/photo-06.png') }}" alt="bikerr-gilet"><br>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">2. Le casque</h4><br>
+                <p class="explication">
+                    C’est pas obligatoire, mais aujourd’hui les casques pour vélo rivalisent de style. Le casque doit être homologué, adapté à votre taille et correctement attaché.
+                    Vous pouvez très bien proposer avec votre vélo un casque muni d’un charlotte de proprété que vous changerez à chaque nouvelle location.
+                    Mettre un casque lorsqu’on est un adulte sert aussi à montrer l’exemple aux enfants pour qui le casque est réellement indispensable.
+                </p>
+                <div class="img-aide">
+                    <img src="{{ asset('images/img-casque.png') }}" alt="bikerr-csaque"><br>
+                </div>
+                <p class="explication">
+                    La route est un espace qui se partage et qui implique un respect mutuel de tous ceux qui s’y déplacent. Le cycliste, tout comme l’automobiliste, doit appliquer les règles du Code de la route qui garantissent sa sécurité et celle des autres usagers. Pour rouler en toute sécurité, le cycliste doit disposer d’un vélo en bon état et surtout connaître et appliquer les règles élémentaires de déplacement en ville et hors agglomération, de jour, comme de nuit.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

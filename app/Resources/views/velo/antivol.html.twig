@@ -1,0 +1,45 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="container-fluid">
+        <div id="antivol">
+            <h4>Antivol du vélo</h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ form_label(form.antivolKey) }}
+                    {{ form_errors(form.antivolKey) }}
+                    {{ form_widget(form.antivolKey) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_label(form.antivolCode) }}
+                    {{ form_errors(form.antivolCode) }}
+                    {{ form_widget(form.antivolCode) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-2" id="bicycode">
+            <h4>Marquage Bicycode du vélo</h4>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form_label(form.bicycode) }}
+                    {{ form_errors(form.bicycode) }}
+                    {{ form_widget(form.bicycode) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>Le marquage BICYCODE® est le seul dispositif reconnu par l'Etat en matière de lutte contre le vol et le
+    recel de vélos. En marquant votre vélo vous augmentez vos chances de le retrouver en cas de vol.</p>
+    <div>
+        <input type="submit" class="class bouton" value="Enregistrer" />
+    </div>
+    {{ form_end(form) }}
+
+
+
+{% endblock %}

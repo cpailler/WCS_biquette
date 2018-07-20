@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div class="gradient_box">
+        {% if membre.image is not null %}
+            <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+            <br>
+        {% endif %}
+        <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
+    </div>
+    {% else %}
+        <div class="gradient_box">
+            <br><br>
+            <h1 class="explication_title white_text">Découvrez le concept</h1>
+            <br><br>
+        </div>
+    {% endif %}
+
+    <div class="bikerr_container">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <img src="{{ asset('images/icn-flexible-big.svg') }}" alt="comment-ca-marche" class="image_aide">
+            </div>
+            <div class="container_aide">
+                <h4 class="explication_title bikerr-green">Comment ça marche ?</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <p class="explication bikerr-green">
+                    Le concept de Bikerr est simple. Vous avez accès gratuitement à un vélo partout dans le monde à condition que vous acceptiez de partager le votre !
+                </p>
+                <br><br><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <h4 class="explication_title bikerr-green">Une plateforme au service du partage</h4><br>
+                <p class="explication">
+                    Pour faire un échange, vous devez vous inscrire sur le site, remplir votre profil et accepter de publier une annonce présentant votre vélo. L’inscription est gratuite. Et vous pouvez partager un ou plusieurs vélos avec d’autres personnes en France et dans le monde entier.
+                </p><br>
+                <p class="explication">
+                    Dès lors vous avez accès aux vélos sur le site vous êtes libre de contacter le propriétaire de la monture qui vous intéresse. Il vous suffit d’effectuer une recherche à partir de la barre de recherche, entrez la ville souhaitée et éventuellement les dates auxquelles vous souhaitez accéder à un vélo.
+                </p><br>
+                <p class="explication">
+                    Ensuite, il ne vous reste plus qu’à contacter le propriétaire et à convenir ensemble des disponibilités et modalités de retrait du vélo.
+                </p><br>
+                <p class="explication">
+                    Lorsque vous mettez en ligne votre vélo, il ne faut pas hésiter à personnaliser votre message en faisant part de l’usage que vous faites de votre vélo ou encore des lieux touristiques de la ville ou de la région dans laquelle vous résidez.
+                </p><br>
+                <p class="explication">
+                    Avec Bikerr vous allez échanger avec des membres qui partagent les mêmes passions que vous, qu’il s’agisse de la descente en VTT, des vélos cargo ou encore des  plans shopping près de chez vous… Alors n’hésitez pas à le faire savoir !
+                </p><br><br><br>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

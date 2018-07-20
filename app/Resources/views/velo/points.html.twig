@@ -1,0 +1,58 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+{% endblock %}
+
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="container-fluid">
+        <div id="antivol">
+            <h4>POINTS</h4>
+            <div class="row">
+                <p>En se basant sur les caractéristiques du vélo que vous partagez, nous vous suggérons le montant suivant
+                    de Points par jour. En partageant votre vélo, vous augmenterez votre capital de 200 Points par journée
+                    de partage. Autant de Points qui vous permettront d’accéder au vélo de votre choix quand vous en aurez
+                    besoin.</p>
+                <div class="col-sm-3">
+                    {{ form_label(form.coutPts) }}
+                    {{ form_errors(form.coutPts) }}
+                    {{ form_widget(form.coutPts) }}
+                </div>
+            </div>
+        </div>
+        <br><br>
+
+
+        <h4>DÊPOT DE GARANTIE</h4>
+        <div class="row" style="display: flex; flex-direction: column">
+            <p>Si vous souhaitez sécuriser la transaction, nous vous conseillons de fixer un dépôt de garantie d’un
+                montant minimum de 150 euros pour l’intégralité de la période de partage.</p>
+            <div class="col-sm-3">
+                {{ form_label(form.caution) }}
+                {{ form_errors(form.caution) }}
+                {{ form_widget(form.caution) }}
+            </div>
+            <div class="">
+                 {{form_row(form.cautionOblig) }}
+            </div>
+        </div>
+        <br><br>
+        <h4>ASSURANCE</h4>
+        <div class="row">
+            <p>Vous pouvez également demander à l’utilisateur de souscrire une assurance d’un montant de 1 euro par
+                jour de partage, pour être couvert en cas de préjudice. Voulez-vous que l’assurance soit :</p>
+            <div class="">
+                {{form_row(form.assurOblig) }}
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <input class="col-6 class bouton" type="submit" value="Enregistrer" />
+        </div>
+        <br>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

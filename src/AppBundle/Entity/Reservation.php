@@ -24,16 +24,18 @@ class Reservation
     /**
      * @var int
      *
-     * @ORM\Column(name="velo_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Velo", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $veloId;
+    private $velo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="locataire_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Membre", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $locataireId;
+    private $locataire;
 
     /**
      * @var \DateTime
@@ -64,11 +66,24 @@ class Reservation
     private $caution;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="assurance", type="boolean")
+     * @ORM\Column(name="assurance", type="integer")
      */
     private $assurance;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="etape", type="integer")
+     */
+    private $etape = 0;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_day", type="integer")
+     */
+    private $nbDay;
 
 
     /**
@@ -84,13 +99,13 @@ class Reservation
     /**
      * Set veloId.
      *
-     * @param int $veloId
+     * @param int $velo
      *
      * @return Reservation
      */
-    public function setVeloId($veloId)
+    public function setVelo($velo)
     {
-        $this->veloId = $veloId;
+        $this->velo = $velo;
 
         return $this;
     }
@@ -100,9 +115,9 @@ class Reservation
      *
      * @return int
      */
-    public function getVeloId()
+    public function getVelo()
     {
-        return $this->veloId;
+        return $this->velo;
     }
 
     /**
@@ -228,7 +243,7 @@ class Reservation
     /**
      * Set assurance.
      *
-     * @param bool $assurance
+     * @param int $assurance
      *
      * @return Reservation
      */
@@ -242,10 +257,82 @@ class Reservation
     /**
      * Get assurance.
      *
-     * @return bool
+     * @return int
      */
     public function getAssurance()
     {
         return $this->assurance;
+    }
+
+    /**
+     * Set locataire.
+     *
+     * @param \AppBundle\Entity\Membre|null $locataire
+     *
+     * @return Reservation
+     */
+    public function setLocataire(\AppBundle\Entity\Membre $locataire = null)
+    {
+        $this->locataire = $locataire;
+
+        return $this;
+    }
+
+    /**
+     * Get locataire.
+     *
+     * @return \AppBundle\Entity\Membre|null
+     */
+    public function getLocataire()
+    {
+        return $this->locataire;
+    }
+
+    /**
+     * Set etape.
+     *
+     * @param int $etape
+     *
+     * @return Reservation
+     */
+    public function setEtape($etape)
+    {
+        $this->etape = $etape;
+
+        return $this;
+    }
+
+    /**
+     * Get etape.
+     *
+     * @return int
+     */
+    public function getEtape()
+    {
+        return $this->etape;
+    }
+
+    /**
+     * Set nbDay.
+     *
+     * @param int $nbDay
+     *
+     * @return Reservation
+     */
+    public function setNbDay($nbDay)
+    {
+        $this->nbDay = $nbDay;
+
+        return $this;
+    }
+
+    /**
+     * Get nbDay.
+     *
+     * @return int
+     */
+    public function getNbDay()
+    {
+        return $this->nbDay;
     }
 }

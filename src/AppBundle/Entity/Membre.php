@@ -2,16 +2,21 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * membre
- *
+ * @Vich\Uploadable
  * @ORM\Table(name="membre")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MembreRepository")
  */
-class Membre
+class Membre extends BaseUser
 {
+
     /**
      * @var int
      *
@@ -19,7 +24,48 @@ class Membre
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Velo", mappedBy="proprio",cascade={"persist", "remove"})
+     */
+    private $velos;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="velo_image", fileNameProperty="image")
+     *
+     * @var File
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     maxSizeMessage="Votre fichier est trop volumineux, veuillez charger un fichier plus petit",
+     *     mimeTypes = {"image/jpg", "image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Veuillez télécharger un fichier au format .jpg ou .png"
+     * )
+     *
+     */
+    protected $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Reservation", mappedBy="locataire",cascade={"persist", "remove"})
+     */
+    private $reservations;
 
     /**
      * @var int|null
@@ -29,6 +75,13 @@ class Membre
     private $idMangopay;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="id_bankaccount", type="string", nullable=true)
+     */
+    private $idBankAccount;
+
+    /**
      * @var int|null
      *
      * @ORM\Column(name="id_wallet", type="integer", nullable=true)
@@ -36,137 +89,157 @@ class Membre
     private $idWallet;
 
     /**
-     * @var int|null
+     * @var string|null
      *
-     * @ORM\Column(name="id_facebook", type="integer", nullable=true)
+     * @ORM\Column(name="id_facebook", type="string", length=255, nullable=true)
      */
     private $idFacebook;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=45)
+     * @ORM\Column(name="prenom", type="string", length=45, nullable=true)
      */
     private $prenom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=70)
+     * @ORM\Column(name="nom", type="string", length=70, nullable=true)
      */
     private $nom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+//     */
+//    protected $password;
+//
+//    /**
+//     * @var string
+//     *
+//     * @ORM\Column(name="email", type="string", length=255)
+//     */
+//    protected $email;
 
     /**
      * @var int|null
      *
-     * @ORM\Column(name="genre_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genre")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $genreId;
+    private $genre;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="avatar_image", type="string", length=255, nullable=true)
-     */
-    private $avatarImage;
+
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_inscription", type="date")
+     * @ORM\Column(name="date_inscription", type="datetime", options={"default"="CURRENT_TIMESTAMP"})
      */
     private $dateInscription;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_velo_emprunte", type="integer")
+     * @ORM\Column(name="nb_velo_emprunte", type="integer", options={"default"=0})
      */
-    private $nbVeloEmprunte;
+    private $nbVeloEmprunte=0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nb_velo_prete", type="integer")
+     * @ORM\Column(name="nb_velo_prete", type="integer", options={"default"=0})
      */
-    private $nbVeloPrete;
+    private $nbVeloPrete=0;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="pays_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Pays")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $paysId;
+    private $pays;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255)
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
      */
     private $ville;
 
     /**
-     * @var int
+     * @var int|0
      *
-     * @ORM\Column(name="code_postal", type="integer")
+     * @ORM\Column(name="code_postal", type="integer",nullable=true)
      */
     private $codePostal;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="tel", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\LocTel")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $indicTel;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="tel", type="integer", nullable=true)
+     * @Assert\Regex(pattern="/[1-9][0-9]{8}/", match=true, message="Veuillez rentrer un numéro au format 10000000000")
      */
     private $tel;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="tel_public", type="boolean")
+     * @ORM\Column(name="tel_public", type="boolean", options={"default"=0})
      */
-    private $telPublic;
+    private $telPublic=0;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_naissance", type="date")
+     * @ORM\Column(name="date_naissance", type="date", nullable=true)
      */
     private $dateNaissance;
 
     /**
-     * @var bool
+     * @var bool|false
      *
-     * @ORM\Column(name="membre_verifie", type="boolean")
+     * @ORM\Column(name="membre_verifie", type="boolean", options={"default"=0})
      */
-    private $membreVerifie;
+        private $membreVerifie=0;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="key_mdp", type="string", length=255)
+     * @ORM\Column(name="key_mdp", type="string", length=255, nullable = true)
      */
     private $keyMdp;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="points", type="integer")
+     * @ORM\Column(name="points", type="integer", options={"default"=0})
      */
-    private $points;
+    private $points=0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="profil_completed", type="boolean", options={"default"=0})
+     */
+    private $profilCompleted = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="first_velo_completed", type="boolean", options={"default"=0})
+     */
+    private $firstVeloCompleted = 0;
 
 
     /**
@@ -251,6 +324,32 @@ class Membre
         return $this->idFacebook;
     }
 
+
+    /**
+     * @return File
+     */
+    public function getImageFile ()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param File $imageFile
+     */
+    public function setImageFile ($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($imageFile) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+
     /**
      * Set prenom.
      *
@@ -333,6 +432,9 @@ class Membre
     public function setEmail($email)
     {
         $this->email = $email;
+        $this->username = $email;
+        $this->usernameCanonical = $email;
+        $this->emailCanonical = $email;
 
         return $this;
     }
@@ -349,14 +451,14 @@ class Membre
 
     /**
      * Set genreId.
-     *
-     * @param int|null $genreId
+     *x
+     * @param int|null $genre
      *
      * @return Membre
      */
-    public function setGenreId($genreId = null)
+    public function setGenre($genre = null)
     {
-        $this->genreId = $genreId;
+        $this->genre = $genre;
 
         return $this;
     }
@@ -366,34 +468,12 @@ class Membre
      *
      * @return int|null
      */
-    public function getGenreId()
+    public function getGenre()
     {
-        return $this->genreId;
+        return $this->genre;
     }
 
-    /**
-     * Set avatarImage.
-     *
-     * @param string|null $avatarImage
-     *
-     * @return Membre
-     */
-    public function setAvatarImage($avatarImage = null)
-    {
-        $this->avatarImage = $avatarImage;
 
-        return $this;
-    }
-
-    /**
-     * Get avatarImage.
-     *
-     * @return string|null
-     */
-    public function getAvatarImage()
-    {
-        return $this->avatarImage;
-    }
 
     /**
      * Set dateInscription.
@@ -470,13 +550,13 @@ class Membre
     /**
      * Set paysId.
      *
-     * @param int $paysId
+     * @param int $pays
      *
      * @return Membre
      */
-    public function setPaysId($paysId)
+    public function setPays($pays)
     {
-        $this->paysId = $paysId;
+        $this->pays = $pays;
 
         return $this;
     }
@@ -486,9 +566,9 @@ class Membre
      *
      * @return int
      */
-    public function getPaysId()
+    public function getPays()
     {
-        return $this->paysId;
+        return $this->pays;
     }
 
     /**
@@ -681,5 +761,257 @@ class Membre
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Set indicTel.
+     *
+     * @param \AppBundle\Entity\LocTel $indicTel
+     *
+     * @return Membre
+     */
+    public function setIndicTel(\AppBundle\Entity\LocTel $indicTel)
+    {
+        $this->indicTel = $indicTel;
+
+        return $this;
+    }
+
+    /**
+     * Get indicTel.
+     *
+     * @return \AppBundle\Entity\LocTel
+     */
+    public function getIndicTel()
+    {
+        return $this->indicTel;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dateInscription = new \DateTime();
+        $this->velos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add velo.
+     *
+     * @param \AppBundle\Entity\Velo $velo
+     *
+     * @return Membre
+     */
+    public function addVelo(\AppBundle\Entity\Velo $velo)
+    {
+        $this->velos[] = $velo;
+
+        return $this;
+    }
+
+    /**
+     * Remove velo.
+     *
+     * @param \AppBundle\Entity\Velo $velo
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeVelo(\AppBundle\Entity\Velo $velo)
+    {
+        return $this->velos->removeElement($velo);
+    }
+
+    /**
+     * Get velos.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVelos()
+    {
+        return $this->velos;
+    }
+
+    public function afficheTel(){
+        return "(".$this->getIndicTel()->getIndice().")".$this->tel;
+    }
+
+    /**
+     * Add reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return Membre
+     */
+    public function addReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation.
+     *
+     * @param \AppBundle\Entity\Reservation $reservation
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReservation(\AppBundle\Entity\Reservation $reservation)
+    {
+        return $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
+    }
+
+    /**
+     * Set profifCompleted.
+     *
+     * @param bool $profifCompleted
+     *
+     * @return Membre
+     */
+    public function setProfifCompleted($profifCompleted)
+    {
+        $this->profifCompleted = $profifCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profifCompleted.
+     *
+     * @return bool
+     */
+    public function getProfifCompleted()
+    {
+        return $this->profifCompleted;
+    }
+
+    /**
+     * Set firstVeloCompleted.
+     *
+     * @param bool $firstVeloCompleted
+     *
+     * @return Membre
+     */
+    public function setFirstVeloCompleted($firstVeloCompleted)
+    {
+        $this->firstVeloCompleted = $firstVeloCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get firstVeloCompleted.
+     *
+     * @return bool
+     */
+    public function getFirstVeloCompleted()
+    {
+        return $this->firstVeloCompleted;
+    }
+
+    /**
+     * Set profilCompleted.
+     *
+     * @param bool $profilCompleted
+     *
+     * @return Membre
+     */
+    public function setProfilCompleted($profilCompleted)
+    {
+        $this->profilCompleted = $profilCompleted;
+
+        return $this;
+    }
+
+    /**
+     * Get profilCompleted.
+     *
+     * @return bool
+     */
+    public function getProfilCompleted()
+    {
+        return $this->profilCompleted;
+    }
+
+    /**
+     * Set idBankAccount.
+     *
+     * @param int|null $idBankAccount
+     *
+     * @return Membre
+     */
+    public function setIdBankAccount($idBankAccount = null)
+    {
+        $this->idBankAccount = $idBankAccount;
+
+        return $this;
+    }
+
+    /**
+     * Get idBankAccount.
+     *
+     * @return int|null
+     */
+    public function getIdBankAccount()
+    {
+        return $this->idBankAccount;
+    }
+
+    /**
+     * Set image.
+     *
+     * @param string|null $image
+     *
+     * @return Membre
+     */
+    public function setImage($image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image.
+     *
+     * @return string|null
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set updatedAt.
+     *
+     * @param \DateTime|null $updatedAt
+     *
+     * @return Membre
+     */
+    public function setUpdatedAt($updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

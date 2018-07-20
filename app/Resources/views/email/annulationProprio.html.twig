@@ -1,0 +1,17 @@
+{% block body_text %}
+{% endblock %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+
+{% block body_html %}
+
+    <h2>Bonjour,</h2>
+
+    <p>Votre demande de partage du vélo "{{ reservation.velo.titre }}" n'a pas été validée par son propriétaire.</p>
+
+    <p>L'équipe Bikerr</p>
+
+    <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="gradient_box">
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
+        </div>
+    {% else %}
+        <div class="gradient_box">
+            <br><br>
+            <h1 class="explication_title white_text">Découvrez le concept</h1>
+            <br><br>
+        </div>
+    {% endif %}
+
+    <div class="bikerr_container">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <img src="{{ asset('images/icn-piggy-big.svg') }}" alt="comment-ca-marche" class="image_aide">
+            </div>
+            <div class="container_aide">
+                <h4 class="explication_title bikerr-green">Est-ce que Bikerr est vraiment gratuit ?</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <p class="explication bikerr-green">
+                    Sur Bikerr, l’inscription est totalement gratuite. Aucun abonnement à payer, donc aucune contrainte d’utilisation du site. Vous accédez au vélo dont vous avez besoin, quand vous en avez besoin.
+                </p>
+                <br><br><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <h4 class="explication_title bikerr-green">Partage, pas location</h4><br>
+                <p class="explication">
+                    Notre système est fondé sur la gratuité et la confiance. Ce qu’un propriétaire de vélo vous propose aujourd’hui en vous donnant accès à sa monture, vous l’offrirez demain à d’autres membres de la communauté : c’est le partage !
+                </p><br>
+                <h4 class="explication_title bikerr-green">Comment Bikerr peut-il alors s’en sortir ?</h4><br>
+                <p class="explication">Nous proposons 3 services complémentaires payants pour sécuriser le partage. Il y a le dépôt de garantie qui permet de sécuriser le propriétaire du vélo, l’assurance pour couvrir l’utilisateur en cas d’incident sur la bicyclette empruntée, et la vérification d’identité pour vous garantir de partager votre vélo avec de vraies personnes. Ces services sont optionnels. Que vous soyez le propriétaire d’un vélo ou le futur utilisateur, c’est vous qui décidez. Il est donc tout à fait possible de pédaler avec Bikerr sans dépenser un kopeck.
+                </p><br><br><br>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

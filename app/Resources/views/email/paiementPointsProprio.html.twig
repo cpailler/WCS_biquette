@@ -1,0 +1,24 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
+{% endblock %}
+
+{% block body_text %}
+{% endblock %}
+
+{% block subject %}Paiement effectué{% endblock %}
+
+{% block body_html %}
+
+    <div class="text-center">
+        <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+    </div>
+
+    <h2>Bonjour,</h2>
+
+    <p>Conformément aux critères listés dans l'annonce, {{ reservation.coutPts }} points vous ont été versés sur votre compte Bikerr.</p>
+
+    <p>L'équipe Bikerr</p>
+
+    <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
+
+{% endblock %}

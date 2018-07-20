@@ -30,11 +30,14 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
 
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_4_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:
@@ -65,3 +68,44 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+fos_user:
+    service:
+        mailer: fos_user.mailer.twig_swift
+
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\Membre
+
+    from_email:
+        address: "%mailer_user%"
+        sender_name: Bikerr
+
+    registration:
+        confirmation:
+            template: 'email/registration.email.twig'
+            from_email:
+                address: enregistrement@bikerr.fr
+                sender_name: Ne pas répondre
+            enabled: true
+        form:
+            type: AppBundle\Form\EnregistrementType
+
+    resetting:
+        email:
+            template:   email/reinitialisation.email.twig
+            from_email:
+                address: reinitialisation@bikerr.fr
+                sender_name: Réinitialisation du mot de passe
+
+    change_password :
+        form:
+            type: AppBundle\Form\NewPasswordType
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        velo_image:
+            uri_prefix: /uploads/
+            upload_destination: '%kernel.project_dir%/web/images/uploads/'
+            namer: Vich\UploaderBundle\Naming\HashNamer

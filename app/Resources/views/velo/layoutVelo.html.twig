@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="layoutVelo">
+        <!-- photo de profil + zone barre de progression -->
+        <div class="container headVelo">
+            <div class="row">
+                <!-- photo de profil -->
+                <div class="col-12 col-lg-3 offset-lg-1 photoVelo formulaireVelo">
+                    <div class="picture">
+
+                        {% if velo.photos|length>0 %}
+                         <img src="{{ asset('images/uploads/'~velo.photos.0.image) }}" style="width: 100%"/>
+                        {% else %}
+                            <img src="{{ asset('images/velo-fond-photo.png') }}" alt="bikerr-profil" style="width: 100%;"/>
+                        {% endif %}
+                    </div>
+                    <div class="points outilsVelo">
+                    <div style="margin-left: 10px;"><p>Le vélo de {{ membre.prenom }}</p></div>
+                    <div><p style="color: green; font-weight: bold; margin-right: 10px;">{{ velo.coutPts }}</p></div>
+                    </div>
+                </div>
+                <!-- zone barre de progression -->
+                <div class="col-12 col-lg-7 progressionVelo">
+                    <div class="cont1">
+                            <div class="VoirAnnonce">
+                                <a href="#"><  Voir mon annonce</a>
+                            </div>
+                            <div class="titreVelo" style="float: right">
+                                <div><h2>TYPE</h2></div>
+                                <div><p>MARQUE</p></div>
+                            </div>
+                    </div>
+                    <div class="outilsVelo">
+                        <div class="row justify-content-end">
+                                <h5 class="align-content-center">L'annonce du vélo est en ligne</h5>
+                                <form name="app_bundle_mise_en_ligne_type" method="POST" action="{{ path('mise_en_ligne', {'id' : velo.getId}) }}">
+                                    <label class="switch">
+                                        <input type="checkbox" {% if velo.enLigne==1 %}checked{% endif %} id="app_bundle_mise_en_ligne_type_en_ligne" name="app_bundle_mise_en_ligne_type[en_ligne]" required="required" class="form-check-input" value="1" onclick="$(this).parents('form').submit()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                {% do miseEnLigne.en_ligne.setRendered %}
+                                {{ form_end(miseEnLigne) }}
+                                </form>
+                        </div>
+
+{#                        <div class="checkVelo">
+                            <div class="VloEnLigne">
+                                <p>Etre contacté uniquement par des membres vérifiés</p>
+                            </div>
+                            <div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>#}
+
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <div class="progressbarVelo">
+                            <div>
+                                <p>Annonce complétée à :</p>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ jaugeVelo }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ jaugeVelo }}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- onglets + formulaire à compléter -->
+        <div class="container completeVelo">
+            <div class="row">
+                <!-- onglets -->
+                <div class="col-12 col-lg-3 offset-lg-1 ongletVelo">
+                    <div>
+                        <ul>
+                            <li>
+                                <a href="{{ path('velo_description', {'id': velo.id}) }}">
+                                    <div>
+                                        <div style="display: inline-block;">
+                                            Description
+                                        </div>
+                                        <div class="asterix">
+                                            (*)
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('velo_photos', {'id': velo.id}) }}">
+                                    <div>
+                                        <div style="display: inline-block;">
+                                            Photos
+                                        </div>
+                                        <div class="asterix">
+                                            (*)
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><a href="{{ path('velo_equipement', {'id':velo.id }) }}">Équipements</a></li>
+                            <li><a href="{{ path('velo_antivol', {'id': velo.id}) }}">Antivol et marquage Bicycode</a></li>
+                            <li>
+                                <a href="{{ path('velo_localisation', {'id': velo.id}) }}">
+                                    <div>
+                                        <div style="display: inline-block;">
+                                            Localisation et retrait
+                                        </div>
+                                        <div class="asterix">
+                                            (*)
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><a href="{{ path('velo_calendrier', {'id': velo.id}) }}">Calendrier</a></li>
+                            <li><a href="{{ path('velo_points', {'id': velo.id}) }}">Points, dépôt de garantie et assurance</a></li>
+                            <li><a href="{{ path('velo_supprimer', {'id': velo.id}) }}">Supprimer le vélo</a></li>
+                        </ul>
+                    </div>
+                    <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p>
+                    </div>
+                </div>
+                <!-- formulaire -->
+                <div  class="col-12 col-8 col-lg-7 formulaireVelo">
+                    {% include formulaire %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

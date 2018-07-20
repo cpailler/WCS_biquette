@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}"xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div id="carousel-photos" class="row">
+    {% for photo in velo.photos %}
+        <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
+    {% endfor %}
+</div>
+    <div class="container">
+        <div class="cadrePartage">
+            <div id="titreVelo" class="row">
+                <h4>{{ velo.titre }}</h4>
+            </div>
+
+                <div id="dates" class="row">
+                    <div  id="jours" class="col-4">
+                        <div><p id="nbJours" style="text-align: center;"></p></div>
+                        <div>Jours</div>
+                    </div>
+
+                    <div id="dateDebut" class="col-4">
+
+                    {#Date de retrait#}
+                        <div>
+                            {{ form_start(reservationForm) }}
+                            {{ form_widget(reservationForm.debut,{ 'attr': {'class': 'dateclic'} }) }}
+                            {{ form_label(reservationForm.debut) }}
+                            {{ form_errors(reservationForm.debut) }}
+
+                        </div>
+                    </div>
+
+                    {#Date de retour#}
+                        <div id="dateFin" class="col-4">
+                            {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
+                            {{ form_label(reservationForm.fin) }}
+                            {{ form_errors(reservationForm.fin) }}
+                            {% for message in app.flashes('error') %}
+                                <div class="alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                </div>
+                <div id="pointsRes" class="row">
+                    <div class="col-4"><p id="points1">Points gagnés</p></div>
+                    <div class="col-4"><p id="points2"> <span id="points">{{ velo.coutPts }}</span> PTS/JOUR</p></div>
+                    <div class="col-4"><p id="nbPoints" style="text-align: right;"></p></div>
+                </div>
+                <div id="caution" class="row">
+                    <div class="col-4"><p id="caution1">Dépôt de garantie</p></div>
+                    {% if velo.cautionOblig == 1 %}
+                        <div class="col-4"><p id="caution2">{{ velo.caution }}€ (5%)</p></div>
+                        <div class="col-4"><p><span id="partCaution">{{ velo.caution * 0.05 }}€</span></p></div>
+                    {% else %}
+                        <div class="col-4"><p id="caution2">Aucun</p></div>
+                        <div class="col-4"><p><span id="partCaution">0€</span></p></div>
+                    {% endif %}
+                </div>
+                <div id="assurance" class="row">
+                    <div class="col-4"><p id="assurance1">Assurance</p></div>
+                    {% if velo.assurOblig == 1 %}
+                        <div class="col-4"><p id="assurance2">1€/JOUR</p></div>
+                        <div class="col-4"><p id="totalAssurance" style="text-align: center;"></p></div>
+                    {% else %}
+                        <div class="col-4"><p id="assurance2">Optionnelle</p></div>
+                        <div class="col-4"><p id="totalAssurance1" style="text-align: center;">0€</p></div>
+                    {% endif %}
+
+                </div>
+                <div class="espaceVide">
+
+                </div>
+
+                <div id="total" class="row">
+                    <div class="col-6"><p id="total1">Total</p></div>
+                    {% if velo.assurOblig == 1 or velo.cautionOblig == 1  %}
+                        <div class="col-6"><p id="total2"><span id="totalPoints" style="text-align: center;"></span>/<span id="totalEuros" style="text-align: center;"></span></p></div>
+                    {% else %}
+                        <div class="col-6"><p id="total2"><span id="totalPoints" style="text-align: center;"></span>/0€<span id="totalEuros1" style="text-align: center;"></span></p></div>
+                    {% endif %}
+                </div>
+
+                <div id="buttons" class="row">
+                    <div class="col-6"><a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="boutonPartageAnn " id="buttonDecline">J’annule ma demande de réservation</button></a></div>
+                    <div class="col-6"><button type="submit" class="boutonPartageVal" id="buttonValid">Je confirme ma demande de réservation</button></div>
+
+                </div>
+            {{ form_end(reservationForm) }}
+        </div>
+    </div>
+    <script src="{{ asset('build/partagejs.js') }}"></script>
+{% endblock %}

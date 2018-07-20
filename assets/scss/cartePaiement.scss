@@ -1,0 +1,46 @@
+@import "main.scss";
+
+.modal-dialog {
+  border-radius: 0 !important;
+  width: 471px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  height:901px;
+}
+
+.banniere
+{
+  width: 391px;
+  height: 37.9px;
+}
+
+.modal-body{
+  width: 471px;
+  height: 688px;
+}
+.modal-header{
+  width: 471px;
+  height: 82px;
+}
+.modal-header p{
+  margin: auto;
+  text-align: center;
+}
+
+#Annuler{
+  width: 52px;
+  font-size: 14px;
+  color: $bikerr-green;
+  text-align: center;
+}
+
+//p.line.align-items-center{
+//  text-decoration-line: line-through $outline-grey ;
+//  width:300px;
+//}
+#submit{
+  width:391px;
+}
+.container{
+  padding-left: 0.5em;
+  padding-right:  0.5em;
+}

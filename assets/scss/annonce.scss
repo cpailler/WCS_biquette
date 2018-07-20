@@ -1,0 +1,173 @@
+@import "main.scss";
+
+#carousel-photos {
+  width: 100%;
+}
+
+#images__carousel {
+  height: 287px;
+}
+
+body {
+  color: $text-dark;
+}
+
+h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.titre {
+  font-weight: bold;
+}
+
+#bloc__description h5 {
+  color: $text-grey;
+  font-size: 14px;
+}
+
+p {
+  font-size: 14px;
+}
+
+.categorie {
+  padding: 20px;
+  border-top: 1px solid $outline-grey;
+}
+
+li {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.equipementOK {
+  list-style-image: url('/images/btn-checkbox-on.svg');
+}
+
+#carte {
+  background-color: white;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+#carte__points {
+  font-size: 46px;
+  color: $bikerr-green;
+}
+
+#carte__points__jour {
+  font-size: 18px;
+  font-weight: bolder;
+  margin-left: 12px;
+}
+
+#carte__points__jour__message {
+  color: $text-grey;
+  font-size: 12px;
+}
+
+#carte__texte__membre__verifie {
+  font-size: 14px;
+  color: $bikerr-green;
+  text-align: center;
+}
+
+#carte__membre {
+  margin-top: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+#carte__image {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+#carte__membre__depuis {
+  text-align: center;
+  font-size: 12px;
+  color: $text-grey;
+}
+
+.notice {
+  padding: 11px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: justify;
+  color: $bikerr-green;
+  border-radius: 10px;
+  background-color: #e8f9f0;
+  border: solid 1px rgba(0, 153, 37, 0.3);
+}
+
+#map {
+  height: 200px;
+  width: 100%;
+}
+
+#bloc__assurance, #bloc__garantie {
+  border-radius: 8px;
+  border: solid 3px $bikerr-green;
+}
+
+#logo__maif {
+  height: 40px;
+  width: 40px;
+}
+
+.assurance__texte, .garantie__texte {
+  color: $bikerr-green;
+  font-weight: 600;
+}
+
+#notice__garantie {
+  padding: 11px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: justify;
+  color: $bikerr-green;
+  border-radius: 10px;
+  background-color: #e8f9f0;
+  border: solid 1px rgba(0, 153, 37, 0.3);
+}
+
+a, a:hover {
+  color: $bikerr-green;
+}
+
+@media (max-width: 576px)
+{
+  #carousel-photos img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 685px)
+{
+  #carousel-photos img {
+    height: 150px;
+  }
+}
+
+@media (min-width: 686px) and (max-width: 768px)
+{
+  #carousel-photos img {
+    height: 210px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 900px)
+{
+  #carousel-photos img {
+    height: 230px;
+  }
+}
+
+@media (min-width: 901px)
+{
+  #carousel-photos img {
+    height: 287px;
+  }
+}

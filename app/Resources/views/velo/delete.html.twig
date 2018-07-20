@@ -1,0 +1,64 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/velo.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <h4>SUPPRIMER LE VELO</h4>
+        <div class="row">
+            <div class="col">
+                <table class="">
+                    <tbody>
+                    <tr>
+                        <th>Titre :</th>
+                        <td>{{ velo.titre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Marque :</th>
+                        <td>{{ velo.marque }}</td>
+                    </tr>
+                    <tr>
+                        <th>Modele :</th>
+                        <td>{{ velo.modele }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" >
+
+                            <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Attention</h4>
+                        </div>
+                        <div class="modal-body">
+                            Si vous souhaitez supprimer définitivement votre vélo, vous allez effacer les réservations
+                            et/ou les partages en cours.<br>
+                            Confirmez-vous ce choix ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="class bouton" data-dismiss="modal">Ne pas supprimer mon vélo</button>
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="class boutonAlert" value="Supprimer mon vélo ">
+                            {{ form_end(delete_form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="button" class="class bouton" value="Supprimer" data-toggle="modal" data-target="#myModal" >Supprimer</button>
+
+        </div>
+
+
+    </div>
+
+{% endblock %}

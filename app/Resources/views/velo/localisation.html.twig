@@ -1,0 +1,122 @@
+{% block body %}
+
+<div style="display: inline-block;">
+    <h2 class="titre">LOCALISATION</h2>
+</div>
+<div class="asterix">
+    (*)
+</div>
+{{ form_start(form) }}
+<div id="form-control">
+{{ form_label(form.adresse_velo, 'Adresse de retrait du vélo') }}
+{{ form_errors(form.adresse_velo) }}
+{{ form_widget(form.adresse_velo) }}
+
+{{ form_errors(form.latitude) }}
+{{ form_widget(form.latitude) }}
+
+{{ form_errors(form.longitude) }}
+{{ form_widget(form.longitude) }}
+
+{{ form_errors(form.ville) }}
+{{ form_widget(form.ville) }}
+
+<div id="map"></div>
+
+<div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon">
+    <span id="place-name"  class="title"></span><br>
+    <span id="place-address"></span>
+</div>
+
+<input id="validate" class="bouton bt-localisation" type="submit" type="button" value="Enregistrer" />
+{{ form_end(form) }}
+
+    <script>
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+        function initiMap() {
+            var latitude = document.getElementById('appbundle_velo_latitude').value;
+            var longitude = document.getElementById('appbundle_velo_longitude').value;
+            console.log(latitude);
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: parseFloat(latitude), lng: parseFloat(longitude)},
+                zoom: 15
+            });
+            var input = document.getElementById('appbundle_velo_adresse_velo');
+
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            // Bind the map's bounds (viewport) property to the autocomplete object,
+            // so that the autocomplete requests use the current map bounds for the
+            // bounds option in the request.
+            autocomplete.bindTo('bounds', map);
+
+            var infowindow = new google.maps.InfoWindow();
+            var infowindowContent = document.getElementById('infowindow-content');
+            infowindow.setContent(infowindowContent);
+            var marker = new google.maps.Marker({
+                map: map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+
+            autocomplete.addListener('place_changed', function() {
+                infowindow.close();
+                marker.setVisible(false);
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    // User entered the name of a Place that was not suggested and
+                    // pressed the Enter key, or the Place Details request failed.
+                    window.alert("Adresse invalide: '" + place.name + "'");
+                    return;
+                }
+
+                // If the place has a geometry, then present it on a map.
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(17);  // Why 17? Because it looks good.
+                }
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+
+                var address = '';
+                if (place.address_components) {
+                    address = [
+                        (place.address_components[0] && place.address_components[0].short_name || ''),
+                        (place.address_components[1] && place.address_components[1].short_name || ''),
+                        (place.address_components[2] && place.address_components[2].short_name || '')
+                    ].join(' ');
+                }
+
+                infowindowContent.children['place-icon'].src = place.icon;
+                infowindowContent.children['place-name'].textContent = place.name;
+                infowindowContent.children['place-address'].textContent = address;
+                infowindow.open(map, marker);
+
+                document.getElementById('appbundle_velo_latitude').value = place.geometry.location.lat();
+                document.getElementById('appbundle_velo_longitude').value = place.geometry.location.lng();
+                if (place.address_components[0].types[0] == 'street_number'){
+                    document.getElementById('appbundle_velo_ville').value = place.address_components[2].long_name;
+                }
+                else if (place.address_components[0].types[0] == 'route'){
+                    document.getElementById('appbundle_velo_ville').value = place.address_components[1].long_name;
+                }
+                else if (place.address_components[0].types[0] == "locality"){
+                    document.getElementById('appbundle_velo_ville').value = place.address_components[0].long_name;
+
+                }
+                else{
+                    document.getElementById('appbundle_velo_ville').value = null;
+                }
+            });
+        }
+    </script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&libraries=places&callback=initiMap"
+            async defer></script>
+{% endblock %}

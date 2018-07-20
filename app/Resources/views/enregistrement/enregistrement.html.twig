@@ -1,0 +1,36 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/enregistrement.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+        <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title align-items-center">Inscription</h5>
+            </div>
+            <div class="modal-body">
+                {{ form_start(form) }}
+
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword) }}
+
+                <button type="submit" class="bouton w-100 mt-3"><img class ="mr-2" src="{{ asset('images/icn-bikerr.svg') }}">Inscription</button>
+
+                <div class="mt-3" id="conditions">
+                    <p>En cochant la case ci-dessous, vous confirmez avoir lu, compris et accepté nos <a href={{ path('conditions_generales') }}>Conditions générales</a> et <a href={{path('utilisation_service') }}>Utilisation du service</a>, <a href={{ path('condition_assurance') }}>les Conditions de l’assurance</a> et notre <a href={{ path('confidentialite') }}>Politique de confidentialité</a>. Je comprends que je m’engage à mettre à disposition mon vélo dès lors que j’accepte un Partage.</p>
+                    {{ form_row(form.conditions) }}
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+
+            <div class="modal-footer">
+            <p>Vous avez déjà un compte Bikerr ?<a href="/login"> Connexion</a></p>
+            </div>
+        </div>
+    </div>
+    <p id="copyright">©Bikerr 2018. Tous droits réservés.</p>
+{% endblock %}

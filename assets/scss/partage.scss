@@ -1,0 +1,212 @@
+@import "main.scss";
+
+h4{
+
+  font-family: $font;
+  font-weight: bold;
+
+}
+
+p{
+  font-family: $font;
+
+}
+
+.espaceVide{
+  display: inline-block;
+  height: 200px;
+
+
+}
+
+.cadrePartage{
+  width: 80%;
+  margin: auto;
+  border: 1px solid $border-grey;
+}
+
+#titreVelo{
+  border-bottom: 1px solid $border-grey;
+  width: 100%;
+  margin: auto;
+}
+
+
+#dates{
+  display: flex;
+  border-bottom: 1px solid $border-grey;
+  margin: auto;
+
+}
+
+#jours{
+  border-right: 1px solid $border-grey;
+  font: $text-grey;
+}
+
+#dateDebut{
+  border-right: 1px solid $border-grey;
+}
+
+#carousel-photos {
+  height: 28.7rem;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+}
+
+#nbJours{
+
+  font-size: 25px ;
+}
+
+#pointsRes{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  border-bottom: 1px solid $border-grey;
+}
+
+#points1{
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  text-align: end;
+}
+
+#points2{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#nbPoints{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#caution{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  border-bottom: 1px solid $border-grey;
+}
+
+#caution1{
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  text-align: end;
+}
+
+#caution2{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#partCaution{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+
+}
+
+#assurance{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  border-bottom: 1px solid $border-grey;
+}
+
+#assurance1 {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+
+}
+
+#assurance2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#totalAssurance{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#totalAssurance1{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#total{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  border-bottom: 1px solid $border-grey;
+  border-top: 1px solid $border-grey;
+}
+
+#total1{
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#total2{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  flex-wrap: nowrap;
+}
+
+#buttons{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+#buttons div{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#buttonDecline{
+  height: 100%;
+  width: 100%;
+}
+
+#buttonValid{
+  height: 100%;
+  width: 100%;
+}
+
+.boutonPartageVal{
+  @extend .bouton;
+  border-radius: unset;
+  height: 5rem;
+
+}
+
+.boutonPartageAnn{
+  @extend .bouton;
+  border-radius: unset;
+  background-color: $grey-background;
+  color: $text-grey;
+
+}
+

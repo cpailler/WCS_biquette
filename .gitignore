@@ -1,3 +1,5 @@
+lsbikker_old.sql
+
 /.web-server-pid
 /app/config/parameters.yml
 /build/
@@ -18,3 +20,9 @@
 /web/bundles/
 /web/build/
 .idea/
+.DS_Store
+yarn.lock
+yarn-error.log
+composer.lock
+/composer.lock
+

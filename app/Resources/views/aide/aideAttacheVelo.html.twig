@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="gradient_box">
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
+        </div>
+    {% else %}
+        <div class="gradient_box">
+            <br><br>
+            <h1 class="explication_title white_text">Découvrez le concept</h1>
+            <br><br>
+        </div>
+    {% endif %}
+
+    <div class="bikerr_container">
+        <div class="container_aide">
+            <h4 class="explication_title bikerr-green">Comment attacher un vélo ?</h4>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <hr>
+                <p class="explication bikerr-green text-center">
+                    Avec un bon antivol et en suivant nos conseils, vous réduisez de 90 % le risque de vol.
+                </p>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr_container container_velo">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">1. Equipez vous d’un bon antivol</h4><br>
+                <p class="explication">
+                    Le vélo doit être doté d’un feu avant éclairant et d’un feu arrière rouge. Cet équipement est obligatoire de nuit comme de jour en cas de mauvaise visibilité.
+                    <br>
+                    Équipez-vous d&apos;au moins un antivol en U. Même un mauvais U vaudra toujours mieux qu’un bon câble. Dans les cas critiques (grandes villes, la nuit, etc.), deux U sont une précaution utile.
+                    <br>
+                    Préférez un antivol classé au minimum 2 roues (❂❂) ou 2 étoiles (* *) dans les tests ART au Pays-Bas, ou Gold dans les tests Sold Secure en Grande-Bretagne.
+                    <br>
+                    Vous pouvez consulter les tests réalisés chaque année par la Commission Antivol FUB (Fédération Française des usagers de la bicyclette). Ces tests sont devenus une véritable référence :
+                    <a href="http://www.bicycode.org/test-antivol/recherche/" target="_blank" class="text_color_bikerr">http://www.bicycode.org/test-antivol/recherche/</a>
+                    <br><br><br>
+                </p>
+                <a class="btn btn-lg bouton-lg" href="http://www.bicycode.org/test-antivol/recherche/" role="button" target="_blank">Consulter les tests FUB</a><br><br>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="img-aide">
+                    <figure>
+                        <img src="{{ asset('images/img-abus-granit.png') }}" alt="bikerr-antivol"><br>
+                        <figcaption class="explication" style="text-align: center;">ABUS Granit Plus 640 antivol en U.</figcaption>
+                    </figure>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">2. Cadenassez toujours le vélo</h4><br>
+                <p class="explication">
+                    Même pour une courte durée : Certains voleurs sont à l&apos;affût des vélos laissés devant une boutique.
+                    Même à l’intérieur : Un vol sur deux a lieu à domicile, dans la cave, le garage, la cour ou le hall d&apos;immeuble. Beaucoup de vols sont commis en plein jour dans une rue passante. Le voleur utilise un outil discret et n’hésitera pas à prétendre qu&apos;il a simplement perdu la clé de l’antivol.
+                    <br><br>
+                    Tous les vélos se volent : ni l’aspect, ni l’âge du vélo ne sont un critère pour détourner les voleurs.
+                </p><br><br>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="img-aide">
+                    <figure>
+                        <img src="{{ asset('images/img-antivol.png') }}" alt="bikerr-cadenas"><br>
+                        <figcaption class="explication" style="text-align: center;">(a) Cadre et roue avant sont attachés séparément à un point fixe.</figcaption>
+                    </figure>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">3. Attachez le cadre à un point fixe</h4><br>
+                <p class="explication">
+                    Attachez le cadre et si possible la roue avant à un point fixe. Accrochez votre antivol de préférence en hauteur (50cm min.) pour limiter les risques d’effraction. Orientez la serrure vers le bas pour rendre le crochetage moins aisé et pour éviter que la pluie n’y pénètre.
+                    <br><br>
+                    Faites en sorte que le cadre ne soit pas libre en rotation, par exemple en l’attachant à deux points ou en l’empêchant d’être soulevé. Si votre U est trop petit pour attacher le cadre et la roue avant, il est souvent possible d&apos;attacher le cadre et la roue arrière au point fixe en passant le U en travers des tubes du triangle arrière comme indiqué sur l’illustration (b).
+                    <br><br><br>
+                </p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="img-aide">
+                    <figure>
+                        <img src="{{ asset('images/img-antivol-b.png') }}" alt="bikerr-antivol-b"><br>
+                        <figcaption class="explication" style="text-align: center;">(b) Roue arrière et cadre sont attachés à un point fixe.</figcaption>
+                    </figure>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h4 class="explication_title bikerr-green">4. Ne laissez pas de pièces détachables</h4><br>
+                <p class="explication">
+                    Remplacez les attaches rapides de votre roue avant et de votre selle par des écrous. Et prenez avec vous phares à piles, sacs, compteur, porte-bébé. Privilégiez les équipements amovibles.
+                    <br><br><br>
+                </p>
+                <h4 class="explication_title bikerr-green">5. Marquez votre vélo</h4><br>
+                <p class="explication">
+                    Veuillez vous reporter à la rubrique Marquer son vélo. <br><br>
+                </p><br><br>
+                <a class="btn btn-lg bouton" href="{{ path('aide_bicycode') }}" role="button">Marquage BICYCODE®</a>
+                <br><br>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="img-aide">
+                    <img src="{{ asset('images/img-selle.png') }}" alt="bikerr-selle"><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

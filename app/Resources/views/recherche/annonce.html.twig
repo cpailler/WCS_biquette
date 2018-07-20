@@ -1,0 +1,288 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/calendrier.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="carousel-photos" class="justify-content-center row">
+        {% for photo in velo.photos %}
+            <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
+        {% endfor %}
+    </div>
+
+    <form action="">
+        <div class="container">
+            <div class="row">
+                <div id="bloc__description" class="container mt-5 col-lg-7 col-md-10">
+                    <div class="row">
+                        {#Ci-dessous, la fonction permettant à l'utilisateur de n'être contacté que par les membres vérifiés#}
+{#                        {% if velo.proprio.membreVerifie == 1 %}
+                            <img src="{{ asset('images/icn-profil-verifie.svg') }}" class="mr-3" alt="Profil vérifié">
+                        {% endif %}#}
+                        <h2>{{ velo.titre }}</h2>
+                    </div>
+
+                    <div class="row mt-5">
+                        <h4 class="col-1"><span class="checkmark" style="background-color: {{ velo.couleur.codeHexa }}"></span></h4>
+                        <h4 class="col-3">{{ velo.marque }}</h4>
+                        <h4 class="col-3">{{ velo.typeVelo }}</h4>
+                        <h4 class="col-3">{{ velo.etatVelo }}</h4>
+                        <h4 class="col-2">{% if velo.neuf == 1 %}Neuf{% else %}Occasion{% endif %}</h4>
+                    </div>
+                    <p class="mt-3">{{ velo.description }}</p>
+
+                    <div class="categorie container mt-5">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <h4 class="titre">Équipements</h4>
+                                <ul>
+                                    {% for equipement in velo.equipements %}
+                                        <li class="equipementOK">{{ equipement.equipement }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <h4 class="titre">Antivol du vélo</h4>
+
+                                {% if velo.antivolKey == 0 and velo.antivolCode == 0 and velo.bicycode is null %}
+                                <h5>Aucun antivol</h5>
+                                {% else %}
+                                <ul>
+                                    {% if velo.antivolKey > 0 %}
+                                        <li class="equipementOK">Antivol à clé</li>
+                                    {% endif %}
+                                    {% if velo.antivolCode > 0 %}
+                                        <li class="equipementOK">Antivol à code</li>
+                                    {% endif %}
+                                    {% if velo.bicycode is defined %}
+                                        <li class="equipementOK">Marquage Bicycode</li>
+                                    {% endif %}
+                                </ul>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bloc__map" class="categorie mt-5">
+                        <h4 class="titre">Carte</h4>
+                        <div id="map">
+
+                            <input id="latitude" value="{{ velo.latitude }}" type="hidden">
+                            <input id="longitude" value="{{ velo.longitude }}" type="hidden">
+
+                            <script>
+                                // Initialize and add the map
+                                function initMap() {
+                                    // The location of myLatLng
+
+                                    let latitude = document.getElementById('latitude').value;
+                                    let longitude = document.getElementById('longitude').value;
+
+                                    let myLatLng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+
+                                    // The map, centered at myLatLng
+                                    let map = new google.maps.Map(
+                                        document.getElementById('map'), {zoom: 15, center: myLatLng});
+                                    // The marker, positioned at myLatLng
+                                    //var marker = new google.maps.Marker({position: myLatLng, map: map});
+                                    // The marker, zone cercle myLatLng
+                                    let zone = new google.maps.Circle({
+                                        center: myLatLng,
+                                        map: map,
+                                        strokeColor: '#ffffff',
+                                        strokeOpacity: 0.8,
+                                        strokeWeight: 2,
+                                        fillColor: '#009925',
+                                        fillOpacity: 0.35,
+                                        radius: 200
+                                    });
+                                }
+                            </script>
+                            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcSv2oPG3tP4f_DFHF_VgyvfhMDTtyFlA&callback=initMap"></script>
+                        </div>
+
+                    </div>
+
+                    <div id="bloc__calendrier" class="categorie mt-5">
+                        <h4 class="titre">Calendrier des périodes de partage</h4>
+                        <div class="row">
+                            {% for month in calendrier.months %}
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="row center-block">
+                                        <div class="col-12">
+                                            <p class="calendar-month">{{ month }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row center-block">
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <table class="calendar__table calendar__table--{{ month.getWeeks() }}weeks">
+                                                <tr>
+                                                    {% for day in month.days %}
+                                                        <th class="calendar__otherMonth">{{ day }}</th>
+                                                    {% endfor %}
+                                                </tr>
+                                                {% set date = month.getStartingday %}
+                                                {% if date.format('N')!=1 %}
+                                                    {% set date = date.modify('last monday') %}
+                                                {% endif %}
+                                                {% set date = date.modify("-1 day") %}
+                                                {% for key in 0..(month.getWeeks*7-1) %}
+                                                    {% if key%7==0 %}
+                                                        <tr>
+                                                    {% endif %}
+                                                    {% set date = date.modify("+1 day") %}
+                                                    <td class="{% if (month.withinMonth(date)) %}{% if calendrier.getStatus(velo, date)=='disponible' %}calendar_disponible{% elseif calendrier.getStatus(velo, date)=='reserve'  %}calendar_booked{% endif %}{% else %}calendar__otherMonth{% endif %} ">
+
+                                                        <div class="calendar__day ">{{ date.format('d') }}</div>
+                                                    </td>
+                                                    {% if key%7==6 %}
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6 text-left">
+                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.previousCalendar.initMonth, 'initYear' : calendrier.previousCalendar.initYear}) }}">← Précédent</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{{ path('annonce', {'id':velo.id,'initMonth' : calendrier.nextCalendar.initMonth, 'initYear' : calendrier.nextCalendar.initYear}) }}">Suivant →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bloc__assurance" class="categorie mt-5">
+                        <h4 class="titre">Assurance</h4>
+
+                        {% if velo.assurOblig == 1 %}
+
+                            <div class="row">
+                                <p class="col-10">{{ velo.proprio.prenom }} souhaite que l'emprunteur utilise une assurance</p>
+                                <img id="logo__maif" class="col-2" src="{{ asset('images/logo-maif.svg') }}" alt="Logo Maif">
+                            </div>
+
+                            <div class="row align-content-center mt-3">
+                                <img class="col-1" src="{{ asset('images/btn-checkbox-on.svg') }}" alt="V vert">
+                                <p class="col-9 assurance__texte">Assurance PARTAGE DE VÉLO & IMPRÉVU</p>
+                                <p class="col-2">1€/JOUR</p>
+                            </div>
+
+                        {% elseif velo.assurOblig == 0 %}
+
+                            <div class="row">
+                                <p class="col-10">{{ velo.proprio.prenom }} laisse le choix à l'emprunteur de souscrire une assurance ou non.</p>
+                                <img id="logo__maif" class="col-2" src="{{ asset('images/logo-maif.svg') }}" alt="Logo Maif">
+                            </div>
+
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="assurance" id="assuranceoui" value="assuranceoui">
+                                <label class="form-check-label col-10 assurance__texte" for="assuranceoui">
+                                    Assurance PARTAGE DE VÉLO & IMPRÉVU
+                                </label>
+                                <p class="col-1">1€/JOUR</p>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="assurance" id="assurancenon" value="assurancenon" checked>
+                                <label class="form-check-label col-10" for="assurancenon">
+                                    Je ne souhaite pas être couvert pendant la période de partage
+                                </label>
+                            </div>
+
+
+                        {% endif %}
+
+                    </div>
+
+                    {% if velo.cautionOblig == 1 %}
+
+                        <div id="bloc__garantie" class="categorie mt-5 mb-2">
+                            <h4 class="titre">Dépôt de garantie</h4>
+
+                            <p>{{ velo.proprio.prenom }} a fixé un dépôt de garantie pour sécuriser la transaction qui s'élève sur l'intégralité de la période à:</p>
+
+                            <div class="row align-content-center mt-3">
+                                <img class="col-1" src="{{ asset('images/btn-checkbox-on.svg') }}" alt="V vert">
+                                <p class="col-8 garantie__texte">Dépôt de garantie</p>
+                                <p class="col-3">{{ velo.caution }}€ (5%) / {{ velo.caution * 0.05 }}€</p>
+                            </div>
+                        </div>
+
+                        <p id="notice__garantie">Le dépôt de garantie est demandé par certains propriétaires qui souhaitent se couvrir en cas de dommage, perte ou vol de leur vélo. Si tel est le cas, l’utilisateur donne une autorisation de prélèvement à Bikerr correspondant au montant défini par le propriétaire. Le dépôt de garantie n’est jamais débité (sauf en cas d’incident). Et il est intégralement restitué au terme de la période de partage. Bikerr prélève 5% de commission pour couvrir les frais de la plateforme.</p>
+
+                    {% elseif velo.cautionOblig == 0 %}
+
+                        <div id="bloc__garantie" class="categorie mt-5 mb-5">
+                            <h4 class="titre">Dépôt de garantie</h4>
+
+                            <p>{{ velo.proprio.prenom }} n'a fixé aucun dépôt de garantie pour partager son vélo</p>
+
+                            <div class="row align-content-center mt-3">
+                                <img class="col-1" src="{{ asset('images/btn-checkbox-on.svg') }}" alt="V vert">
+                                <p class="col-9 garantie__texte">Dépôt de garantie</p>
+                                <p class="col-2">Aucun</p>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                <div id="bloc__carte" class="mt-5 col-lg-4 col-md-12">
+                    <div id="carte">
+                        <div class="row">
+                            <h1 id="carte__points" class="col-sm-3 col-xs-6">{{ velo.coutPts }}</h1>
+
+                            <div class="col-9">
+                                <h4 id="carte__points__jour__titre">Points / jour</h4>
+                                {%  if velo.coutPts > 0 %}
+                                    <p id="carte__points__jour__message">Avec vos {{ membre.points }} Points, vous pouvez emprunter ce vélo {{ membre.points // velo.coutPts }} jour(s).</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                        {% if jaugeProfil >= 80 %}
+                        <a href="{{ path('reservation', {'id': velo.id}) }}">
+                            <button type="button" class="bouton w-100" >
+                                Envoyer une demande de partage
+                            </button>
+                        </a>
+                        {% else %}
+                            <p class="notice">Vous devez compléter votre profil à 80% au moins avant de pouvoir réserver un vélo</p>
+                            <br>
+                            <button type="button" class="bouton-disabled w-100" disabled>
+                                Envoyer une demande de partage
+                            </button>
+                        {% endif %}
+
+                        <div class="mt-3 text-center">
+                            <h4 id="carte__membre">{{ velo.proprio.prenom }}</h4>
+                            {% if membre.image is not null %}
+                            <img id="carte__image" class="mt-2 mb-2" src="{{ asset('images/uploads/' ~ velo.proprio.image) }}" alt="Photo de profil">
+                            {% else %}
+                                <img src="{{ asset('images/icn-profil-over.svg') }}" alt="Image de profil">
+                            {% endif %}
+                            <p id="carte__membre__depuis">Membre depuis le {{ velo.proprio.dateInscription|date("d M Y") }}</p>
+                        </div>
+                    </div>
+                    <p class="notice mt-3">En réservant ce vélo, une demande de contact est envoyée par email au propriétaire pour vous permettre de discuter ensemble des modalités d’accès au vélo. Pour finaliser le partage, le propriétaire du vélo devra valider votre demande de réservation.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+{% endblock %}

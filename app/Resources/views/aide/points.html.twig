@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <div class="gradient_box">
+            {% if membre.image is not null %}
+                <div class="crop_profile"><img src="{{ asset('images/uploads/'~membre.image) }}" alt=""></div>
+                <br>
+            {% endif %}
+            <h4 class="explication_title white_text">Salut {{ membre.prenom }}, <br>besoin d'aide ?</h4>
+        </div>
+    {% else %}
+        <div class="gradient_box">
+            <br><br>
+            <h1 class="explication_title white_text">Découvrez le concept</h1>
+            <br><br>
+        </div>
+    {% endif %}
+
+    <div class="bikerr_container">
+        <div class="row">
+            <div class="container_aide" style="margin: auto;">
+                <h4 class="explication_title bikerr-green">A quoi servent les Points ?</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <p class="explication bikerr-green">
+                    Je gagne des Points en partageant mon vélo. Je dépense des Points en utilisant le vélo d’une autre
+                    personne.
+                </p>
+                <br><br><br><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="bikerr-container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 col-xs-10 offset-xs-1">
+                <h4 class="explication_title bikerr-green">La communauté</h4><br>
+                <p class="explication">
+                    Nous voulons une plateforme équitable pour tous. C'est pourquoi Bikerr a décidé de faire évoluer son
+                    modèle vers un système de points qui sert à organiser le partage dans la confiance et l’intérêt
+                    général. Certaines personnes peuvent être tentées d’utiliser des vélos sans jamais partager leur
+                    monture, en d’autres termes, sans jouer le jeu du partage. Le système
+                    de Points facilitent le partage et neutralisent les abus.
+                </p><br>
+                <div class="grey_container" style="width: 90%; margin: auto; padding: 2em;">
+                    <p class="explication">
+                        Exemple : vous habitez Strasbourg et avez prévu de vous rendre à Paris pour 7 jours. Vous
+                        contactez un propriétaire qui partage le vélo dont vous avez besoin pour 50 Points par jour.
+                        <br><br>
+                        Le calcul est facile : 50 Points x 7 jours. Le propriétaire à qui vous empruntez le vélo gagnera
+                        350 Points qu’il pourra utiliser à sa guise pour accéder au VTT dont il a besoin lors de ses
+                        prochaines vacances.
+                        <br><br>
+                        De votre côté, vous dépensez 350 Points qui sont retranchées de votre capital de Points. Lorsque
+                        votre capital de
+                        Points arrive à zéro vous devez à nouveau partager votre vélo ou alors acheter des Points pour
+                        accéder aux vélos souhaités.
+
+                    </p>
+                </div>
+                <br>
+                <h4 class="explication_title bikerr-green">Votre capital de points est composé de la manière suivante
+                    :</h4>
+                <br>
+                <p class="explication">
+                <ol class="explication">
+                    <li>Des Points offerts à votre inscription sur Bikerr ;</li>
+                    <li>DesPoints gagnés en partageant votre vélo ;</li>
+                    <li>Des Points dépensés en accédant à d'autres vélos ;</li>
+                </ol>
+                </p>
+                <p class="explication">
+                    Les transferts de Points se font automatiquement quand le partage est finalisé, c’est-à-dire,
+                    lorsque le propriétaire clos le partage en confirmant le retour de son vélo. Néanmoins, vous pouvez
+                    aussi acquérir des Points de la manière suivante :
+                </p><br>
+                <ol class="explication">
+                    <li>En faisant vérifier votre identité, Bikerr vous offre 500 Points. C’est un service optionnel
+                        payant (10 euros à vie) qui permet d'augmenter la confiance entre les membres en vérifiant leur
+                        identité et leur adresse.
+                    </li>
+                    <li>En achetant des Points lorsqu’il vous en manque pour partager un vélo.</li>
+                </ol>
+                <br><br>
+                <h4 class="explication_title bikerr-green">Comment gagner des points ?</h4><br>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3 lien_tableau">
+                <a href="{{ path('enregistrement') }}">
+                    <div class="card-body">
+                        <p class="title-announce">Créer son compte <span>250 PTS</span></p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3 lien_tableau">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('velo_description', {'id': membre.velos.0.id}) }}">
+                    {% else %}
+                        <a href="{{ path('enregistrement') }}"></a>
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="title-announce">Remplir l'annonce d'un vélo à 100% <span>250 PTS</span></p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3 lien_tableau">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="{{ path('profil_infos') }}">
+                    {% else %}
+                        <a href="{{ path('enregistrement') }}"></a>
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="title-announce">Remplir son profil à 100% <span>150 PTS</span></p>
+                    </div>
+                </a>
+            </div>
+            {#<div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3 lien_tableau">
+                <a href="{{ path('enregistrement') }}">
+                    <div class="card-body">
+                        <p class="title-announce">Faire vérifier son identité <span>500 PTS</span></p>
+                    </div>
+                </a>
+            </div>#}
+            {#<div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3 lien_tableau">
+                <a href="{{ path('enregistrement') }}">
+                    <div class="card-body">
+                        <p class="title-announce">Contacter un ami <span>50 PTS</span></p>
+                    </div>
+                </a>
+            </div>#}
+        </div>
+    </div><br><br><br>
+{% endblock %}
