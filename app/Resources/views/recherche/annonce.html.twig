@@ -254,14 +254,14 @@
                         </div>
 
 
-                        {% if jaugeProfil > 85 %}
+                        {% if jaugeProfil >= 80 %}
                         <a href="{{ path('reservation', {'id': velo.id}) }}">
                             <button type="button" class="bouton w-100" >
                                 Envoyer une demande de partage
                             </button>
                         </a>
                         {% else %}
-                            <p class="notice">Vous devez compléter votre profil à 85% au moins avant de pouvoir réserver un vélo</p>
+                            <p class="notice">Vous devez compléter votre profil à 80% au moins avant de pouvoir réserver un vélo</p>
                             <br>
                             <button type="button" class="bouton-disabled w-100" disabled>
                                 Envoyer une demande de partage
