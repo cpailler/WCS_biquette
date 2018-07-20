@@ -116,6 +116,7 @@ p{
   justify-content: flex-end;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
+
 }
 
 #assurance{
@@ -139,6 +140,13 @@ p{
 }
 
 #totalAssurance{
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+#totalAssurance1{
   display: flex;
   justify-content: flex-end;
   margin-bottom: 0.5em;
