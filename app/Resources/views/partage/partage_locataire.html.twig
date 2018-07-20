@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block javascripts %}
-    <script src="{{ asset('build/partage.js') }}"></script>
-{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
@@ -69,12 +67,54 @@
 
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" >
+
+                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Mangopay</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" >
+
+                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Mangopay</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="class bouton" data-dismiss="modal"></button>
+
+                        <input type="submit" class="class boutonAlert" value="Supprimer mon vélo ">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row justify-content-center">
             {% if reservation.etape == 0 %}
                 <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >En attente de la validation</button></a>
-            {% else %}
-                <a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="class ">J’annule ma demande de réservation</button></a>
-                <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >Je confirme ma demande de réservation</button></a>
+            {% elseif reservation.etape == 1 %}
+                <a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">J’annule ma demande de réservation</button></a>
+
+                <button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal">Je valide et je paye</button>
+
+
             {% endif %}
         </div>
 

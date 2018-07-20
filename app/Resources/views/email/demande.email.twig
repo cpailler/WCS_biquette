@@ -1,24 +1,16 @@
-{% extends 'base.html.twig' %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/email.css') }}">
-{% endblock %}
-
-{% block subject %}Demande de partage !{% endblock %}
-
 {% block body_text %}
 {% endblock %}
 
-{% block body_html %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
-    <div class="text-center">
-        <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
-    </div>
+
+{% block body_html %}
 
     <h2>Bonjour,</h2>
 
     <p>Un utilisateur souhaite emprunter votre vélo "{{ reservation.velo.titre }}".</p>
 
-    <p>Il s'agit de {{ reservation.locataire.prenom }} {{ reservation.locataire.nom }}. Pour voir sa demande, cliquez ici: <a href="https://bikerr.fr/{{ path('partage/'~reservation.id) }}"></a></p>
+    <p>Il s'agit de {{ reservation.locataire.prenom }} {{ reservation.locataire.nom }}. Pour voir sa demande, cliquez <a href="{{ app.request.getSchemeAndHttpHost() ~ path('partage',{'id':reservation.id}) }}"><strong>ICI</strong></a></p>
 
     <p>L'équipe Bikerr</p>
 

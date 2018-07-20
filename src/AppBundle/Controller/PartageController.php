@@ -68,7 +68,7 @@ class PartageController extends Controller
      *
      * @Route("/validationproprio/{id}", name="partage_validation_proprio")
      */
-    public function validationAction(Reservation $reservation) {
+    public function validationAction(Reservation $reservation, \Swift_Mailer $mailer) {
         $membre = $this->getUser();
 
         if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 0) {
@@ -80,6 +80,24 @@ class PartageController extends Controller
             $em->flush();
 
             // TODO Le mail au locataire ( demandeValidation)
+
+            $locataire = $reservation->getLocataire();
+            $emailLocataire = $locataire->getEmail();
+
+            $message = (new \Swift_Message('Réservation acceptée'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailLocataire)
+                ->setBody(
+                    $this->renderView(
+                        'email/demandeValidation.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
         }
 
         return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
@@ -177,9 +195,10 @@ class PartageController extends Controller
             $em->persist($reservation);
             $em->flush();
 
+
             /*  Mails
              *
-             *  Mail de rappel de valider la retour de vélo à envoyer au proprio
+             *  TODO Mail de rappel de valider la retour de vélo à envoyer au proprio
              *
              *  Actions
              *  Page proprio avec les bouton "Tout s’est bien passé, je clos le partage" et "Il y un problème, j’ouvre un cas de litige"

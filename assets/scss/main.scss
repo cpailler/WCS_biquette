@@ -64,6 +64,22 @@ $normButton:#ffffff;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
+.bouton-disabled {
+  font-family: $font;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  width: 226px;
+  height: 52px;
+  border-radius: 26px;
+  background-color: $border-grey;
+  margin: auto;
+  text-shadow: none;
+
+}
+
 .bouton-lg {
   @extend .bouton;
   width: 350px;

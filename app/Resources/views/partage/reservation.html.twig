@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('build/partage.css') }}" xmlns="http://www.w3.org/1999/html">
+    <link rel="stylesheet" href="{{ asset('build/partage.css') }}"xmlns="http://www.w3.org/1999/html">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
     <link rel="stylesheet" href="{{ asset('build/annonce.css') }}">
 {% endblock %}
@@ -40,17 +40,17 @@
                     </div>
 
                     {#Date de retour#}
-                    <div id="dateFin" class="col-4">
-                        {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
-                        {{ form_label(reservationForm.fin) }}
-                        {{ form_errors(reservationForm.fin) }}
-                        {% for message in app.flashes('error') %}
-                            <div class="alert-danger">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
+                        <div id="dateFin" class="col-4">
+                            {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
+                            {{ form_label(reservationForm.fin) }}
+                            {{ form_errors(reservationForm.fin) }}
+                            {% for message in app.flashes('error') %}
+                                <div class="alert-danger">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
 
-                    </div>
+                        </div>
                 </div>
                 <div id="pointsRes" class="row">
                     <div class="col-4"><p id="points1">Points gagnés</p></div>
@@ -59,13 +59,26 @@
                 </div>
                 <div id="caution" class="row">
                     <div class="col-4"><p id="caution1">Dépôt de garantie</p></div>
-                    <div class="col-4"><p id="caution2">{{ velo.caution }}€ (5%)</p></div>
-                    <div class="col-4"><p><span id="partCaution">{{ velo.caution * 0.05 }}€</span></p></div>
+                    {% if velo.cautionOblig == 1 %}
+                        <div class="col-4"><p id="caution2">{{ velo.caution }}€ (5%)</p></div>
+                        <div class="col-4"><p><span id="partCaution">{{ velo.caution * 0.05 }}€</span></p></div>
+                    {% else %}
+                        <div class="col-4"><p id="caution2">Aucun</p></div>
+                        <div class="col-4"><p><span id="partCaution">0€</span></p></div>
+                    {% endif %}
+
+
                 </div>
                 <div id="assurance" class="row">
                     <div class="col-4"><p id="assurance1">Assurance</p></div>
-                    <div class="col-4"><p id="assurance2">1€/JOUR</p></div>
-                    <div class="col-4"><p id="totalAssurance" style="text-align: center;"></p></div>
+                    {% if velo.assurOblig == 1 %}
+                        <div class="col-4"><p id="assurance2">1€/JOUR</p></div>
+                        <div class="col-4"><p id="totalAssurance" style="text-align: center;"></p></div>
+                    {% else %}
+                        <div class="col-4"><p id="assurance2">Optionnelle</p></div>
+                        <div class="col-4"><p id="totalAssurance" style="text-align: center;">0€</p></div>
+                    {% endif %}
+
                 </div>
                 <div class="espaceVide">
 
