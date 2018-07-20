@@ -90,6 +90,11 @@ class MangoPayApi
 
     }
 
+    public function getBalance(Membre $membre)
+    {
+        return $this->connexionApi->Wallets->Get($membre->getIdWallet())->Balance;
+    }
+
     //creation objet CARD
     public function CardRegistration(Membre $membre)
     {
@@ -112,8 +117,6 @@ class MangoPayApi
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
         //dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
-
-
     }
 
     //création d'une  Card direct PayIn

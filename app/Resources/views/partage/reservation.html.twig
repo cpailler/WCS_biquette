@@ -16,14 +16,12 @@
     <div class="container">
         <div class="cadrePartage">
             <div id="titreVelo" class="row">
-
-                    <h4>{{ velo.titre }}</h4>
-
+                <h4>{{ velo.titre }}</h4>
             </div>
 
                 <div id="dates" class="row">
                     <div  id="jours" class="col-4">
-                       <div><p id="nbJours" style="text-align: center;"></p></div>
+                        <div><p id="nbJours" style="text-align: center;"></p></div>
                         <div>Jours</div>
                     </div>
 
@@ -66,8 +64,6 @@
                         <div class="col-4"><p id="caution2">Aucun</p></div>
                         <div class="col-4"><p><span id="partCaution">0€</span></p></div>
                     {% endif %}
-
-
                 </div>
                 <div id="assurance" class="row">
                     <div class="col-4"><p id="assurance1">Assurance</p></div>
@@ -76,7 +72,7 @@
                         <div class="col-4"><p id="totalAssurance" style="text-align: center;"></p></div>
                     {% else %}
                         <div class="col-4"><p id="assurance2">Optionnelle</p></div>
-                        <div class="col-4"><p id="totalAssurance" style="text-align: center;">0€</p></div>
+                        <div class="col-4"><p id="totalAssurance1" style="text-align: center;">0€</p></div>
                     {% endif %}
 
                 </div>
@@ -86,8 +82,11 @@
 
                 <div id="total" class="row">
                     <div class="col-6"><p id="total1">Total</p></div>
-                    <div class="col-6"><p id="total2"><span id="totalPoints" style="text-align: center;"></span>/<span id="totalEuros" style="text-align: center;"></span></p></div>
-
+                    {% if velo.assurOblig == 1 or velo.cautionOblig == 1  %}
+                        <div class="col-6"><p id="total2"><span id="totalPoints" style="text-align: center;"></span>/<span id="totalEuros" style="text-align: center;"></span></p></div>
+                    {% else %}
+                        <div class="col-6"><p id="total2"><span id="totalPoints" style="text-align: center;"></span>/0€<span id="totalEuros1" style="text-align: center;"></span></p></div>
+                    {% endif %}
                 </div>
 
                 <div id="buttons" class="row">
