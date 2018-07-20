@@ -1,18 +1,10 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/cartePaiement.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
 {% endblock %}
 
 {% block body %}
-
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title align-items-center">Paiement</h5>
-                </div>
-                 <div class="modal-body">
                     {{ form_start(form) }}
-                     <div class="row container flex">
+                     <div class="row container">
 
                         <div class="col-3">
                             <input id="carte_paiement_card_type_0" name="carte_paiement[card_type]" required="required" class="form-check-input" value="CB_VISA_MASTERCARD" type="radio">
@@ -36,8 +28,15 @@
                             <img src="{{ asset('images/paiement/icn-cb.png') }}" srcset="{{ asset('images/paiement/icn-cb@2x.png 2x,images/paiement/icn-cb@3x.png 3x') }}" id ="img" class="Icn-CB">
                         </div>
                      </div>
-                    <p class="float-left">Montant de l'assurance</p><p class="float-right">€3.00</p>
-
+                    <div class="row">
+                        <p>Montant de l'assurance</p><p>{{ reservation.caution }}</p>
+                    </div>
+                    <div class="row">
+                        <p>Montant de la caution</p><p>{{ reservation.assurance }}</p>
+                    </div>
+                    <div class="row">
+                        <p>Montant total</p><p>{{ reservation.assurance + reservation.caution }}</p>
+                    </div>
                     {{ form_row(form.cardNumber, {'attr': {'placeholder': 'Numéro de la carte'} }) }}
                     <div class="row">
                         <div class="col-6">
@@ -62,10 +61,4 @@
                     <img class="banniere" src="{{ asset('images/paiement/banniere_mangopay.png') }}" alt="banniere_mangopay" />
 
                     <p class="line align-items-center"></p>
-
-                    <a href="#" alt="" id="Annuler" class="align-items-center">Annuler</a>
-                 </div>
-        </div>
-        </div>
-{%  if post is defined %}  {{ dump(post) }}{% endif %}
 {% endblock %}

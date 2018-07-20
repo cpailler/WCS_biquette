@@ -1,24 +1,5 @@
 @import "main.scss";
 
-body{
-  background-color: $bikerr-green;
-}
-
-.modal-title{
-  width: 471px;
-  height: 82px;
-  font-family: $font;
-  font-size: 24px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: -0.3px;
-  text-align: center;
-  color: #333634;
-  color: var(--Text-Grey-Dark);
-}
-
 .modal-dialog {
   border-radius: 0 !important;
   width: 471px;
@@ -57,10 +38,13 @@ body{
 #submit{
   width:391px;
 }
-.row .container .flex{
-  display:flex;
+.container{
+  padding-left: 0.5em;
+  padding-right:  0.5em;
 }
-
-//.form-check-input{
-//  display: block;
-//}
+.float-left{
+  float:left;
+}
+.float-right{
+  float:right;
+}

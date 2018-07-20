@@ -114,7 +114,7 @@ class PartageController extends Controller
         $membre = $this->getUser();
 
         if($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
-
+            // TODO modifier conition pour le cas ou il n'y a pas d'argent en jeu
             //Si la personne n'a pas encore de Wallet MP,
             //il faut lui créer à partir de ses informations User
 
@@ -125,7 +125,7 @@ class PartageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
-
+            // TODO transfert de points
             // TODO Mail au proprio ( paiementPointProprio) et mail au locataire (paiementPoints)
 
 
