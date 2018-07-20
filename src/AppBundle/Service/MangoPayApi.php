@@ -32,8 +32,7 @@ class MangoPayApi
         // login : password : temp directory
         $this->connexionApi->Config->ClientId = 'aurelgouilhers';
         $this->connexionApi->Config->ClientPassword = 'wr42AYOg5LU5OE3dn10qNrbfsDC7iYeRHu3N4Gjw3KtGDuSC1V';
-        //dump($this->get('kernel')->locateResource('@AppBundle/../TEMP_MANGO_PAY'));
-        $this->connexionApi->Config->TemporaryFolder = '/home/wilder/Projet-3/bikerr/TEMP_MANGOPAY';
+        $this->connexionApi->Config->TemporaryFolder = __DIR__."/../../../TEMP_MANGOPAY";
         //declaration reoute retour pour recuperation card_Id object
         $this->urlServer = 'http' . ( isset($_SERVER['HTTPS']) ? 's' : '' ) . '://' . $_SERVER['HTTP_HOST'];
         $this->urlServer .= substr($_SERVER['REQUEST_URI'], 0, strripos($_SERVER['REQUEST_URI'], ' ') + 1);
