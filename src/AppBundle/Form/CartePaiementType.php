@@ -12,13 +12,14 @@ use Symfony\Component\Form\AbstractType;
 
 use AppBundle\Entity\CartePaiement;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,55 +34,32 @@ class CartePaiementType extends AbstractType
         $builder
 
 
-            ->add('data', HiddenType::class)//, array(
-               // 'block_name' => 'data'
-           // )
+            ->add('data', HiddenType::class)
 
-            ->add('accessKeyRef', HiddenType::class)//,array(
-                //'block_name' => 'AccessKey'
-           // ))
+            ->add('accessKeyRef', HiddenType::class)
 
-            ->add('returnURL', HiddenType::class)//,array(
-              //  'block_name' => 'returnURL'
-           // ))
-/*
-            ->add('card_type', ChoiceType::class, array(
-                'label' => false,
-                'required' => true,
-                'expanded'=>true,
-                'multiple' => false,
-                'choices' => array(
-                    'VISA' => true,
-                    'MAESTRO' => true,
-                    'MASTERCARD' => true,
-                    'CB' => true
-                ),
-                'choice_label' => false
-            ))*/
-
-
-//            ->add('card_owner', TextType::class,array(
-//                'label' => false,
-//                'required' => false
-//            ))
+            ->add('returnURL', HiddenType::class)
 
             ->add('cardNumber', NumberType::class, array(
                 'label' => false,
-                'constraints'=> array(
-                    'maxlength'=>16
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('min' => 16))
                 )))
 
             ->add('cardExpirationDate', NumberType::class, array(
                 'label' => false,
-                'constraints'=> array(
-                    'maxlength'=>4
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('min' => 4))
 
                 )))
 
             ->add('cardCvx', NumberType::class,array(
                 'label' => false,
-                'constraints'=> array(
-                    'maxlength'=>3
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array('min' => 3))
 
                 )))
 

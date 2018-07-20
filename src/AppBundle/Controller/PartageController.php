@@ -114,7 +114,7 @@ class PartageController extends Controller
         $membre = $this->getUser();
 
         if($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
-
+            // TODO modifier conition pour le cas ou il n'y a pas d'argent en jeu
             //Si la personne n'a pas encore de Wallet MP,
             //il faut lui créer à partir de ses informations User
 
@@ -126,9 +126,44 @@ class PartageController extends Controller
             $em->persist($reservation);
             $em->flush();
 
-            // TODO Mail au proprio ( paiementPointProprio) et mail au locataire (paiementPoints)
+            // TODO Mail au locataire (paiementPoints)
 
 
+            $locataire = $reservation->getLocataire();
+            $emailLocataire = $locataire->getEmail();
+
+            $message = (new \Swift_Message('Récapitulatif réservation'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailLocataire)
+                ->setBody(
+                    $this->renderView(
+                        'email/recapitulatifLocataire.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+
+            //TODO Mail au proprio ( paiementPointProprio)  RECUPERER MAIL PROPRIO VOIR VUE TWIG CORRESPONDANTE
+
+            $emailProprio = $velo->getProprio()->getEmail();
+
+            $message = (new \Swift_Message('Demande de réservation'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailProprio)
+                ->setBody(
+                    $this->renderView(
+                        'email/demande.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
 
             /*  Mails
              *  Le récapitulatif de paiement à envoyer au locataire
@@ -137,9 +172,7 @@ class PartageController extends Controller
              *  Actions
              *  Page locataire avec le bouton "payer" et rédirection sur la page de paiement Mangopay
              *  Après la validaion du paiement passage à l'étape 2
-
-            */
-
+             */
 
         }
 
