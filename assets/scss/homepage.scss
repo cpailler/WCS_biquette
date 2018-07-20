@@ -1,25 +1,5 @@
 @import "main.scss";
 
-
-
-.title_text_header {
-  display: block;
-  position: absolute;
-  margin: auto;
-  top: 50%;
-  bottom: 50%;
-  left: 50%;
-  //right: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  font-size: 4em;
-  text-align: center;
-  text-shadow: $text-shadow;
-  color: white;
-  width: 100%;
-  background-color: transparent;
-}
-
 .title_text_section {
   display: block;
   position: absolute;
@@ -127,6 +107,37 @@
 
 @media (max-width: 576px)
 {
+  .title_text_header {
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    //right: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 4em;
+    text-align: center;
+    text-shadow: $text-shadow;
+    color: white;
+    width: 100%;
+    background-color: transparent;
+  }
+
+  .crop_header{
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+  }
+
+  .crop_header img {
+    display: block;
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+  }
+
   .container_velo {
     width: 100%;
   }
@@ -139,6 +150,37 @@
 
 @media (min-width: 577px) and (max-width: 768px)
 {
+  .title_text_header {
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    //right: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 4em;
+    text-align: center;
+    text-shadow: $text-shadow;
+    color: white;
+    width: 100%;
+    background-color: transparent;
+  }
+
+  .crop_header{
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+  }
+
+  .crop_header img {
+    display: block;
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+  }
+
   .container_velo {
     width: 90%;
   }
@@ -151,6 +193,24 @@
 
 @media (min-width: 769px)
 {
+  .title_text_header {
+    display: block;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    //right: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 4em;
+    text-align: center;
+    text-shadow: $text-shadow;
+    color: white;
+    width: 100%;
+    background-color: transparent;
+  }
+
   .container_velo {
     width: 80%;
   }
