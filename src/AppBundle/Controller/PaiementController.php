@@ -73,6 +73,7 @@ class PaiementController extends Controller
             'action' => $cardRegistration->CardRegistrationURL,
         ));
 
+
         //sauvegarde en session de l'objet cardRegistration
         $session->set('cardregistration', $cardRegistration);
         // Envoi de la vue

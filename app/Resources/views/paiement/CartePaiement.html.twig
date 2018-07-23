@@ -1,5 +1,6 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/cartePaiement.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/form.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -29,13 +30,13 @@
                         </div>
                      </div>
                     <div class="row">
-                        <p>Montant de l'assurance</p><p>{{ reservation.caution }}</p>
+                        <p>Montant de l'assurance :</p><p>{{ reservation.caution }}</p>
                     </div>
                     <div class="row">
-                        <p>Montant de la caution</p><p>{{ reservation.assurance }}</p>
+                        <p>Montant du dépôt de garantie :</p><p>{{ reservation.assurance }}</p>
                     </div>
                     <div class="row">
-                        <p>Montant total</p><p>{{ reservation.assurance + reservation.caution }}</p>
+                        <p>Montant total :</p><p>{{ reservation.assurance + reservation.caution }}</p>
                     </div>
                     {{ form_row(form.cardNumber, {'attr': {'placeholder': 'Numéro de la carte'} }) }}
                     <div class="row">

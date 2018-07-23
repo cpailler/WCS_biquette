@@ -6,6 +6,7 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   height:901px;
 }
+
 .banniere
 {
   width: 391px;
@@ -29,6 +30,7 @@
   width: 52px;
   font-size: 14px;
   color: $bikerr-green;
+  text-align: center;
 }
 
 //p.line.align-items-center{
@@ -41,10 +43,4 @@
 .container{
   padding-left: 0.5em;
   padding-right:  0.5em;
-}
-.float-left{
-  float:left;
-}
-.float-right{
-  float:right;
 }

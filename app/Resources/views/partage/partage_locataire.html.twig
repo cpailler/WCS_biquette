@@ -14,66 +14,87 @@
         {% endfor %}
     </div>
 
-    <div class="titreVelo">
-        <h4>{{ reservation.velo.titre }}</h4>
-    </div>
-    <div class="container-fluid ">
-        <div id="dates" class="row justify-content-center">
-            <div class="col-4">
-                <p>{{ reservation.nbDay }} Jours</p>
+
+    <div class="container">
+        <div class="cadrePartage">
+            <div id="titreVelo" class="row">
+                <h4>{{ reservation.velo.titre }}</h4>
+            </div>
+                <div id="dates" class="row ">
+
+                    <div id="jours" class="col-4">
+                        <div><p>{{ reservation.nbDay }}</p></div>
+                        <div>Jours</div>
+                    </div>
+
+                    {#Date de retrait#}
+                    <div id="dateDebut" class="col-4">
+                        <div>{{ reservation.debut|date('Y-m-d') }}</div>
+                        <div>Retrait</div>
+                    </div>
+
+                    {#Date de retour#}
+                    <div id="dateFin" class="col-4">
+                        <div>{{ reservation.fin|date('Y-m-d') }}</div>
+                        <div>Retour</div>
+                    </div>
+                </div>
+            <div id="pointsRes" class="row">
+
+                <div class="col-4"><p id="points1">Points gagnés</p></div>
+                <div class="col-4"><p id="points2"> <span id="points">{{ reservation.velo.coutPts }}</span> PTS/JOUR</p></div>
+                <div class="col-4"><p id="nbPoints" style="text-align: center;">-{{ reservation.coutPts }}PTS</p></div>
+
+            </div>
+            <div id="caution" class="row">
+
+                <div class="col-4"><p id="caution1">Dépôt de garantie</p></div>
+                {% if reservation.velo.cautionOblig == 0 %}
+                    <div class="col-4"><p id="caution2">Aucun</p></div>
+                    <div class="col-4"><p id="partCaution">0€</p></div>
+                {% else %}
+                    <div class="col-4"><p id="caution2">{{ reservation.velo.caution }}€ (5%)</p></div>
+                    <div class="col-4"><p id="partCaution">{{ reservation.velo.caution * 0.05 }}€</p></div>
+                {% endif %}
+            </div>
+            <div id="assurance" class="row ">
+                    <div class="col-4"><p id="assurance1">Assurance</p></div>
+                {% if reservation.velo.assurOblig == 0 %}
+                    <div class="col-4"><p id="assurance2">Optionnelle</p></div>
+                    <div class="col-4"><p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }}€</p></div>
+                {% else %}
+                    <div class="col-4"><p id="assurance2">1€/JOUR</p></div>
+                    <div class="col-4"><p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }}€</p></div>
+                {% endif %}
             </div>
 
-            {#Date de retrait#}
-            <div class="col-4">
-                {{ reservation.debut|date('Y-m-d') }}
+            <div class="espaceVide">
+
             </div>
 
-            {#Date de retour#}
-            <div class="col-4">
-                {{ reservation.fin|date('Y-m-d') }}
+            <div id="total" class="row">
+                <div class="col-6"><p id="total1">Total</p></div>
+                <div class="col-6"><p id="total2" style="text-align: center;">- {{ reservation.coutPts }} PTS / {{ reservation.caution * 0.05 + reservation.assurance }} €</p></div>
+
             </div>
-        </div>
-        <div class="row justify-content-center">
 
-            <p>Points gagnés</p>
-            <p> <span id="points">{{ reservation.velo.coutPts }}</span> PTS/JOUR</p>
-            <p id="nbPoints" style="text-align: center;"></p>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" >
 
-        </div>
-        <div class="row justify-content-center">
+                            <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Paiement Mangopay</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{ render(controller(
+                                'AppBundle:Paiement:RegisterCardView',
+                                { 'reservation_id': reservation.id }
+                            )) }}
+                        </div>
+                        <div class="modal-footer">
 
-            <p>Dépôt de garantie</p>
-            {% if reservation.velo.cautionOblig == 0 %}
-                <p>Aucun</p>
-                <p id="partCaution">{{ reservation.velo.caution }}€ (5%) / {{ reservation.velo.caution * 0.05 }} €</p>
-            {% else %}
-                <p>{{ reservation.velo.caution }}€ (5%) / <span id="partCaution">{{ reservation.velo.caution * 0.05 }}</span> €</p>
-            {% endif %}
-        </div>
-        <div class="row justify-content-center">
-            <p>Assurance</p>
-            {% if reservation.velo.assurOblig == 0 %}
-                <p>Optionnelle</p>
-                <p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }} €</p>
-            {% else %}
-                <p>1€/JOUR</p>
-                <p id="totalAssurance" style="text-align: center;">{{ reservation.assurance }} €</p>
-            {% endif %}
-        </div>
-
-        <div class="row justify-content-center">
-            <p>Total</p>
-            <p id="totalPoints" style="text-align: center;">- {{ reservation.coutPts }} PTS</p> / <p id="totalEuros" style="text-align: center;">{{ reservation.caution * 0.05 + reservation.assurance }} €</p>
-
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" >
-
-                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Paiement Mangopay</h4>
+                        </div>
                     </div>
                     <div class="modal-body">
                         {{ render(controller(
@@ -81,33 +102,10 @@
                             { 'reservation_id': reservation.id }
                         )) }}
                     </div>
-                    <div class="modal-footer">
 
-                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header" >
-
-                        <h4 class="modal-title" id="myModalLabel" style="margin: auto" >Mangopay</h4>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="row justify-content-center">
             {% if reservation.etape == 0 %}
@@ -122,7 +120,5 @@
                 <p>Retour en attente de validation par le proprietaire</p>
             {% endif %}
         </div>
-
-
     </div>
 {% endblock %}
