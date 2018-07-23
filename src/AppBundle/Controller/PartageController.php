@@ -7,6 +7,7 @@ use AppBundle\Entity\Velo;
 use AppBundle\Form\ReservationType;
 use AppBundle\Service\Calendrier\Calendrier;
 use AppBundle\Service\DateCheck;
+use AppBundle\Service\PointsManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -108,15 +109,20 @@ class PartageController extends Controller
      *
      * @Route("/paiement/{id}", name="partage_paiement")
      */
-    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer) {
+    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager) {
 
         $membre = $this->getUser();
 
-        if($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
-            // TODO modifier condition pour le cas ou il n'y a pas d'argent en jeu
+        if($membre == $reservation->getLocataire() && ($reservation->getEtape() == 2 ||($reservation->getEtape() == 1
+                    && $reservation->getCaution() ==0 &&
+                    $reservation->getAssurance() == 0))
+        ) {
 
             $reservation->setEtape(2);
-
+            $pointsManager->transferPoints(
+                $reservation->getLocataire(),
+                $reservation->getVelo()->getProprio(),
+                $reservation->getCoutPts());
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
