@@ -78,6 +78,11 @@
                         </select>
                     </div>
                     <div class="container col-12 col-lg-12 form-control">
+                        {% if velos is empty %}
+                            <div class="notice" style="margin: 1em;">
+                                Nous sommes désolés, mais aucun vélo n'est disponible dans la ville recherchée.
+                            </div>
+                        {% endif %}
                         <div class="row annonce">
                             {% for velo in velos %}
                                 <!-- annonce -->
