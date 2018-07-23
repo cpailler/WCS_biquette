@@ -1,4 +1,20 @@
-@import "main.scss";
+@import '~bootstrap/scss/bootstrap';
+//@import url('https://fonts.googleapis.com/css?family=Montserrat');
+//@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
+//@import url('./../fonts/AvenirNext-Medium-06.ttf');
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+$bikerr-green: #009925;
+
+$font: Nunito, Arial, Helvetica, sans-serif;
+$grey-background: #f9f9f9;
+$text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+$background-points: #d1f3e0;
+$border-grey: #cccccc;
+$outline-grey: #dbdcd8;
+$text-dark: #333634;
+$text-grey: #949a96;
+$normButton:#ffffff;
 
 .modal-dialog {
   border-radius: 0 !important;
@@ -11,11 +27,13 @@
 {
   width: 391px;
   height: 37.9px;
+  margin-top:auto;
 }
 
 .modal-body{
   width: 471px;
-  height: 688px;
+  height: 588px;
+  margin:0.5em;
 }
 .modal-header{
   width: 471px;
@@ -29,18 +47,33 @@
 #Annuler{
   width: 52px;
   font-size: 14px;
-  color: $bikerr-green;
+  color: #009925;
   text-align: center;
+  margin:auto;
 }
 
-//p.line.align-items-center{
-//  text-decoration-line: line-through $outline-grey ;
-//  width:300px;
-//}
 #submit{
-  width:391px;
+  width:371px;
 }
-.container{
-  padding-left: 0.5em;
-  padding-right:  0.5em;
+p.row{
+  margin:4px;
+}
+.row .CB{
+  margin:2px;
+}
+.bouton {
+  font-family: $font;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  width: 226px;
+  height: 52px;
+  border-radius: 26px;
+  background-color: #009925;
+  margin: auto;
+  text-shadow: none;
+  -webkit-transition: width 0.5s, height 0.5s, background-color 0.5s, -webkit-transform 0.5s;
+  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
 }

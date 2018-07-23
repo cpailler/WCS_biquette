@@ -7,6 +7,7 @@ use AppBundle\Entity\Velo;
 use AppBundle\Form\ReservationType;
 use AppBundle\Service\Calendrier\Calendrier;
 use AppBundle\Service\DateCheck;
+use AppBundle\Service\PointsManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -79,7 +80,6 @@ class PartageController extends Controller
             $em->persist($reservation);
             $em->flush();
 
-            // TODO Le mail au locataire ( demandeValidation)
 
             $locataire = $reservation->getLocataire();
             $emailLocataire = $locataire->getEmail();
@@ -109,24 +109,23 @@ class PartageController extends Controller
      *
      * @Route("/paiement/{id}", name="partage_paiement")
      */
-    public function paiementAction(Reservation $reservation) {
+    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager) {
 
         $membre = $this->getUser();
 
-        if($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
-            // TODO modifier conition pour le cas ou il n'y a pas d'argent en jeu
-            //Si la personne n'a pas encore de Wallet MP,
-            //il faut lui créer à partir de ses informations User
-
-            //si la personne a déja un wallet MP, on effectue le PayIn
+        if($membre == $reservation->getLocataire() && ($reservation->getEtape() == 2 ||($reservation->getEtape() == 1
+                    && $reservation->getCaution() ==0 &&
+                    $reservation->getAssurance() == 0))
+        ) {
 
             $reservation->setEtape(2);
-
+            $pointsManager->transferPoints(
+                $reservation->getLocataire(),
+                $reservation->getVelo()->getProprio(),
+                $reservation->getCoutPts());
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
-
-            // TODO Mail au locataire (paiementPoints)
 
 
             $locataire = $reservation->getLocataire();
@@ -146,9 +145,6 @@ class PartageController extends Controller
 
             $mailer->send($message);
 
-
-            //TODO Mail au proprio ( paiementPointProprio)  RECUPERER MAIL PROPRIO VOIR VUE TWIG CORRESPONDANTE
-
             $emailProprio = $velo->getProprio()->getEmail();
 
             $message = (new \Swift_Message('Demande de réservation'))
@@ -156,7 +152,7 @@ class PartageController extends Controller
                 ->setTo($emailProprio)
                 ->setBody(
                     $this->renderView(
-                        'email/demande.email.twig',
+                        'email/paiementPointsProprio.email.twig',
                         array('reservation' => $reservation)
                     ),
                     'text/html'
