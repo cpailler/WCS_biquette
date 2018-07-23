@@ -37,6 +37,13 @@
                     <div><h2 style="text-transform: uppercase;">{{ membre.prenom }} {{ membre.nom }}</h2></div>
                     <div><p>MEMBRE DEPUIS {{ membre.dateInscription|date('d-m-Y') }}</p></div>
                 </div>
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
                 <div class="container outilsProfil">
                     <div class="row">
                         <div class="w-100 progressbarProfil">

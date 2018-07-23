@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\BankAccount;
+use AppBundle\Entity\Reservation;
 use AppBundle\Form\preferencesVirementType;
 use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
@@ -134,6 +135,58 @@ class InfoProfilController extends Controller
         ));
     }
 
+    /**
+     * @Route("/retour_caution", name="retour_caution")
+     * @Method({"GET", "POST"})
+     */
+    public function RetourCautionAction(Request $request,JaugeProfil $jaugeProfil, MangoPayApi $mangoPayApi){
+        $membre = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+        $mangoPayApi->CheckIdMangopay($membre, $em);
+        $moneyInWallet = $mangoPayApi->getBalance($membre);
+        $amount = $moneyInWallet->Amount;
+        foreach ($membre->getReservations() as $resa){
+            if (($resa->getEtape() == 2) || ($resa->getEtape() == 3)){
+                $amount = $amount-$resa->getCaution()*0.95;
+            }
+        }
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/retourCaution.html.twig',
+            'membre'=>$membre,
+            'jaugeProfil'=>$jaugeProfil,
+            'amount'=> $amount
+        ));
+    }
+
+    /**
+     *  @Route("/payout_caution", name="payout_caution")
+     *  @Method("GET")
+     *
+     */
+    public function payoutCautionAction(Request $request, MangoPayApi $mangoPayApi){
+
+        $membre = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $mangoPayApi->CheckIdMangopay($membre, $em);
+        $moneyInWallet = $mangoPayApi->getBalance($membre);
+        $amount = $moneyInWallet->Amount;
+        foreach ($membre->getReservations() as $resa){
+            if (($resa->getEtape() == 2) || ($resa->getEtape() == 3)){
+                $amount = $amount-$resa->getCaution()*0.95;
+            }
+        }
+        if ($amount>0){
+            $mangoPayApi->PayOut($membre,$amount,0);
+            $this->addFlash('success', 'Le montant a été versé sur votre compte de virement.');
+        }
+        else{
+            $this->addFlash('danger', 'Il n\'y a aucune caution à récupérer.');
+        }
+
+
+        return $this->redirectToRoute('retour_caution');
+    }
 
     /**
      *  @Route("/", name="profil_delete")
