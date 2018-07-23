@@ -83,20 +83,14 @@ fos_user:
 
     registration:
         confirmation:
-            template: 'email/registration.email.twig'
-            from_email:
-                address: enregistrement@bikerr.fr
-                sender_name: Ne pas répondre
+            template: email/registration.email.twig
             enabled: true
         form:
             type: AppBundle\Form\EnregistrementType
 
     resetting:
         email:
-            template:   email/reinitialisation.email.twig
-            from_email:
-                address: reinitialisation@bikerr.fr
-                sender_name: Réinitialisation du mot de passe
+            template: email/reinitialisation.email.twig
 
     change_password :
         form:

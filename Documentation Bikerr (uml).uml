@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>46a47f6a-efdc-4c20-ac1f-2d1691a88d23.SCHEMA:wen89_course</OriginalElement>
+  <nodes>
+    <node x="65.98888888888894" y="1926.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.reservation</node>
+    <node x="689.2055555555555" y="1992.5">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo_equipement</node>
+    <node x="330.48888888888894" y="710.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.type_velo</node>
+    <node x="403.25" y="1230.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo</node>
+    <node x="724.4555555555555" y="1516.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.equipement</node>
+    <node x="187.00000000000003" y="223.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.genre</node>
+    <node x="0.0" y="212.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.loc_tel</node>
+    <node x="520.4888888888889" y="710.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.etat_velo</node>
+    <node x="723.4888888888889" y="721.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.couleur</node>
+    <node x="41.48888888888894" y="358.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.membre</node>
+    <node x="533.25" y="1970.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.disponibilite</node>
+    <node x="337.25" y="1981.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.photo_velo</node>
+    <node x="36.75" y="0.0">46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.pays</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.membre" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.genre">
+      <point x="89.66666666666669" y="-411.0" />
+      <point x="265.6555555555556" y="333.0" />
+      <point x="270.0" y="333.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.etat_velo">
+      <point x="27.75" y="-323.0" />
+      <point x="542.0" y="1200.0" />
+      <point x="611.9888888888889" y="1200.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.loc_tel" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.pays">
+      <point x="0.0" y="-48.0" />
+      <point x="-46.5" y="81.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo_equipement" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo">
+      <point x="-47.25" y="-36.5" />
+      <point x="736.4555555555555" y="1896.0" />
+      <point x="597.5" y="1896.0" />
+      <point x="83.25" y="323.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.membre" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.pays">
+      <point x="0.0" y="-411.0" />
+      <point x="46.5" y="81.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.membre" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.loc_tel">
+      <point x="-89.66666666666669" y="-411.0" />
+      <point x="86.32222222222225" y="333.0" />
+      <point x="83.0" y="333.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.photo_velo" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo">
+      <point x="0.0" y="-48.0" />
+      <point x="425.25" y="1906.0" />
+      <point x="486.5" y="1906.0" />
+      <point x="-27.75" y="323.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo_equipement" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.equipement">
+      <point x="47.25" y="-36.5" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.reservation" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo">
+      <point x="42.75" y="-103.0" />
+      <point x="194.23888888888894" y="1896.0" />
+      <point x="431.0" y="1896.0" />
+      <point x="-83.25" y="323.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.reservation" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.membre">
+      <point x="-42.75" y="-103.0" />
+      <point x="-67.25" y="411.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.disponibilite" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo">
+      <point x="0.0" y="-59.0" />
+      <point x="603.25" y="1906.0" />
+      <point x="542.0" y="1906.0" />
+      <point x="27.75" y="323.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.type_velo">
+      <point x="-27.75" y="-323.0" />
+      <point x="486.5" y="1200.0" />
+      <point x="415.48888888888894" y="1200.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.couleur">
+      <point x="83.25" y="-323.0" />
+      <point x="597.5" y="1210.0" />
+      <point x="817.9888888888889" y="1210.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.velo" target="46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.membre">
+      <point x="-83.25" y="-323.0" />
+      <point x="431.0" y="1210.0" />
+      <point x="243.23888888888894" y="1210.0" />
+      <point x="67.25" y="411.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7927509293680297" x="553.5838218053927" y="688.1113716295429" />
+  <SelectedNodes>
+    <node>46a47f6a-efdc-4c20-ac1f-2d1691a88d23.TABLE:wen89_course.loc_tel</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+
