@@ -108,14 +108,10 @@ class MangoPayApi
     // creation objet CardID
     public function CardUpdate(\MangoPay\CardRegistration $carte, $registrationId)
     {
-        //TODO:creer condition pour verifier que id mangopay existe deja ou non
 
-        //dump($registrationId);
-        //dump($carte);
         $CardRegistration = $this->connexionApi->CardRegistrations->Get($carte->Id);
         $CardRegistration->RegistrationData = 'data=' . $registrationId;
         $CardUpdate = $this->connexionApi->CardRegistrations->Update($CardRegistration);
-        //dump($CardUpdate);
         return $this->connexionApi->Cards->Get($CardUpdate->CardId);
     }
 
@@ -146,7 +142,6 @@ class MangoPayApi
         $PayIn->ExecutionDetails->SecureModeReturnURL = $this->urlServer."paiement/check_transaction/".$id_transaction;
         $PayIn->ExecutionDetails->SecureMode = "DEFAULT";
         $PayIn->ExecutionDetails->Culture = "FR";
-        //dump($PayIn);
         return $this->connexionApi->PayIns->Create($PayIn);
 }
 
@@ -199,8 +194,8 @@ class MangoPayApi
     //cloturer transfert d'argent \MangoPay\BankAccount
     public function PayOut(Membre $membre, $amount,$fees)
     {
-        dump($this->connexionApi->Clients->GetWallet()->Balance);
-        dump($membre->getIdBankAccount());
+        //dump($this->connexionApi->Clients->GetWallet()->Balance);
+        //dump($membre->getIdBankAccount());
         $PayOut = new \MangoPay\PayOut();
         $PayOut->AuthorId = $membre->getIdMangopay();
         $PayOut->DebitedWalletId = $membre->getIdWallet();
@@ -213,16 +208,16 @@ class MangoPayApi
         $PayOut->PaymentType = \MangoPay\PayOutPaymentType::BankWire;
         $PayOut->MeanOfPaymentDetails = new \MangoPay\PayOutPaymentDetailsBankWire();
         $PayOut->MeanOfPaymentDetails->BankAccountId = $membre->getIdBankAccount();
-        dump($PayOut);
+        //dump($PayOut);
         return $this->connexionApi->PayOuts->Create($PayOut);
     }
 
     //verifie le statut paiement
     public function CheckPayIn($transactionId)
     {
-        dump($transactionId);
+        //dump($transactionId);
         $payInStatus = $this->connexionApi->PayIns->Get($transactionId)->Status;
-        dump ($payInStatus);
+        //dump ($payInStatus);
         return $payInStatus;
     }
 
