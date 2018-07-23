@@ -6,45 +6,9 @@
 
 
 <div class="form_control">
-    {{ form_start(form) }}
-<h2 id="titre" class="mt-2">PRÉFÉRENCES DE VIREMENT</h2>
-
-<p class="mt-2" id="notice">Nous utilisons vos coordonnées bancaires pour restituer les dépôts
-    de garantie demandés par les propriétaires lorsque ces derniers en font la demande.
-    Veuillez remplir les champs marqués d’un * pour enregistrer votre compte bancaire.</p>
-
-
-    <div class="row">
-        <div class="col-12">
-          {{ form_row(form.owner_account) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            {{ form_row(form.adresse) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            {{ form_row(form.postal_code) }}
-        </div>
-        <div class="col-6">
-            {{ form_row(form.pays) }}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            {{ form_row(form.iban) }}
-        </div>
-        <div class="col-12">
-            {{ form_row(form.bic) }}
-        </div>
-        <div class="row">
-            <div class="col-4 bouton" id="submit">
-                <button type="submit" id="submit" name="submit" class="bouton">Enregistrer</button>
-            </div>
-        </div>
-    </div>
-    {% do form.submit.setRendered %}
-    {{ form_end(form) }}
+    <h2 id="titre" class="mt-2">RÉCUPÉRATION DE CAUTION</h2>
+    <p class="mt-2" id="notice">Vous avez {{ amount }} € à récupérer. Ce montant sera crédité sur le compte indiqué en préférence de virement.</p>
+    <a href="{{ path('payout_caution') }}">
+        <button class="bouton">Récupérer ma caution</button>
+    </a>
 </div>
