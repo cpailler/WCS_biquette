@@ -22,31 +22,29 @@
                 <div id="dates" class="row">
                     <div  id="jours" class="col-4">
                         <div><p id="nbJours" style="text-align: center;"></p></div>
-                        <div>Jours</div>
+                        <div id="jours2">Jours</div>
                     </div>
 
                     <div id="dateDebut" class="col-4">
 
                     {#Date de retrait#}
-                        <div>
+                        <div id="dateDebut1">
                             {{ form_start(reservationForm) }}
                             {{ form_widget(reservationForm.debut,{ 'attr': {'class': 'dateclic'} }) }}
                             {{ form_label(reservationForm.debut) }}
                             {{ form_errors(reservationForm.debut) }}
+                            <div id="dateDebut2">Retrait</div>
 
                         </div>
                     </div>
 
                     {#Date de retour#}
                         <div id="dateFin" class="col-4">
+                            <div id="dateFin1"></div>
                             {{ form_widget(reservationForm.fin,{ 'attr': {'class': 'dateclic'} }) }}
                             {{ form_label(reservationForm.fin) }}
                             {{ form_errors(reservationForm.fin) }}
-                            {% for message in app.flashes('error') %}
-                                <div class="alert-danger">
-                                    {{ message }}
-                                </div>
-                            {% endfor %}
+                            <div id="dateFin2">Retour</div>
 
                         </div>
                 </div>
@@ -77,7 +75,11 @@
 
                 </div>
                 <div class="espaceVide">
-
+                    {% for message in app.flashes('error') %}
+                        <div class="alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                 </div>
 
                 <div id="total" class="row">
@@ -90,8 +92,8 @@
                 </div>
 
                 <div id="buttons" class="row">
-                    <div class="col-6"><a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="boutonPartageAnn " id="buttonDecline">J’annule ma demande de réservation</button></a></div>
-                    <div class="col-6"><button type="submit" class="boutonPartageVal" id="buttonValid">Je confirme ma demande de réservation</button></div>
+                    <div class="col-6 cadreBouton"><a href="{{ path('annonce', {'id': velo.id}) }}"><button type="button" class="boutonPartageAnn " id="buttonDecline">J’annule ma demande de réservation</button></a></div>
+                    <div class="col-6 cadreBouton"><button type="submit" class="boutonPartageVal" id="buttonValid">Je confirme ma demande de réservation</button></div>
 
                 </div>
             {{ form_end(reservationForm) }}
