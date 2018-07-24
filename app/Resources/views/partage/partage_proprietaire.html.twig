@@ -82,7 +82,7 @@
                     <div class="col-6"><a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">Je décline la réservation</button></a></div>
                     <div class="col-6"><a href="{{ path('partage_validation_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" >Je valide la réservation</button></a></div>
                 {% elseif reservation.etape == 3 %}
-                    <div class="col-6"><a href=""><button type="button" class="boutonPartageAnn">Il y un problème, j’ouvre un cas de litige</button></a></div>
+                    <div class="col-6"><a href="mailto:infos@bikerr.fr"><button type="button" class="boutonPartageAnn">Il y un problème, j’ouvre un cas de litige</button></a></div>
                     <div class="col-6"><a href="{{ path('partage_retour_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" >Tout s’est bien passé, je clos le partage</button></a></div>
                 {% elseif reservation.etape == 4 %}
                     <p>reservation archvé</p>
