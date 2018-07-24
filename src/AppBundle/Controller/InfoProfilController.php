@@ -121,9 +121,6 @@ class InfoProfilController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $Bank = $mangoPayApi->InitBankAccount($membre1,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
-            dump($Bank);
-            $PayOut = $mangoPayApi->PayOut($membre1,$Bank,1000,500);
-            dump($PayOut);
         }
 
         return $this->render('profil/layoutProfil.html.twig', array(
