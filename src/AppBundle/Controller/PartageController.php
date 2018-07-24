@@ -112,64 +112,72 @@ class PartageController extends Controller
     public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager) {
 
         $membre = $this->getUser();
+        if ($membre->getPoints() >= $reservation->getCoutPts()){
+            if($membre == $reservation->getLocataire() && ($reservation->getPointsTransferred() == 0) &&
+                ($reservation->getEtape() == 2 ||
+                    ($reservation->getEtape()
+                        == 1
+                        && $reservation->getCaution() ==0 &&
+                        $reservation->getAssurance() == 0))
+            ) {
 
-        if($membre == $reservation->getLocataire() && ($reservation->getEtape() == 2 ||($reservation->getEtape() == 1
-                    && $reservation->getCaution() ==0 &&
-                    $reservation->getAssurance() == 0))
-        ) {
-
-            $reservation->setEtape(2);
-            $pointsManager->transferPoints(
-                $reservation->getLocataire(),
-                $reservation->getVelo()->getProprio(),
-                $reservation->getCoutPts());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reservation);
-            $em->flush();
+                $reservation->setEtape(2);
+                $pointsManager->transferPoints(
+                    $reservation->getLocataire(),
+                    $reservation->getVelo()->getProprio(),
+                    $reservation->getCoutPts());
+                $reservation->setPointsTransferred(1);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($reservation);
+                $em->flush();
 
 
-            $locataire = $reservation->getLocataire();
-            $emailLocataire = $locataire->getEmail();
+                $locataire = $reservation->getLocataire();
+                $emailLocataire = $locataire->getEmail();
 
-            $message = (new \Swift_Message('Récapitulatif réservation'))
-                ->setFrom('infos@bikerr.fr')
-                ->setTo($emailLocataire)
-                ->setBody(
-                    $this->renderView(
-                        'email/recapitulatifLocataire.email.twig',
-                        array('reservation' => $reservation)
-                    ),
-                    'text/html'
-                )
-            ;
+                $message = (new \Swift_Message('Récapitulatif réservation'))
+                    ->setFrom('infos@bikerr.fr')
+                    ->setTo($emailLocataire)
+                    ->setBody(
+                        $this->renderView(
+                            'email/recapitulatifLocataire.email.twig',
+                            array('reservation' => $reservation)
+                        ),
+                        'text/html'
+                    )
+                ;
 
-            $mailer->send($message);
+                $mailer->send($message);
 
-            $emailProprio = $velo->getProprio()->getEmail();
+                $emailProprio = $reservation->getVelo()->getProprio()->getEmail();
 
-            $message = (new \Swift_Message('Demande de réservation'))
-                ->setFrom('infos@bikerr.fr')
-                ->setTo($emailProprio)
-                ->setBody(
-                    $this->renderView(
-                        'email/paiementPointsProprio.email.twig',
-                        array('reservation' => $reservation)
-                    ),
-                    'text/html'
-                )
-            ;
+                $message = (new \Swift_Message('Demande de réservation'))
+                    ->setFrom('infos@bikerr.fr')
+                    ->setTo($emailProprio)
+                    ->setBody(
+                        $this->renderView(
+                            'email/paiementPointsProprio.email.twig',
+                            array('reservation' => $reservation)
+                        ),
+                        'text/html'
+                    )
+                ;
 
-            $mailer->send($message);
+                $mailer->send($message);
 
-            /*  Mails
-             *  Le récapitulatif de paiement à envoyer au locataire
-             *  La notification du payment effectué à envoyer au proprio
-             *
-             *  Actions
-             *  Page locataire avec le bouton "payer" et rédirection sur la page de paiement Mangopay
-             *  Après la validaion du paiement passage à l'étape 2
-             */
+                /*  Mails
+                 *  Le récapitulatif de paiement à envoyer au locataire
+                 *  La notification du payment effectué à envoyer au proprio
+                 *
+                 *  Actions
+                 *  Page locataire avec le bouton "payer" et rédirection sur la page de paiement Mangopay
+                 *  Après la validaion du paiement passage à l'étape 2
+                 */
 
+            }
+        }
+        else{
+            $this->addFlash('danger', 'Vous ne disposez pas de suffisament de points pour procéder à la transaction');
         }
 
         return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));

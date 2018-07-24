@@ -1,0 +1,20 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/enregistrement.css') }}">
+{% endblock %}
+
+<div class="text-center">
+    <img class="mt-5 mb-5" id="logo" src="{{ asset('images/bikerr-green.png') }}" alt="Logo Bikerr">
+</div>
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title align-items-center">Mot de passe réinitialisé !</h5>
+        </div>
+        <div class="modal-body text-center">
+            <p>Votre mot de passe a bien été réinitialisé !</p>
+            <p>Vous pouvez consulter votre profil <a href="{{ path('profil_infos') }}">ici</a>  </p>
+        </div>
+    </div>
+</div>
+<p id="copyright">©Bikerr 2018. Tous droits réservés.</p>

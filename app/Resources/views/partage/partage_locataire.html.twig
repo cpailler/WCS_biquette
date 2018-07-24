@@ -8,6 +8,8 @@
 
 {% block body %}
 
+
+
     <div id="carousel-photos" class="justify-content-center row">
         {% for photo in reservation.velo.photos %}
             <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
