@@ -151,7 +151,7 @@ class PartageController extends Controller
 
             $emailProprio = $velo->getProprio()->getEmail();
 
-            $message = (new \Swift_Message('Demande de réservation'))
+            $message = (new \Swift_Message('Paiemen'))
                 ->setFrom('infos@bikerr.fr')
                 ->setTo($emailProprio)
                 ->setBody(

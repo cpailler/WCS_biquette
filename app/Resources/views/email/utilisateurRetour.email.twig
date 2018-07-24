@@ -15,12 +15,9 @@
 
         <h2>Bonjour {{ velo.proprio.prenom }},</h2>
 
-        <p>Le locataire {{ membre.prenom }} {{ membre.nom }} vient de confirmer le retour de votre vélo. Veuillez également valider que son retour a bien eu lieu en cliquant sur le lien ci-dessous :</p><br>
+        <p>Le locataire {{ membre.prenom }} {{ membre.nom }} vient de confirmer le retour de votre vélo. Veuillez également valider que son retour a bien eu lieu en cliquant <strong><a href="{{ confirmationUrl }}">ICI</a></strong>.</p>
+
         <p>L'équipe Bikerr</p>
-
-
-        <a class="bouton"><a href="">{{ confirmationUrl }}</a>
-        <!-- il faut modifier le lien -->
 
         <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
     {% endautoescape %}
