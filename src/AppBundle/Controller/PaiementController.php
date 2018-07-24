@@ -46,7 +46,6 @@ class PaiementController extends Controller
 
         $session = new Session();
         $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($reservation_id);
-        dump($reservation);
         //on récupere l'utilisateur actuel
         $membre = $this->getUser();
         $em = $this->getDoctrine()->getManager();

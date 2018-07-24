@@ -15,9 +15,12 @@ p{
 .espaceVide{
   display: inline-block;
   height: 300px;
-
-
+  margin: auto;
+  text-align: center;
+  width: 100%;
 }
+
+
 
 .cadrePartage{
   width: 80%;
@@ -56,8 +59,8 @@ p{
 }
 
 #nbJours{
-
-  font-size: 25px;
+  margin-top: 0.5em;
+  margin-bottom: 0;
 }
 
 
@@ -88,13 +91,33 @@ p{
   text-align: end;
 }
 
-#points2,#caution2,#assurance2,#partCaution,#totalAssurance,#total2{
+#points2,#caution2,#assurance2,#partCaution,#totalAssurance{
   display: flex;
   justify-content: flex-end;
   font-size: 1rem;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
   font-weight: 600;
+}
+
+#total2{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1rem;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  font-weight: 600;
+  height: 24px;
+}
+.badge{
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1rem !important;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  font-weight: 600;
+  height: 24px;
+  background-color: white;
 }
 
 
@@ -105,6 +128,7 @@ p{
   margin-bottom: 0.5em;
   margin-top: 0.5em;
   font-weight: 600;
+  color: $text-green;
 }
 
 #nbPointsLoc{
@@ -178,6 +202,9 @@ p{
   justify-content: flex-end;
   margin-bottom: 0.5em;
   margin-top: 0.5em;
+  font-size: 1rem;
+  font-weight: 600;
+
 }
 
 #total{
@@ -212,16 +239,6 @@ p{
   padding-right: 0;
 }
 
-#buttonDecline{
-  height: 100%;
-  width: 100%;
-
-}
-
-#buttonValid{
-  height: 100%;
-  width: 100%;
-}
 
 .boutonPartageVal{
   font-family: $font;
@@ -231,12 +248,11 @@ p{
   font-size: 1rem;
   font-weight: 600;
   color: white;
-  width: 226px;
-  height: 52px;
+  height: 100%;
+  width: 100%;
   background-color: $bikerr-green;
   text-shadow: none;
-  -webkit-transition: width 0.5s, height 0.5s, background-color 0.5s, -webkit-transform 0.5s;
-  transition: width 0.5s, height 0.5s, background-color 0.5s, transform 0.5s;
+
   border-radius: unset;
 
 }
