@@ -25,12 +25,12 @@ class ReservationType extends AbstractType
             ->add('debut', DateType::class, array(
                 'widget'=>'single_text',
                 'html5'=>true,
-                'label' => 'Retrait'
+                'label' => false
             ))
             ->add('fin', DateType::class, array(
                 'widget'=>'single_text',
                 'html5'=>true,
-                'label' => 'Retour'
+                'label' => false
             ));
 
     }
