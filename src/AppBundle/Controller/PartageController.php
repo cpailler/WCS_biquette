@@ -113,7 +113,10 @@ class PartageController extends Controller
 
         $membre = $this->getUser();
 
-        if($membre == $reservation->getLocataire() && ($reservation->getEtape() == 2 ||($reservation->getEtape() == 1
+        if($membre == $reservation->getLocataire() && ($reservation->getPointsTransferred() == 0) &&
+            ($reservation->getEtape() == 2 ||
+                ($reservation->getEtape()
+                    == 1
                     && $reservation->getCaution() ==0 &&
                     $reservation->getAssurance() == 0))
         ) {
@@ -123,6 +126,7 @@ class PartageController extends Controller
                 $reservation->getLocataire(),
                 $reservation->getVelo()->getProprio(),
                 $reservation->getCoutPts());
+            $reservation->setPointsTransferred(1);
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
