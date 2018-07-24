@@ -86,10 +86,10 @@
                         <div class="row annonce">
                             {% for velo in velos %}
                                 <!-- annonce -->
-                                <div class="item js-marker col-6 col-lg-6" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
+                                <div class="item js-marker col-md-6 col-sm-12" data-lat="{{ velo.latitude }}" data-lng="{{ velo.longitude }}" data-price="{{ velo.coutPts }}">
                                     {% if velo.photos.0.image is defined %}
-                                        <div>
-                                            <a href="annonce/{{ velo.id }}" target="_blank"><img class="img-fluid" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
+                                        <div class="card crop">
+                                            <a href="annonce/{{ velo.id }}" target="_blank"><img class="img-fluid card-img-top" src="{{ asset('images/uploads/'~velo.photos.0.image) }}" alt=""></a>
                                         </div>
                                     {% endif %}
                                     <div class="bloc-titres">
