@@ -76,7 +76,7 @@
 
             <div id="total" class="row">
                 <div class="col-6"><p id="total1">Total</p></div>
-                <div class="col-6"><p id="total2" style="text-align: center;">- {{ reservation.coutPts }} PTS / {{ reservation.caution * 0.05 + reservation.assurance }} €</p></div>
+                <div class="col-6"><p id="total2" style="text-align: center;"><span style="color: #e00244">- {{ reservation.coutPts }} PTS /</span> {{ reservation.caution * 0.05 + reservation.assurance }} €</p></div>
 
             </div>
 
@@ -103,7 +103,7 @@
             </div>
 
 
-        <div class="row justify-content-center">
+        <div id="buttons" class="row">
             {% if reservation.etape == 0 %}
                 <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >En attente de la validation</button></a>
             {% elseif reservation.etape == 1 %}
@@ -112,22 +112,13 @@
                     <a href="{{ path('partage_paiement', {'id': reservation.id}) }}"><button type="button" class="class bouton" data-dismiss="modal">Confirmer la réservation</button></a>
                 {% else %}
                     <button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal">Je valide et je paye</button>
-            <div id="buttons" class="row">
-                {% if reservation.etape == 0 %}
-                    <div class="col-12 cadreBouton"><p id="messageAttente">Partage en attente de la validation par le proprietaire</p></div>
-                {% elseif reservation.etape == 1 %}
-                    <div class="col-6 cadreBouton"><a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn" id="buttonDecline">J’annule ma demande de réservation</button></a></div>
-                    <div class="col-6 cadreBouton"><button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal" id="buttonValid">Je valide et je paye</button></div>
-                    {#<a href="{{ path('partage_paiement', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" data-dismiss="modal">Je valide et je paye </button></a></div>#}
-                {% elseif reservation.etape == 2 %}
-                     <div class="col-12 cadreBouton"><a href="{{ path('partage_retour_locataire', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal"  >Je confirme le retour</button></a></div>
-                {% elseif reservation.etape == 3 %}
-                    <div class="col-12 cadreBouton"><p>Retour en attente de validation par le proprietaire</p></div>
                 {% endif %}
             {% elseif reservation.etape == 2 %}
-                 <a href="{{ path('partage_retour_locataire', {'id': reservation.id}) }}"><button type="button" class="class " >Je confirme le retour</button></a>
+                     <div class="col-12 cadreBouton"><a href="{{ path('partage_retour_locataire', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal"  >Je confirme le retour</button></a></div>
             {% elseif reservation.etape == 3 %}
-                <p>Retour en attente de validation par le proprietaire</p>
+                    <div class="col-12 cadreBouton"><p id="messageAttente">Retour en attente de validation par le proprietaire</p></div>
+            {% elseif reservation.etape == 4 %}
+                <div class="col-12 cadreBouton"><p id="messageAttente">Reservation archivée</p></div>
             {% endif %}
         </div>
     </div>
