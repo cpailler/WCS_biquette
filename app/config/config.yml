@@ -1,5 +1,5 @@
 imports:
-    - { resource: parameters.yml }
+#    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
 
@@ -7,6 +7,16 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    database_host: bikerrfrzdbeta.mysql.db
+    database_port: 3306
+    database_name: bikerrfrzdbeta
+    database_user: bikerrfrzdbeta
+    database_password: 'Jecode4wcs'
+    mailer_transport: smtp
+    mailer_host: ssl0.ovh.net
+    mailer_user: infos@bikerr.fr
+    mailer_password: rpoulidor36
+    secret: 6HjMQx95S55U7mt2QkL9wTGktFCaGqhrjGn3GxTJ
 
 framework:
     #esi: ~
