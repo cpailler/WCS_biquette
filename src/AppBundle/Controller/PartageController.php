@@ -109,15 +109,16 @@ class PartageController extends Controller
      *
      * @Route("/paiement/{id}", name="partage_paiement")
      */
-    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager) {
+    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager)
+    {
 
         $membre = $this->getUser();
 
-        if($membre == $reservation->getLocataire() && ($reservation->getPointsTransferred() == 0) &&
+        if ($membre == $reservation->getLocataire() && ($reservation->getPointsTransferred() == 0) &&
             ($reservation->getEtape() == 2 ||
                 ($reservation->getEtape()
                     == 1
-                    && $reservation->getCaution() ==0 &&
+                    && $reservation->getCaution() == 0 &&
                     $reservation->getAssurance() == 0))
         ) {
 
@@ -144,12 +145,11 @@ class PartageController extends Controller
                         array('reservation' => $reservation)
                     ),
                     'text/html'
-                )
-            ;
+                );
 
             $mailer->send($message);
 
-            $emailProprio = $velo->getProprio()->getEmail();
+            $emailProprio = $reservation->getVelo()->getProprio()->getEmail();
 
             $message = (new \Swift_Message('Paiemen'))
                 ->setFrom('infos@bikerr.fr')
@@ -160,8 +160,7 @@ class PartageController extends Controller
                         array('reservation' => $reservation)
                     ),
                     'text/html'
-                )
-            ;
+                );
 
             $mailer->send($message);
 
@@ -174,12 +173,13 @@ class PartageController extends Controller
              *  Après la validaion du paiement passage à l'étape 2
              */
 
+
+        } else {
+            $this->addFlash('danger', 'Vous ne disposez pas de suffisament de points pour procéder à la transaction');
+
+            return $this->redirectToRoute('partage', array('id' => $reservation->getId()));
         }
-
-        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
     }
-
-
     /**
      *
      * @Route("/retour_locataire/{id}", name="partage_retour_locataire")

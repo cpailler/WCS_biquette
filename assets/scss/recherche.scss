@@ -156,18 +156,44 @@
   z-index: 20;
 }
 
-.tri-city li:hover {
-  color: $bikerr-green;
-  cursor: default;
-}
-
 .tri-box {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.tri-city{
-  display: flex;
-  flex-direction: column;
+.btn-outline-secondary{
+  font-family: $font;
+  color: white;
+  background-color: $bikerr-green;
+  text-shadow: none;
+  border-bottom-right-radius: 26px;
+  border-top-right-radius: 26px;
+}
+
+.btn-outline-secondary:hover{
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  background-color: $bikerr-green;
+  color: white;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+.bouton-sm{
+  width: 300px;
+}
+
+.input-group-text {
+  font-family: $font;
+  color: white;
+  background-color: $bikerr-green;
+  width: 130px;
+  border-bottom-left-radius: 26px;
+  border-top-left-radius: 26px;
+}
+
+@media only screen and (max-width: 991px) {
+  #map{
+    display: none;
+  }
 }
