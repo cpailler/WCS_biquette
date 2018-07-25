@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('build/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {% block stylesheets %}{% endblock %}
 </head>
 <script type="text/javascript" id="cookieinfo"
@@ -196,7 +197,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ membre.prenom }} {{ membre.nom }}
+                        {{ membre.prenom }}
                         {% if membre.image is not null %}
                             <div class="crop_profile_nav">
                                 <img src="{{ asset('images/uploads/'~membre.image) }}" alt="profil">

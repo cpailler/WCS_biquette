@@ -27,9 +27,11 @@
                 <!-- zone barre de progression -->
                 <div class="col-12 col-lg-7 progressionVelo">
                     <div class="cont1">
+                            {% if velo.enLigne==1 %}
                             <div class="VoirAnnonce">
-                                <a href="#"><  Voir mon annonce</a>
+                                <a href="{{ path('annonce', {'id':velo.id}) }}"><  Voir mon annonce</a>
                             </div>
+                            {% endif %}
                             <div class="titreVelo" style="float: right">
                                 <div><h2>TYPE</h2></div>
                                 <div><p>MARQUE</p></div>
@@ -130,7 +132,7 @@
                             <li><a href="{{ path('velo_supprimer', {'id': velo.id}) }}">Supprimer le vélo</a></li>
                         </ul>
                     </div>
-                    <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p>
+                    <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 250 Points.</p>
                     </div>
                 </div>
                 <!-- formulaire -->

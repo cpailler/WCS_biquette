@@ -1,4 +1,3 @@
-{#
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/enregistrement.css') }}">
 {% endblock %}
@@ -10,19 +9,22 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title align-items-center">Mot de passe réinitialisé</h5>
+            <h5 class="modal-title align-items-center">Réinitialiser mon mot de passe</h5>
         </div>
-        <form action="{{ path('fos_user_resetting_reset') }}" method="post">
+        <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" method="post">
             <div class="modal-body">
-                <input class="form-control" type="text" id="username" name="username" required="required" autocomplete="email" placeholder="Adresse email" />
+                <input class="form-control mb-3" type="password" id="username" name="fos_user_resetting_form[plainPassword][first]" required="required" placeholder="Nouveau mot de passe" />
+                <input class="form-control" type="password" id="username" name="fos_user_resetting_form[plainPassword][second]" required="required" placeholder="Confirmez le nouveau mot de passe" />
+                <input type="hidden" id="fos_user_resetting_form__token" name="fos_user_resetting_form[_token]" value="{{ form.children._token.vars.data }}">
                 <button type="submit" value="{{ 'resetting.reset.submit' }}" class="bouton w-100 mt-3"><img class ="mr-2" src="{{ asset('images/icn-bikerr.svg') }}">Envoyer</button>
             </div>
         </form>
     </div>
 </div>
-<p id="copyright">©Bikerr 2018. Tous droits réservés.</p>#}
+<p id="copyright">©Bikerr 2018. Tous droits réservés.</p>
 
-{% trans_default_domain 'FOSUserBundle' %}
+{#Ci-dessous les trucs à récupérer pour mettre en forme ci-dessus#}
+
 
 {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
     {{ form_widget(form) }}

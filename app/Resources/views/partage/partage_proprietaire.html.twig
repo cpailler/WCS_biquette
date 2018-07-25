@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
- {% block javascripts %}
-     <script src="{{ asset('build/partage.js') }}"></script>
- {% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('build/partage.css') }}">
     <link rel="stylesheet" href="{{ asset('build/form.css') }}">
@@ -10,7 +8,7 @@
 
 {% block body %}
 
-    <div id="carousel-photos" class="justify-content-center row">
+    <div id="carousel-photos" class="row">
         {% for photo in reservation.velo.photos %}
             <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
         {% endfor %}
@@ -23,27 +21,27 @@
             </div>
             <div id="dates" class="row">
                 <div id="jours" class="col-4">
-                    <p>{{ reservation.nbDay }} Jours</p>
-                    <div>Jours</div>
+                    <div><p id="jours1">{{ reservation.nbDay }}</p></div>
+                    <div id="jours2">Jours</div>
                 </div>
 
                 {#Date de retrait#}
                 <div id="dateDebut" class="col-4">
-                    <div>{{ reservation.debut|date('Y-m-d') }}</div>
-                    <div>Retrait</div>
+                    <div id="dateDebut1">{{ reservation.debut|date('Y-m-d') }}</div>
+                    <div id="dateDebut2">Retrait</div>
                 </div>
 
                 {#Date de retour#}
                 <div id="dateFin" class="col-4">
-                    <div>{{ reservation.fin|date('Y-m-d') }}</div>
-                    <div>Retour</div>
+                    <div id="dateFin1">{{ reservation.fin|date('Y-m-d') }}</div>
+                    <div id="dateFin2">Retour</div>
                 </div>
             </div>
 
             <div id="pointsRes" class="row">
                 <div class="col-4"><p id="points1">Points gagnés</p></div>
                 <div class="col-4"><p id="points2"> <span id="points">{{ reservation.velo.coutPts }}</span> PTS/JOUR</p></div>
-                <div class="col-4"><p id="nbPoints" style="text-align: center;">-{{ reservation.coutPts }}PTS</p></div>
+                <div class="col-4"><p id="nbPoints" style="text-align: center;">+{{ reservation.coutPts }}PTS</p></div>
 
             </div>
             <div id="caution" class="row">
@@ -52,8 +50,8 @@
                     <div class="col-4"><p id="caution2">Non</p></div>
                     <div class="col-4"><p id="partCaution">- -</p></div>
                 {% else %}
-                    <div class="col-4"><p id="caution2">{{ reservation.velo.caution }}€ (5%)</p></div>
-                    <div class="col-4"><p id="partCaution">{{ reservation.velo.caution * 0.05 }}€</p></div>
+                    <div class="col-4"><p id="caution2">{{ reservation.caution }}€ (5%)</p></div>
+                    <div class="col-4"><p id="partCaution">{{ reservation.caution * 0.05 }}€</p></div>
                 {% endif %}
 
             </div>
@@ -68,24 +66,34 @@
                 {% endif %}
             </div>
             <div class="espaceVide">
-
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
 
             <div id="total" class="row">
                 <div class="col-6"><p id="total1">Total</p></div>
-                <div class="col-6"><p id="totalPoints" style="text-align: center;">+{{ reservation.coutPts }} PTS / - -</p></div>
+                <div class="col-6"><p id="total2" style="text-align: center;"><span style="color: #14cb68">+{{ reservation.coutPts }} PTS </span> / - -</p></div>
 
             </div>
 
-            <div class="row justify-content-center">
+            <div id="buttons" class="row">
                 {% if reservation.etape == 0 %}
-                    <div class="col-6"><a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">Je décline la réservation</button></a></div>
-                    <div class="col-6"><a href="{{ path('partage_validation_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" >Je valide la réservation</button></a></div>
+                    <div class="col-6 cadreBouton"><a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn" id="buttonDecline">Je décline la réservation</button></a></div>
+                    <div class="col-6 cadreBouton"><a href="{{ path('partage_validation_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" id="buttonValid">Je valide la réservation</button></a></div>
+                {% elseif reservation.etape == 1 %}
+                    <div class="col-12 cadreMessage"><p id="messageAttente">Partage en attente de la validation et du paiement par le locataire</p></div>
+                {% elseif reservation.etape == 2 %}
+                    <div class="col-12 cadreMessage"><p id="messageAttente">En attente de retour du vélo par le locataire</p></div>
                 {% elseif reservation.etape == 3 %}
-                    <div class="col-6"><a href=""><button type="button" class="boutonPartageAnn">Il y un problème, j’ouvre un cas de litige</button></a></div>
-                    <div class="col-6"><a href="{{ path('partage_retour_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" >Tout s’est bien passé, je clos le partage</button></a></div>
+                    <div class="col-6 cadreBouton"><a href="{{ path('litige', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">Il y un problème, j’ouvre un cas de litige</button></a></div>
+                    <div class="col-6 cadreBouton"><a href="{{ path('partage_retour_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" >Tout s’est bien passé, je clos le partage</button></a></div>
                 {% elseif reservation.etape == 4 %}
-                    <p>reservation archvé</p>
+                    <div class="col-12 cadreMessage"><p id="messageAttente">Réservation archivée</p></div>
                 {% endif %}
             </div>
         </div>

@@ -1,7 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 //@import url('https://fonts.googleapis.com/css?family=Montserrat');
 //@import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
-//@import url('./../fonts/AvenirNext-Medium-06.ttf');
+//@import url("./../fonts/AvenirNext-Medium.ttf");
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 $bikerr-green: #009925;
@@ -15,6 +15,8 @@ $outline-grey: #dbdcd8;
 $text-dark: #333634;
 $text-grey: #949a96;
 $normButton:#ffffff;
+$text-pointLoc:#e00244;
+$text-green:#14cb68;
 
 .text_color_bikerr{
   color: $bikerr-green;

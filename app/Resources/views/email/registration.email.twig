@@ -11,15 +11,14 @@
     {% autoescape false %}
         <h2>Bonjour,</h2>
 
-        <p>Nous vous souhaitons la bienvenue dans la bande !</p><br>
+        <p>Nous vous souhaitons la bienvenue dans la bande !</p>
 
-        <p>Pour valider votre compte utilisateur, merci de cliquer sur ce lien: {{ confirmationUrl }}</p><br>
+        <p>Pour valider votre compte utilisateur, merci de cliquer <strong><a href="{{ confirmationUrl }}">ICI</a></strong>.</p>
 
-        <p>Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.</p><br>
+        <p>Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.</p>
 
         <p>L'équipe Bikerr</p>
 
-        <a class="bouton" href="{{ confirmationUrl }}">Confirmation</a>
-
+        <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
     {% endautoescape %}
 {% endblock %}

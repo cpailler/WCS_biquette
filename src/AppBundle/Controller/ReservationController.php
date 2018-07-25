@@ -38,7 +38,7 @@ class ReservationController extends Controller
         $reservation = New Reservation();
         $reservationForm = $this->createForm(ReservationType::class, $reservation);
         $reservationForm->handleRequest($request);
-        if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
+        if ($reservationForm->isSubmitted() && $reservationForm->isValid() && $membre!=$velo->getProprio()) {
             if ($dateCheck->isLegalReservation($reservation, $velo, $calendrier)) {
                 $nbDay = intval($reservation->getDebut()->diff($reservation->getFin(), true)->format('%d')) + 1;
                 $reservation->setNbDay($nbDay);
@@ -86,6 +86,9 @@ class ReservationController extends Controller
             }
 
 
+        }
+        elseif ($membre==$velo->getProprio()){
+            $this->addFlash('error', 'Vous ne pouvez pas réserver votre propre velo');
         }
 
 
