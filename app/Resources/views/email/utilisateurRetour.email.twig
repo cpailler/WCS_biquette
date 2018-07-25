@@ -5,8 +5,6 @@
 {% block body_text %}
 {% endblock %}
 
-{% block subject %}Retour de votre vélo !{% endblock %}
-
 {% block body_html %}
     {% autoescape false %}
         <div class="text-center">
@@ -15,7 +13,7 @@
 
         <h2>Bonjour {{ velo.proprio.prenom }},</h2>
 
-        <p>Le locataire {{ membre.prenom }} {{ membre.nom }} vient de confirmer le retour de votre vélo. Veuillez également valider que son retour a bien eu lieu en cliquant <strong><a href="{{ confirmationUrl }}">ICI</a></strong>.</p>
+        <p>Le propriétaire du vélo {{ velo.proprio.titre }} vient de confirmer le retour de votre vélo..</p>
 
         <p>L'équipe Bikerr</p>
 

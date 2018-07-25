@@ -12,6 +12,8 @@
 
     <p>Il s'agit de {{ reservation.locataire.prenom }} {{ reservation.locataire.nom }}. Pour voir sa demande, cliquez <a href="{{ app.request.getSchemeAndHttpHost() ~ path('partage',{'id':reservation.id}) }}"><strong>ICI</strong></a></p>
 
+    <p>Vous pouvez le contacter à l'adresse suivante : <strong>{{ reservation.locataire.email }}</strong></p>
+
     <p>L'équipe Bikerr</p>
 
     <h5 id="copyright">©Bikerr 2018. Tous droits réservés.</h5>
