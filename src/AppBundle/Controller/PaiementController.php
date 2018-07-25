@@ -129,9 +129,8 @@ class PaiementController extends Controller
             }else
             {
                 $session->getFlashBag()->add('error', 'Paiement échoué');
-                return $this->redirectToRoute('paiement_card', array(
-                    'reservation_id' => $reservation_id
-                ));
+                return $this->redirectToRoute('paiement_card'
+                    , array('reservation_id' => $reservation_id));
             }
         }else{
             $this->addFlash('danger' , 'Vous manquez de points pour procéder au paiement');

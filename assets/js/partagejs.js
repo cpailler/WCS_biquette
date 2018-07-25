@@ -29,7 +29,7 @@ $('.dateclic').on('change', function () {
         var timeDifferenceInHours = timeDifference / 60 / 60;
 
         // and finaly, in days :)
-        var timeDifferenceInDays = timeDifferenceInHours / 24 + 1;
+        var timeDifferenceInDays = (timeDifferenceInHours / 24) + 1;
 
         if (timeDifferenceInDays <= 0 || timeDifferenceInDays == 'undefined') {
             timeDifferenceInDays = 0;

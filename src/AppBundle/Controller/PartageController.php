@@ -109,15 +109,16 @@ class PartageController extends Controller
      *
      * @Route("/paiement/{id}", name="partage_paiement")
      */
-    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager) {
+    public function paiementAction(Reservation $reservation, \Swift_Mailer $mailer, PointsManager $pointsManager)
+    {
 
         $membre = $this->getUser();
-        if ($membre->getPoints() >= $reservation->getCoutPts()){
-            if($membre == $reservation->getLocataire() && ($reservation->getPointsTransferred() == 0) &&
+        if ($membre->getPoints()>=$reservation->getCoutPts()){
+            if ($membre == $reservation->getLocataire() && ($reservation->getPointsTransferred() == 0) &&
                 ($reservation->getEtape() == 2 ||
                     ($reservation->getEtape()
                         == 1
-                        && $reservation->getCaution() ==0 &&
+                        && $reservation->getCaution() == 0 &&
                         $reservation->getAssurance() == 0))
             ) {
 
@@ -144,14 +145,13 @@ class PartageController extends Controller
                             array('reservation' => $reservation)
                         ),
                         'text/html'
-                    )
-                ;
+                    );
 
                 $mailer->send($message);
 
                 $emailProprio = $reservation->getVelo()->getProprio()->getEmail();
 
-                $message = (new \Swift_Message('Demande de réservation'))
+                $message = (new \Swift_Message('Transfert de points effectué'))
                     ->setFrom('infos@bikerr.fr')
                     ->setTo($emailProprio)
                     ->setBody(
@@ -160,35 +160,23 @@ class PartageController extends Controller
                             array('reservation' => $reservation)
                         ),
                         'text/html'
-                    )
-                ;
+                    );
 
                 $mailer->send($message);
 
-                /*  Mails
-                 *  Le récapitulatif de paiement à envoyer au locataire
-                 *  La notification du payment effectué à envoyer au proprio
-                 *
-                 *  Actions
-                 *  Page locataire avec le bouton "payer" et rédirection sur la page de paiement Mangopay
-                 *  Après la validaion du paiement passage à l'étape 2
-                 */
-
             }
-        }
-        else{
+
+        } else {
             $this->addFlash('danger', 'Vous ne disposez pas de suffisament de points pour procéder à la transaction');
+
         }
-
-        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+        return $this->redirectToRoute('partage', array('id' => $reservation->getId()));
     }
-
-
     /**
      *
      * @Route("/retour_locataire/{id}", name="partage_retour_locataire")
      */
-    public function retourLocataireAction(Reservation $reservation) {
+    public function retourLocataireAction(Reservation $reservation, \Swift_Mailer $mailer) {
 
         $membre = $this->getUser();
 
@@ -207,6 +195,21 @@ class PartageController extends Controller
              *  Actions
              *  Page locataire avec le bouton "Je confirme le retour"
             */
+
+            $emailProprio = $reservation->getVelo()->getProprio()->getEmail();
+
+            $message = (new \Swift_Message('Retour du vélo'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailProprio)
+                ->setBody(
+                    $this->renderView(
+                        'email/utilisateurRetour.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
 
 
 
@@ -256,12 +259,47 @@ class PartageController extends Controller
      *
      * @Route("/suppressionpartage/{id}", name="partage_suppression")
      */
-    public function suppressionAction(Reservation $reservation) {
+    public function suppressionAction(Reservation $reservation, \Swift_Mailer $mailer) {
         $membre = $this->getUser();
 
-        if(($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 0) ||
-        ($membre == $reservation->getLocataire() && $reservation->getEtape() == 1)) {
+        if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 0) {
 
+            $emailProprio = $reservation->getVelo()->getProprio()->getEmail();
+
+            $message = (new \Swift_Message('Annulation de la réservation'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailProprio)
+                ->setBody(
+                    $this->renderView(
+                        'email/annulationLocataire.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($reservation);
+            $em->flush();
+        }
+        elseif ($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
+
+            $locataire = $reservation->getLocataire();
+            $emailLocataire = $locataire->getEmail();
+
+            $message = (new \Swift_Message('Annulation de la réservation'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($emailLocataire)
+                ->setBody(
+                    $this->renderView(
+                        'email/annulationProprio.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($reservation);
