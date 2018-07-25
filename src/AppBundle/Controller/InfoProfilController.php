@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\BankAccount;
+use AppBundle\Entity\Reservation;
 use AppBundle\Form\preferencesVirementType;
 use AppBundle\Entity\Genre;
 use AppBundle\Form\InfoProfilType;
@@ -113,29 +114,82 @@ class InfoProfilController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $membre1=$this->getUser();
-
-        $jaugeProfil1 = $this->getJaugeProfil($membre1, $jaugeProfil);
+        $jaugeProfil = $this->getJaugeProfil($membre1, $jaugeProfil);
         $bankAccount = new BankAccount();
 
         $form = $this->createForm('AppBundle\Form\PreferencesVirementType', $bankAccount);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $idBankAccount = $mangoPayApi->InitBankAccount($membre1,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
-
+            $Bank = $mangoPayApi->InitBankAccount($membre1,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
         }
-
-
 
         return $this->render('profil/layoutProfil.html.twig', array(
             'formulaire'=>'profil/preferencesVirement.html.twig',
             'form'=>$form->createView(),
             'membre' => $membre1,
-            'jaugeProfil' =>$jaugeProfil1
+            'jaugeProfil' =>$jaugeProfil
 
         ));
     }
 
+    /**
+     * @Route("/retour_caution", name="retour_caution")
+     * @Method({"GET", "POST"})
+     */
+    public function RetourCautionAction(Request $request,JaugeProfil $jaugeProfil, MangoPayApi $mangoPayApi){
+        $membre = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
+        $mangoPayApi->CheckIdMangopay($membre, $em);
+        $moneyInWallet = $mangoPayApi->getBalance($membre);
+        $amount = $moneyInWallet->Amount;
+        foreach ($membre->getReservations() as $resa){
+            if (($resa->getEtape() == 2) || ($resa->getEtape() == 3)){
+                $amount = $amount-$resa->getCaution()*95;
+            }
+        }
+        return $this->render('profil/layoutProfil.html.twig', array(
+            'formulaire'=>'profil/retourCaution.html.twig',
+            'membre'=>$membre,
+            'jaugeProfil'=>$jaugeProfil,
+            'amount'=> $amount
+        ));
+    }
+
+    /**
+     *  @Route("/payout_caution", name="payout_caution")
+     *  @Method("GET")
+     *
+     */
+    public function payoutCautionAction(Request $request, MangoPayApi $mangoPayApi){
+
+        $membre = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $mangoPayApi->CheckIdMangopay($membre, $em);
+        $moneyInWallet = $mangoPayApi->getBalance($membre);
+        $amount = $moneyInWallet->Amount;
+        foreach ($membre->getReservations() as $resa){
+            if (($resa->getEtape() == 2) || ($resa->getEtape() == 3)){
+                $amount = $amount-$resa->getCaution()*95;
+            }
+        }
+        if (null!=$membre->getIdBankAccount()){
+            if ($amount>0){
+                $mangoPayApi->PayOut($membre,min($amount/100, 1000),0);
+                $this->addFlash('success', 'Le montant a été versé sur votre compte de virement.');
+            }
+            else{
+                $this->addFlash('danger', 'Il n\'y a aucune caution à récupérer.');
+            }
+        }
+        else{
+            $this->addFlash('danger', 'Veuillez renseigner vos données bancaires pour pouvoir procéder à votre remboursement de caution');
+        }
+
+
+
+        return $this->redirectToRoute('retour_caution');
+    }
 
     /**
      *  @Route("/", name="profil_delete")
@@ -164,16 +218,18 @@ class InfoProfilController extends Controller
      * @Route("/supprimer", name="profil_supprimer")
      * @Method("GET")
      */
-    public function supprimerAction()
+    public function supprimerAction(JaugeProfil $jaugeProfil)
     {
         $membre = $this->getUser();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         $deleteForm = $this->createDeleteForm($membre);
 
         return $this->render('profil/layoutProfil.html.twig',array(
             'formulaire'=>'profil/delete.html.twig',
             'delete_form' => $deleteForm->createView(),
-            'membre' =>$membre
+            'membre' =>$membre,
+            'jaugeProfil' => $jaugeProfil
         ));
     }
 

@@ -37,6 +37,13 @@
                     <div><h2 style="text-transform: uppercase;">{{ membre.prenom }} {{ membre.nom }}</h2></div>
                     <div><p>MEMBRE DEPUIS {{ membre.dateInscription|date('d-m-Y') }}</p></div>
                 </div>
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
                 <div class="container outilsProfil">
                     <div class="row">
                         <div class="w-100 progressbarProfil">
@@ -63,10 +70,11 @@
             <div class="col-12 col-lg-3 offset-lg-1 ongletVelo">
                 <div>
                     <ul>
-                        <li><a href="{{ path('profil_infos', {'id': membre.id}) }}">Profil</a></li>
-                        <li><a href="{{ path('virement_infos', {'id': membre.id}) }}">Préférence de virement</a></li>
-                        <li><a href="{{ path('profil_password', {'id': membre.id}) }}">Mot de passe</a></li>
-                        <li><a href="{{ path('profil_supprimer', {'id': membre.id}) }}">Supprimer mon compte</a></li>
+                        <li><a href="{{ path('profil_infos') }}">Profil</a></li>
+                        <li><a href="{{ path('virement_infos') }}">Préférence de virement</a></li>
+                        <li><a href="{{ path('retour_caution') }}">Récupérer ma caution</a></li>
+                        <li><a href="{{ path('profil_password') }}">Mot de passe</a></li>
+                        <li><a href="{{ path('profil_supprimer') }}">Supprimer mon compte</a></li>
                     </ul>
                 </div>
                 <div class="aidePoints"><p>Atteignez 100% en remplissant tous les champs marqués d'une astérisque et en ajoutant une photo de profil. Bikerr vous offrira 150 Points.</p></div>

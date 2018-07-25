@@ -8,6 +8,8 @@
 
 {% block body %}
 
+
+
     <div id="carousel-photos" class="justify-content-center row">
         {% for photo in reservation.velo.photos %}
             <img id="images__carousel" class="img-fluid" src="{{ asset('images/uploads/' ~ photo.image) }}" alt="Photo du vélo">
@@ -23,27 +25,27 @@
                 <div id="dates" class="row ">
 
                     <div id="jours" class="col-4">
-                        <div><p>{{ reservation.nbDay }}</p></div>
-                        <div>Jours</div>
+                        <div><p id="jours1">{{ reservation.nbDay }}</p></div>
+                        <div id="jours2">Jours</div>
                     </div>
 
                     {#Date de retrait#}
                     <div id="dateDebut" class="col-4">
-                        <div>{{ reservation.debut|date('Y-m-d') }}</div>
-                        <div>Retrait</div>
+                        <div id="dateDebut1">{{ reservation.debut|date('Y-m-d') }}</div>
+                        <div id="dateDebut2">Retrait</div>
                     </div>
 
                     {#Date de retour#}
                     <div id="dateFin" class="col-4">
-                        <div>{{ reservation.fin|date('Y-m-d') }}</div>
-                        <div>Retour</div>
+                        <div id="dateFin1">{{ reservation.fin|date('Y-m-d') }}</div>
+                        <div id="dateFin2">Retour</div>
                     </div>
                 </div>
             <div id="pointsRes" class="row">
 
                 <div class="col-4"><p id="points1">Points gagnés</p></div>
                 <div class="col-4"><p id="points2"> <span id="points">{{ reservation.velo.coutPts }}</span> PTS/JOUR</p></div>
-                <div class="col-4"><p id="nbPoints" style="text-align: center;">-{{ reservation.coutPts }}PTS</p></div>
+                <div class="col-4"><p id="nbPointsLoc" style="text-align: center;">-{{ reservation.coutPts }}PTS</p></div>
 
             </div>
             <div id="caution" class="row">
@@ -53,8 +55,8 @@
                     <div class="col-4"><p id="caution2">Aucun</p></div>
                     <div class="col-4"><p id="partCaution">0€</p></div>
                 {% else %}
-                    <div class="col-4"><p id="caution2">{{ reservation.velo.caution }}€ (5%)</p></div>
-                    <div class="col-4"><p id="partCaution">{{ reservation.velo.caution * 0.05 }}€</p></div>
+                    <div class="col-4"><p id="caution2">{{ reservation.caution }}€ (5%)</p></div>
+                    <div class="col-4"><p id="partCaution">{{ reservation.caution * 0.05 }}€</p></div>
                 {% endif %}
             </div>
             <div id="assurance" class="row ">
@@ -69,14 +71,21 @@
             </div>
 
             <div class="espaceVide">
-
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
 
             <div id="total" class="row">
                 <div class="col-6"><p id="total1">Total</p></div>
-                <div class="col-6"><p id="total2" style="text-align: center;">- {{ reservation.coutPts }} PTS / {{ reservation.caution * 0.05 + reservation.assurance }} €</p></div>
+                <div class="col-6"><p id="total2" style="text-align: center;"><span style="color: #e00244">- {{ reservation.coutPts }} PTS /</span> {{ reservation.caution * 0.05 + reservation.assurance }} €</p></div>
 
             </div>
+
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -96,28 +105,27 @@
 
                         </div>
                     </div>
-                    <div class="modal-body">
-                        {{ render(controller(
-                            'AppBundle:Paiement:RegisterCardView',
-                            { 'reservation_id': reservation.id }
-                        )) }}
-                    </div>
 
                 </div>
             </div>
 
 
-        <div class="row justify-content-center">
+        <div id="buttons" class="row">
             {% if reservation.etape == 0 %}
-                <a href="{{ path('reservation', {'id': reservation.id}) }}"><button type="button" class="class " >En attente de la validation</button></a>
+                <div class="col-12 cadreBouton"><p id="messageAttente">En attente de la validation par le propriétaire</p></div>
             {% elseif reservation.etape == 1 %}
-                <a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">J’annule ma demande de réservation</button></a>
-                {#<button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal">Je valide et je paye</button> #}
-                <a href="{{ path('partage_paiement', {'id': reservation.id}) }}"><button type="button" class="class bouton" data-dismiss="modal">Test etape suivant </button></a>
+                    <div class="col-6 cadreBouton"><a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">J’annule ma demande de réservation</button></a></div>
+                {% if reservation.caution == 0 and reservation.assurance == 0 %}
+                    <div class="col-6 cadreBouton"><a href="{{ path('partage_paiement', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" data-dismiss="modal">Confirmer la réservation</button></a>
+                {% else %}
+                    <div class="col-6 cadreBouton"><button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal">Je valide et je paye</button>
+                {% endif %}
             {% elseif reservation.etape == 2 %}
-                 <a href="{{ path('partage_retour_locataire', {'id': reservation.id}) }}"><button type="button" class="class " >Je confirme le retour</button></a>
+                     <div class="col-12 cadreBouton"><a href="{{ path('partage_retour_locataire', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal"  >Je confirme le retour</button></a></div>
             {% elseif reservation.etape == 3 %}
-                <p>Retour en attente de validation par le proprietaire</p>
+                    <div class="col-12 cadreBouton"><p id="messageAttente">Retour en attente de validation par le proprietaire</p></div>
+            {% elseif reservation.etape == 4 %}
+                <div class="col-12 cadreBouton"><p id="messageAttente">Reservation archivée</p></div>
             {% endif %}
         </div>
     </div>

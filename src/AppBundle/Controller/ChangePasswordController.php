@@ -98,7 +98,7 @@ class ChangePasswordController extends BaseController
 
             $userManager->updateUser($user);
 
-            $this->addFlash('success','Mot de passe modifié avec succès!');
+            $this->addFlash('success','Mot de passe modifié avec succès !');
         }
         $jaugeProfil = New JaugeProfil();
         $jaugeProfil = $this->getJaugeProfil($user, $jaugeProfil);

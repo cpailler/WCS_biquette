@@ -78,12 +78,20 @@ class Reservation
      * @ORM\Column(name="etape", type="integer")
      */
     private $etape = 0;
+
     /**
      * @var int
      *
      * @ORM\Column(name="nb_day", type="integer")
      */
     private $nbDay;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="points_transferred", type="boolean")
+     */
+    private $pointsTransferred = 0;
 
 
     /**
@@ -334,5 +342,29 @@ class Reservation
     public function getNbDay()
     {
         return $this->nbDay;
+    }
+
+    /**
+     * Set pointsTransferred.
+     *
+     * @param bool $pointsTransferred
+     *
+     * @return Reservation
+     */
+    public function setPointsTransferred($pointsTransferred)
+    {
+        $this->pointsTransferred = $pointsTransferred;
+
+        return $this;
+    }
+
+    /**
+     * Get pointsTransferred.
+     *
+     * @return bool
+     */
+    public function getPointsTransferred()
+    {
+        return $this->pointsTransferred;
     }
 }
