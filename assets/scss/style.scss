@@ -4,6 +4,28 @@ body{
   font-family: $font;
 }
 
+.recherche-home{
+  border-bottom-left-radius: 26px;
+  border-top-left-radius: 26px;
+}
+
+.btn-outline-secondary{
+  font-family: $font;
+  color: white;
+  background-color: $bikerr-green;
+  text-shadow: none;
+  border-bottom-right-radius: 26px;
+  border-top-right-radius: 26px;
+}
+
+.btn-outline-secondary:hover{
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  background-color: $bikerr-green;
+  color: white;
+  text-decoration: none;
+  text-shadow: none;
+}
+
 .nav-color {
   display: inline-block;
   position: absolute !important;
