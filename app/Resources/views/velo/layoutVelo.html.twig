@@ -27,9 +27,11 @@
                 <!-- zone barre de progression -->
                 <div class="col-12 col-lg-7 progressionVelo">
                     <div class="cont1">
+                            {% if velo.enLigne==1 %}
                             <div class="VoirAnnonce">
-                                <a href="#"><  Voir mon annonce</a>
+                                <a href="{{ path('annonce', {'id':velo.id}) }}"><  Voir mon annonce</a>
                             </div>
+                            {% endif %}
                             <div class="titreVelo" style="float: right">
                                 <div><h2>TYPE</h2></div>
                                 <div><p>MARQUE</p></div>
