@@ -310,5 +310,21 @@ class PartageController extends Controller
         return $this->redirectToRoute('recherche-liste');
     }
 
+    /**
+     *
+     * @Route("/litige/{id}", name="litige")
+     */
+
+    public function litigeAction(Request $request, Reservation $reservation, \Swift_Mailer $mailer){
+        $membre = $this->getUser();
+        if ($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 3){
+
+            $this->addFlash('notice', 'Un mail a été envoyé à l\'administrateur afin de l\'informer de votre litige');
+
+            //TODO Envoi de mail à bikerr
+
+        }
+        return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
+    }
 
 }

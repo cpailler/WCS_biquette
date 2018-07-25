@@ -9,21 +9,41 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 
 class BankAccount
 {
 
+    /**
+     * @Assert\NotBlank()
+     */
     protected $iban;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $bic;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $owner_account;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $adresse;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $postal_code;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $pays;
 
     /**
