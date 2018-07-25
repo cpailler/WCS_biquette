@@ -36,12 +36,9 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent2">
             <form class="form-inline my-2 my-lg-0" method="post" action="{{ path('recherche-liste') }}">
-                <div class="input-group mb-3 search-nav">
-                    <input id="search-city" name="ville" class="form-control recherche-home" type="text" placeholder="Dans quelle ville voulez-vous un vélo ?" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" id="submit" type="submit">Rechercher</button>
-                    </div>
-                </div>
+                <input id="navbar-city" name="ville" class="form-control mr-sm-2" type="search" placeholder="Dans quelle ville voulez-vous un vélo ?" aria-label="Search" autocomplete="off" {% if ville is defined %}value="{{ ville }}{% endif %}">
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0 bouton-sm" type="submit">Rechercher</button> -->
+                <input id="submit" class="bouton-sm" type="submit" value="Rechercher">
             </form>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown navbar-border">
