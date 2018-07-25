@@ -43,7 +43,6 @@ class PaiementController extends Controller
      */
     public function RegisterCardViewAction(Request $request,MangoPayApi $mangoPayApi, $reservation_id)
     {
-
         $session = new Session();
         $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($reservation_id);
         //on récupere l'utilisateur actuel
@@ -54,6 +53,7 @@ class PaiementController extends Controller
         //si le wallet n'est pas crée on fait une redirection
         if($membre->getIdWallet() == null)
         {
+            $session->getFlashBag()->add('danger', 'Veuillez compléter vos nom et prénom');
             return $this->redirectToRoute("profil_infos");
         }
         //le profil mango Pay et le wallet MP sont crée alors on enregistre sa carte
@@ -109,27 +109,41 @@ class PaiementController extends Controller
 
         $reservation = $this->getDoctrine()->getRepository(Reservation::class)->find($reservation_id);
 
-        $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,$reservation->getCaution(), $reservation->getAssurance(), $reservation_id);
+        if ($membre->getPoints() >= $reservation->getCoutPts()){
 
-        //si le sécure mode est necessaire
-       if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
-        {
-            return $this->redirect($PayIn->ExecutionDetails->SecureModeRedirectURL);
+            $PayIn = $mangoPayApi->PayIn($membre,$CarteUpdated,$reservation->getCaution(), $reservation->getAssurance(), $reservation_id);
+            //si le sécure mode est necessaire
+            if(!empty($PayIn->ExecutionDetails->SecureModeRedirectURL))
+            {
+                return $this->redirect($PayIn->ExecutionDetails->SecureModeRedirectURL);
+            }
+
+            if($PayIn->Status == "SUCCEEDED")
+            {
+                $reservation->setEtape(2);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($reservation);
+                $em->flush();
+                $session->getFlashBag()->add('notice', 'Paiement réussi');
+                return $this->redirectToRoute('partage_paiement', array('id' => $reservation_id));
+            }else
+            {
+                $session->getFlashBag()->add('error', 'Paiement échoué');
+                return $this->redirectToRoute('paiement_card', array(
+                    'reservation_id' => $reservation_id
+                ));
+            }
+        }else{
+            $this->addFlash('danger' , 'Vous manquez de points pour procéder au paiement');
+            return $this->redirectToRoute('partage', array(
+                'id' => $reservation_id
+            ));
         }
 
-        if($PayIn->Status == "SUCCEEDED")
-        {
-            $reservation->setEtape(2);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($reservation);
-            $em->flush();
-            $session->getFlashBag()->add('notice', 'Paiement réussi');
-            return $this->redirectToRoute('partage_paiement', array('id' => $reservation_id));
-        }else
-        {
-            $session->getFlashBag()->add('error', 'Paiement échoué');
-            return $this->redirectToRoute('paiement_card');
-        }
+
+
+
+
 
     }
 
