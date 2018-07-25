@@ -90,7 +90,7 @@
                 {% elseif reservation.etape == 2 %}
                     <div class="col-12 cadreMessage"><p id="messageAttente">En attente de retour du vélo par le locataire</p></div>
                 {% elseif reservation.etape == 3 %}
-                    <div class="col-6 cadreBouton"><a href="mailto:infos@bikerr.fr"><button type="button" class="boutonPartageAnn">Il y un problème, j’ouvre un cas de litige</button></a></div>
+                    <div class="col-6 cadreBouton"><a href="{{ path('litige', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">Il y un problème, j’ouvre un cas de litige</button></a></div>
                     <div class="col-6 cadreBouton"><a href="{{ path('partage_retour_proprio', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" >Tout s’est bien passé, je clos le partage</button></a></div>
                 {% elseif reservation.etape == 4 %}
                     <div class="col-12 cadreMessage"><p id="messageAttente">Réservation archivée</p></div>
