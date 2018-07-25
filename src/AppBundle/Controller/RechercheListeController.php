@@ -29,7 +29,13 @@ class RechercheListeController extends Controller
 
         if (isset ($_POST['ville'])){
             $ville = explode(",", $_POST['ville']);
-            $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$ville[0],'enLigne'=>true));
+            if ($_POST['ville']==""){
+                $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('enLigne'=>true));
+            }
+            else{
+                $velos=$this->getDoctrine()->getManager()->getRepository(Velo::class)->findBy(array('ville'=>$ville[0],'enLigne'=>true));
+            }
+
 
             // replace this example code with whatever you need
             return $this->render('recherche/rechercheListe.html.twig', array(
