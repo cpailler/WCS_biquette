@@ -215,16 +215,18 @@ class InfoProfilController extends Controller
      * @Route("/supprimer", name="profil_supprimer")
      * @Method("GET")
      */
-    public function supprimerAction()
+    public function supprimerAction(JaugeProfil $jaugeProfil)
     {
         $membre = $this->getUser();
+        $jaugeProfil = $this->getJaugeProfil($membre, $jaugeProfil);
 
         $deleteForm = $this->createDeleteForm($membre);
 
         return $this->render('profil/layoutProfil.html.twig',array(
             'formulaire'=>'profil/delete.html.twig',
             'delete_form' => $deleteForm->createView(),
-            'membre' =>$membre
+            'membre' =>$membre,
+            'jaugeProfil' => $jaugeProfil
         ));
     }
 
