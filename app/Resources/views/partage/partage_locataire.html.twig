@@ -55,8 +55,8 @@
                     <div class="col-4"><p id="caution2">Aucun</p></div>
                     <div class="col-4"><p id="partCaution">0€</p></div>
                 {% else %}
-                    <div class="col-4"><p id="caution2">{{ reservation.velo.caution }}€ (5%)</p></div>
-                    <div class="col-4"><p id="partCaution">{{ reservation.velo.caution * 0.05 }}€</p></div>
+                    <div class="col-4"><p id="caution2">{{ reservation.caution }}€ (5%)</p></div>
+                    <div class="col-4"><p id="partCaution">{{ reservation.caution * 0.05 }}€</p></div>
                 {% endif %}
             </div>
             <div id="assurance" class="row ">
@@ -71,7 +71,13 @@
             </div>
 
             <div class="espaceVide">
-
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
 
             <div id="total" class="row">
@@ -79,6 +85,7 @@
                 <div class="col-6"><p id="total2" style="text-align: center;"><span style="color: #e00244">- {{ reservation.coutPts }} PTS /</span> {{ reservation.caution * 0.05 + reservation.assurance }} €</p></div>
 
             </div>
+
 
             <!-- Modal -->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
