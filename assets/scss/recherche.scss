@@ -192,6 +192,13 @@
   border-top-left-radius: 26px;
 }
 
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
 @media only screen and (max-width: 991px) {
   #map{
     display: none;
