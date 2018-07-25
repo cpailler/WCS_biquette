@@ -55,8 +55,8 @@
                     <div class="col-4"><p id="caution2">Aucun</p></div>
                     <div class="col-4"><p id="partCaution">0€</p></div>
                 {% else %}
-                    <div class="col-4"><p id="caution2">{{ reservation.velo.caution }}€ (5%)</p></div>
-                    <div class="col-4"><p id="partCaution">{{ reservation.velo.caution * 0.05 }}€</p></div>
+                    <div class="col-4"><p id="caution2">{{ reservation.caution }}€ (5%)</p></div>
+                    <div class="col-4"><p id="partCaution">{{ reservation.caution * 0.05 }}€</p></div>
                 {% endif %}
             </div>
             <div id="assurance" class="row ">

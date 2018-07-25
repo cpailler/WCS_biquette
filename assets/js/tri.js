@@ -11,9 +11,8 @@ $(document).ready(function(){
 
             $(this).parent().show();
 
-            if($(this).val() != selectedValue)
+            if($(this).val() != selectedValue && selectedValue != 'Filtrer')
             {
-                console.log($( this ).val());
                 $(this).parent().hide();
             }
         });
