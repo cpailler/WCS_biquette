@@ -233,17 +233,6 @@ class PartageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
             $em->flush();
-
-
-            /*  Mails
-             *
-             *  TODO Mail de rappel de valider la retour de vélo à envoyer au proprio
-             *
-             *  Actions
-             *  Page proprio avec les bouton "Tout s’est bien passé, je clos le partage" et "Il y un problème, j’ouvre un cas de litige"
-            */
-
-
         }
         return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
 
@@ -321,7 +310,18 @@ class PartageController extends Controller
 
             $this->addFlash('notice', 'Un mail a été envoyé à l\'administrateur afin de l\'informer de votre litige');
 
-            //TODO Envoi de mail à bikerr
+            $message = (new \Swift_Message('Litige'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo('fabricevincent@bikerr.fr')
+                ->setBody(
+                    $this->renderView(
+                        'email/annulationProprio.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
 
         }
         return $this->redirectToRoute('partage', array('id'=>$reservation->getId()));
