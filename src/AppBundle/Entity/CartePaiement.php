@@ -8,18 +8,28 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CartePaiement
 {
-
+    /**
+     * @Assert\NotBlank()
+     */
     private $card_type;
 
-   // private $card_owner;
-
+    /**
+     * @Assert\NotBlank()
+     */
     private $cardNumber;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $cardExpirationDate;
 
+    /**
+     * @Assert\NotBlank()
+     */
     private $cardCvx;
 
     private $CardRegistrationURL;
@@ -113,22 +123,6 @@ class CartePaiement
     {
         $this->card_type = $card_type;
     }
-
-//    /**
-//     * @return mixed
-//     */
-//    public function getCardOwner()
-//    {
-//        return $this->card_owner;
-//    }
-//
-//    /**
-//     * @param mixed $card_owner
-//     */
-//    public function setCardOwner($card_owner)
-//    {
-//        $this->card_owner = $card_owner;
-//    }
 
     /**
      * @return mixed
