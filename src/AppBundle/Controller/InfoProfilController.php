@@ -121,9 +121,6 @@ class InfoProfilController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $Bank = $mangoPayApi->InitBankAccount($membre1,$bankAccount->getIban(),$bankAccount->getBic(),$bankAccount->getOwnerAccount(),$bankAccount->getAdresse(),$em);
-            dump($Bank);
-            $PayOut = $mangoPayApi->PayOut($membre1,$Bank,1000,500);
-            dump($PayOut);
         }
 
         return $this->render('profil/layoutProfil.html.twig', array(
@@ -148,7 +145,7 @@ class InfoProfilController extends Controller
         $amount = $moneyInWallet->Amount;
         foreach ($membre->getReservations() as $resa){
             if (($resa->getEtape() == 2) || ($resa->getEtape() == 3)){
-                $amount = $amount-$resa->getCaution()*0.95;
+                $amount = $amount-$resa->getCaution()*95;
             }
         }
         return $this->render('profil/layoutProfil.html.twig', array(
@@ -173,16 +170,22 @@ class InfoProfilController extends Controller
         $amount = $moneyInWallet->Amount;
         foreach ($membre->getReservations() as $resa){
             if (($resa->getEtape() == 2) || ($resa->getEtape() == 3)){
-                $amount = $amount-$resa->getCaution()*0.95;
+                $amount = $amount-$resa->getCaution()*95;
             }
         }
-        if ($amount>0){
-            $mangoPayApi->PayOut($membre,$amount,0);
-            $this->addFlash('success', 'Le montant a été versé sur votre compte de virement.');
+        if (null!=$membre->getIdBankAccount()){
+            if ($amount>0){
+                $mangoPayApi->PayOut($membre,min($amount/100, 1000),0);
+                $this->addFlash('success', 'Le montant a été versé sur votre compte de virement.');
+            }
+            else{
+                $this->addFlash('danger', 'Il n\'y a aucune caution à récupérer.');
+            }
         }
         else{
-            $this->addFlash('danger', 'Il n\'y a aucune caution à récupérer.');
+            $this->addFlash('danger', 'Veuillez renseigner vos données bancaires pour pouvoir procéder à votre remboursement de caution');
         }
+
 
 
         return $this->redirectToRoute('retour_caution');
