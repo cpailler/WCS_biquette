@@ -116,9 +116,9 @@
             {% elseif reservation.etape == 1 %}
                     <div class="col-6 cadreBouton"><a href="{{ path('partage_suppression', {'id': reservation.id}) }}"><button type="button" class="boutonPartageAnn">J’annule ma demande de réservation</button></a></div>
                 {% if reservation.caution == 0 and reservation.assurance == 0 %}
-                    <div class="col-6 cadreBouton"><a href="{{ path('partage_paiement', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" data-dismiss="modal">Confirmer la réservation</button></a>
+            <div class="col-6 cadreBouton"><a href="{{ path('partage_paiement', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal" data-dismiss="modal">Confirmer la réservation</button></a></div>
                 {% else %}
-                    <div class="col-6 cadreBouton"><button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal">Je valide et je paye</button>
+                    <div class="col-6 cadreBouton"><button type="button" class="boutonPartageVal" data-toggle="modal" data-target="#myModal">Je valide et je paye</button></div>
                 {% endif %}
             {% elseif reservation.etape == 2 %}
                      <div class="col-12 cadreBouton"><a href="{{ path('partage_retour_locataire', {'id': reservation.id}) }}"><button type="button" class="boutonPartageVal"  >Je confirme le retour</button></a></div>
