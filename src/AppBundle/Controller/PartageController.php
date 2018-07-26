@@ -203,7 +203,7 @@ class PartageController extends Controller
                 ->setTo($emailProprio)
                 ->setBody(
                     $this->renderView(
-                        'email/utilisateurRetour.email.twig',
+                        'email/proprietaireRetour.email.twig',
                         array('reservation' => $reservation)
                     ),
                     'text/html'
