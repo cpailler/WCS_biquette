@@ -268,14 +268,14 @@ class PartageController extends Controller
 
         if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 0) {
 
-            $emailProprio = $reservation->getVelo()->getProprio()->getEmail();
+            $email = $reservation->getLocataire()->getEmail();
 
             $message = (new \Swift_Message('Annulation de la réservation'))
                 ->setFrom('infos@bikerr.fr')
-                ->setTo($emailProprio)
+                ->setTo($email)
                 ->setBody(
                     $this->renderView(
-                        'email/annulationLocataire.email.twig',
+                        'email/annulationProprio.email.twig',
                         array('reservation' => $reservation)
                     ),
                     'text/html'
@@ -289,15 +289,15 @@ class PartageController extends Controller
         }
         elseif ($membre == $reservation->getLocataire() && $reservation->getEtape() == 1) {
 
-            $locataire = $reservation->getLocataire();
-            $emailLocataire = $locataire->getEmail();
+            $proprio = $reservation->getVelo()->getProprio();
+            $email = $proprio->getEmail();
 
             $message = (new \Swift_Message('Annulation de la réservation'))
                 ->setFrom('infos@bikerr.fr')
-                ->setTo($emailLocataire)
+                ->setTo($email)
                 ->setBody(
                     $this->renderView(
-                        'email/annulationProprio.email.twig',
+                        'email/annulationLocataire.email.twig',
                         array('reservation' => $reservation)
                     ),
                     'text/html'
