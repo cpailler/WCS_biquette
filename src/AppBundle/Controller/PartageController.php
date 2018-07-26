@@ -222,13 +222,28 @@ class PartageController extends Controller
      *
      * @Route("/retour_proprio/{id}", name="partage_retour_proprio")
      */
-    public function retourProprioAction(Reservation $reservation) {
+    public function retourProprioAction(Reservation $reservation, \Swift_Mailer $mailer) {
 
         $membre = $this->getUser();
 
         if($membre == $reservation->getVelo()->getProprio() && $reservation->getEtape() == 3) {
 
             $reservation->setEtape(4);
+
+            $email = $reservation->getLocataire()->getEmail();
+
+            $message = (new \Swift_Message('Retour du vélo'))
+                ->setFrom('infos@bikerr.fr')
+                ->setTo($email)
+                ->setBody(
+                    $this->renderView(
+                        'email/utilisateurRetour.email.twig',
+                        array('reservation' => $reservation)
+                    ),
+                    'text/html'
+                );
+
+            $mailer->send($message);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($reservation);
