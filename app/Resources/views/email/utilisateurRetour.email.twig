@@ -15,7 +15,7 @@
 
         <p>Le propriétaire du vélo {{ reservation.velo.titre }} vient de confirmer le retour du vélo.</p>
         {% if reservation.caution != 0 %}
-        <p>Vous pouvez récupérer votre caution en cliquant <strong><a href="{{ app.request.getSchemeAndHttpHost() ~ path('retour_caution' }}">ICI</a></strong>.</p>
+        <p>Vous pouvez récupérer votre caution en cliquant <strong><a href="{{ app.request.getSchemeAndHttpHost() ~ path('retour_caution') }}">ICI</a></strong>.</p>
         {% endif %}
         <p>L'équipe Bikerr</p>
 
