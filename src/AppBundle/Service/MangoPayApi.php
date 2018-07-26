@@ -120,7 +120,6 @@ class MangoPayApi
     {
         //on calcul les fees de 5% sur la caution;
         $fees = ($caution * 5)/100;
-        $caution = $caution - $fees;
         $PayIn = new \MangoPay\PayIn();
         $PayIn->CreditedWalletId = $membre->getIdWallet();
         $PayIn->AuthorId = $membre->getIdMangopay();
@@ -129,7 +128,7 @@ class MangoPayApi
         $PayIn->PaymentDetails->CardType = "CB_VISA_MASTERCARD";
         $PayIn->DebitedFunds = new \MangoPay\Money();
         $PayIn->DebitedFunds->Currency = "EUR";
-        $PayIn->DebitedFunds->Amount = ($caution)*100;//on multiplie par 100 car MP prends en centimes
+        $PayIn->DebitedFunds->Amount = ($caution+$assurance)*100;//on multiplie par 100 car MP prends en centimes
         $PayIn->Fees = new \MangoPay\Money();
         $PayIn->Fees->Currency = "EUR";
         $PayIn->Fees->Amount = (int)(($fees+$assurance)*100);//on multiplie par 100 car MP prends en centimes
